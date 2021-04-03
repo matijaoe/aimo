@@ -17,7 +17,7 @@ module.exports = {
 	rules: {
 		'vue/component-name-in-template-casing': ['error', 'PascalCase'],
 		'prettier/prettier': [
-			'error',
+			'warn',
 			{
 				endOfLine: 'auto',
 			},

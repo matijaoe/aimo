@@ -2,7 +2,22 @@
 	<div class="container">
 		<div>
 			<Logo />
-			<h1 class="title">aimo-mc2</h1>
+			<div class="mt-4 font-logo text-xl">
+				<h2 class="bg-gray-300 py-2">AIMO</h2>
+				<h2 class="bg-coolGray-300 py-2">AIMO</h2>
+				<h2 class="bg-yellow-300 py-2">AIMO</h2>
+				<h2 class="bg-amber-300 py-2">AIMO</h2>
+				<h2 class="bg-orange-300 py-2">AIMO</h2>
+				<h2 class="bg-red-300 py-2">AIMO</h2>
+				<h2 class="bg-blue-300 py-2">AIMO</h2>
+				<h2 class="bg-lightBlue-300 py-2">AIMO</h2>
+				<h2 class="bg-indigo-300 py-2">AIMO</h2>
+				<h2 class="bg-purple-300 py-2">AIMO</h2>
+				<h2 class="bg-pink-300 py-2">AIMO</h2>
+				<h2 class="bg-green-300 py-2">AIMO</h2>
+				<h2 class="bg-emerald-300 py-2">AIMO</h2>
+				<h2 class="bg-teal-300 py-2">AIMO</h2>
+			</div>
 			<div class="links">
 				<a
 					href="https://nuxtjs.org/"
@@ -26,7 +41,11 @@
 </template>
 
 <script>
-export default {};
+import Logo from '~/components/Logo.vue';
+
+export default {
+	components: { Logo },
+};
 </script>
 
 <style>
@@ -40,9 +59,9 @@ export default {};
 }
 
 .title {
-	font-family: 'Quicksand', 'Source Sans Pro', -apple-system,
+	/* font-family: 'Quicksand', 'Source Sans Pro', -apple-system,
 		BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-		sans-serif;
+		sans-serif; */
 	display: block;
 	font-weight: 300;
 	font-size: 100px;
