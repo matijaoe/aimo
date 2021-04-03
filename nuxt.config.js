@@ -71,4 +71,6 @@ export default {
 		layout: resolve(__dirname, './components/layout'),
 		menus: resolve(__dirname, './components/menus'),
 	},
+
+	pageTransition: 'fade-in-right',
 };

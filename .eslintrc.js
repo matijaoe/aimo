@@ -15,14 +15,13 @@ module.exports = {
 	plugins: [],
 	// add your custom rules here
 	rules: {
-		'vue/component-name-in-template-casing': ['error', 'PascalCase'],
 		'prettier/prettier': [
-			'warn',
-			{
-				endOfLine: 'auto',
-			},
+			'error',
+			{ endOfLine: 'auto' },
+			{ usePrettierrc: true },
 		],
 		'no-unused-vars': 'warn',
+		'vue/component-name-in-template-casing': ['error', 'PascalCase'],
 		'vue/no-multiple-template-root': 'off',
 		'vue/require-prop-types': 'off',
 	},
