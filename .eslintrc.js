@@ -23,5 +23,7 @@ module.exports = {
 			},
 		],
 		'no-unused-vars': 'warn',
+		'vue/no-multiple-template-root': 'off',
+		'vue/require-prop-types': 'off',
 	},
 };

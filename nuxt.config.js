@@ -1,3 +1,5 @@
+import { resolve } from 'path';
+
 export default {
 	// Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
 	ssr: false,
@@ -61,4 +63,12 @@ export default {
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {},
+
+	alias: {
+		icons: resolve(__dirname, './components/icons'),
+		UI: resolve(__dirname, './components/UI'),
+		logo: resolve(__dirname, './components/logo'),
+		layout: resolve(__dirname, './components/layout'),
+		menus: resolve(__dirname, './components/menus'),
+	},
 };
