@@ -1,0 +1,9 @@
+{
+	"editor.formatOnSave": true,
+	"vetur.validation.template": false,
+	"vetur.format.options.tabSize": 4,
+	"vetur.format.options.useTabs": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	}
+}
