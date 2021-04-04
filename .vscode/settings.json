@@ -1,9 +1,18 @@
 {
 	"editor.formatOnSave": true,
-	"vetur.validation.template": false,
-	"vetur.format.options.tabSize": 4,
-	"vetur.format.options.useTabs": true,
+	"editor.formatOnPaste": true,
+	"editor.detectIndentation": true,
+	"editor.tabSize": 4,
+	"editor.useTabStops": true,
+	"editor.autoIndent": "full",
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": true
-	}
+	},
+	"eslint.packageManager": "yarn",
+	"eslint.quiet": false,
+	"eslint.run": "onType",
+	"vetur.validation.template": true,
+	"vetur.format.options.tabSize": 4,
+	"vetur.format.options.useTabs": true,
+
 }

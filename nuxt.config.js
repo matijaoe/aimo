@@ -30,10 +30,13 @@ export default {
 	},
 
 	// Global CSS: https://go.nuxtjs.dev/config-css
-	css: [],
+	css: ['~/assets/css/styles.css', '~/assets/css/v-tooltip.css'],
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: [],
+	plugins: [
+		// https://github.com/Akryum/v-tooltip
+		'~/plugins/v-tooltip',
+	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
 	components: true,
@@ -42,6 +45,7 @@ export default {
 	buildModules: [
 		// https://go.nuxtjs.dev/eslint
 		'@nuxtjs/eslint-module',
+		// https: //github.com/nuxt-community/tailwindcss-module
 		'@nuxtjs/tailwindcss',
 	],
 
@@ -54,7 +58,7 @@ export default {
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
 	axios: {},
 
-	// Matija added this
+	// TailwindCSS module configuration (https://github.com/nuxt-community/tailwindcss-module)
 	tailwindcss: {
 		jit: true,
 	},
@@ -73,4 +77,9 @@ export default {
 	},
 
 	pageTransition: 'fade-in-right',
+
+	// Customize the loading indicator (https://nuxtjs.org/api/configuration-loading-indicator)
+	loadingIndicator: {
+		name: 'pulse',
+	},
 };
