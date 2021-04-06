@@ -1,4 +1,4 @@
-# aimo-mc2
+# aimo-tvz-mc2
 
 ## Build Setup
 
