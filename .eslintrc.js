@@ -24,5 +24,6 @@ module.exports = {
 		'vue/component-name-in-template-casing': ['error', 'PascalCase'],
 		'vue/no-multiple-template-root': 'off',
 		'vue/require-prop-types': 'off',
+		'vue/require-default-prop': 'off',
 	},
 };
