@@ -19,13 +19,13 @@ export default {
 	data() {
 		return {
 			userId: this.$route.params.userId,
+			userExists: true,
 		};
 	},
 	computed: {
 		...mapGetters('users', ['users']),
 		userInfo() {
 			if (!this.userId) {
-				// eslint-disable-next-line vue/no-side-effects-in-computed-properties
 				this.$router.push({
 					path: '/user/404',
 				});
@@ -37,7 +37,6 @@ export default {
 			);
 
 			if (!user) {
-				// eslint-disable-next-line vue/no-side-effects-in-computed-properties
 				this.$router.push({
 					path: '/user/404',
 				});

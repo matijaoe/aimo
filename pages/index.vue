@@ -1,7 +1,21 @@
 <template>
-	<h1 class="text-5xl">Homepage</h1>
+	<section>
+		<h1 class="text-5xl mb-10">Homepage</h1>
+		<div class="flex gap-4">
+			<BaseButton mode="cta">Add</BaseButton>
+			<BaseButton mode="fill--color">Update</BaseButton>
+			<BaseButton>Undo</BaseButton>
+			<BaseButton mode="ghost">Edit</BaseButton>
+		</div>
+	</section>
 </template>
 
 <script>
-export default {};
+import BaseButton from 'UI/BaseButton.vue';
+
+export default {
+	components: {
+		BaseButton,
+	},
+};
 </script>

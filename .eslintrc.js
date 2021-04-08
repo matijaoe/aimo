@@ -25,5 +25,6 @@ module.exports = {
 		'vue/no-multiple-template-root': 'off',
 		'vue/require-prop-types': 'off',
 		'vue/require-default-prop': 'off',
+		'vue/no-side-effects-in-computed-properties': 'off',
 	},
 };

@@ -24,7 +24,7 @@ export default {
 	computed: {
 		bgStyle() {
 			if (this.cta) {
-				return ['bg-amber-300'];
+				return ['bg-yellow-300'];
 			} else {
 				return ['bg-transparent', 'hover:bg-gray-100'];
 			}
