@@ -2,11 +2,11 @@ export const state = () => ({
 	userId: 'marian7',
 });
 
-// export const getters = {
-// 	getterValue(state) {
-// 		return state.value;
-// 	},
-// };
+export const getters = {
+	currentUser(state) {
+		return state.userId;
+	},
+};
 
 // export const mutations = {
 // 	updateValue(state, payload) {
