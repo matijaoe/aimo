@@ -22,9 +22,63 @@
 					<IconBell />
 				</div>
 			</BaseButton>
-			<button class="focus:outline-none rounded-full">
-				<BaseAvatar :src="currentUser.photo" />
-			</button>
+			<div class="relative">
+				<button
+					class="focus:outline-none rounded-full focus-within:ring-2 ring-teal-200 ring-offset-2 ring-offset-transparent block"
+					@click="dropdownShown = !dropdownShown"
+				>
+					<BaseAvatar :src="currentUser.photo" />
+
+					<transition name="dropdown">
+						<!-- todo z-index? -->
+						<BaseContainer
+							v-if="dropdownShown"
+							class="absolute right-0 mt-3 p-0 w-[180px] divide-y-2 divide-gray-100 text-left text-gray-700 z-50 bg-white"
+						>
+							<p class="p-3">
+								Signed in as
+								<nuxt-link
+									class="font-bold hover:text-teal-500"
+									:to="`/user/${$store.getters.currentUserId}`"
+								>
+									{{ currentUser.username }}
+								</nuxt-link>
+							</p>
+							<ul class="py-2">
+								<li>
+									<nuxt-link
+										:to="`/user/${$store.getters.currentUserId}`"
+										class="px-3 py-2 hover:bg-gray-50 flex items-center gap-2"
+									>
+										<IconUser size="sm" />
+										<span>My Profile</span>
+									</nuxt-link>
+								</li>
+								<li>
+									<nuxt-link
+										:to="`/user/${$store.getters.currentUserId}`"
+										class="flex items-center gap-2 px-3 py-2 hover:bg-gray-50"
+									>
+										<IconClipboardList size="sm" />
+										<span>My todos</span>
+									</nuxt-link>
+								</li>
+							</ul>
+							<ul class="py-2">
+								<li>
+									<nuxt-link
+										:to="`/user/${$store.getters.currentUserId}`"
+										class="flex items-center gap-2 px-3 py-2 hover:bg-gray-50"
+									>
+										<IconLogout size="sm" />
+										<span>Log out</span>
+									</nuxt-link>
+								</li>
+							</ul>
+						</BaseContainer>
+					</transition>
+				</button>
+			</div>
 		</div>
 	</header>
 </template>
@@ -32,8 +86,12 @@
 <script>
 import IconBell from 'icons/IconBell.vue';
 import IconSearch from 'icons/IconSearch.vue';
+import IconUser from 'icons/IconUser.vue';
+import IconClipboardList from 'icons/IconClipboardList.vue';
+import IconLogout from 'icons/IconLogout.vue';
 import BaseAvatar from 'UI/BaseAvatar.vue';
 import BaseButton from 'UI/BaseButton.vue';
+import BaseContainer from 'UI/BaseContainer.vue';
 
 import { mapGetters } from 'vuex';
 
@@ -43,9 +101,30 @@ export default {
 		BaseButton,
 		IconBell,
 		IconSearch,
+		IconUser,
+		IconClipboardList,
+		IconLogout,
+		BaseContainer,
+	},
+	data() {
+		return {
+			dropdownShown: false,
+		};
 	},
 	computed: {
 		...mapGetters(['currentUser']),
 	},
 };
 </script>
+
+<style scoped>
+.dropdown-enter-active,
+.dropdown-leave-active {
+	transition: all 400ms;
+}
+.dropdown-enter,
+.dropdown-leave-to {
+	opacity: 0;
+	transform: translateY(10px);
+}
+</style>

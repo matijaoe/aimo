@@ -34,7 +34,11 @@ export default {
 			if (this.cta) {
 				return ['bg-teal-300 text-teal-900'];
 			} else {
-				return ['bg-transparent', 'hover:bg-gray-100'];
+				return [
+					'bg-transparent',
+					'hover:bg-gray-100',
+					'focus:bg-gray-100',
+				];
 			}
 		},
 	},

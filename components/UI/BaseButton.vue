@@ -22,10 +22,10 @@ export default {
 <style lang="postcss" scoped>
 button {
 	@apply relative inline-block border-none cursor-pointer pointer-events-auto focus:outline-none;
-	@apply uppercase text-sm font-bold rounded-lg overflow-hidden;
+	@apply uppercase text-xs font-bold rounded-lg overflow-hidden;
 	@apply tracking-[0.05rem];
-	@apply py-4 px-9;
-	@apply focus:ring-2 ring-teal-200;
+	@apply py-3 px-7;
+	@apply focus:ring-2 ring-teal-200 ring-offset-2;
 	@apply transition;
 	@apply text-gray-700;
 }

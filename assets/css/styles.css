@@ -4,10 +4,6 @@
 	-webkit-tap-highlight-color: transparent;
 }
 
-*:focus {
-	@apply ring-2 ring-teal-200 ring-offset-transparent;
-}
-
 ::selection {
 	@apply bg-amber-100 text-amber-500;
 }
