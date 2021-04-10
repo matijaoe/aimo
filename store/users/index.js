@@ -5,7 +5,7 @@ export const state = () => ({
 			fname: 'Barian',
 			lname: 'Mamić',
 			age: 24,
-			image:
+			photo:
 				'https://our.umbraco.com/media/wiki/270186/636266273433443386_muskpng.png',
 			bio: '',
 			country: 'Croatia', // ili country code; dohvatit cu zastavu prek apija

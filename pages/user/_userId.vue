@@ -1,21 +1,23 @@
 <template>
 	<div class="flex gap-2 items-center">
 		<h1>
-			Welcome back
+			Profile of
 			<span
 				class="p-2 rounded-md font-bold text-xl bg-red-200 text-red-500 mx-2"
 			>
 				{{ userInfo.fname }}
 			</span>
 		</h1>
-		<img :src="userInfo.image" alt="" class="w-16 h-16 rounded-full" />
+		<BaseAvatar :src="userInfo.photo" size="lg" />
 	</div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import BaseAvatar from 'UI/BaseAvatar.vue';
 
 export default {
+	components: { BaseAvatar },
 	data() {
 		return {
 			userId: this.$route.params.userId,

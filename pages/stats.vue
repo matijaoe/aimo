@@ -1,3 +1,3 @@
 <template>
-	<h1 class="text-5xl">Stats page</h1>
+	<h1>stats</h1>
 </template>

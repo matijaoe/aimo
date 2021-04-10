@@ -84,12 +84,12 @@ button:hover::before {
 	@apply bg-white;
 }
 
-.bland {
-	@apply p-2;
-	@apply bg-transparent hover:bg-transparent;
-}
-
 .ghost::before {
 	content: none;
+}
+
+.bland {
+	@apply p-0;
+	@apply bg-transparent hover:bg-transparent;
 }
 </style>

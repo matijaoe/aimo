@@ -1,9 +1,10 @@
 <template>
 	<NuxtLink
-		v-tooltip.right-start="text || tooltip"
+		v-tooltip.right="text || tooltip"
 		:to="to"
 		class="flex items-center justify-center md:justify-start px-2 md:px-4 py-2 space-x-4 text-base rounded-lg focus:outline-none"
 		:class="bgStyle"
+		exact
 	>
 		<slot></slot>
 		<span v-if="text" class="hidden md:block">{{ text }}</span>

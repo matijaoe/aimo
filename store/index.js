@@ -3,8 +3,15 @@ export const state = () => ({
 });
 
 export const getters = {
-	currentUser(state) {
+	currentUserId(state) {
 		return state.userId;
+	},
+	currentUser(state, getters) {
+		const allUsers = getters['users/users'];
+		const currentUser = allUsers.find(
+			(user) => user.username === getters.currentUserId
+		);
+		return currentUser;
 	},
 };
 
