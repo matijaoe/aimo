@@ -3,7 +3,7 @@
 		<ul class="space-y-2">
 			<li class="border-b-2 border-dashed border-gray-200 pb-4">
 				<SidebarNavLink text="New todo" to="/todos/new" cta>
-					<IconAdd />
+					<IconPlus />
 				</SidebarNavLink>
 			</li>
 			<li class="pt-2">
@@ -11,22 +11,22 @@
 					<IconHome />
 				</SidebarNavLink>
 			</li>
-			<!-- <li>
+			<li>
 				<SidebarNavLink
 					text="Profile"
 					:to="`/user/${$store.state.userId}`"
 				>
-					<IconProfile />
+					<IconUser />
 				</SidebarNavLink>
-			</li> -->
+			</li>
 			<li>
 				<SidebarNavLink text="Community" to="/community">
-					<IconCommunity />
+					<IconUserGroup />
 				</SidebarNavLink>
 			</li>
 			<li>
 				<SidebarNavLink text="Todos" to="/todos">
-					<IconTodos />
+					<IconClipboardList />
 				</SidebarNavLink>
 			</li>
 			<li>
@@ -36,7 +36,7 @@
 			</li>
 			<li>
 				<SidebarNavLink text="Stats" to="/stats">
-					<IconStats />
+					<IconChartBar />
 				</SidebarNavLink>
 			</li>
 		</ul>
@@ -45,11 +45,16 @@
 				<IconSettings />
 			</SidebarNavLink>
 			<SidebarNavLink
-				:text="userFullName"
-				:to="`/user/${$store.state.userId}`"
-				class="text-sm"
+				to="/plans"
+				class="text-base hidden sm:block"
+				tooltip="Switch to Premium"
 			>
-				<BaseAvatar :src="user.image" />
+				<div class="flex flex-col">
+					<span class="text-gray-400 text-xs uppercase">
+						Your plan
+					</span>
+					<span>Free</span>
+				</div>
 			</SidebarNavLink>
 		</div>
 	</nav>
@@ -57,30 +62,28 @@
 
 <script>
 import IconHome from 'icons/IconHome.vue';
-// import IconProfile from 'icons/IconProfile.vue';
+import IconUser from 'icons/IconUser.vue';
 import IconInbox from 'icons/IconInbox.vue';
-import IconCommunity from 'icons/IconCommunity.vue';
-import IconTodos from 'icons/IconTodos.vue';
-import IconStats from 'icons/IconStats.vue';
+import IconUserGroup from 'icons/IconUserGroup.vue';
+import IconClipboardList from 'icons/IconClipboardList.vue';
+import IconChartBar from 'icons/IconChartBar.vue';
 import IconSettings from 'icons/IconSettings.vue';
-import IconAdd from 'icons/IconAdd.vue';
+import IconPlus from 'icons/IconPlus.vue';
 import SidebarNavLink from 'menus/SidebarNavLink.vue';
-import BaseAvatar from 'UI/BaseAvatar.vue';
 
 import { mapGetters } from 'vuex';
 
 export default {
 	components: {
 		IconHome,
-		// IconProfile,
+		IconUser,
 		IconInbox,
-		IconCommunity,
-		IconTodos,
-		IconStats,
+		IconUserGroup,
+		IconClipboardList,
+		IconChartBar,
 		IconSettings,
-		IconAdd,
+		IconPlus,
 		SidebarNavLink,
-		BaseAvatar,
 	},
 	computed: {
 		...mapGetters('users', ['users']),
@@ -93,9 +96,6 @@ export default {
 				return currUser;
 			}
 			return '';
-		},
-		userFullName() {
-			return `${this.user.fname} ${this.user.lname}`;
 		},
 	},
 };

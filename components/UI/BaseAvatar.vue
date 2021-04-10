@@ -1,6 +1,6 @@
 <template>
 	<div class="flex-shrink-0">
-		<img :src="src" alt="user avatar" class="w-10 h-10 rounded-full" />
+		<img :src="src" alt="user avatar" class="w-8 h-8 rounded-full" />
 	</div>
 </template>
 
