@@ -69,7 +69,7 @@ export default {
 	build: {},
 
 	alias: {
-		icons: resolve(__dirname, './components/icons'),
+		icons: resolve(__dirname, './components/app_icons'),
 		UI: resolve(__dirname, './components/UI'),
 		logo: resolve(__dirname, './components/logo'),
 		layout: resolve(__dirname, './components/layout'),

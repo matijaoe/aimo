@@ -1,5 +1,5 @@
 <template>
-	<button :class="mode">
+	<button :class="mode" @click="$emit('click', $event)">
 		<span>
 			<slot></slot>
 		</span>
@@ -84,12 +84,12 @@ button:hover::before {
 	@apply bg-white;
 }
 
-.ghost::before {
-	content: none;
-}
-
 .bland {
 	@apply p-0;
 	@apply bg-transparent hover:bg-transparent;
+}
+
+.bland::before {
+	content: none;
 }
 </style>
