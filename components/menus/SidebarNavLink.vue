@@ -2,7 +2,7 @@
 	<NuxtLink
 		v-tooltip.right-start="text || tooltip"
 		:to="to"
-		class="flex items-center justify-center md:justify-start px-2 md:px-4 py-2 space-x-4 text-base rounded-lg"
+		class="flex items-center justify-center md:justify-start px-2 md:px-4 py-2 space-x-4 text-base rounded-lg focus:outline-none"
 		:class="bgStyle"
 	>
 		<slot></slot>
@@ -31,7 +31,7 @@ export default {
 	computed: {
 		bgStyle() {
 			if (this.cta) {
-				return ['bg-teal-300'];
+				return ['bg-teal-300 text-teal-900'];
 			} else {
 				return ['bg-transparent', 'hover:bg-gray-100'];
 			}

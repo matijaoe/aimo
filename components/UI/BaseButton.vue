@@ -13,7 +13,7 @@ export default {
 		mode: {
 			type: String,
 			required: false,
-			default: 'fill',
+			default: null,
 		},
 	},
 };
@@ -29,6 +29,7 @@ button {
 	@apply transition;
 	@apply text-gray-700;
 }
+
 button::before,
 button::after {
 	@apply absolute top-0 left-0 w-full h-full;
@@ -81,5 +82,14 @@ button:hover::before {
 
 .ghost::before {
 	@apply bg-white;
+}
+
+.bland {
+	@apply p-2;
+	@apply bg-transparent hover:bg-transparent;
+}
+
+.ghost::before {
+	content: none;
 }
 </style>

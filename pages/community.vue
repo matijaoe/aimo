@@ -4,14 +4,10 @@
 		<ul class="grid gap-2 mt-8">
 			<li v-for="user in users" :key="user.username">
 				<NuxtLink
-					class="bg-gray-100 flex items-center gap-2 p-2 rounded-md"
+					class="bg-gray-100 flex items-center gap-2 p-4 rounded-md"
 					:to="`user/${user.username}`"
 				>
-					<img
-						:src="user.image"
-						alt="user-photo"
-						class="w-10 h-10 rounded-full"
-					/>
+					<BaseAvatar :src="user.photo" />
 					<div>
 						<h3 class="text-base">
 							{{ user.fname + ' ' + user.lname }}
@@ -29,8 +25,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import BaseAvatar from 'UI/BaseAvatar.vue';
 
 export default {
+	components: { BaseAvatar },
 	computed: {
 		...mapGetters('users', ['users']),
 	},

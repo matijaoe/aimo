@@ -1,7 +1,7 @@
 <template>
 	<NuxtLink
 		class="flex items-center justify-center md:-ml-2 space-x-3 cursor-pointer relative select-none"
-		to="/"
+		to="/home"
 	>
 		<LogoIcon />
 		<LogoText class="hidden md:block" />

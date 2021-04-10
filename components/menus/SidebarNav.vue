@@ -2,12 +2,18 @@
 	<nav class="flex flex-col justify-between flex-1 mt-10">
 		<ul class="space-y-2">
 			<li class="border-b-2 border-dashed border-gray-200 pb-4">
-				<SidebarNavLink text="New todo" to="/todos/new" cta>
+				<SidebarNavLink
+					text="New todo"
+					to="/todos/new"
+					cta
+					exact
+					class="cta"
+				>
 					<IconPlus />
 				</SidebarNavLink>
 			</li>
 			<li class="pt-2">
-				<SidebarNavLink text="Home" to="/">
+				<SidebarNavLink text="Home" to="/home">
 					<IconHome />
 				</SidebarNavLink>
 			</li>
@@ -102,7 +108,11 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
-a.nuxt-link-exact-active {
+a.nuxt-link-active {
 	@apply bg-gray-200;
+}
+/* todo - exact property in nuxt-link */
+.cta.nuxt-link-exact-active {
+	@apply bg-teal-300;
 }
 </style>
