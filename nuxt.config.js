@@ -36,6 +36,8 @@ export default {
 	plugins: [
 		// https://github.com/Akryum/v-tooltip
 		'~/plugins/v-tooltip',
+		// https://github.com/vue-bulma/click-outside#readme
+		'~/plugins/v-click-outside.js',
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components

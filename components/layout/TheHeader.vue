@@ -39,6 +39,7 @@
 			</BaseButton>
 			<div class="relative">
 				<button
+					v-click-outside="closeDropdown"
 					class="focus:outline-none rounded-full focus-within:ring-2 ring-amber-200 ring-offset-2 block group"
 					@click="dropdownShown = !dropdownShown"
 				>
@@ -118,6 +119,8 @@ import BaseContainer from 'UI/BaseContainer.vue';
 
 import { mapGetters } from 'vuex';
 
+import vClickOutside from 'v-click-outside';
+
 export default {
 	components: {
 		BaseAvatar,
@@ -130,6 +133,9 @@ export default {
 		IconLogout,
 		BaseContainer,
 	},
+	directives: {
+		clickOutside: vClickOutside.directive,
+	},
 	data() {
 		return {
 			dropdownShown: false,
@@ -138,6 +144,11 @@ export default {
 	},
 	computed: {
 		...mapGetters(['currentUser']),
+	},
+	methods: {
+		closeDropdown() {
+			this.dropdownShown = false;
+		},
 	},
 };
 </script>
