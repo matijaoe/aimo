@@ -28,7 +28,7 @@ export default {
 			} else if (this.size === 'lg') {
 				return ['w-12', 'h-12'];
 			} else {
-				return ['w-11 h-11'];
+				return ['w-10 h-10'];
 			}
 		},
 	},

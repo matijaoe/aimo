@@ -25,7 +25,7 @@ button {
 	@apply uppercase text-xs font-bold rounded-lg overflow-hidden;
 	@apply tracking-[0.05rem];
 	@apply py-3 px-7;
-	@apply focus:ring-2 ring-teal-200 ring-offset-2;
+	@apply focus:ring-2 ring-amber-200 ring-offset-2;
 	@apply transition;
 	@apply text-gray-700;
 }
@@ -53,11 +53,11 @@ button:hover::before {
 }
 
 .cta {
-	@apply bg-teal-200 text-teal-900;
+	@apply bg-amber-200 text-amber-900;
 }
 
 .cta::before {
-	@apply bg-teal-300;
+	@apply bg-amber-300;
 }
 
 .fill {
@@ -69,11 +69,11 @@ button:hover::before {
 }
 
 .fill--color {
-	@apply bg-teal-200 bg-opacity-70 text-teal-700;
+	@apply bg-amber-200 bg-opacity-70 text-amber-700;
 }
 
 .fill--color::before {
-	@apply bg-teal-100;
+	@apply bg-amber-100;
 }
 
 .ghost {

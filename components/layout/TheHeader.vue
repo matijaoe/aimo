@@ -1,7 +1,7 @@
 <template>
 	<header class="flex space-between gap-8">
 		<label
-			class="flex items-center sm:flex-1 pl-4 text-sm sm:border-2 rounded-full border-gray-100 focus-within:ring-0 focus-within:border-gray-200"
+			class="flex items-center sm:flex-1 pl-3 text-sm sm:border-2 rounded-full border-gray-100 focus-within:ring-0 focus-within:border-gray-200"
 		>
 			<BaseButton v-tooltip.bottom="'Search'" mode="bland">
 				<div class="p-1">
@@ -13,24 +13,23 @@
 				type="search"
 				name=""
 				placeholder="Search anything"
-				class="hidden sm:block flex-1 h-full bg-transparent focus:outline-none rounded-full px-4 focus:ring-0"
+				class="hidden sm:block bg-transparent h-full focus:outline-none rounded-full px-4 focus:ring-0 flex-1"
 			/>
 		</label>
 		<div class="flex items-center space-x-4 sm:space-x-8 ml-auto">
 			<BaseButton mode="bland">
-				<div class="p-2">
+				<div class="p-1">
 					<IconBell />
 				</div>
 			</BaseButton>
 			<div class="relative">
 				<button
-					class="focus:outline-none rounded-full focus-within:ring-2 ring-teal-200 ring-offset-2 ring-offset-transparent block"
+					class="focus:outline-none rounded-full focus-within:ring-2 ring-amber-200 ring-offset-2 ring-offset-transparent block"
 					@click="dropdownShown = !dropdownShown"
 				>
 					<BaseAvatar :src="currentUser.photo" />
 
 					<transition name="dropdown">
-						<!-- todo z-index? -->
 						<BaseContainer
 							v-if="dropdownShown"
 							class="absolute right-0 mt-3 p-0 w-[180px] divide-y-2 divide-gray-100 text-left text-gray-700 z-50 bg-white"
@@ -38,13 +37,13 @@
 							<p class="p-3">
 								Signed in as
 								<nuxt-link
-									class="font-bold hover:text-teal-500"
+									class="font-bold hover:text-amber-500"
 									:to="`/user/${$store.getters.currentUserId}`"
 								>
 									{{ currentUser.username }}
 								</nuxt-link>
 							</p>
-							<ul class="py-2">
+							<ul class="py-1">
 								<li>
 									<nuxt-link
 										:to="`/user/${$store.getters.currentUserId}`"
@@ -64,7 +63,7 @@
 									</nuxt-link>
 								</li>
 							</ul>
-							<ul class="py-2">
+							<ul class="py-1">
 								<li>
 									<nuxt-link
 										:to="`/user/${$store.getters.currentUserId}`"
@@ -120,7 +119,7 @@ export default {
 <style scoped>
 .dropdown-enter-active,
 .dropdown-leave-active {
-	transition: all 400ms;
+	transition: all 300ms;
 }
 .dropdown-enter,
 .dropdown-leave-to {

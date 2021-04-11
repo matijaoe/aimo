@@ -4,7 +4,6 @@
 		:to="to"
 		class="flex items-center justify-center md:justify-start px-2 md:px-4 py-2 space-x-4 text-base rounded-lg focus:outline-none"
 		:class="bgStyle"
-		exact
 	>
 		<slot></slot>
 		<span v-if="text" class="hidden md:block">{{ text }}</span>
@@ -32,7 +31,7 @@ export default {
 	computed: {
 		bgStyle() {
 			if (this.cta) {
-				return ['bg-teal-300 text-teal-900'];
+				return ['bg-amber-300 text-amber-900'];
 			} else {
 				return [
 					'bg-transparent',

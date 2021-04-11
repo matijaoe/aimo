@@ -113,6 +113,6 @@ a.nuxt-link-active {
 }
 /* todo - exact property in nuxt-link */
 .cta.nuxt-link-exact-active {
-	@apply bg-teal-300;
+	@apply bg-amber-300;
 }
 </style>

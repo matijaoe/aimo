@@ -80,6 +80,6 @@ export default {
 
 	// Customize the loading indicator (https://nuxtjs.org/api/configuration-loading-indicator)
 	loadingIndicator: {
-		name: 'pulse',
+		name: 'circle',
 	},
 };
