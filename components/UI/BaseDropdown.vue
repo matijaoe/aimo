@@ -1,7 +1,7 @@
 <template>
 	<div
 		v-click-outside="away"
-		class="inline-flex items-center relative"
+		class="relative inline-flex items-center"
 		@click="toggle"
 	>
 		<slot name="toggler">
@@ -30,7 +30,7 @@ export default {
 	data() {
 		return {
 			sharedState: {
-				active: true,
+				active: false,
 			},
 		};
 	},

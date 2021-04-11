@@ -1,5 +1,6 @@
 <template>
 	<header class="flex space-between gap-8">
+		<!-- Searchbar -->
 		<label
 			class="flex items-center sm:flex-1 pl-3 text-sm sm:border-2 rounded-full border-transparent focus-within:ring-0 focus-within:border-gray-100"
 		>
@@ -21,87 +22,105 @@
 			/>
 		</label>
 		<div class="flex items-center space-x-4 sm:space-x-8 ml-auto">
-			<BaseButton
-				v-tooltip.bottom="
-					`You have ${notifyCount || 'no'} new notifications`
-				"
-				mode="bland"
-				class="group"
-			>
-				<div class="p-1 relative">
-					<IconBell class="opacity-75 group-hover:opacity-100" />
-					<p
-						class="absolute top-0 right-0 text-[11px] bg-amber-400 rounded-full flex items-center w-[16px] h-[16px]"
+			<!-- Notifications dropdown-->
+			<BaseDropdown>
+				<template slot="toggler">
+					<BaseButton
+						v-tooltip.bottom="
+							`You have ${notifyCount || 'no'} new notifications`
+						"
+						mode="bland"
+						class="group"
 					>
-						<span class="flex-1">{{ notifyCount }}</span>
-					</p>
-				</div>
-			</BaseButton>
-			<div class="relative">
-				<button
-					v-click-outside="closeDropdown"
-					class="focus:outline-none rounded-full focus-within:ring-2 ring-amber-200 ring-offset-2 block group"
-					@click="dropdownShown = !dropdownShown"
-				>
-					<div
-						v-tooltip.bottom="'Your profile'"
-						class="flex items-center space-x-3"
-					>
-						<IconChevronDown
-							class="opacity-75 group-hover:opacity-100"
-						/>
-						<BaseAvatar :src="currentUser.photo" />
-					</div>
-
-					<transition name="dropdown">
-						<BaseContainer
-							v-if="dropdownShown"
-							class="absolute right-0 mt-3 p-0 w-[180px] divide-y-2 divide-gray-100 text-left text-gray-700 z-50 bg-white"
-						>
-							<p class="p-3">
-								Signed in as
-								<nuxt-link
-									class="font-bold hover:text-amber-500"
-									:to="`/user/${$store.getters.currentUserId}`"
-								>
-									{{ currentUser.username }}
-								</nuxt-link>
+						<div class="p-1 relative">
+							<IconBell
+								class="opacity-75 group-hover:opacity-100"
+							/>
+							<p
+								class="absolute top-0 right-0 text-[11px] bg-amber-400 rounded-full flex items-center w-[16px] h-[16px]"
+							>
+								<span class="flex-1">{{ notifyCount }}</span>
 							</p>
-							<ul class="py-1">
-								<li>
-									<nuxt-link
-										to="/todos"
-										class="px-3 py-2 hover:bg-gray-50 flex items-center gap-2"
-									>
-										<IconUser size="sm" />
-										<span>My profile</span>
-									</nuxt-link>
-								</li>
-								<li>
-									<nuxt-link
-										:to="`/user/${$store.getters.currentUserId}`"
-										class="flex items-center gap-2 px-3 py-2 hover:bg-gray-50"
-									>
-										<IconClipboardList size="sm" />
-										<span>My todos</span>
-									</nuxt-link>
-								</li>
-							</ul>
-							<ul class="py-1">
-								<li>
-									<nuxt-link
-										to="/home"
-										class="flex items-center gap-2 px-3 py-2 hover:bg-gray-50"
-									>
-										<IconLogout size="sm" />
-										<span>Log out</span>
-									</nuxt-link>
-								</li>
-							</ul>
-						</BaseContainer>
-					</transition>
-				</button>
-			</div>
+						</div>
+					</BaseButton>
+				</template>
+				<BaseDropdownContent class="w-[300px] text-center">
+					<BaseDropdownList>
+						<BaseDropdownItem>
+							You have
+							<span
+								class="font-bold hover:text-amber-400 transition"
+							>
+								{{ notifyCount }}
+							</span>
+							new notifications
+						</BaseDropdownItem>
+					</BaseDropdownList>
+					<BaseDropdownList>
+						<BaseDropdownItem link>
+							Matija gave you recognition
+						</BaseDropdownItem>
+						<BaseDropdownItem link>
+							Zoki commented on your post
+						</BaseDropdownItem>
+					</BaseDropdownList>
+				</BaseDropdownContent>
+			</BaseDropdown>
+
+			<!-- Profile dropdown-->
+			<BaseDropdown>
+				<template slot="toggler">
+					<button
+						class="focus:outline-none rounded-full focus-within:ring-2 ring-amber-200 ring-offset-2 block group"
+					>
+						<div
+							v-tooltip.bottom="'Your profile'"
+							class="flex items-center space-x-3"
+						>
+							<IconChevronDown
+								class="opacity-75 group-hover:opacity-100"
+							/>
+							<BaseAvatar :src="currentUser.photo" />
+						</div>
+					</button>
+				</template>
+				<BaseDropdownContent>
+					<BaseDropdownList>
+						<BaseDropdownItem>
+							<nuxt-link
+								:to="`/user/${$store.getters.currentUserId}`"
+							>
+								Signed in as
+								<span
+									class="font-bold hover:text-amber-400 transition"
+									>{{ currentUser.username }}</span
+								>
+							</nuxt-link>
+						</BaseDropdownItem>
+					</BaseDropdownList>
+
+					<BaseDropdownList>
+						<BaseDropdownItem
+							link
+							:to="`/user/${$store.getters.currentUserId}`"
+						>
+							<IconUser size="sm" />
+							<span>My profile</span>
+						</BaseDropdownItem>
+						<BaseDropdownItem link to="/todos">
+							<IconClipboardList size="sm" />
+							<span>My todos</span>
+						</BaseDropdownItem>
+					</BaseDropdownList>
+
+					<BaseDropdownList>
+						<BaseDropdownItem link to="/home">
+							<IconLogout size="sm" />
+							<span>Log out</span>
+						</BaseDropdownItem>
+					</BaseDropdownList>
+				</BaseDropdownContent>
+			</BaseDropdown>
 		</div>
 	</header>
 </template>
@@ -115,7 +134,10 @@ import IconClipboardList from 'icons/IconClipboardList.vue';
 import IconLogout from 'icons/IconLogout.vue';
 import BaseAvatar from 'UI/BaseAvatar.vue';
 import BaseButton from 'UI/BaseButton.vue';
-import BaseContainer from 'UI/BaseContainer.vue';
+import BaseDropdown from 'UI/BaseDropdown.vue';
+import BaseDropdownContent from 'UI/BaseDropdownContent.vue';
+import BaseDropdownList from 'UI/BaseDropdownList.vue';
+import BaseDropdownItem from 'UI/BaseDropdownItem.vue';
 
 import { mapGetters } from 'vuex';
 
@@ -123,6 +145,10 @@ import vClickOutside from 'v-click-outside';
 
 export default {
 	components: {
+		BaseDropdown,
+		BaseDropdownContent,
+		BaseDropdownList,
+		BaseDropdownItem,
 		BaseAvatar,
 		BaseButton,
 		IconBell,
@@ -131,24 +157,17 @@ export default {
 		IconUser,
 		IconClipboardList,
 		IconLogout,
-		BaseContainer,
 	},
 	directives: {
 		clickOutside: vClickOutside.directive,
 	},
 	data() {
 		return {
-			dropdownShown: false,
-			notifyCount: 5,
+			notifyCount: 2,
 		};
 	},
 	computed: {
 		...mapGetters(['currentUser']),
-	},
-	methods: {
-		closeDropdown() {
-			this.dropdownShown = false;
-		},
 	},
 };
 </script>

@@ -2,7 +2,7 @@
 	<transition name="dropdown">
 		<BaseContainer
 			v-if="active"
-			class="absolute right-0 mt-3 p-0 min-w-[180px] divide-y-2 divide-gray-100 text-left text-gray-700 z-50"
+			class="absolute top-full right-0 mt-3 p-0 divide-y-2 divide-gray-100 text-left text-gray-700 z-50 min-w-[180px]"
 		>
 			<slot />
 		</BaseContainer>
@@ -17,6 +17,7 @@ export default {
 		BaseContainer,
 	},
 	inject: ['sharedState'],
+
 	computed: {
 		active() {
 			return this.sharedState.active;
