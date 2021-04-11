@@ -1,11 +1,15 @@
 <template>
 	<header class="flex space-between gap-8">
 		<label
-			class="flex items-center sm:flex-1 pl-3 text-sm sm:border-2 rounded-full border-gray-100 focus-within:ring-0 focus-within:border-gray-200"
+			class="flex items-center sm:flex-1 pl-3 text-sm sm:border-2 rounded-full border-transparent focus-within:ring-0 focus-within:border-gray-100"
 		>
-			<BaseButton v-tooltip.bottom="'Search'" mode="bland">
+			<BaseButton
+				v-tooltip.bottom="'Search'"
+				mode="bland"
+				class="bg-amber-100"
+			>
 				<div class="p-1">
-					<IconSearch class="text-gray-300" />
+					<IconSearch class="text-amber-400" />
 				</div>
 			</BaseButton>
 			<input
@@ -17,17 +21,36 @@
 			/>
 		</label>
 		<div class="flex items-center space-x-4 sm:space-x-8 ml-auto">
-			<BaseButton mode="bland">
-				<div class="p-1">
-					<IconBell />
+			<BaseButton
+				v-tooltip.bottom="
+					`You have ${notifyCount || 'no'} new notifications`
+				"
+				mode="bland"
+				class="group"
+			>
+				<div class="p-1 relative">
+					<IconBell class="opacity-75 group-hover:opacity-100" />
+					<p
+						class="absolute top-0 right-0 text-[11px] bg-amber-400 rounded-full flex items-center w-[16px] h-[16px]"
+					>
+						<span class="flex-1">{{ notifyCount }}</span>
+					</p>
 				</div>
 			</BaseButton>
 			<div class="relative">
 				<button
-					class="focus:outline-none rounded-full focus-within:ring-2 ring-amber-200 ring-offset-2 ring-offset-transparent block"
+					class="focus:outline-none rounded-full focus-within:ring-2 ring-amber-200 ring-offset-2 block group"
 					@click="dropdownShown = !dropdownShown"
 				>
-					<BaseAvatar :src="currentUser.photo" />
+					<div
+						v-tooltip.bottom="'Your profile'"
+						class="flex items-center space-x-3"
+					>
+						<IconChevronDown
+							class="opacity-75 group-hover:opacity-100"
+						/>
+						<BaseAvatar :src="currentUser.photo" />
+					</div>
 
 					<transition name="dropdown">
 						<BaseContainer
@@ -46,11 +69,11 @@
 							<ul class="py-1">
 								<li>
 									<nuxt-link
-										:to="`/user/${$store.getters.currentUserId}`"
+										to="/todos"
 										class="px-3 py-2 hover:bg-gray-50 flex items-center gap-2"
 									>
 										<IconUser size="sm" />
-										<span>My Profile</span>
+										<span>My profile</span>
 									</nuxt-link>
 								</li>
 								<li>
@@ -66,7 +89,7 @@
 							<ul class="py-1">
 								<li>
 									<nuxt-link
-										:to="`/user/${$store.getters.currentUserId}`"
+										to="/home"
 										class="flex items-center gap-2 px-3 py-2 hover:bg-gray-50"
 									>
 										<IconLogout size="sm" />
@@ -84,6 +107,7 @@
 
 <script>
 import IconBell from 'icons/IconBell.vue';
+import IconChevronDown from 'icons/IconChevronDown.vue';
 import IconSearch from 'icons/IconSearch.vue';
 import IconUser from 'icons/IconUser.vue';
 import IconClipboardList from 'icons/IconClipboardList.vue';
@@ -99,6 +123,7 @@ export default {
 		BaseAvatar,
 		BaseButton,
 		IconBell,
+		IconChevronDown,
 		IconSearch,
 		IconUser,
 		IconClipboardList,
@@ -108,6 +133,7 @@ export default {
 	data() {
 		return {
 			dropdownShown: false,
+			notifyCount: 5,
 		};
 	},
 	computed: {
