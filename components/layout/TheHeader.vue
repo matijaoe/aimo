@@ -93,8 +93,9 @@
 								Signed in as
 								<span
 									class="font-bold hover:text-amber-400 transition"
-									>{{ currentUser.username }}</span
 								>
+									{{ currentUser.username }}
+								</span>
 							</nuxt-link>
 						</BaseDropdownItem>
 					</BaseDropdownList>

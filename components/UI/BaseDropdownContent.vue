@@ -17,7 +17,6 @@ export default {
 		BaseContainer,
 	},
 	inject: ['sharedState'],
-
 	computed: {
 		active() {
 			return this.sharedState.active;

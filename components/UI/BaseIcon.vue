@@ -1,6 +1,6 @@
 <template>
 	<div class="flex-shrink-0 transition" :class="iconSize">
-		<slot></slot>
+		<slot />
 	</div>
 </template>
 

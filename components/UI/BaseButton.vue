@@ -1,7 +1,7 @@
 <template>
 	<button :class="mode" @click="$emit('click', $event)">
 		<span>
-			<slot></slot>
+			<slot />
 		</span>
 	</button>
 </template>
