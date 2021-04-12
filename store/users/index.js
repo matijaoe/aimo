@@ -46,6 +46,36 @@ export const state = () => ({
 				},
 			],
 		},
+		{
+			username: 'matijaVue',
+			fname: 'Matija',
+			lname: 'Osrečki',
+			age: 13,
+			photo:
+				'https://pbs.twimg.com/profile_images/669103856106668033/UF3cgUk4_400x400.jpg',
+			bio: '',
+			country: 'Croatia',
+		},
+		{
+			username: 'patrikHarmonika',
+			fname: 'Patrik',
+			lname: 'Slovic',
+			age: 55,
+			photo:
+				'https://pbs.twimg.com/profile_images/988775660163252226/XpgonN0X.jpg',
+			bio: '',
+			country: 'Spain',
+		},
+		{
+			username: 'tomoKotar',
+			fname: 'Tomislav',
+			lname: 'Mikšik',
+			age: 34,
+			photo:
+				'https://media.npr.org/assets/img/2018/11/21/gettyimages-962142720-3f4af695a639cbc14deb90e88287cd3c19b676f4-s800-c85.jpg',
+			bio: '',
+			country: 'Nigeria',
+		},
 	],
 });
 

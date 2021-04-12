@@ -5,7 +5,6 @@
 		</span>
 	</button>
 </template>
-Ł
 
 <script>
 export default {
