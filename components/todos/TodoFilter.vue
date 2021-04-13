@@ -1,8 +1,8 @@
 <template>
 	<div class="my-4">
-		<BaseButton v-if="!filterShow" mode="fill" @click="toggleShowFilter"
-			>Filters</BaseButton
-		>
+		<BaseButton v-if="!filterShow" mode="fill" @click="toggleShowFilter">
+			Filters
+		</BaseButton>
 		<BaseContainer
 			v-else
 			class="flex-col items-center justify-center md:justify-start px-2 md:px-4 py-2 space-x-4 text-base rounded-lg bg-gray-100"

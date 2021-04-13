@@ -18,10 +18,7 @@
 				</SidebarNavLink>
 			</li>
 			<li>
-				<SidebarNavLink
-					text="Profile"
-					:to="`/user/${$store.state.userId}`"
-				>
+				<SidebarNavLink text="Profile" to="/profile">
 					<IconUser />
 				</SidebarNavLink>
 			</li>

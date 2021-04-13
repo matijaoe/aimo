@@ -46,10 +46,10 @@
 				</template>
 				<BaseDropdownContent class="w-[300px] text-center">
 					<BaseDropdownList>
-						<BaseDropdownItem>
+						<BaseDropdownItem class="font-semibold">
 							You have
 							<span
-								class="font-bold hover:text-amber-400 transition"
+								class="font-bold text-lg mx-1 hover:text-amber-400 transition"
 							>
 								{{ notifyCount }}
 							</span>
@@ -57,11 +57,12 @@
 						</BaseDropdownItem>
 					</BaseDropdownList>
 					<BaseDropdownList>
-						<BaseDropdownItem link>
-							Matija gave you recognition
-						</BaseDropdownItem>
-						<BaseDropdownItem link>
-							Zoki commented on your post
+						<BaseDropdownItem
+							v-for="notification in notifications"
+							:key="notification"
+							link
+						>
+							{{ notification }}
 						</BaseDropdownItem>
 					</BaseDropdownList>
 				</BaseDropdownContent>
@@ -164,11 +165,19 @@ export default {
 	},
 	data() {
 		return {
-			notifyCount: 2,
+			notifications: [
+				'Matija gave you recognition',
+				'Zoki commented on your post',
+				'Patrik beat your streak',
+				'Lorena loves you and takes care of you',
+			],
 		};
 	},
 	computed: {
 		...mapGetters(['currentUser']),
+		notifyCount() {
+			return this.notifications.length;
+		},
 	},
 };
 </script>

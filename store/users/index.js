@@ -55,6 +55,7 @@ export const state = () => ({
 				'https://pbs.twimg.com/profile_images/669103856106668033/UF3cgUk4_400x400.jpg',
 			bio: '',
 			country: 'Croatia',
+			coins: 506,
 		},
 		{
 			username: 'patrikHarmonika',
@@ -65,6 +66,7 @@ export const state = () => ({
 				'https://pbs.twimg.com/profile_images/988775660163252226/XpgonN0X.jpg',
 			bio: '',
 			country: 'Spain',
+			coins: 760,
 		},
 		{
 			username: 'tomoKotar',
@@ -72,9 +74,10 @@ export const state = () => ({
 			lname: 'Mikšik',
 			age: 34,
 			photo:
-				'https://media.npr.org/assets/img/2018/11/21/gettyimages-962142720-3f4af695a639cbc14deb90e88287cd3c19b676f4-s800-c85.jpg',
+				'https://pbs.twimg.com/profile_images/712382030064062465/HoG1N4E0_400x400.jpg',
 			bio: '',
 			country: 'Nigeria',
+			coins: 124,
 		},
 	],
 });
