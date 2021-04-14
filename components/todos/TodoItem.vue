@@ -13,7 +13,8 @@
 					>
 				</span>
 			</h2>
-			<BaseAvatar v-if="hasPartner" :src="partnerPictureUrl"></BaseAvatar>
+			<!-- <BaseAvatar v-if="hasPartner" :src="partnerPictureUrl"></BaseAvatar> -->
+			<BaseAvatar v-if="hasPartner"></BaseAvatar>
 		</header>
 		<section>
 			<p>{{ desc }}</p>
@@ -58,6 +59,8 @@ export default {
 			const { photo, fname, lname } = this.$store.getters[
 				'users/users'
 			].find((user) => user.username === this.partner);
+			console.log('PHOTOOOO 🍕🍕🍕🍕');
+			console.log(photo);
 			this.partnerPictureUrl = photo;
 			this.partnerFullName = `${fname} ${lname}`;
 		}

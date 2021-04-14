@@ -4,7 +4,7 @@ export const state = () => ({
 		{
 			id: 'todo1',
 			title: 'Programiranje',
-			partner: 'matijaVue',
+			partner: 'matijao',
 			desc: 'Programiramo cijele dane ko muhe bez glave', // optional
 			urgency: '',
 			categories: [{ id: '', name: '' }],
@@ -17,7 +17,7 @@ export const state = () => ({
 		{
 			id: 'todo2',
 			title: 'Gledanje YT videozapisa od autora Ivan Pavlović',
-			partner: 'patrikHarmonika',
+			partner: 'patrik_harmonika',
 			desc: 'Fanboys od kralja Ivana Pavlovića najjačeg lika na Balaknu.', // optional
 			urgency: '',
 			categories: [{ id: '', name: '' }],
@@ -30,7 +30,7 @@ export const state = () => ({
 		{
 			id: 'todo3',
 			title: 'Vježbanje',
-			partner: 'tomoKotar',
+			partner: 'tomoKotar14',
 			desc: 'Želimo do ljeta izgledat kao da su nas bogovi klesali', // optional
 			urgency: '',
 			categories: [{ id: '', name: '' }],
@@ -56,7 +56,7 @@ export const state = () => ({
 		{
 			id: 'todo5',
 			title: 'Video Call i pričanje o životu',
-			partner: 'matijaVue',
+			partner: 'matijao',
 			desc: 'Pričamo doslovno o svem. I vrijeme leti.', // optional
 			urgency: '',
 			categories: [{ id: '', name: '' }],
@@ -69,7 +69,7 @@ export const state = () => ({
 		{
 			id: 'todo6',
 			title: 'Boks',
-			partner: 'tomoKotar',
+			partner: 'tomoKotar14',
 			desc: '12 rundi po 3 minute', // optional
 			urgency: '',
 			categories: [{ id: '', name: '' }],

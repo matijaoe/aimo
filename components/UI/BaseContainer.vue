@@ -3,7 +3,7 @@
 		v-if="fieldset"
 		class="border-2 border-gray-100 p-4 rounded-lg bg-white"
 	>
-		<legend class="px-1 uppercase text-xs font-bold">
+		<legend class="px-2 uppercase text-xs font-bold text-current">
 			<h3>{{ label }}</h3>
 		</legend>
 		<slot />

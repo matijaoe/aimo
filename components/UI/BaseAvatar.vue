@@ -3,7 +3,7 @@
 		<img
 			:src="src"
 			alt="user avatar"
-			class="rounded-full"
+			class="rounded-full object-cover"
 			:class="avatarSize"
 		/>
 	</div>
