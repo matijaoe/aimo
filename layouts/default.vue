@@ -6,10 +6,12 @@
 		<div
 			class="w-full min-h-screen px-4 md:px-8 pt-2 pb-8 sm:pt-5 sm:ml-16 md:ml-56 lg:ml-64 bg-white"
 		>
-			<TheHeader />
-			<main class="mt-8">
-				<Nuxt />
-			</main>
+			<div class="max-w-7xl mx-auto">
+				<TheHeader />
+				<main class="mt-8 h-full">
+					<Nuxt />
+				</main>
+			</div>
 		</div>
 		<TheStatusbar />
 	</div>
