@@ -30,7 +30,11 @@ export default {
 	},
 
 	// Global CSS: https://go.nuxtjs.dev/config-css
-	css: ['~/assets/css/styles.css', '~/assets/css/v-tooltip.css'],
+	css: [
+		'~/assets/css/styles.css',
+		'~/assets/css/v-tooltip.css',
+		'boxicons/css/boxicons.min.css',
+	],
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [
@@ -79,6 +83,7 @@ export default {
 	},
 
 	pageTransition: 'fade-in-right',
+	// layoutTransition: 'fade-in-right',
 
 	// Customize the loading indicator (https://nuxtjs.org/api/configuration-loading-indicator)
 	loadingIndicator: {
