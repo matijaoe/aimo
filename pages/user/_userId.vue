@@ -22,18 +22,18 @@
 									@{{ userInfo.username }}
 								</p>
 							</div>
-							<BaseButton mode="fill">
+							<BaseButton v-if="isLoggedInUser" mode="fill">
 								<div class="flex items-center gap-2">
 									<IconEdit size="sm" />
 									<span>Edit</span>
 								</div>
 							</BaseButton>
-							<!-- <BaseButton mode="cta">
+							<BaseButton v-else mode="cta">
 								<div class="flex items-center gap-2">
-									<IconEdit size="sm" />
+									<IconChat size="sm" />
 									<span>Message</span>
 								</div>
-							</BaseButton> -->
+							</BaseButton>
 						</div>
 					</div>
 					<div>
@@ -71,7 +71,7 @@
 									size="sm"
 									class="text-purple-500"
 								/>
-								<span>Student</span>
+								<span>{{ userInfo.occupation }}</span>
 							</div>
 						</div>
 					</div>
@@ -98,27 +98,27 @@
 						{{ userInfo.coins }}
 					</span>
 					<span
-						class="transform -rotate-6 -translate-y-2 inline-block"
+						class="transform -rotate-6 -translate-y-3 inline-block"
 					>
 						coineroos
 					</span>
 					<span
-						class="font-lg transform rotate-6 -translate-y-2 inline-block"
+						class="font-lg transform rotate-6 -translate-y-3 inline-block"
 					>
 						earned
 					</span>
 					<span
-						class="font-lg transform -rotate-6 -translate-y-2 inline-block"
+						class="font-lg transform -rotate-6 -translate-y-3 inline-block"
 					>
-						the
+						this
 					</span>
 					<span
-						class="font-lg transform rotate-6 -translate-y-2 inline-block"
+						class="font-lg transform rotate-6 -translate-y-3 inline-block"
 					>
 						past
 					</span>
 					<span
-						class="font-lg transform -rotate-6 -translate-y-2 inline-block"
+						class="font-lg transform -rotate-6 -translate-y-3 inline-block"
 					>
 						month
 					</span>
@@ -130,34 +130,12 @@
 		<div class="flex flex-col gap-2">
 			<BaseContainer fieldset label="Socials">
 				<div class="grid grid-cols-7 gap-2">
-					<BaseBrandIcon brand="twitter" href="#" />
-					<BaseBrandIcon brand="facebook" href="#" />
-					<BaseBrandIcon brand="instagram" href="#" />
-					<BaseBrandIcon brand="youtube" href="#" />
-					<BaseBrandIcon brand="linkedin" href="#" />
-					<BaseBrandIcon brand="discord" href="#" />
-					<BaseBrandIcon brand="telegram" href="#" />
-					<BaseBrandIcon brand="slack" href="#" />
-					<BaseBrandIcon brand="reddit" href="#" />
-					<BaseBrandIcon brand="tumblr" href="#" />
-					<BaseBrandIcon brand="pinterest" href="#" />
-					<BaseBrandIcon brand="github" href="#" />
-					<BaseBrandIcon brand="codepen" href="#" />
-					<BaseBrandIcon brand="dribbble" href="#" />
-					<BaseBrandIcon brand="behance" href="#" />
-					<BaseBrandIcon brand="stack-overflow" href="#" />
-					<BaseBrandIcon brand="medium" href="#" />
-					<BaseBrandIcon brand="behance" href="#" />
-					<BaseBrandIcon brand="unsplash" href="#" />
-					<BaseBrandIcon brand="whatsapp" href="#" />
-					<BaseBrandIcon brand="messenger" href="#" />
-					<BaseBrandIcon brand="quora" href="#" />
-					<BaseBrandIcon brand="patreon" href="#" />
-					<BaseBrandIcon brand="bitcoin" href="#" />
-					<!-- radi i ako ne prepozna brand -->
-					<BaseBrandIcon brand="fsd" href="#" />
-					<!-- radi i bez propsa -->
-					<!-- <BaseBrandIcon /> -->
+					<BaseBrandIcon
+						v-for="social in userInfo.socials"
+						:key="social"
+						:brand="social"
+						href="#"
+					/>
 				</div>
 			</BaseContainer>
 
@@ -176,13 +154,18 @@
 		<!-- Column 3 -->
 		<div class="h-full">
 			<BaseContainer fieldset label="Notifications">
-				<p class="mb-3 px-5 font-semibold">
+				<p
+					class="px-5 font-semibold"
+					:class="{ 'mb-3': userInfo.notifications.length > 0 }"
+				>
 					You have
 					<span
+						v-if="userInfo.notifications.length"
 						class="font-bold mx-1 text-amber-500 text-base transition p-2 bg-amber-100 w-9 h-9 inline-grid rounded-full place-content-center"
 					>
 						{{ userInfo.notifications.length }}
 					</span>
+					<span v-else class="font-bold">no</span>
 					new notifications
 				</p>
 				<ul class="space-y-2">
@@ -206,6 +189,7 @@ import BaseContainer from 'UI/BaseContainer.vue';
 import BaseButton from 'UI/BaseButton.vue';
 import IconLocation from 'icons/IconLocation.vue';
 import IconEdit from 'icons/IconEdit.vue';
+import IconChat from 'icons/IconChat.vue';
 import IconCalendar from 'icons/IconCalendar.vue';
 import IconCake from 'icons/IconCake.vue';
 import IconAcademicHat from 'icons/IconAcademicHat.vue';
@@ -220,6 +204,7 @@ export default {
 		BaseButton,
 		IconLocation,
 		IconEdit,
+		IconChat,
 		IconCalendar,
 		IconCake,
 		IconAcademicHat,
@@ -251,6 +236,10 @@ export default {
 			// }
 
 			return user;
+		},
+		isLoggedInUser() {
+			const currentLoggedInUser = this.$store.getters.currentUserId;
+			return currentLoggedInUser === this.userId;
 		},
 	},
 };
