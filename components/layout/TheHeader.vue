@@ -165,18 +165,27 @@ export default {
 	},
 	data() {
 		return {
-			notifications: [
-				'Matija gave you recognition',
-				'Zoki commented on your post',
-				'Patrik beat your streak',
-				'Lorena loves you and takes care of you',
-			],
+			// notifications: [
+			// 	'Matija gave you recognition',
+			// 	'Zoki commented on your post',
+			// 	'Patrik beat your streak',
+			// 	'Lorena loves you and takes care of you',
+			// ],
 		};
 	},
 	computed: {
 		...mapGetters(['currentUser']),
 		notifyCount() {
 			return this.notifications.length;
+		},
+		notifications() {
+			const userId = this.$store.getters.currentUserId;
+
+			const users = this.$store.getters['users/users'];
+
+			const user = users.find((u) => (u.username = userId));
+
+			return user.notifications || [];
 		},
 	},
 };

@@ -50,6 +50,7 @@ export const state = () => ({
 				'Zoki commented on your post',
 				'Patrik beat your streak',
 				'Lorena loves you and takes care of you',
+				'Matija endorsed your exceptional Vue skills',
 			],
 		},
 		{

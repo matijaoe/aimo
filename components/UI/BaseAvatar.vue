@@ -14,7 +14,7 @@ export default {
 	props: {
 		src: {
 			type: String,
-			default: './default-avatar.png',
+			default: '/default-avatar.png',
 		},
 		size: {
 			type: String,

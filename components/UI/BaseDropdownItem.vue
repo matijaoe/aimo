@@ -2,7 +2,7 @@
 	<li>
 		<nuxt-link
 			v-if="link"
-			class="px-3 py-2 hover:bg-gray-50 flex items-center gap-2"
+			class="px-3 py-2 hover:bg-gray-50 flex items-center justify-start gap-2"
 			:to="to"
 		>
 			<slot />
