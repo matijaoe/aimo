@@ -20,14 +20,14 @@
 					v-model="filterOption"
 					label="Default"
 					input-value="default"
-					:checked="true"
-				>
-				</FilterOption>
+					:checked="optionCheck === 'default'"
+				/>
 				<FilterOption
 					v-model="filterOption"
 					label="By Partner"
-					input-value="byPartner"
-				></FilterOption>
+					input-value="partners"
+					:checked="optionCheck === 'partners'"
+				/>
 			</div>
 		</BaseContainer>
 	</div>
@@ -46,7 +46,6 @@ export default {
 		FilterOption,
 		BaseButton,
 	},
-	emits: ['set-filter-key'],
 	data() {
 		return {
 			filterOption: 'default',
@@ -54,13 +53,11 @@ export default {
 		};
 	},
 	computed: {
-		random() {
-			return this.filterShow;
-		},
-	},
-	watch: {
-		filterOption(newValue) {
-			this.$emit('set-filter-key', newValue);
+		optionCheck() {
+			if (this.$route.path === '/todos') {
+				return 'default';
+			}
+			return 'partners';
 		},
 	},
 	methods: {

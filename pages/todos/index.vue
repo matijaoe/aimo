@@ -1,25 +1,27 @@
 <template>
-	<div>
-		<h1 class="text-5xl">Todos</h1>
-		<TodoFilter @set-filter-key="setFilterKey"></TodoFilter>
-		<TabsWrapper :filter-option="filterKey"></TabsWrapper>
+	<div class="flex flex-wrap">
+		<div class="w-full">
+			<TabsWrapper :tabs="tabs" />
+			<TodosWrapper :filter-option="filterOption" />
+		</div>
 	</div>
 </template>
 
 <script>
-import TodoFilter from '../../components/todos/TodoFilter';
-import TabsWrapper from '../../components/todos/TabsWrapper.vue';
+import TabsWrapper from '../../components/todos/TabsWrapper';
+import TodosWrapper from '../../components/todos/TodosWrapper';
 export default {
-	components: { TodoFilter, TabsWrapper },
+	components: { TabsWrapper, TodosWrapper },
 	data() {
 		return {
-			filterKey: 'default',
+			filterOption: 'default',
+			tabs: [
+				{
+					name: 'all',
+					link: '/todos',
+				},
+			],
 		};
-	},
-	methods: {
-		setFilterKey(key) {
-			this.filterKey = key;
-		},
 	},
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-	<BaseContainer class="my-2">
+	<BaseContainer class="my-2" @click.native="toggleDesc">
 		<header class="flex justify-between">
 			<h2 class="text-lg font-bold">
 				{{ title }}
@@ -15,18 +15,27 @@
 			</h2>
 			<BaseAvatar v-if="hasPartner" :src="partnerPictureUrl"></BaseAvatar>
 		</header>
-		<section>
+		<section v-if="showDesc">
 			<p>{{ desc }}</p>
+			<hr class="mt-4 border-coolGray-500" />
 		</section>
+		<footer class="flex justify-end">
+			<TodoOptions :todo-id="todoId"></TodoOptions>
+		</footer>
 	</BaseContainer>
 </template>
 
 <script>
 import BaseAvatar from 'UI/BaseAvatar.vue';
 import BaseContainer from '../UI/BaseContainer';
+import TodoOptions from './TodoOptions.vue';
 export default {
-	components: { BaseContainer, BaseAvatar },
+	components: { BaseContainer, BaseAvatar, TodoOptions },
 	props: {
+		todoId: {
+			type: String,
+			required: true,
+		},
 		title: {
 			type: String,
 			required: true,
@@ -46,6 +55,7 @@ export default {
 		return {
 			partnerPictureUrl: null,
 			partnerFullName: null,
+			showDesc: false,
 		};
 	},
 	computed: {
@@ -61,6 +71,11 @@ export default {
 			this.partnerPictureUrl = photo;
 			this.partnerFullName = `${fname} ${lname}`;
 		}
+	},
+	methods: {
+		toggleDesc() {
+			this.showDesc = !this.showDesc;
+		},
 	},
 };
 </script>
