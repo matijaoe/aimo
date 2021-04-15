@@ -1,20 +1,7 @@
 <template>
 	<div class="my-4">
-		<BaseButton v-if="!filterShow" mode="fill" @click="toggleShowFilter">
-			Filters
-		</BaseButton>
-
-		<BaseContainer
-			v-else
-			class="flex-col items-center justify-center md:justify-start px-2 md:px-4 py-2 space-x-4 text-base rounded-lg bg-gray-100"
-		>
-			<header class="flex justify-between">
-				<h2>Todo Filter</h2>
-				<BaseButton @click="toggleShowFilter">
-					<IconExit class="text-black hover:cursor-pointer" />
-				</BaseButton>
-			</header>
-			<div class="flex py-2">
+		<BaseContainer class="p-2 text-base bg-gray-100">
+			<div class="flex gap-2 py-1 px-2">
 				<FilterOption
 					v-model="filterOption"
 					label="Default"
@@ -23,10 +10,13 @@
 				/>
 				<FilterOption
 					v-model="filterOption"
-					label="By Partner"
+					label="Per Partner"
 					input-value="partners"
 					:checked="optionCheck === 'partners'"
 				/>
+				<!-- <BaseButton class="ml-auto p-1" @click="toggleShowFilter">
+					<IconExit class="text-black hover:cursor-pointer" />
+				</BaseButton> -->
 			</div>
 		</BaseContainer>
 	</div>
@@ -34,16 +24,14 @@
 
 <script>
 import BaseContainer from 'UI/BaseContainer.vue';
-import BaseButton from 'UI/BaseButton.vue';
-import IconExit from 'icons/IconExit';
+// import BaseButton from 'UI/BaseButton.vue';
+// import IconExit from 'icons/IconExit';
 import FilterOption from './FilterOption.vue';
 
 export default {
 	components: {
-		IconExit,
 		BaseContainer,
 		FilterOption,
-		BaseButton,
 	},
 	data() {
 		return {

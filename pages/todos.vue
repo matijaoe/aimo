@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import TodoFilter from '../components/todos/TodoFilter';
+import TodoFilter from '@/components/todos/TodoFilter';
 export default {
 	components: { TodoFilter },
 	data() {

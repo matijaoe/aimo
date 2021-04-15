@@ -1,16 +1,18 @@
 <template>
-	<div class="flex justify-center items-center py-0.5 px-2">
+	<label
+		class="flex justify-center gap-2 items-center py-2 px-4 hover:bg-gray-200 transition rounded-lg cursor-pointer"
+	>
 		<input
 			:id="inputValue"
 			type="radio"
 			:value="inputValue"
 			:checked="checked"
 			name="todoFilter"
-			class="mr-1"
+			class="cursor-pointer"
 			@input="changeRoute"
 		/>
-		<label :for="inputValue">{{ label }}</label>
-	</div>
+		{{ label }}
+	</label>
 </template>
 
 <script>

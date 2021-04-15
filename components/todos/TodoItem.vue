@@ -1,5 +1,5 @@
 <template>
-	<BaseContainer class="my-2" @click.native="toggleDesc">
+	<BaseContainer @click.native="toggleDesc">
 		<header class="flex justify-between">
 			<h2 class="text-lg font-bold">
 				{{ title }}

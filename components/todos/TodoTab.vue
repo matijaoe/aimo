@@ -1,12 +1,12 @@
 <template>
-	<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+	<li>
 		<BaseContainer
 			class="border-amber-300 flex justify-center p-0"
 			:class="tabStyle"
 		>
 			<!-- todo use BaseButton -->
 			<button
-				class="w-full p-3 font-semibold focus:outline-none"
+				class="w-full py-3 px-6 font-semibold focus:outline-none"
 				@click="changeRoute"
 			>
 				{{ label }}

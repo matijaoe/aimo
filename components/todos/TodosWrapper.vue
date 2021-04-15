@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="mt-4 flex flex-col gap-2">
 		<TodoItem
 			v-for="todo in filteredTodos"
 			:key="todo.id"

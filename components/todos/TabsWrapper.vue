@@ -1,5 +1,6 @@
 <template>
-	<ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
+	<!-- todo style scrollbar -->
+	<ul class="flex flex-items-center gap-2 overflow-x-auto">
 		<TodoTab
 			v-for="tab in tabs"
 			:key="tab.name"
