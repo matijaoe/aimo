@@ -1,17 +1,25 @@
 <template>
 	<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-		<a
-			class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal hover:cursor-pointer transition duration-300 ease-in-out"
+		<BaseContainer
+			class="border-amber-300 flex justify-center p-0"
 			:class="tabStyle"
-			@click="changeRoute"
 		>
-			{{ label }}
-		</a>
+			<!-- todo use BaseButton -->
+			<button
+				class="w-full p-3 font-semibold focus:outline-none"
+				@click="changeRoute"
+			>
+				{{ label }}
+			</button>
+		</BaseContainer>
 	</li>
 </template>
 
 <script>
+import BaseContainer from 'UI/BaseContainer.vue';
+
 export default {
+	components: { BaseContainer },
 	props: {
 		label: {
 			type: String,
@@ -26,8 +34,8 @@ export default {
 	computed: {
 		tabStyle() {
 			return this.$route.path === this.link
-				? 'text-white bg-amber-400'
-				: 'text-amber-300 bg-white';
+				? 'text-amber-900 bg-amber-300'
+				: 'text-amber-400 bg-transparent';
 		},
 	},
 	methods: {

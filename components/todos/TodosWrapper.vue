@@ -7,7 +7,7 @@
 			:title="todo.title"
 			:partner="todo.partner"
 			:desc="todo.desc"
-		></TodoItem>
+		/>
 	</div>
 </template>
 

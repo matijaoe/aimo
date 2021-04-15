@@ -3,33 +3,34 @@
 		<header class="flex justify-between">
 			<h2 class="text-lg font-bold">
 				{{ title }}
-				<span v-if="hasPartner"
-					>/w
+				<span v-if="hasPartner">
 					<NuxtLink
 						:to="`user/${partner}`"
 						class="text-amber-300 hover:text-amber-400"
 					>
-						{{ partnerFullName }}</NuxtLink
-					>
+						{{ partnerFullName }}
+					</NuxtLink>
 				</span>
 			</h2>
-			<!-- <BaseAvatar v-if="hasPartner" :src="partnerPictureUrl"></BaseAvatar> -->
-			<BaseAvatar v-if="hasPartner"></BaseAvatar>
+			<BaseAvatar v-if="hasPartner" :src="partnerPictureUrl" />
 		</header>
+
 		<section v-if="showDesc">
 			<p>{{ desc }}</p>
 			<hr class="mt-4 border-coolGray-500" />
 		</section>
+
 		<footer class="flex justify-end">
-			<TodoOptions :todo-id="todoId"></TodoOptions>
+			<TodoOptions :todo-id="todoId" />
 		</footer>
 	</BaseContainer>
 </template>
 
 <script>
 import BaseAvatar from 'UI/BaseAvatar.vue';
-import BaseContainer from '../UI/BaseContainer';
+import BaseContainer from 'UI/BaseContainer';
 import TodoOptions from './TodoOptions.vue';
+
 export default {
 	components: { BaseContainer, BaseAvatar, TodoOptions },
 	props: {
@@ -69,8 +70,6 @@ export default {
 			const { photo, fname, lname } = this.$store.getters[
 				'users/users'
 			].find((user) => user.username === this.partner);
-			console.log('PHOTOOOO 🍕🍕🍕🍕');
-			console.log(photo);
 			this.partnerPictureUrl = photo;
 			this.partnerFullName = `${fname} ${lname}`;
 		}

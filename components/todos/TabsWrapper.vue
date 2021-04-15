@@ -5,12 +5,13 @@
 			:key="tab.name"
 			:label="tab.name"
 			:link="tab.link"
-		></TodoTab>
+		/>
 	</ul>
 </template>
 
 <script>
 import TodoTab from './TodoTab';
+
 export default {
 	components: { TodoTab },
 	props: {

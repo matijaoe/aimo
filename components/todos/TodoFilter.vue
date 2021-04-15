@@ -3,6 +3,7 @@
 		<BaseButton v-if="!filterShow" mode="fill" @click="toggleShowFilter">
 			Filters
 		</BaseButton>
+
 		<BaseContainer
 			v-else
 			class="flex-col items-center justify-center md:justify-start px-2 md:px-4 py-2 space-x-4 text-base rounded-lg bg-gray-100"
@@ -10,9 +11,7 @@
 			<header class="flex justify-between">
 				<h2>Todo Filter</h2>
 				<BaseButton @click="toggleShowFilter">
-					<IconExit
-						class="text-black hover:cursor-pointer"
-					></IconExit>
+					<IconExit class="text-black hover:cursor-pointer" />
 				</BaseButton>
 			</header>
 			<div class="flex py-2">
@@ -36,7 +35,7 @@
 <script>
 import BaseContainer from 'UI/BaseContainer.vue';
 import BaseButton from 'UI/BaseButton.vue';
-import IconExit from '../app_icons/IconExit';
+import IconExit from 'icons/IconExit';
 import FilterOption from './FilterOption.vue';
 
 export default {
