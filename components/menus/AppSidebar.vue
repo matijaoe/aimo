@@ -1,6 +1,6 @@
 <template>
 	<aside
-		class="fixed hidden sm:flex flex-col flex-shrink-0 h-screen col-span-2 px-2 md:px-8 lg:px-6 pt-8 pb-10 border-r-2 bg-gray-50 border-gray-200 font-medium"
+		class="fixed flex-col flex-shrink-0 h-screen col-span-2 px-2 lg:px-6 pt-5 lg:pt-10 pb-10 border-r-2 bg-gray-50 border-gray-200 font-medium"
 	>
 		<SidebarLogo />
 		<SidebarNav />

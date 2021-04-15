@@ -1,8 +1,9 @@
 <template>
-	<header class="flex space-between gap-8">
+	<header class="flex gap-8">
 		<!-- Searchbar -->
+		<!-- todo responsivness -->
 		<label
-			class="flex items-center sm:flex-1 pl-3 text-sm sm:border-2 rounded-full border-transparent focus-within:ring-0 focus-within:border-gray-100"
+			class="flex items-center sm:flex-1 pr-3 sm:pr-0 pl-3 text-sm sm:border-2 rounded-full border-transparent focus-within:ring-0 focus-within:border-gray-100"
 		>
 			<BaseButton
 				v-tooltip.bottom="'Search'"
@@ -18,111 +19,125 @@
 				type="search"
 				name=""
 				placeholder="Search anything"
-				class="hidden sm:block bg-transparent h-full focus:outline-none rounded-full px-4 focus:ring-0 flex-1"
+				class="hidden sm:block bg-transparent h-full focus:outline-none rounded-full px-4 focus:ring-0 flex-1 font-medium"
 			/>
 		</label>
-		<div class="flex items-center space-x-4 sm:space-x-8 ml-auto">
-			<!-- Notifications dropdown-->
-			<BaseDropdown>
-				<template slot="toggler">
-					<BaseButton
-						v-tooltip.bottom="
-							`You have ${notifyCount || 'no'} new notifications`
-						"
-						mode="bland"
-						class="group"
-					>
-						<div class="p-1 relative">
-							<IconBell
-								class="opacity-75 group-hover:opacity-100"
-							/>
-							<p
-								class="absolute top-0 right-0 text-[11px] bg-amber-400 rounded-full flex items-center w-[16px] h-[16px]"
-							>
-								<span class="flex-1">{{ notifyCount }}</span>
-							</p>
-						</div>
-					</BaseButton>
-				</template>
-				<BaseDropdownContent class="w-[300px] text-center">
-					<BaseDropdownList>
-						<BaseDropdownItem class="font-semibold">
-							You have
-							<span
-								class="font-bold text-lg mx-1 hover:text-amber-400 transition"
-							>
-								{{ notifyCount }}
-							</span>
-							new notifications
-						</BaseDropdownItem>
-					</BaseDropdownList>
-					<BaseDropdownList>
-						<BaseDropdownItem
-							v-for="notification in notifications"
-							:key="notification"
-							link
+		<div class="flex justify-end flex-1">
+			<div class="flex items-center space-x-4 sm:space-x-8">
+				<!-- Notifications dropdown-->
+				<BaseDropdown>
+					<template slot="toggler">
+						<BaseButton
+							v-tooltip.bottom="
+								`You have ${
+									notifyCount || 'no'
+								} new notification${
+									notifyCount === 1 ? '' : 's'
+								}`
+							"
+							mode="bland"
+							class="group"
 						>
-							{{ notification }}
-						</BaseDropdownItem>
-					</BaseDropdownList>
-				</BaseDropdownContent>
-			</BaseDropdown>
+							<div class="p-1 relative">
+								<IconBell
+									class="opacity-75 group-hover:opacity-100"
+								/>
+								<p
+									v-if="notifyCount"
+									class="absolute top-0 right-0 text-[11px] bg-amber-400 rounded-full flex items-center w-[16px] h-[16px]"
+								>
+									<span class="flex-1">{{
+										notifyCount
+									}}</span>
+								</p>
+							</div>
+						</BaseButton>
+					</template>
+					<BaseDropdownContent
+						v-if="notifyCount"
+						class="w-[300px] text-center"
+					>
+						<BaseDropdownList>
+							<BaseDropdownItem class="font-semibold">
+								You have
+								<span
+									class="font-bold text-lg mx-1 hover:text-amber-400 transition"
+								>
+									{{ notifyCount || 'no' }}
+								</span>
+								new notification{{
+									notifyCount === 1 ? '' : 's'
+								}}
+							</BaseDropdownItem>
+						</BaseDropdownList>
+						<BaseDropdownList>
+							<BaseDropdownItem
+								v-for="notification in currentUser.notifications"
+								:key="notification"
+								link
+							>
+								{{ notification }}
+							</BaseDropdownItem>
+						</BaseDropdownList>
+					</BaseDropdownContent>
+				</BaseDropdown>
 
-			<!-- Profile dropdown-->
-			<BaseDropdown>
-				<template slot="toggler">
-					<button
-						class="focus:outline-none rounded-full focus-within:ring-2 ring-amber-200 ring-offset-2 block group"
-					>
-						<div
-							v-tooltip.bottom="'Your profile'"
-							class="flex items-center space-x-3"
+				<!-- Profile dropdown-->
+				<BaseDropdown>
+					<template slot="toggler">
+						<button
+							class="focus:outline-none rounded-full focus-within:ring-2 ring-amber-200 ring-offset-2 block group"
 						>
-							<IconChevronDown
-								class="opacity-75 group-hover:opacity-100"
-							/>
-							<BaseAvatar :src="currentUser.photo" />
-						</div>
-					</button>
-				</template>
-				<BaseDropdownContent>
-					<BaseDropdownList>
-						<BaseDropdownItem>
-							<nuxt-link
+							<div
+								v-tooltip.bottom="'Your profile'"
+								class="flex items-center space-x-3"
+							>
+								<IconChevronDown
+									class="opacity-75 group-hover:opacity-100"
+								/>
+								<BaseAvatar :src="currentUser.photo" />
+							</div>
+						</button>
+					</template>
+					<BaseDropdownContent>
+						<BaseDropdownList>
+							<BaseDropdownItem>
+								<nuxt-link
+									:to="`/user/${$store.getters.currentUserId}`"
+								>
+									Signed in as
+									<span
+										class="font-bold hover:text-amber-400 transition"
+									>
+										{{ currentUser.username }}
+									</span>
+								</nuxt-link>
+							</BaseDropdownItem>
+						</BaseDropdownList>
+
+						<BaseDropdownList>
+							<BaseDropdownItem
+								link
 								:to="`/user/${$store.getters.currentUserId}`"
 							>
-								Signed in as
-								<span
-									class="font-bold hover:text-amber-400 transition"
-								>
-									{{ currentUser.username }}
-								</span>
-							</nuxt-link>
-						</BaseDropdownItem>
-					</BaseDropdownList>
+								<IconUser size="sm" />
+								<span>My profile</span>
+							</BaseDropdownItem>
+							<BaseDropdownItem link to="/todos">
+								<IconClipboardList size="sm" />
+								<span>My todos</span>
+							</BaseDropdownItem>
+						</BaseDropdownList>
 
-					<BaseDropdownList>
-						<BaseDropdownItem
-							link
-							:to="`/user/${$store.getters.currentUserId}`"
-						>
-							<IconUser size="sm" />
-							<span>My profile</span>
-						</BaseDropdownItem>
-						<BaseDropdownItem link to="/todos">
-							<IconClipboardList size="sm" />
-							<span>My todos</span>
-						</BaseDropdownItem>
-					</BaseDropdownList>
-
-					<BaseDropdownList>
-						<BaseDropdownItem link to="/home">
-							<IconLogout size="sm" />
-							<span>Log out</span>
-						</BaseDropdownItem>
-					</BaseDropdownList>
-				</BaseDropdownContent>
-			</BaseDropdown>
+						<BaseDropdownList>
+							<BaseDropdownItem link to="/home">
+								<IconLogout size="sm" />
+								<span>Log out</span>
+							</BaseDropdownItem>
+						</BaseDropdownList>
+					</BaseDropdownContent>
+				</BaseDropdown>
+			</div>
 		</div>
 	</header>
 </template>
@@ -163,29 +178,10 @@ export default {
 	directives: {
 		clickOutside: vClickOutside.directive,
 	},
-	data() {
-		return {
-			// notifications: [
-			// 	'Matija gave you recognition',
-			// 	'Zoki commented on your post',
-			// 	'Patrik beat your streak',
-			// 	'Lorena loves you and takes care of you',
-			// ],
-		};
-	},
 	computed: {
 		...mapGetters(['currentUser']),
 		notifyCount() {
-			return this.notifications.length;
-		},
-		notifications() {
-			const userId = this.$store.getters.currentUserId;
-
-			const users = this.$store.getters['users/users'];
-
-			const user = users.find((u) => (u.username = userId));
-
-			return user.notifications || [];
+			return this.currentUser.notifications?.length || 0;
 		},
 	},
 };

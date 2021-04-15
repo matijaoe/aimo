@@ -52,11 +52,13 @@
 			</SidebarNavLink>
 			<SidebarNavLink
 				to="/plans"
-				class="text-base hidden sm:block"
+				class="text-base"
 				tooltip="Switch to Premium"
 			>
 				<div class="flex flex-col">
-					<span class="text-gray-400 text-xs uppercase">
+					<span
+						class="text-gray-400 text-xs uppercase hidden lg:block"
+					>
 						Your plan
 					</span>
 					<span>Free</span>
