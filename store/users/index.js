@@ -18,34 +18,34 @@ export const state = () => ({
 			isPrivate: false,
 			isPremium: false,
 			// ili todos array koji pa ima key koji oznacuje kojoj listi priprada
-			lists: [
-				{
-					id: '',
-					timestamp: '',
-					name: '',
-					partner: '',
-					todos: {
-						id: '',
-						title: '',
-						desc: '', // optional
-						urgency: '',
-						categories: [{ id: '', name: '' }],
-						isDaily: false,
-						timestamp: null,
-						approved: false,
-					},
-					likes: [{ user: '' }],
-					comments: [
-						{
-							id: '',
-							timestamp: '',
-							user: '',
-							content: '',
-							likes: [{ user: '' }],
-						},
-					],
-				},
-			],
+			// lists: [
+			// 	{
+			// 		id: '',
+			// 		timestamp: '',
+			// 		name: '',
+			// 		partner: '',
+			// 		todos: {
+			// 			id: '',
+			// 			title: '',
+			// 			desc: '', // optional
+			// 			urgency: '',
+			// 			categories: [{ id: '', name: '' }],
+			// 			isDaily: false,
+			// 			timestamp: null,
+			// 			approved: false,
+			// 		},
+			// 		likes: [{ user: '' }],
+			// 		comments: [
+			// 			{
+			// 				id: '',
+			// 				timestamp: '',
+			// 				user: '',
+			// 				content: '',
+			// 				likes: [{ user: '' }],
+			// 			},
+			// 		],
+			// 	},
+			// ],
 			notifications: [
 				'Matija gave you recognition',
 				'Zoki commented on your post',
@@ -72,7 +72,7 @@ export const state = () => ({
 				'https://pbs.twimg.com/profile_images/669103856106668033/UF3cgUk4_400x400.jpg',
 			bio: 'Different strokes for different folkes 🍭',
 			country: 'Croatia',
-			joined_on: 'March, 2021', // timestamp kad je kreirao account
+			joined_on: 'March, 2021',
 			coins: 211,
 			occupation: 'Web Dev',
 			// categories: [{ id: '', name: '' }],
@@ -112,7 +112,7 @@ export const state = () => ({
 				'https://pbs.twimg.com/profile_images/988775660163252226/XpgonN0X.jpg',
 			bio: 'Mi culo está en fuego',
 			country: 'Spain',
-			joined_on: 'January, 2021', // timestamp kad je kreirao account
+			joined_on: 'January, 2021',
 			coins: 453,
 			occupation: 'Musician',
 			// categories: [{ id: '', name: '' }],
@@ -140,7 +140,7 @@ export const state = () => ({
 				'https://pbs.twimg.com/profile_images/712382030064062465/HoG1N4E0_400x400.jpg',
 			bio: 'Bio i ošo',
 			country: 'Nigeria',
-			joined_on: 'October, 2020', // timestamp kad je kreirao account
+			joined_on: 'October, 2020',
 			coins: 45,
 			occupation: 'Farm owner',
 			// categories: [{ id: '', name: '' }],
@@ -168,7 +168,7 @@ export const state = () => ({
 				'https://www.dalia-partyshop.hr/sites/default/files/styles/large/public/2018-04/Vatrogasac%20Vjeko_0.jpg',
 			bio: '🐀🐀🐀🐀🐀',
 			country: 'Kosovo',
-			joined_on: 'April, 2021', // timestamp kad je kreirao account
+			joined_on: 'April, 2021',
 			coins: 6,
 			occupation: 'Unemployed',
 			// categories: [{ id: '', name: '' }],
@@ -189,7 +189,7 @@ export const state = () => ({
 			bio:
 				"I still work hard to know my business. I'm continuously looking for ways to improve all my companies, and I'm always selling. Always.",
 			country: 'USA',
-			joined_on: 'April, 2021', // timestamp kad je kreirao account
+			joined_on: 'April, 2021',
 			coins: 695,
 			occupation: 'Investor',
 			// categories: [{ id: '', name: '' }],
@@ -222,7 +222,7 @@ export const state = () => ({
 			bio:
 				'Duct tape is like the force. It has a light side, and it holds the world together.',
 			country: 'Montenegro',
-			joined_on: 'January, 2021', // timestamp kad je kreirao account
+			joined_on: 'January, 2021',
 			coins: 156,
 			occupation: 'Cashier',
 			// categories: [{ id: '', name: '' }],
@@ -260,6 +260,7 @@ export const getters = {
 
 export const actions = {
 	getUserById(context, id) {
+		console.log('ID --- ', id);
 		const user = context.getters.users.find((u) => u.username === id);
 		return user;
 	},

@@ -9,7 +9,11 @@
 						<div
 							class="p-1 border-[4px] border-amber-400 rounded-full mb-2"
 						>
-							<BaseAvatar size="xxl" :src="userInfo.photo" />
+							<BaseAvatar
+								size="xxl"
+								:src="userInfo.photo"
+								no-ring
+							/>
 						</div>
 						<div
 							class="flex flex-col justify-center items-center gap-4"
@@ -75,17 +79,6 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div
-					class="grid grid-cols-2 gap-4 mx-2 text-sm place-items-center"
-				>
-					<div
-						v-tooltip.bottom="'Coins'"
-						class="flex items-center gap-1"
-					>
-						<IconDollar size="sm" class="text-amber-400" />
-						<span>450</span>
-					</div>
-				</div> -->
 				</div>
 			</BaseContainer>
 			<BaseContainer
@@ -140,11 +133,22 @@
 			</BaseContainer>
 
 			<BaseContainer fieldset label="Partners">
-				<div class="grid grid-cols-7 gap-2">
-					<div v-for="n in 7" :key="n">
-						<BaseAvatar />
+				<div v-if="partners.length" class="grid grid-cols-7 gap-2">
+					<div v-for="partner in partners" :key="partner.username">
+						<!-- todo 
+							- veci popup sa linkom na profil ili na partnership
+							- mozda extra info o partneru
+						-->
+						<nuxt-link
+							v-tooltip.bottom="`@${partner.username}`"
+							class="inline-block"
+							:to="`/user/${partner.username}`"
+						>
+							<BaseAvatar :src="partner.photo" />
+						</nuxt-link>
 					</div>
 				</div>
+				<div v-else>{{ userInfo.fname }} has no partners ...</div>
 			</BaseContainer>
 			<BaseContainer fieldset label="Bio">
 				<p>{{ userInfo.bio }}</p>
@@ -155,18 +159,18 @@
 		<div class="h-full">
 			<BaseContainer fieldset label="Notifications">
 				<p
-					class="px-5 font-semibold"
-					:class="{ 'mb-3': userInfo.notifications.length > 0 }"
+					class="px-5 font-medium"
+					:class="{ 'mb-3': notifyCount > 0 }"
 				>
 					You have
 					<span
-						v-if="userInfo.notifications.length"
+						v-if="notifyCount"
 						class="font-bold mx-1 text-amber-500 text-base transition p-2 bg-amber-100 w-9 h-9 inline-grid rounded-full place-content-center"
 					>
-						{{ userInfo.notifications.length }}
+						{{ notifyCount }}
 					</span>
-					<span v-else class="font-bold">no</span>
-					new notifications
+					<span v-else>no</span>
+					new notification{{ notifyCount === 1 ? '' : 's' }}
 				</p>
 				<ul class="space-y-2">
 					<li
@@ -217,6 +221,7 @@ export default {
 	},
 	computed: {
 		...mapGetters('users', ['users']),
+		...mapGetters('partners', ['partnerships']),
 		userInfo() {
 			// if (!this.userId) {
 			// 	this.$router.push({
@@ -237,9 +242,30 @@ export default {
 
 			return user;
 		},
+		notifyCount() {
+			return this.userInfo.notifications?.length || 0;
+		},
 		isLoggedInUser() {
 			const currentLoggedInUser = this.$store.getters.currentUserId;
 			return currentLoggedInUser === this.userId;
+		},
+		partners() {
+			const partnerships = this.partnerships;
+			const userPartners = [];
+
+			for (const partnership of partnerships) {
+				if (partnership.partners.includes(this.userId)) {
+					const partnerId = partnership.partners.find(
+						(p) => p !== this.userId
+					);
+					const partner = this.users.find(
+						(user) => user.username === partnerId
+					);
+					userPartners.push(partner);
+				}
+			}
+
+			return userPartners;
 		},
 	},
 };

@@ -1,5 +1,5 @@
 export const state = () => ({
-	userId: 'marian7',
+	userId: 'matijao',
 });
 
 export const getters = {
@@ -7,6 +7,7 @@ export const getters = {
 		return state.userId;
 	},
 	currentUser(state, getters) {
+		// tu cemo moc direkt iz firestora dohvatit naseg usera
 		const allUsers = getters['users/users'];
 		const currentUser = allUsers.find(
 			(user) => user.username === getters.currentUserId
