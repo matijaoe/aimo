@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import TodoDetails from '../../components/todo/TodoDetails';
+import TodoDetails from '@/components/todo/TodoDetails';
 export default {
 	components: { TodoDetails },
 	data() {

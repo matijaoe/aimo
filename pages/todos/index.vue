@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import TabsWrapper from '../../components/todos/TabsWrapper';
-import TodosWrapper from '../../components/todos/TodosWrapper';
+import TabsWrapper from 'todos/TabsWrapper';
+import TodosWrapper from 'todos/TodosWrapper';
 export default {
 	components: { TabsWrapper, TodosWrapper },
 	data() {

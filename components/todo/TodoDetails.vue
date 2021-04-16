@@ -9,6 +9,7 @@
 <script>
 import TodoPartnerCard from './TodoPartnerCard';
 import TodoInfoCard from './TodoInfoCard';
+
 export default {
 	components: { TodoInfoCard, TodoPartnerCard },
 	props: {

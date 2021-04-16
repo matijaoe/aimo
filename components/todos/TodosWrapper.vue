@@ -13,6 +13,7 @@
 
 <script>
 import TodoItem from './TodoItem.vue';
+
 export default {
 	components: { TodoItem },
 	props: {

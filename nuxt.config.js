@@ -80,6 +80,8 @@ export default {
 		logo: resolve(__dirname, './components/logo'),
 		layout: resolve(__dirname, './components/layout'),
 		menus: resolve(__dirname, './components/menus'),
+		profile: resolve(__dirname, './components/user_profile'),
+		todos: resolve(__dirname, './components/todos'),
 	},
 
 	pageTransition: 'fade-in-right',

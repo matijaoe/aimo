@@ -1,27 +1,7 @@
 <template>
 	<header class="flex gap-8">
-		<!-- Searchbar -->
-		<!-- todo responsivness -->
-		<label
-			class="flex items-center sm:flex-1 pr-3 sm:pr-0 pl-3 text-sm sm:border-2 rounded-full border-transparent focus-within:ring-0 focus-within:border-gray-100"
-		>
-			<BaseButton
-				v-tooltip.bottom="'Search'"
-				mode="bland"
-				class="bg-amber-100"
-			>
-				<div class="p-1">
-					<IconSearch class="text-amber-400" />
-				</div>
-			</BaseButton>
-			<input
-				id=""
-				type="search"
-				name=""
-				placeholder="Search anything"
-				class="hidden sm:block bg-transparent h-full focus:outline-none rounded-full px-4 focus:ring-0 flex-1 font-medium"
-			/>
-		</label>
+		<HeaderSearchbar class="flex items-center sm:flex-1" />
+
 		<div class="flex justify-end flex-1">
 			<div class="flex items-center space-x-4 sm:space-x-8">
 				<!-- Notifications dropdown-->
@@ -145,7 +125,6 @@
 <script>
 import IconBell from 'icons/IconBell.vue';
 import IconChevronDown from 'icons/IconChevronDown.vue';
-import IconSearch from 'icons/IconSearch.vue';
 import IconUser from 'icons/IconUser.vue';
 import IconClipboardList from 'icons/IconClipboardList.vue';
 import IconLogout from 'icons/IconLogout.vue';
@@ -155,6 +134,7 @@ import BaseDropdown from 'UI/BaseDropdown.vue';
 import BaseDropdownContent from 'UI/BaseDropdownContent.vue';
 import BaseDropdownList from 'UI/BaseDropdownList.vue';
 import BaseDropdownItem from 'UI/BaseDropdownItem.vue';
+import HeaderSearchbar from 'layout/HeaderSearchbar.vue';
 
 import { mapGetters } from 'vuex';
 
@@ -170,10 +150,10 @@ export default {
 		BaseButton,
 		IconBell,
 		IconChevronDown,
-		IconSearch,
 		IconUser,
 		IconClipboardList,
 		IconLogout,
+		HeaderSearchbar,
 	},
 	directives: {
 		clickOutside: vClickOutside.directive,

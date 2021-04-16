@@ -1,7 +1,7 @@
 <template>
 	<li>
 		<BaseContainer
-			class="border-amber-300 flex justify-center p-0"
+			class="border-amber-400 flex justify-center p-0"
 			:class="tabStyle"
 		>
 			<!-- todo use BaseButton -->

@@ -76,6 +76,7 @@ button:hover::before {
 }
 
 .ghost {
+	@apply border-transparent;
 	@apply bg-gray-100;
 }
 

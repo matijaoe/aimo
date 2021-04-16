@@ -4,16 +4,17 @@
 			<NuxtLink
 				:to="partnerProfileLink"
 				class="text-amber-400 flex gap-5 items-center"
-				>{{ partnerFullName }}
-				<BaseAvatar :src="partner.photo" size="md" :no-ring="true" />
+			>
+				{{ partnerFullName }}
+				<BaseAvatar :src="partner.photo" no-ring />
 			</NuxtLink>
 		</header>
 	</BaseContainer>
 </template>
 
 <script>
-import BaseAvatar from '../UI/BaseAvatar';
-import BaseContainer from '../UI/BaseContainer';
+import BaseAvatar from 'UI/BaseAvatar';
+import BaseContainer from 'UI/BaseContainer';
 export default {
 	components: { BaseContainer, BaseAvatar },
 	props: {

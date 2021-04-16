@@ -6,6 +6,7 @@
 			<BaseButton mode="fill--color">fill--color</BaseButton>
 			<BaseButton mode="fill">fill</BaseButton>
 			<BaseButton mode="ghost">ghost</BaseButton>
+			<BaseButton>Regular</BaseButton>
 			<BaseButton mode="bland">bland</BaseButton>
 		</div>
 	</section>

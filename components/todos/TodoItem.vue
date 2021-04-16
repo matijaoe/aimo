@@ -12,7 +12,7 @@
 					</NuxtLink>
 				</span>
 			</h2>
-			<BaseAvatar v-if="hasPartner" :src="partnerPictureUrl" />
+			<BaseAvatar v-if="hasPartner" :src="partnerInfo.photo" />
 		</header>
 
 		<section v-if="showDesc">
@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import BaseAvatar from 'UI/BaseAvatar.vue';
 import BaseContainer from 'UI/BaseContainer';
 import TodoOptions from './TodoOptions.vue';
@@ -56,23 +58,20 @@ export default {
 	data() {
 		return {
 			partnerPictureUrl: null,
-			partnerFullName: null,
 			showDesc: false,
 		};
 	},
 	computed: {
+		...mapGetters('users', ['getUserById']),
 		hasPartner() {
 			return this.partner !== 'personal' && this.partner !== '';
 		},
-	},
-	created() {
-		if (this.hasPartner) {
-			const { photo, fname, lname } = this.$store.getters[
-				'users/users'
-			].find((user) => user.username === this.partner);
-			this.partnerPictureUrl = photo;
-			this.partnerFullName = `${fname} ${lname}`;
-		}
+		partnerFullName() {
+			return `${this.partnerInfo.fname} ${this.partnerInfo.lname}`;
+		},
+		partnerInfo() {
+			return this.getUserById(this.partner);
+		},
 	},
 	methods: {
 		toggleDesc() {
