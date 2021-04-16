@@ -5,7 +5,7 @@
 				:to="partnerProfileLink"
 				class="text-amber-400 flex gap-5 items-center"
 				>{{ partnerFullName }}
-				<BaseAvatar :src="partner.photo" size="md" no-ring="true" />
+				<BaseAvatar :src="partner.photo" size="md" :no-ring="true" />
 			</NuxtLink>
 		</header>
 	</BaseContainer>
