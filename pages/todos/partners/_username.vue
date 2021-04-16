@@ -6,9 +6,9 @@
 import TodosWrapper from '../../../components/todos/TodosWrapper.vue';
 export default {
 	components: { TodosWrapper },
-	// eslint-disable-next-line require-await
 	async asyncData({ params }) {
-		const username = params.username === 'personal' ? '' : params.username;
+		const username =
+			(await params.username) === 'personal' ? '' : params.username;
 		return { username };
 	},
 };

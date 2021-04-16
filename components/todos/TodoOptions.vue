@@ -1,6 +1,10 @@
 <template>
 	<div class="my-2 flex justify-between">
-		<NuxtLink to="/home" class="hover:text-blue-400" :class="optionStyle">
+		<NuxtLink
+			:to="`/todo/${todoId}`"
+			class="hover:text-blue-400"
+			:class="optionStyle"
+		>
 			<IconInfo />
 		</NuxtLink>
 		<NuxtLink to="/home" class="hover:text-amber-400" :class="optionStyle">

@@ -250,6 +250,9 @@ export const getters = {
 	users(state) {
 		return state.users || [];
 	},
+	getUserById: (state, getters) => (username) => {
+		return getters.users.find((user) => user.username === username);
+	},
 };
 
 // export const mutations = {
@@ -258,10 +261,4 @@ export const getters = {
 // 	},
 // };
 
-export const actions = {
-	getUserById(context, id) {
-		console.log('ID --- ', id);
-		const user = context.getters.users.find((u) => u.username === id);
-		return user;
-	},
-};
+export const actions = {};

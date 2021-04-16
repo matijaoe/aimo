@@ -5,7 +5,7 @@
 				{{ title }}
 				<span v-if="hasPartner">
 					<NuxtLink
-						:to="`user/${partner}`"
+						:to="`/user/${partner}`"
 						class="text-amber-300 hover:text-amber-400"
 					>
 						{{ partnerFullName }}

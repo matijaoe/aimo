@@ -8,8 +8,8 @@ export const state = () => ({
 			desc: 'Programiramo cijele dane ko muhe bez glave', // optional
 			urgency: '',
 			categories: [{ id: '', name: '' }],
-			isDaily: false,
-			timestamp: null,
+			isDaily: true,
+			timestamp: new Date(2021, 4, 12),
 			approved: false,
 			likes: [],
 			comments: [],
@@ -85,5 +85,8 @@ export const state = () => ({
 export const getters = {
 	allTodos(state) {
 		return state.todos;
+	},
+	getTodoById: (state, getters) => (id) => {
+		return getters.allTodos.find((todo) => todo.id === id);
 	},
 };
