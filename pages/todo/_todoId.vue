@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<h1>Lol {{ todo.id }}</h1>
 		<TodoDetails :todo="todo" :partner="partner" />
 	</div>
 </template>
