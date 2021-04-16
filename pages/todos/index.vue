@@ -18,10 +18,20 @@ export default {
 			tabs: [
 				{
 					name: 'all',
-					link: '/todos',
+					link: '/todos?filter=all',
+				},
+				{
+					name: 'favorites',
+					link: '/todos?filter=favorites',
 				},
 			],
 		};
+	},
+	created() {
+		if (this.$route.query.filter) {
+			return;
+		}
+		this.$router.replace('/todos?filter=all');
 	},
 };
 </script>

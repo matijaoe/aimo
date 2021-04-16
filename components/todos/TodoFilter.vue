@@ -14,9 +14,6 @@
 					input-value="partners"
 					:checked="optionCheck === 'partners'"
 				/>
-				<!-- <BaseButton class="ml-auto p-1" @click="toggleShowFilter">
-					<IconExit class="text-black hover:cursor-pointer" />
-				</BaseButton> -->
 			</div>
 		</BaseContainer>
 	</div>
@@ -24,8 +21,6 @@
 
 <script>
 import BaseContainer from 'UI/BaseContainer.vue';
-// import BaseButton from 'UI/BaseButton.vue';
-// import IconExit from 'icons/IconExit';
 import FilterOption from './FilterOption.vue';
 
 export default {
@@ -36,7 +31,6 @@ export default {
 	data() {
 		return {
 			filterOption: 'default',
-			filterShow: false,
 		};
 	},
 	computed: {
@@ -45,11 +39,6 @@ export default {
 				return 'default';
 			}
 			return 'partners';
-		},
-	},
-	methods: {
-		toggleShowFilter() {
-			this.filterShow = !this.filterShow;
 		},
 	},
 };

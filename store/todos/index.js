@@ -11,6 +11,7 @@ export const state = () => ({
 			isDaily: true,
 			timestamp: new Date(2021, 4, 12),
 			approved: false,
+			favorite: true,
 			likes: [],
 			comments: [],
 		},
@@ -24,6 +25,7 @@ export const state = () => ({
 			isDaily: false,
 			timestamp: new Date(2021, 5, 11),
 			approved: false,
+			favorite: true,
 			likes: [],
 			comments: [],
 		},
@@ -37,6 +39,7 @@ export const state = () => ({
 			isDaily: false,
 			timestamp: new Date(2021, 3, 22),
 			approved: false,
+			favorite: false,
 			likes: [],
 			comments: [],
 		},
@@ -50,6 +53,7 @@ export const state = () => ({
 			isDaily: false,
 			timestamp: new Date(2021, 3, 30),
 			approved: false,
+			favorite: false,
 			likes: [],
 			comments: [],
 		},
@@ -63,6 +67,7 @@ export const state = () => ({
 			isDaily: false,
 			timestamp: new Date(2021, 4, 7),
 			approved: false,
+			favorite: false,
 			likes: [],
 			comments: [],
 		},
@@ -76,6 +81,7 @@ export const state = () => ({
 			isDaily: true,
 			timestamp: new Date(2021, 4, 25),
 			approved: false,
+			favorite: false,
 			likes: [],
 			comments: [],
 		},
@@ -88,5 +94,11 @@ export const getters = {
 	},
 	getTodoById: (state, getters) => (id) => {
 		return getters.allTodos.find((todo) => todo.id === id);
+	},
+	getFavoriteTodos(state, getters) {
+		return getters.allTodos.filter((todo) => todo.favorite);
+	},
+	getTodosByPartner: (state, getters) => (username) => {
+		return getters.allTodos.filter((todo) => todo.partner === username);
 	},
 };
