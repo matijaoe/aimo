@@ -30,7 +30,7 @@ export default {
 	},
 	computed: {
 		tabStyle() {
-			return this.$route.path === this.link
+			return this.$route.fullPath === this.link
 				? 'text-amber-500 border-amber-400'
 				: 'text-gray-300 bg-transparent';
 		},

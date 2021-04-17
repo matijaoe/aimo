@@ -1,4 +1,5 @@
 // Ovo nije prava struktura od todosa nego samo za mockup
+import { nanoid } from 'nanoid';
 export const state = () => ({
 	todos: [
 		{
@@ -10,8 +11,36 @@ export const state = () => ({
 			categories: [{ id: '', name: '' }],
 			isDaily: true,
 			timestamp: new Date(2021, 4, 12),
-			approved: false,
+			status: 'reviewed',
 			favorite: true,
+			interactions: [
+				{
+					id: nanoid(1000),
+					type: 'review',
+					date: new Date(2021, 3, 7, 18, 7),
+					info: 'Partner reviewed you engagement!',
+					score: '5', // opcionalno
+				},
+				{
+					id: nanoid(1000),
+					type: 'engagement',
+					date: new Date(2021, 3, 6, 7, 11),
+					info: 'You updated your engagement!',
+					photo: 'opt', // opcionalno
+				},
+				{
+					id: nanoid(1000),
+					type: 'approved',
+					date: new Date(2021, 3, 5, 11, 43),
+					info: 'Your partner agreed to do this todo with you!',
+				},
+				{
+					id: nanoid(1000),
+					type: 'created',
+					date: new Date(2021, 3, 4, 13, 34),
+					info: 'You started this todo!',
+				},
+			],
 			likes: [],
 			comments: [],
 		},
@@ -24,8 +53,22 @@ export const state = () => ({
 			categories: [{ id: '', name: '' }],
 			isDaily: false,
 			timestamp: new Date(2021, 5, 11),
-			approved: false,
+			status: 'approved',
 			favorite: true,
+			interactions: [
+				{
+					id: nanoid(1000),
+					type: 'approved',
+					date: new Date(2021, 2, 7, 12, 4),
+					info: 'Your partner agreed to do this todo with you!',
+				},
+				{
+					id: nanoid(1000),
+					type: 'created',
+					date: new Date(2021, 2, 4, 2, 22),
+					info: 'You started this todo!',
+				},
+			],
 			likes: [],
 			comments: [],
 		},
@@ -38,8 +81,16 @@ export const state = () => ({
 			categories: [{ id: '', name: '' }],
 			isDaily: false,
 			timestamp: new Date(2021, 3, 22),
-			approved: false,
+			status: 'created',
 			favorite: false,
+			interactions: [
+				{
+					id: nanoid(1000),
+					type: 'created',
+					date: new Date(2021, 3, 17, 18, 7),
+					info: 'You started this todo!',
+				},
+			],
 			likes: [],
 			comments: [],
 		},
@@ -52,8 +103,29 @@ export const state = () => ({
 			categories: [{ id: '', name: '' }],
 			isDaily: false,
 			timestamp: new Date(2021, 3, 30),
-			approved: false,
+			status: 'engagement submitted',
 			favorite: false,
+			interactions: [
+				{
+					id: nanoid(1000),
+					type: 'engagement',
+					date: new Date(2021, 3, 9, 19, 55),
+					info: 'You updated your engagement!',
+					photo: 'opt', // opcionalno
+				},
+				{
+					id: nanoid(1000),
+					type: 'approved',
+					date: new Date(2021, 2, 8, 15, 54),
+					info: 'Your partner agreed to do this todo with you!',
+				},
+				{
+					id: nanoid(1000),
+					type: 'created',
+					date: new Date(2021, 2, 5, 1, 28),
+					info: 'You started this todo!',
+				},
+			],
 			likes: [],
 			comments: [],
 		},
@@ -66,8 +138,22 @@ export const state = () => ({
 			categories: [{ id: '', name: '' }],
 			isDaily: false,
 			timestamp: new Date(2021, 4, 7),
-			approved: false,
+			status: 'approved',
 			favorite: false,
+			interactions: [
+				{
+					id: nanoid(1000),
+					type: 'approved',
+					date: new Date(2021, 3, 17, 16, 24),
+					info: 'Your partner agreed to do this todo with you!',
+				},
+				{
+					id: nanoid(1000),
+					type: 'created',
+					date: new Date(2021, 3, 17, 16, 22),
+					info: 'You started this todo!',
+				},
+			],
 			likes: [],
 			comments: [],
 		},
@@ -80,8 +166,36 @@ export const state = () => ({
 			categories: [{ id: '', name: '' }],
 			isDaily: true,
 			timestamp: new Date(2021, 4, 25),
-			approved: false,
+			status: 'reviewed',
 			favorite: false,
+			interactions: [
+				{
+					id: nanoid(1000),
+					type: 'review',
+					date: new Date(2021, 3, 1, 21, 36),
+					info: 'Partner reviewed you engagement!',
+					score: '5', // opcionalno
+				},
+				{
+					id: nanoid(1000),
+					type: 'engagement',
+					date: new Date(2021, 2, 6, 8, 32),
+					info: 'You updated your engagement!',
+					photo: 'opt', // opcionalno
+				},
+				{
+					id: nanoid(1000),
+					type: 'approved',
+					date: new Date(2021, 2, 4, 14, 56),
+					info: 'Your partner agreed to do this todo with you!',
+				},
+				{
+					id: nanoid(1000),
+					type: 'created',
+					date: new Date(2021, 2, 1, 1, 3),
+					info: 'You started this todo!',
+				},
+			],
 			likes: [],
 			comments: [],
 		},
@@ -100,5 +214,8 @@ export const getters = {
 	},
 	getTodosByPartner: (state, getters) => (username) => {
 		return getters.allTodos.filter((todo) => todo.partner === username);
+	},
+	getTodoInteractions: (state, getters) => (id) => {
+		return getters.getTodoById(id).interactions;
 	},
 };

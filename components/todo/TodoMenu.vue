@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-items-center gap-2 overflow-x-auto mt-4">
+	<div class="flex flex-items-center gap-2 overflow-x-auto my-5">
 		<BaseButton mode="ghost">Add to Favorites</BaseButton>
 		<BaseButton mode="fill--color">Submit engagement</BaseButton>
 		<BaseButton mode="cta">Give Coins</BaseButton>

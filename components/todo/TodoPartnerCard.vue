@@ -1,5 +1,5 @@
 <template>
-	<BaseContainer fieldset label="partner">
+	<BaseContainer fieldset label="partner" class="flex items-center">
 		<header>
 			<NuxtLink
 				v-if="partner"

@@ -1,7 +1,15 @@
 <template>
 	<BaseContainer fieldset label="info">
 		<h3>Due: {{ dueDate }}</h3>
+		<h3>
+			Status:
+			<span class="uppercase text-amber-500">{{ todo.status }}</span>
+		</h3>
 		<DailyTodoRadio :is-daily="todo.isDaily" />
+		<!-- todo tagovi za todose -->
+		<p class="text-coolGray-300">
+			Tu ce ic tagovi za todo il sta god odlucimo...
+		</p>
 	</BaseContainer>
 </template>
 

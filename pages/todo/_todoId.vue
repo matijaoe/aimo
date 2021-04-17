@@ -2,14 +2,16 @@
 	<div>
 		<TodoDetails :todo="todo" :partner="partner" />
 		<TodoMenu />
+		<TodoInteractionWrapper :interactions="todo.interactions" />
 	</div>
 </template>
 
 <script>
 import TodoDetails from '@/components/todo/TodoDetails';
 import TodoMenu from '../../components/todo/TodoMenu';
+import TodoInteractionWrapper from '../../components/todo/TodoInteractionWrapper';
 export default {
-	components: { TodoMenu, TodoDetails },
+	components: { TodoInteractionWrapper, TodoMenu, TodoDetails },
 	data() {
 		return {
 			todo: {},
