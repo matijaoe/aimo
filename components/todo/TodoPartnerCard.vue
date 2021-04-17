@@ -2,12 +2,14 @@
 	<BaseContainer fieldset label="partner">
 		<header>
 			<NuxtLink
+				v-if="partner"
 				:to="partnerProfileLink"
 				class="text-amber-400 flex gap-5 items-center"
 			>
 				{{ partnerFullName }}
 				<BaseAvatar :src="partner.photo" no-ring />
 			</NuxtLink>
+			<p v-else>This is your personal todo.</p>
 		</header>
 	</BaseContainer>
 </template>
@@ -20,7 +22,7 @@ export default {
 	props: {
 		partner: {
 			type: Object,
-			required: true,
+			required: false,
 		},
 	},
 	computed: {

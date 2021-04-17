@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h1 class="text-5xl">Todos</h1>
-		<TodoFilter @set-filter-key="setFilterKey" />
+		<TodoFilter />
 		<Nuxt />
 	</div>
 </template>
@@ -14,11 +14,6 @@ export default {
 		return {
 			filterKey: 'default',
 		};
-	},
-	methods: {
-		setFilterKey(key) {
-			this.filterKey = key;
-		},
 	},
 };
 </script>

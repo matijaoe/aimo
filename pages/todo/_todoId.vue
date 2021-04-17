@@ -1,13 +1,15 @@
 <template>
 	<div>
 		<TodoDetails :todo="todo" :partner="partner" />
+		<TodoMenu />
 	</div>
 </template>
 
 <script>
 import TodoDetails from '@/components/todo/TodoDetails';
+import TodoMenu from '../../components/todo/TodoMenu';
 export default {
-	components: { TodoDetails },
+	components: { TodoMenu, TodoDetails },
 	data() {
 		return {
 			todo: {},

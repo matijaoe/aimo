@@ -1,5 +1,5 @@
 <template>
-	<BaseIcon class="rotate" :size="size">
+	<BaseIcon :size="size">
 		<svg
 			fill="none"
 			stroke="currentColor"
@@ -31,13 +31,3 @@ export default {
 	},
 };
 </script>
-
-<style scoped>
-.rotate {
-	transform: rotate(0);
-	transition: all 0.3s ease;
-}
-.rotate:hover {
-	transform: rotate(-90deg);
-}
-</style>

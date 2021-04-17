@@ -1,6 +1,6 @@
 <template>
 	<div class="grid grid-cols-2 gap-4">
-		<h1 class="text-2xl font-bold col-span-2">{{ todo.title }}</h1>
+		<h1 class="text-2xl font-bold col-span-2">Todo: {{ todo.title }}</h1>
 		<TodoInfoCard :todo="todo" />
 		<TodoPartnerCard :partner="partner" />
 	</div>
@@ -19,7 +19,7 @@ export default {
 		},
 		partner: {
 			type: Object,
-			required: true,
+			required: false,
 		},
 	},
 };
