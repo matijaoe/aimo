@@ -1,7 +1,8 @@
 <template>
 	<fieldset
 		v-if="fieldset"
-		class="border-2 border-gray-100 p-4 rounded-lg bg-white"
+		class="border-2 border-gray-100 p-4 rounded-lg"
+		:class="styleColor"
 	>
 		<legend class="px-2 uppercase text-xs font-bold text-current">
 			<h3>{{ label }}</h3>
@@ -26,6 +27,16 @@ export default {
 			type: String,
 			required: false,
 			default: '',
+		},
+		colored: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+	},
+	computed: {
+		styleColor() {
+			return this.colored ? ['bg-amber-100'] : ['bg-white'];
 		},
 	},
 };

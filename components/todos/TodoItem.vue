@@ -4,6 +4,7 @@
 			<h2 class="text-lg font-bold">
 				{{ title }}
 				<span v-if="hasPartner">
+					w/
 					<NuxtLink
 						:to="`/user/${partner}`"
 						class="text-amber-300 hover:text-amber-400"

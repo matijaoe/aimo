@@ -2,7 +2,8 @@
 	<BaseContainer
 		fieldset
 		label="Coins"
-		class="bg-amber-100 text-amber-500 border-amber-400"
+		class="text-amber-500 border-amber-400"
+		colored
 	>
 		<p class="font-bold font-lg">
 			<span class="font-extrabold text-5xl">

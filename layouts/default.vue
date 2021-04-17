@@ -4,7 +4,7 @@
 	>
 		<AppSidebar class="hidden xs:flex w-16 lg:w-64 3xl:w-72" />
 		<div
-			class="w-full min-h-screen px-4 sm:px-6 lg:px-10 pt-4 pb-8 xs:pt-5 xs:ml-16 lg:ml-64 3xl:ml-72 bg-white"
+			class="w-full min-h-screen px-4 sm:px-6 lg:px-10 pt-4 pb-8 xs:pt-5 xs:ml-16 lg:ml-64 3xl:ml-72 bg-gray-50 bg-opacity-40"
 		>
 			<div class="max-w-7xl mx-auto">
 				<TheHeader />

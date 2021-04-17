@@ -14,7 +14,7 @@
 		@apply ease-in-out;
 		@apply duration-150;
 		@apply bg-gray-50;
-		@apply text-gray-800;
+		@apply text-gray-700;
 	}
 
 	.tooltip-arrow {

@@ -1,16 +1,13 @@
 <template>
 	<li>
-		<BaseContainer
-			class="border-amber-400 flex justify-center p-0"
-			:class="tabStyle"
-		>
+		<BaseContainer class="flex justify-center p-0" :class="tabStyle">
 			<!-- todo use BaseButton -->
-			<button
-				class="w-full py-3 px-6 font-semibold focus:outline-none"
-				@click="changeRoute"
+			<NuxtLink
+				class="py-3 px-6 font-semibold hover:border-amber-400"
+				:to="link"
 			>
 				{{ label }}
-			</button>
+			</NuxtLink>
 		</BaseContainer>
 	</li>
 </template>
@@ -34,8 +31,8 @@ export default {
 	computed: {
 		tabStyle() {
 			return this.$route.path === this.link
-				? 'text-amber-900 bg-amber-300'
-				: 'text-amber-400 bg-transparent';
+				? 'text-amber-500 border-amber-400'
+				: 'text-gray-300 bg-transparent';
 		},
 	},
 	methods: {

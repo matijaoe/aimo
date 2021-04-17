@@ -1,5 +1,5 @@
 <template>
-	<div class="flex-shrink-0 transition" :class="iconSize">
+	<div class="flex-shrink-0" :class="iconSize">
 		<slot />
 	</div>
 </template>

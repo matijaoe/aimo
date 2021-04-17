@@ -1,6 +1,6 @@
 <template>
 	<!-- todo style scrollbar -->
-	<ul class="flex flex-items-center gap-2 overflow-x-auto">
+	<ul class="flex flex-items-center gap-2">
 		<TodoTab
 			v-for="tab in tabs"
 			:key="tab.name"
