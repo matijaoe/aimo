@@ -24,7 +24,6 @@ button {
 	@apply uppercase text-xs font-bold rounded-lg overflow-hidden;
 	@apply tracking-[0.05rem];
 	@apply py-3 px-7;
-	@apply focus:ring-2 ring-amber-200 ring-offset-2;
 	@apply transition;
 	@apply text-gray-700;
 }

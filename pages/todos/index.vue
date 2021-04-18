@@ -24,6 +24,26 @@ export default {
 					name: 'favorites',
 					link: '/todos?filter=favorites',
 				},
+				{
+					name: 'created',
+					link: '/todos?filter=created',
+				},
+				{
+					name: 'approved',
+					link: '/todos?filter=approved',
+				},
+				{
+					name: 'engagement',
+					link: '/todos?filter=engagement',
+				},
+				{
+					name: 'reviewed',
+					link: '/todos?filter=reviewed',
+				},
+				{
+					name: 'finished',
+					link: '/todos?filter=finished',
+				},
 			],
 		};
 	},

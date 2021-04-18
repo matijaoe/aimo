@@ -10,6 +10,8 @@
 			:title="todo.title"
 			:partner="todo.partner"
 			:desc="todo.desc"
+			:status="todo.status"
+			:favorite="todo.favorite"
 		/>
 	</div>
 </template>
@@ -34,11 +36,7 @@ export default {
 	computed: {
 		filteredTodos() {
 			if (this.filterOption === 'default') {
-				if (this.$route.query.filter === 'all')
-					return this.$store.getters['todos/allTodos'];
-				else if (this.$route.query.filter === 'favorites')
-					return this.$store.getters['todos/getFavoriteTodos'];
-				return this.$store.getters['todos/allTodos'];
+				return this.searchByDefault();
 			} else if (this.filterOption === 'partners') {
 				return this.$store.getters['todos/getTodosByPartner'](
 					this.filterAttr
@@ -48,6 +46,31 @@ export default {
 		},
 		hasTodos() {
 			return this.filteredTodos && this.filteredTodos.length > 0;
+		},
+	},
+	methods: {
+		searchByDefault() {
+			const queryFilter = this.$route.query.filter;
+			if (queryFilter === 'all')
+				return this.$store.getters['todos/allTodos'];
+			else if (queryFilter === 'favorites')
+				return this.$store.getters['todos/getFavoriteTodos'];
+			else if (
+				[
+					'reviewed',
+					'engagement',
+					'created',
+					'finished',
+					'approved',
+				].includes(queryFilter)
+			) {
+				return this.$store.getters['todos/getTodosByStatus'](
+					queryFilter === 'engagement'
+						? 'engagement submitted'
+						: queryFilter
+				);
+			}
+			return this.$store.getters['todos/allTodos'];
 		},
 	},
 };

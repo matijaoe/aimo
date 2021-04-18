@@ -1,6 +1,9 @@
 <template>
 	<div class="grid grid-cols-2 gap-4">
-		<h1 class="text-2xl font-bold col-span-2">Todo: {{ todo.title }}</h1>
+		<div class="flex items-center gap-2 col-span-2">
+			<h1 class="text-2xl font-bold">Todo: {{ todo.title }}</h1>
+			<IconStar v-if="todo.favorite" class="animate-bounce" />
+		</div>
 		<TodoInfoCard class="row-span-2" :todo="todo" />
 		<TodoPartnerCard :partner="partner" />
 		<TodoDescCard :desc="todo.desc" />
@@ -8,12 +11,13 @@
 </template>
 
 <script>
+import IconStar from 'icons/IconStar';
 import TodoPartnerCard from './TodoPartnerCard';
 import TodoInfoCard from './TodoInfoCard';
 import TodoDescCard from './TodoDescCard';
 
 export default {
-	components: { TodoDescCard, TodoInfoCard, TodoPartnerCard },
+	components: { IconStar, TodoDescCard, TodoInfoCard, TodoPartnerCard },
 	props: {
 		todo: {
 			type: Object,

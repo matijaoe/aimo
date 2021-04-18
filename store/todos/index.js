@@ -54,7 +54,7 @@ export const state = () => ({
 			isDaily: false,
 			timestamp: new Date(2021, 5, 11),
 			status: 'approved',
-			favorite: true,
+			favorite: false,
 			interactions: [
 				{
 					id: nanoid(1000),
@@ -115,12 +115,6 @@ export const state = () => ({
 				},
 				{
 					id: nanoid(1000),
-					type: 'approved',
-					date: new Date(2021, 2, 8, 15, 54),
-					info: 'Your partner agreed to do this todo with you!',
-				},
-				{
-					id: nanoid(1000),
 					type: 'created',
 					date: new Date(2021, 2, 5, 1, 28),
 					info: 'You started this todo!',
@@ -167,7 +161,7 @@ export const state = () => ({
 			isDaily: true,
 			timestamp: new Date(2021, 4, 25),
 			status: 'reviewed',
-			favorite: false,
+			favorite: true,
 			interactions: [
 				{
 					id: nanoid(1000),
@@ -215,7 +209,23 @@ export const getters = {
 	getTodosByPartner: (state, getters) => (username) => {
 		return getters.allTodos.filter((todo) => todo.partner === username);
 	},
+	getTodosByStatus: (state, getters) => (status) => {
+		return getters.allTodos.filter((todo) => todo.status === status);
+	},
 	getTodoInteractions: (state, getters) => (id) => {
 		return getters.getTodoById(id).interactions;
+	},
+};
+
+export const actions = {
+	changeFavorite(context, payload) {
+		context.commit('setFavoriteStatus', payload);
+	},
+};
+
+export const mutations = {
+	setFavoriteStatus(state, payload) {
+		state.todos.find((todo) => todo.id === payload.id).favorite =
+			payload.favorite;
 	},
 };

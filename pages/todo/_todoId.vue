@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<TodoDetails :todo="todo" :partner="partner" />
-		<TodoMenu />
+		<TodoMenu :todo="todo" />
 		<TodoInteractionWrapper :interactions="todo.interactions" />
 	</div>
 </template>
