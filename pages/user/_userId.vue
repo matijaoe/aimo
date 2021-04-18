@@ -16,7 +16,7 @@
 
 		<!-- Column 3 -->
 		<div class="h-full">
-			<ProfileNotifications :user="user" />
+			<ProfileNotifications :notifications="user.notifications" />
 		</div>
 	</div>
 </template>

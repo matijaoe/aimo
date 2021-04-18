@@ -1,10 +1,13 @@
 <template>
-	<BaseContainer fieldset label="Notifications">
-		<p class="px-5 font-medium" :class="{ 'mb-3': notifyCount > 0 }">
+	<BaseContainer fieldset label="Notifications" class="p-2">
+		<p
+			class="px-5 font-medium text-center"
+			:class="{ 'mb-3': notifyCount > 0 }"
+		>
 			You have
 			<span
 				v-if="notifyCount"
-				class="font-bold mx-1 text-amber-500 text-base transition p-2 bg-amber-100 w-9 h-9 inline-grid rounded-full place-content-center"
+				class="font-bold mx-0.5 text-amber-500 text-base transition p-2 bg-amber-100 w-9 h-9 inline-grid rounded-full place-content-center"
 			>
 				{{ notifyCount }}
 			</span>
@@ -13,11 +16,15 @@
 		</p>
 		<ul class="space-y-2">
 			<li
-				v-for="notification in user.notifications"
+				v-for="notification in notifications"
 				:key="notification"
-				class="py-3 px-5 bg-gray-50 rounded-lg"
+				class="p-3 rounded-lg bg-gray-50"
 			>
-				{{ notification }}
+				<nuxt-link to="/home">
+					<BaseNotification color="blue">
+						<p>{{ notification }}</p>
+					</BaseNotification>
+				</nuxt-link>
 			</li>
 		</ul>
 	</BaseContainer>
@@ -25,13 +32,14 @@
 
 <script>
 import BaseContainer from 'UI/BaseContainer.vue';
+import BaseNotification from 'UI/BaseNotification.vue';
 
 export default {
-	components: { BaseContainer },
-	props: ['user'],
+	components: { BaseContainer, BaseNotification },
+	props: ['notifications'],
 	computed: {
 		notifyCount() {
-			return this.user.notifications?.length || 0;
+			return this.notifications?.length || 0;
 		},
 	},
 };
