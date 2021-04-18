@@ -14,7 +14,7 @@
 					<IconBell class="opacity-75 group-hover:opacity-100" />
 					<p
 						v-if="notifyCount"
-						class="absolute top-0 right-0 text-[11px] bg-amber-400 rounded-full flex items-center w-[16px] h-[16px]"
+						class="absolute top-0.5 right-0.5 text-[11px] bg-amber-400 rounded-full flex items-center w-[16px] h-[16px]"
 					>
 						<span class="flex-1">{{ notifyCount }}</span>
 					</p>
