@@ -7,7 +7,7 @@
 		>
 			<slot />
 		</nuxt-link>
-		<p v-else class="px-3 py-2">
+		<p v-else class="px-3 py-1">
 			<slot />
 		</p>
 	</li>

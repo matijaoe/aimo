@@ -1,6 +1,6 @@
 <template>
 	<BaseContainer fieldset label="Socials">
-		<div class="grid grid-cols-7 gap-2">
+		<div class="grid gap-2 my-grid">
 			<BaseBrandIcon
 				v-for="social in user.socials"
 				:key="social"
@@ -20,3 +20,10 @@ export default {
 	props: ['user'],
 };
 </script>
+
+<style scoped>
+.my-grid {
+	grid-template-columns: repeat(auto-fill, 40px);
+	justify-content: space-between;
+}
+</style>

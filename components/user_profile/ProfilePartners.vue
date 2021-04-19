@@ -1,6 +1,6 @@
 <template>
 	<BaseContainer fieldset label="Partners">
-		<div v-if="partners.length" class="grid grid-cols-7 gap-2">
+		<div v-if="partners.length" class="grid gap-2 my-grid">
 			<div v-for="partner in partners" :key="partner.username">
 				<!-- todo 
 							- veci popup sa linkom na profil ili na partnership
@@ -37,3 +37,10 @@ export default {
 	},
 };
 </script>
+
+<style scoped>
+.my-grid {
+	grid-template-columns: repeat(auto-fill, 40px);
+	justify-content: space-between;
+}
+</style>
