@@ -20,11 +20,6 @@ export default {
 			type: String,
 			default: null,
 		},
-		noRing: {
-			type: Boolean,
-			required: false,
-			default: false,
-		},
 	},
 	computed: {
 		avatarSize() {
@@ -40,13 +35,6 @@ export default {
 				return ['w-28', 'h-28'];
 			} else {
 				return ['w-10 h-10'];
-			}
-		},
-		avatarRing() {
-			if (!this.noRing) {
-				return ['ring-2', 'ring-gray-400'];
-			} else {
-				return {};
 			}
 		},
 	},

@@ -7,7 +7,7 @@
 				class="text-amber-400 flex gap-5 items-center"
 			>
 				{{ partnerFullName }}
-				<BaseAvatar :src="partner.photo" no-ring />
+				<BaseAvatar :src="partner.photo" />
 			</NuxtLink>
 			<p v-else>This is your personal todo.</p>
 		</header>

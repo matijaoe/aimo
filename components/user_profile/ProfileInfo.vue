@@ -5,7 +5,7 @@
 				<div
 					class="p-1 border-[4px] border-amber-400 rounded-full mb-2"
 				>
-					<BaseAvatar size="xxl" :src="user.photo" no-ring />
+					<BaseAvatar size="xxl" :src="user.photo" />
 				</div>
 				<div class="flex flex-col justify-center items-center gap-4">
 					<div class="flex flex-col items-center gap-1">

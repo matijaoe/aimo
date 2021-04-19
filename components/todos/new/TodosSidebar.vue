@@ -45,8 +45,6 @@
 					class="text-[12px]"
 				>
 					<BaseAvatar size="xs" :src="partner.photo" />
-					<!-- {{ `${partner.fname} ${partner.lname}` }} -->
-					<!-- @{{ partner.username }} -->
 					{{ partner.fname }}
 				</TodosSidebarLink>
 			</ul>
