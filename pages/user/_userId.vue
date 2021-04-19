@@ -1,14 +1,14 @@
 <template>
 	<!-- Main grid with 3 cols -->
-	<div class="grid grid-cols-3 gap-4 h-full">
+	<div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 h-full">
 		<!-- Column 1 -->
-		<div class="flex flex-col gap-2">
+		<div class="space-y-2">
 			<ProfileInfo :user="user" :is-logged-in="isLoggedInUser" />
 			<ProfileCoins :user="user" />
 		</div>
 
 		<!-- Column 2 -->
-		<div class="flex flex-col gap-2">
+		<div class="space-y-2">
 			<ProfileSocials :user="user" />
 			<ProfilePartners :user="user" :user-id="userId" />
 			<ProfileBio :user="user" />
@@ -16,7 +16,10 @@
 
 		<!-- Column 3 -->
 		<div class="h-full">
-			<ProfileNotifications :notifications="user.notifications" />
+			<ProfileNotifications
+				v-if="isLoggedInUser"
+				:notifications="user.notifications"
+			/>
 		</div>
 	</div>
 </template>

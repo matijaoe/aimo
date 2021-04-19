@@ -1,7 +1,6 @@
 <template>
 	<li>
 		<BaseContainer class="flex justify-center p-0" :class="tabStyle">
-			<!-- todo use BaseButton -->
 			<NuxtLink
 				class="py-3 px-6 font-semibold hover:border-amber-400"
 				:to="link"

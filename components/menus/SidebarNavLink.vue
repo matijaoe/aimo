@@ -2,11 +2,11 @@
 	<NuxtLink
 		v-tooltip.right="tooltip || text"
 		:to="to"
-		class="flex items-center justify-center lg:justify-start px-2 md:px-4 py-2 space-x-4 text-base rounded-lg focus:outline-none max-w-[225px] mx-auto"
+		class="flex items-center justify-center xl:justify-start px-2 md:px-4 py-2 space-x-4 text-base rounded-lg focus:outline-none max-w-[225px] mx-auto"
 		:class="bgStyle"
 	>
 		<slot />
-		<span v-if="text" class="hidden lg:block">{{ text }}</span>
+		<span v-if="text" class="hidden xl:block">{{ text }}</span>
 	</NuxtLink>
 </template>
 

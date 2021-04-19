@@ -1,11 +1,8 @@
 <template>
 	<div class="flex items-start gap-4 group w-full">
-		<div class="p-2 rounded-full bg-emerald-100" :class="`bg-${color}-100`">
+		<div class="p-2 rounded-full bg-blue-100" :class="`bg-${color}-100`">
 			<slot name="icon">
-				<IconBell
-					class="text-emerald-500"
-					:class="`text-${color}-600`"
-				/>
+				<IconBell class="text-blue-500" :class="`text-${color}-600`" />
 			</slot>
 		</div>
 		<div class="flex flex-col gap-y-1 flex-1">

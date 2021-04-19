@@ -4,8 +4,26 @@
 	-webkit-tap-highlight-color: transparent;
 }
 
+* {
+	scrollbar-width: thin;
+}
+
 ::selection {
 	@apply bg-amber-100 text-amber-500;
+}
+
+::-webkit-scrollbar {
+	width: 6px; /* width of the entire scrollbar */
+}
+
+::-webkit-scrollbar-track {
+	@apply bg-gray-100; /* color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+	@apply bg-gray-200; /* color of the scroll thumb */
+	border-radius: 20px; /* roundness of the scroll thumb */
+	/* border: 3px solid orange; creates padding around scroll thumb */
 }
 
 // route transitions

@@ -1,6 +1,6 @@
 <template>
 	<button :class="mode" @click="$emit('click', $event)">
-		<span>
+		<span class="flex items-center gap-2 w-full">
 			<slot />
 		</span>
 	</button>
@@ -20,7 +20,7 @@ export default {
 
 <style lang="postcss" scoped>
 button {
-	@apply relative inline-block border-none cursor-pointer pointer-events-auto focus:outline-none;
+	@apply relative border-none cursor-pointer pointer-events-auto focus:outline-none;
 	@apply uppercase text-xs font-bold rounded-lg overflow-hidden;
 	@apply tracking-[0.05rem];
 	@apply py-3 px-7;

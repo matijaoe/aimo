@@ -17,14 +17,14 @@
 					<IconHome />
 				</SidebarNavLink>
 			</li>
-			<li>
+			<!-- <li>
 				<SidebarNavLink
 					text="Profile"
 					:to="`/user/${$store.state.userId}`"
 				>
 					<IconUser />
 				</SidebarNavLink>
-			</li>
+			</li> -->
 			<li>
 				<SidebarNavLink text="Community" to="/community">
 					<IconUserGroup />
@@ -32,6 +32,11 @@
 			</li>
 			<li>
 				<SidebarNavLink text="Todos" to="/todos">
+					<IconClipboardList />
+				</SidebarNavLink>
+			</li>
+			<li>
+				<SidebarNavLink text="Todos.new" to="/todos2">
 					<IconClipboardList />
 				</SidebarNavLink>
 			</li>
@@ -57,7 +62,7 @@
 			>
 				<div class="flex flex-col">
 					<span
-						class="text-gray-400 text-xs uppercase hidden lg:block"
+						class="text-gray-400 text-xs uppercase hidden xl:block"
 					>
 						Your plan
 					</span>
@@ -84,7 +89,7 @@ import { mapGetters } from 'vuex';
 export default {
 	components: {
 		IconHome,
-		IconUser,
+		// IconUser,
 		IconInbox,
 		IconUserGroup,
 		IconClipboardList,

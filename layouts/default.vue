@@ -1,12 +1,12 @@
 <template>
 	<div
-		class="flex min-h-screen overflow-x-hidden font-primary text-gray-700 text-sm font-medium"
+		class="flex min-h-screen overflow-x-hidden font-primary text-gray-700 text-sm font-medium overflow-hidden"
 	>
-		<AppSidebar class="hidden xs:flex w-16 lg:w-64 3xl:w-72" />
+		<AppSidebar class="hidden xs:flex w-16 xl:w-64 3xl:w-72" />
 		<div
-			class="w-full min-h-screen px-4 sm:px-6 lg:px-10 pt-4 pb-8 xs:pt-5 xs:ml-16 lg:ml-64 3xl:ml-72 bg-gray-50 bg-opacity-40"
+			class="w-full px-4 sm:px-6 lg:px-10 pt-4 pb-8 xs:pt-5 xs:ml-16 xl:ml-64 3xl:ml-72 bg-gray-50 bg-opacity-40"
 		>
-			<div class="max-w-7xl mx-auto">
+			<div class="max-w-7xl mx-auto h-full">
 				<TheHeader />
 				<main class="mt-8 h-full">
 					<Nuxt />
