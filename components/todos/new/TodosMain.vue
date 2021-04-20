@@ -2,25 +2,43 @@
 	<div class="text-xl font-light">
 		<ul>
 			<li>
-				<TodoItem color="red">osisati se</TodoItem>
+				<TodoItem color="amber">osisati se</TodoItem>
 			</li>
 			<li>
 				<TodoItem color="amber">citati knjigu</TodoItem>
 			</li>
 			<li>
-				<TodoItem color="green">voziti bicikl</TodoItem>
+				<TodoItem color="amber">voziti bicikl</TodoItem>
 			</li>
 			<li>
-				<TodoItem color="blue">voziti traktor</TodoItem>
+				<TodoItem color="amber">voziti traktor</TodoItem>
 			</li>
 			<li>
-				<TodoItem color="orange">bench</TodoItem>
+				<TodoItem color="amber">bench</TodoItem>
 			</li>
 			<li>
-				<TodoItem color="purple">react</TodoItem>
+				<TodoItem color="amber">react</TodoItem>
 			</li>
 			<li>
-				<TodoItem color="yellow">otic kod cure</TodoItem>
+				<TodoItem color="amber">nuxt</TodoItem>
+			</li>
+			<li>
+				<TodoItem color="amber">naucit baze</TodoItem>
+			</li>
+			<li>
+				<TodoItem color="amber">pljuvat superligu</TodoItem>
+			</li>
+			<li>
+				<TodoItem color="amber">obavit tjelesni</TodoItem>
+			</li>
+			<li>
+				<TodoItem color="amber">napravit mreze</TodoItem>
+			</li>
+			<li>
+				<TodoItem color="amber">kodirat aimo</TodoItem>
+			</li>
+			<li>
+				<TodoItem color="amber">istrazit faxove</TodoItem>
 			</li>
 		</ul>
 	</div>

@@ -1,10 +1,10 @@
 <template>
-	<BaseContainer class="flex p-0 h-[650px]">
+	<BaseContainer class="flex p-0 adaptive-height">
 		<TodosSidebar
 			class="w-[200px] overflow-y-auto flex-shrink-0"
 			:partners="partners"
 		/>
-		<div class="flex-1 bg-gray-100">
+		<div class="flex-1 bg-gray-100 flex flex-col">
 			<TodosSearchbar />
 			<TodosMain class="flex-1 overflow-y-auto" />
 		</div>
@@ -35,3 +35,9 @@ export default {
 	},
 };
 </script>
+
+<style scoped>
+.adaptive-height {
+	height: calc(100vh - 40px - 2rem - 2rem - 22px - 1rem);
+}
+</style>

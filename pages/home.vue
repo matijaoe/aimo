@@ -2,7 +2,7 @@
 	<section>
 		<h1 class="text-5xl mb-10">Homepage</h1>
 		<div class="flex gap-4">
-			<BaseButton mode="cta">cta</BaseButton>
+			<BaseButton mode="cta" @click="toggleShow">cta</BaseButton>
 			<BaseButton mode="fill--color">fill--color</BaseButton>
 			<BaseButton mode="fill">fill</BaseButton>
 			<BaseButton mode="ghost">ghost</BaseButton>
@@ -18,6 +18,16 @@ import BaseButton from 'UI/BaseButton.vue';
 export default {
 	components: {
 		BaseButton,
+	},
+	data() {
+		return {
+			show: true,
+		};
+	},
+	methods: {
+		toggleShow() {
+			this.show = !this.show;
+		},
 	},
 };
 </script>

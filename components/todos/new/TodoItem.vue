@@ -4,18 +4,40 @@
 		@click="toggleDone"
 	>
 		<div
-			class="w-4 h-4 border-[3px] rounded-full"
+			class="w-4 h-4 border-[3px] rounded-full flex-shrink-0"
 			:class="[borderColor, bgColor]"
 		></div>
-		<div :class="markDone">
-			<slot></slot>
+		<div class="flex items-center justify-between flex-1">
+			<RoughNotation :is-show="done" type="strike-through">
+				<div :class="markDone">
+					<slot></slot>
+				</div>
+			</RoughNotation>
+			<div v-tooltip.left="'username'">
+				<BaseAvatar size="sm" />
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+import BaseAvatar from 'UI/BaseAvatar.vue';
+
 export default {
-	props: ['color'],
+	components: {
+		BaseAvatar,
+	},
+	props: {
+		color: {
+			type: String,
+			required: false,
+			default: '',
+		},
+		partner: {
+			type: Object,
+			required: false,
+		},
+	},
 	data() {
 		return {
 			done: false,
@@ -78,7 +100,7 @@ export default {
 		},
 		markDone() {
 			if (this.done) {
-				return ['line-through', 'text-gray-300'];
+				return ['text-gray-300'];
 			} else {
 				return [];
 			}

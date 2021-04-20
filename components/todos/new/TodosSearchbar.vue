@@ -16,24 +16,59 @@
 				placeholder="Find todo"
 			/>
 		</label>
-		<button class="focus:outline-none rounded-lg block p-2 group">
-			<IconDotsVertical
-				class="text-gray-300 group-hover:text-gray-900 transition"
-			/>
-		</button>
+
+		<BaseDropdown>
+			<template slot="toggler">
+				<button class="focus:outline-none rounded-lg block p-2 group">
+					<IconDotsVertical
+						class="text-gray-300 group-hover:text-gray-900 transition"
+					/>
+				</button>
+			</template>
+			<BaseDropdownContent>
+				<BaseDropdownList>
+					<BaseDropdownItem option>
+						<IconFilter size="sm" />
+						Reset Sort
+					</BaseDropdownItem>
+					<BaseDropdownItem option>
+						<IconAscending size="sm" />
+						Sort A-Z
+					</BaseDropdownItem>
+					<BaseDropdownItem option>
+						<IconDescending size="sm" />
+						Sort Z-A
+					</BaseDropdownItem>
+				</BaseDropdownList>
+			</BaseDropdownContent>
+		</BaseDropdown>
 	</div>
 </template>
 
 <script>
 import IconDotsVertical from 'icons/IconDotsVertical.vue';
 import IconSearch from 'icons/IconSearch.vue';
+import IconFilter from 'icons/IconFilter.vue';
+import IconAscending from 'icons/IconAscending.vue';
+import IconDescending from 'icons/IconDescending.vue';
 import BaseButton from 'UI/BaseButton.vue';
+import BaseDropdown from 'UI/BaseDropdown.vue';
+import BaseDropdownContent from 'UI/BaseDropdownContent.vue';
+import BaseDropdownList from 'UI/BaseDropdownList.vue';
+import BaseDropdownItem from 'UI/BaseDropdownItem.vue';
 
 export default {
 	components: {
 		IconDotsVertical,
 		IconSearch,
+		IconFilter,
+		IconAscending,
+		IconDescending,
 		BaseButton,
+		BaseDropdown,
+		BaseDropdownContent,
+		BaseDropdownList,
+		BaseDropdownItem,
 	},
 };
 </script>
