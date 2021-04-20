@@ -5,28 +5,36 @@
 				<TodoItem color="amber">osisati se</TodoItem>
 			</li>
 			<li>
-				<TodoItem color="amber">citati knjigu</TodoItem>
+				<TodoItem color="amber" :completed="true">
+					citati knjigu
+				</TodoItem>
 			</li>
 			<li>
-				<TodoItem color="amber">voziti bicikl</TodoItem>
+				<TodoItem color="amber" :completed="true">
+					voziti bicikl
+				</TodoItem>
 			</li>
 			<li>
-				<TodoItem color="amber">voziti traktor</TodoItem>
+				<TodoItem color="amber" :completed="false">
+					voziti traktor
+				</TodoItem>
 			</li>
 			<li>
-				<TodoItem color="amber">bench</TodoItem>
+				<TodoItem color="amber" :completed="true">bench</TodoItem>
 			</li>
 			<li>
 				<TodoItem color="amber">react</TodoItem>
 			</li>
 			<li>
-				<TodoItem color="amber">nuxt</TodoItem>
+				<TodoItem color="amber" :completed="true">nuxt</TodoItem>
 			</li>
 			<li>
 				<TodoItem color="amber">naucit baze</TodoItem>
 			</li>
 			<li>
-				<TodoItem color="amber">pljuvat superligu</TodoItem>
+				<TodoItem color="amber" :completed="true">
+					pljuvat superligu
+				</TodoItem>
 			</li>
 			<li>
 				<TodoItem color="amber">obavit tjelesni</TodoItem>

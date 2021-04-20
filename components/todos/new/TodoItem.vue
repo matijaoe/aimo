@@ -37,10 +37,14 @@ export default {
 			type: Object,
 			required: false,
 		},
+		completed: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	data() {
 		return {
-			done: false,
+			done: this.completed,
 		};
 	},
 	computed: {
