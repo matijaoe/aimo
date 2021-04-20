@@ -4,7 +4,7 @@
 			:src="src"
 			alt="user avatar"
 			class="rounded-full object-cover"
-			:class="[avatarSize, avatarRing]"
+			:class="[avatarSize]"
 		/>
 	</div>
 </template>
@@ -24,9 +24,9 @@ export default {
 	computed: {
 		avatarSize() {
 			if (this.size === 'xs') {
-				return ['w-4', 'h-4'];
+				return ['w-5', 'h-5'];
 			} else if (this.size === 'sm') {
-				return ['w-6', 'h-6'];
+				return ['w-7', 'h-7'];
 			} else if (this.size === 'lg') {
 				return ['w-12', 'h-12'];
 			} else if (this.size === 'xl') {

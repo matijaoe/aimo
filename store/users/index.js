@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid';
+
 export const state = () => ({
 	users: [
 		{
@@ -17,35 +19,97 @@ export const state = () => ({
 			rank: null,
 			isPrivate: false,
 			isPremium: false,
-			// ili todos array koji pa ima key koji oznacuje kojoj listi priprada
-			// lists: [
-			// 	{
-			// 		id: '',
-			// 		timestamp: '',
-			// 		name: '',
-			// 		partner: '',
-			// 		todos: {
-			// 			id: '',
-			// 			title: '',
-			// 			desc: '', // optional
-			// 			urgency: '',
-			// 			categories: [{ id: '', name: '' }],
-			// 			isDaily: false,
-			// 			timestamp: null,
-			// 			approved: false,
-			// 		},
-			// 		likes: [{ user: '' }],
-			// 		comments: [
-			// 			{
-			// 				id: '',
-			// 				timestamp: '',
-			// 				user: '',
-			// 				content: '',
-			// 				likes: [{ user: '' }],
-			// 			},
-			// 		],
-			// 	},
-			// ],
+			todos: [
+				{
+					id: nanoid(),
+					name: 'Procitati knjigu',
+					desc: '', // optional
+					categories: [
+						{ id: nanoid(), name: 'reading', color: 'red' },
+						{ id: nanoid(), name: 'mindfulness', color: 'amber' },
+					], // ovo ce bit posebna tablica, referencamo idjem,
+					timestamp: 1618916803496,
+					done: false,
+					approved: false,
+					isDaily: false,
+					favorite: false,
+					important: false,
+					partner: 'patrik_harmonika',
+				},
+				{
+					id: nanoid(),
+					name: 'odvoziti bicikl',
+					desc: '', // optional
+					categories: [
+						{ id: nanoid(), name: 'health', color: 'lightBlue' },
+						{ id: nanoid(), name: 'fitness', color: 'violet' },
+						{ id: nanoid(), name: 'nature', color: 'emerald' },
+					],
+					timestamp: 1618916803496,
+					done: true,
+					approved: false,
+					isDaily: false,
+					favorite: false,
+					important: false,
+					partner: null,
+				},
+				{
+					id: nanoid(),
+					name: 'random task',
+					desc: '', // optional
+					categories: [], // ovo ce bit posebna tablica, referencamo idjem,
+					timestamp: 1618916803496,
+					done: false,
+					approved: false,
+					isDaily: false,
+					favorite: false,
+					important: false,
+					partner: null,
+				},
+				{
+					id: nanoid(),
+					name: 'napraviti pripremu iz Bazi Podataka',
+					desc: '', // optional
+					categories: [
+						{ id: nanoid(), name: 'study', color: 'teal' },
+						{ id: nanoid(), name: 'school', color: 'indigo' },
+						{ id: nanoid(), name: 'coding', color: 'blue' },
+					],
+					timestamp: 1618916803496,
+					done: false,
+					approved: false,
+					isDaily: false,
+					favorite: false,
+					important: false,
+					partner: 'tomoKotar14',
+				},
+				{
+					id: nanoid(),
+					name: 'pogledati utakmicu',
+					desc: '', // optional
+					categories: [{ id: nanoid(), name: 'fun', color: 'pink' }],
+					timestamp: 1618916803496,
+					done: false,
+					approved: false,
+					isDaily: false,
+					favorite: false,
+					important: false,
+					partner: null,
+				},
+				{
+					id: nanoid(),
+					name: 'live life',
+					desc: '', // optional
+					categories: [], // ovo ce bit posebna tablica, referencamo idjem,
+					timestamp: 1618916803496,
+					done: false,
+					approved: false,
+					isDaily: false,
+					favorite: false,
+					important: false,
+					partner: null,
+				},
+			],
 			notifications: [
 				'Matija gave you recognition',
 				'Zoki commented on your post',
@@ -80,6 +144,97 @@ export const state = () => ({
 			rank: null,
 			isPrivate: false,
 			isPremium: true,
+			todos: [
+				{
+					id: nanoid(),
+					name: 'Procitati knjigu',
+					desc: '', // optional
+					categories: [
+						{ id: nanoid(), name: 'reading', color: 'red' },
+						{ id: nanoid(), name: 'mindfulness', color: 'amber' },
+					], // ovo ce bit posebna tablica, referencamo idjem,
+					timestamp: 1618916803496,
+					done: false,
+					approved: false,
+					isDaily: false,
+					favorite: false,
+					important: false,
+					partner: 'patrik_harmonika',
+				},
+				{
+					id: nanoid(),
+					name: 'odvoziti bicikl',
+					desc: '', // optional
+					categories: [
+						{ id: nanoid(), name: 'health', color: 'lightBlue' },
+						{ id: nanoid(), name: 'fitness', color: 'violet' },
+						{ id: nanoid(), name: 'nature', color: 'emerald' },
+					],
+					timestamp: 1618916803496,
+					done: true,
+					approved: false,
+					isDaily: false,
+					favorite: false,
+					important: false,
+					partner: 'marian7',
+				},
+				{
+					id: nanoid(),
+					name: 'random task',
+					desc: '', // optional
+					categories: [], // ovo ce bit posebna tablica, referencamo idjem,
+					timestamp: 1618916803496,
+					done: false,
+					approved: false,
+					isDaily: false,
+					favorite: false,
+					important: false,
+					partner: null,
+				},
+				{
+					id: nanoid(),
+					name: 'napraviti pripremu iz Bazi Podataka',
+					desc: '', // optional
+					categories: [
+						{ id: nanoid(), name: 'study', color: 'teal' },
+						{ id: nanoid(), name: 'school', color: 'indigo' },
+						{ id: nanoid(), name: 'coding', color: 'blue' },
+					],
+					timestamp: 1618916803496,
+					done: false,
+					approved: false,
+					isDaily: false,
+					favorite: false,
+					important: false,
+					partner: 'tomoKotar14',
+				},
+				{
+					id: nanoid(),
+					name: 'pogledati utakmicu',
+					desc: '', // optional
+					categories: [{ id: nanoid(), name: 'fun', color: 'pink' }],
+					timestamp: 1618916803496,
+					done: false,
+					approved: false,
+					isDaily: false,
+					favorite: false,
+					important: false,
+					partner: null,
+				},
+				{
+					id: nanoid(),
+					name: 'live life',
+					desc: '', // optional
+					categories: [],
+					timestamp: 1618916803496,
+					done: false,
+					approved: false,
+					isDaily: false,
+					favorite: false,
+					important: false,
+					partner: null,
+				},
+			],
 			notifications: [
 				'Marian forgot to share his screen',
 				'Tomo liked your streak',
@@ -252,6 +407,9 @@ export const getters = {
 	},
 	getUserById: (state, getters) => (username) => {
 		return getters.users.find((user) => user.username === username);
+	},
+	getUserTodos: (state, getters) => (username) => {
+		return getters.users.find((user) => user.username === username)?.todos;
 	},
 };
 

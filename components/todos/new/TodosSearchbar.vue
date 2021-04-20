@@ -12,7 +12,7 @@
 			</BaseButton>
 			<input
 				type="search"
-				class="p-2 w-full focus:outline-none"
+				class="p-3 w-full focus:outline-none"
 				placeholder="Find todo"
 			/>
 		</label>

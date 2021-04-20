@@ -6,7 +6,7 @@
 		/>
 		<div class="flex-1 bg-gray-100 flex flex-col">
 			<TodosSearchbar />
-			<TodosMain class="flex-1 overflow-y-auto" />
+			<TodosMain class="flex-1 overflow-y-auto" :user="currentUser" />
 		</div>
 	</BaseContainer>
 </template>
@@ -27,7 +27,7 @@ export default {
 		TodosMain,
 	},
 	computed: {
-		...mapGetters(['currentUserId']),
+		...mapGetters(['currentUser', 'currentUserId']),
 		...mapGetters('partners', ['getPartnersById']),
 		partners() {
 			return this.getPartnersById(this.currentUserId);
