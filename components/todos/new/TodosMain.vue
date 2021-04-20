@@ -6,6 +6,7 @@
 				:key="todo.id"
 				:tags="todo.categories"
 				:partner-id="todo.partner"
+				:completed="todo.done"
 			>
 				{{ todo.name }}
 			</TodoItem>

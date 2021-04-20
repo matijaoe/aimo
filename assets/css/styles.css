@@ -8,6 +8,10 @@
 	scrollbar-width: thin;
 }
 
+img {
+	@apply select-none;
+}
+
 ::selection {
 	@apply bg-amber-100 text-amber-500;
 }

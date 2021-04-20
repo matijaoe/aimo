@@ -1,6 +1,6 @@
 <template>
 	<li
-		class="flex items-center gap-4 px-4 py-3 border-t-2 border-gray-100 bg-white cursor-pointer transform hover:-translate-y-1 transition"
+		class="flex items-center gap-4 px-4 py-3 border-t-2 border-gray-100 bg-white cursor-pointer transform hover:-translate-y-1 transition select-none"
 		@click="toggleDone"
 	>
 		<div class="w-full">
@@ -18,7 +18,9 @@
 						</div>
 					</RoughNotation>
 					<div v-if="partner" v-tooltip.left="`@${partner.username}`">
-						<BaseAvatar size="sm" :src="partner.photo" />
+						<nuxt-link :to="`/user/${partner.username}`">
+							<BaseAvatar size="sm" :src="partner.photo" />
+						</nuxt-link>
 					</div>
 					<div v-else class="w-7 h-7"></div>
 				</div>
@@ -62,6 +64,7 @@ export default {
 		},
 		completed: {
 			type: Boolean,
+			required: true,
 			default: false,
 		},
 	},

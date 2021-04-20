@@ -1,7 +1,7 @@
 <template>
 	<aside class="border-r-2 border-gray-100 space-y-5">
-		<div class="mb-10 p-4">
-			<BaseButton mode="cta" class="w-full py-2">
+		<div class="mb-6 p-4">
+			<BaseButton mode="cta" class="w-full py-2" thin>
 				<IconPlus />
 				Add Todo
 			</BaseButton>

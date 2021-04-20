@@ -184,7 +184,7 @@ export const state = () => ({
 					desc: '', // optional
 					categories: [], // ovo ce bit posebna tablica, referencamo idjem,
 					timestamp: 1618916803496,
-					done: false,
+					done: true,
 					approved: false,
 					isDaily: false,
 					favorite: false,

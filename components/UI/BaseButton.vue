@@ -1,5 +1,5 @@
 <template>
-	<button :class="mode" @click="$emit('click', $event)">
+	<button :class="[mode, { thin: thin }]" @click="$emit('click', $event)">
 		<span class="flex items-center gap-2 w-full">
 			<slot />
 		</span>
@@ -14,6 +14,11 @@ export default {
 			required: false,
 			default: null,
 		},
+		thin: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
 	},
 	emits: ['click'],
 };
@@ -27,6 +32,10 @@ button {
 	@apply py-3 px-7;
 	@apply transition;
 	@apply text-gray-700;
+}
+
+button.thin {
+	@apply py-2;
 }
 
 button::before,
