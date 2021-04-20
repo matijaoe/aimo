@@ -5,8 +5,8 @@
 			:partners="partners"
 		/>
 		<div class="flex-1 bg-gray-100 flex flex-col">
-			<TodosSearchbar />
-			<TodosMain class="flex-1 overflow-y-auto" :user="currentUser" />
+			<TodosSearchbar @search="searchTodos" @sort="sortTodos" />
+			<TodosMain class="flex-1 overflow-y-auto" :todos="todos" />
 		</div>
 	</BaseContainer>
 </template>
@@ -18,6 +18,7 @@ import TodosSearchbar from 'todos/new/TodosSearchbar.vue';
 import TodosMain from 'todos/new/TodosMain.vue';
 
 import { mapGetters } from 'vuex';
+import { orderBy as _orderBy } from 'lodash';
 
 export default {
 	components: {
@@ -26,12 +27,37 @@ export default {
 		TodosSearchbar,
 		TodosMain,
 	},
+	data() {
+		return {
+			todos: [],
+		};
+	},
 	computed: {
 		...mapGetters(['currentUser', 'currentUserId']),
 		...mapGetters('partners', ['getPartnersById']),
 		partners() {
 			return this.getPartnersById(this.currentUserId);
 		},
+	},
+	created() {
+		this.todos = this.currentUser.todos;
+	},
+	methods: {
+		allTodos() {
+			this.todos = this.currentUser.todos;
+		},
+		sortTodos(arg) {
+			if (arg === 'asc' || arg === 'desc') {
+				this.todos = _orderBy(
+					this.todos,
+					[(todo) => todo.name.toLowerCase()],
+					[arg]
+				);
+			} else {
+				this.todos = this.currentUser.todos;
+			}
+		},
+		searchTodos() {},
 	},
 };
 </script>

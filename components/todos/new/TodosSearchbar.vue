@@ -27,15 +27,15 @@
 			</template>
 			<BaseDropdownContent>
 				<BaseDropdownList>
-					<BaseDropdownItem option>
+					<BaseDropdownItem option @click="$emit('sort', 'reset')">
 						<IconFilter size="sm" />
 						Reset Sort
 					</BaseDropdownItem>
-					<BaseDropdownItem option>
+					<BaseDropdownItem option @click="$emit('sort', 'asc')">
 						<IconAscending size="sm" />
 						Sort A-Z
 					</BaseDropdownItem>
-					<BaseDropdownItem option>
+					<BaseDropdownItem option @click="$emit('sort', 'desc')">
 						<IconDescending size="sm" />
 						Sort Z-A
 					</BaseDropdownItem>
@@ -70,5 +70,6 @@ export default {
 		BaseDropdownList,
 		BaseDropdownItem,
 	},
+	emits: ['search', 'sort'],
 };
 </script>

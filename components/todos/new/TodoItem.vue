@@ -76,10 +76,7 @@ export default {
 		},
 		...mapGetters('users', ['getUserById']),
 		partner() {
-			console.log(this.partnerId);
-			const partner = this.getUserById(this.partnerId);
-			console.log(partner);
-			return partner;
+			return this.getUserById(this.partnerId);
 		},
 	},
 	methods: {
