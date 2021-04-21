@@ -2,7 +2,7 @@
 	<BaseContainer fieldset label="Socials">
 		<div class="grid gap-2 my-grid">
 			<BaseBrandIcon
-				v-for="social in user.socials"
+				v-for="social in socials"
 				:key="social"
 				:brand="social"
 				href="#"
@@ -18,6 +18,11 @@ import BaseBrandIcon from 'UI/BaseBrandIcon.vue';
 export default {
 	components: { BaseContainer, BaseBrandIcon },
 	props: ['user'],
+	computed: {
+		socials() {
+			return this.user.socials.map((s) => s.id);
+		},
+	},
 };
 </script>
 

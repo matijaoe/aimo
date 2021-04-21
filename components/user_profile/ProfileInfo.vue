@@ -31,25 +31,39 @@
 			<div>
 				<div class="grid grid-cols-2 gap-4 mx-2 font-medium">
 					<div
-						v-tooltip.left="'Country'"
-						class="flex items-center gap-2 justify-self-end text-green-500 py-2 px-4 rounded-lg bg-green-50"
+						v-tooltip.left="`From ${countryName}`"
+						class="flex items-center gap-2 justify-self-end py-2 px-4 rounded-lg bg-teal-50 text-teal-500"
 					>
-						<span>{{ user.country }}</span>
-						<IconLocation size="sm" class="text-green-500" />
+						<span>{{ countryName }}</span>
+						<div
+							class="w-6 h-6 rounded-full flex items-center justify-center overflow-hidden"
+						>
+							<img
+								v-if="countryFlag"
+								:src="countryFlag"
+								alt=""
+								class="object-cover h-full"
+							/>
+							<IconLocation
+								v-else
+								size="sm"
+								class="text-green-500"
+							/>
+						</div>
 					</div>
 					<div
 						v-tooltip.right="'Age'"
 						class="flex items-center gap-2 justify-self-start text-orange-500 py-2 px-4 rounded-lg bg-orange-50"
 					>
 						<IconCake size="sm" class="text-orange-500" />
-						<span>{{ user.age }} yo</span>
+						<span>{{ age }} yo</span>
 					</div>
 					<div
 						v-tooltip.left="'Joined on'"
 						class="flex items-center gap-2 justify-self-end text-blue-500 py-2 px-4 rounded-lg bg-blue-50"
 					>
 						<!-- inace ce tu ic metoda koje izvuce datum iz timestampa -->
-						<span>{{ user.joined_on }}</span>
+						<span>{{ joinDate }}</span>
 						<IconCalendar size="sm" class="text-blue-500" />
 					</div>
 					<div
@@ -76,12 +90,15 @@ import IconCalendar from 'icons/IconCalendar.vue';
 import IconCake from 'icons/IconCake.vue';
 import IconAcademicHat from 'icons/IconAcademicHat.vue';
 
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+
 export default {
 	components: {
 		BaseAvatar,
 		BaseContainer,
 		BaseButton,
-		IconLocation,
+		// IconLocation,
 		IconEdit,
 		IconChat,
 		IconCalendar,
@@ -89,5 +106,33 @@ export default {
 		IconAcademicHat,
 	},
 	props: ['user', 'isLoggedIn'],
+	data() {
+		return {
+			// todo cache flags
+			countryName: null,
+			countryFlag: null,
+		};
+	},
+	computed: {
+		age() {
+			const birthday = this.user.birthday;
+			return dayjs().diff(birthday, 'year');
+		},
+		joinDate() {
+			dayjs.extend(advancedFormat);
+			const date = this.user.joined_on;
+			return date.format('MMM Do, YYYY');
+		},
+	},
+	async created() {
+		const countryCode = this.user.countryCode;
+
+		const { name, flag } = await this.$axios.$get(
+			`https://restcountries.eu/rest/v2/alpha/${countryCode}`
+		);
+
+		this.countryName = name.length <= 12 ? name : countryCode;
+		this.countryFlag = flag;
+	},
 };
 </script>

@@ -52,6 +52,7 @@ export default {
 			],
 		};
 	},
+	computed: {},
 	methods: {
 		toggleShow() {
 			this.show = !this.show;

@@ -4,12 +4,17 @@ export const state = () => ({
 	partnerships: [
 		{ id: nanoid(), partners: ['matijao', 'marian7'] },
 		{ id: nanoid(), partners: ['matijao', 'patrik_harmonika'] },
+		{ id: nanoid(), partners: ['matijao', 'lovedoctor'] },
+		{ id: nanoid(), partners: ['matijao', 'wood42'] },
 		{ id: nanoid(), partners: ['patrik_harmonika', 'marian7'] },
 		{ id: nanoid(), partners: ['patrik_harmonika', 'tomoKotar14'] },
 		{ id: nanoid(), partners: ['tomoKotar14', 'matijao'] },
-		{ id: nanoid(), partners: ['koralj11', 'markoc'] },
-		{ id: nanoid(), partners: ['koralj11', 'marian7'] },
-		{ id: nanoid(), partners: ['koralj11', 'matijao'] },
+		{ id: nanoid(), partners: ['tomoKotar14', 'marian7'] },
+		{ id: nanoid(), partners: ['lovedoctor', 'patrik_harmonika'] },
+		{ id: nanoid(), partners: ['lovedoctor', 'wood42'] },
+		{ id: nanoid(), partners: ['wood42', 'suzzy'] },
+		{ id: nanoid(), partners: ['patrik_harmonika', 'suzzy'] },
+		{ id: nanoid(), partners: ['wood42', 'tomoKotar14'] },
 	],
 });
 

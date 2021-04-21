@@ -15,27 +15,27 @@ export const state = () => ({
 			favorite: true,
 			interactions: [
 				{
-					id: nanoid(1000),
+					id: nanoid(),
 					type: 'review',
 					date: new Date(2021, 3, 7, 18, 7),
 					info: 'Partner reviewed you engagement!',
 					score: '5', // opcionalno
 				},
 				{
-					id: nanoid(1000),
+					id: nanoid(),
 					type: 'engagement',
 					date: new Date(2021, 3, 6, 7, 11),
 					info: 'You updated your engagement!',
 					photo: 'opt', // opcionalno
 				},
 				{
-					id: nanoid(1000),
+					id: nanoid(),
 					type: 'approved',
 					date: new Date(2021, 3, 5, 11, 43),
 					info: 'Your partner agreed to do this todo with you!',
 				},
 				{
-					id: nanoid(1000),
+					id: nanoid(),
 					type: 'created',
 					date: new Date(2021, 3, 4, 13, 34),
 					info: 'You started this todo!',
@@ -57,13 +57,13 @@ export const state = () => ({
 			favorite: false,
 			interactions: [
 				{
-					id: nanoid(1000),
+					id: nanoid(),
 					type: 'approved',
 					date: new Date(2021, 2, 7, 12, 4),
 					info: 'Your partner agreed to do this todo with you!',
 				},
 				{
-					id: nanoid(1000),
+					id: nanoid(),
 					type: 'created',
 					date: new Date(2021, 2, 4, 2, 22),
 					info: 'You started this todo!',
@@ -85,7 +85,7 @@ export const state = () => ({
 			favorite: false,
 			interactions: [
 				{
-					id: nanoid(1000),
+					id: nanoid(),
 					type: 'created',
 					date: new Date(2021, 3, 17, 18, 7),
 					info: 'You started this todo!',
@@ -107,14 +107,14 @@ export const state = () => ({
 			favorite: false,
 			interactions: [
 				{
-					id: nanoid(1000),
+					id: nanoid(),
 					type: 'engagement',
 					date: new Date(2021, 3, 9, 19, 55),
 					info: 'You updated your engagement!',
 					photo: 'opt', // opcionalno
 				},
 				{
-					id: nanoid(1000),
+					id: nanoid(),
 					type: 'created',
 					date: new Date(2021, 2, 5, 1, 28),
 					info: 'You started this todo!',
@@ -136,13 +136,13 @@ export const state = () => ({
 			favorite: false,
 			interactions: [
 				{
-					id: nanoid(1000),
+					id: nanoid(),
 					type: 'approved',
 					date: new Date(2021, 3, 17, 16, 24),
 					info: 'Your partner agreed to do this todo with you!',
 				},
 				{
-					id: nanoid(1000),
+					id: nanoid(),
 					type: 'created',
 					date: new Date(2021, 3, 17, 16, 22),
 					info: 'You started this todo!',
@@ -164,27 +164,27 @@ export const state = () => ({
 			favorite: true,
 			interactions: [
 				{
-					id: nanoid(1000),
+					id: nanoid(),
 					type: 'review',
 					date: new Date(2021, 3, 1, 21, 36),
 					info: 'Partner reviewed you engagement!',
 					score: '5', // opcionalno
 				},
 				{
-					id: nanoid(1000),
+					id: nanoid(),
 					type: 'engagement',
 					date: new Date(2021, 2, 6, 8, 32),
 					info: 'You updated your engagement!',
 					photo: 'opt', // opcionalno
 				},
 				{
-					id: nanoid(1000),
+					id: nanoid(),
 					type: 'approved',
 					date: new Date(2021, 2, 4, 14, 56),
 					info: 'Your partner agreed to do this todo with you!',
 				},
 				{
-					id: nanoid(1000),
+					id: nanoid(),
 					type: 'created',
 					date: new Date(2021, 2, 1, 1, 3),
 					info: 'You started this todo!',
