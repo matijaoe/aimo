@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import TodosWrapper from '../../../components/todos/TodosWrapper.vue';
+import TodosWrapper from 'todos/TodosWrapper.vue';
 export default {
 	components: { TodosWrapper },
 	async asyncData({ params }) {
