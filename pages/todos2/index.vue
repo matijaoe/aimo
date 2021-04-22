@@ -1,5 +1,5 @@
 <template>
-	<BaseContainer class="flex p-0 adaptive-height">
+	<BaseContainer class="flex adaptive-height" no-padding>
 		<TodosSidebar
 			class="w-[200px] overflow-y-auto flex-shrink-0"
 			:partners="partners"

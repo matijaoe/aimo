@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import TabsWrapper from '../../components/todos/TabsWrapper.vue';
+import TabsWrapper from 'todos/TabsWrapper.vue';
 export default {
 	components: { TabsWrapper },
 	data() {

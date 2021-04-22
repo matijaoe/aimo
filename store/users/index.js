@@ -1,6 +1,8 @@
 import { nanoid } from 'nanoid';
 import dayjs from 'dayjs';
 
+// `https://avatar.oxro.io/avatar.svg?name=${user.fname}${user.lname}&caps=1&fontSize=200&bold=true&background=${bgColor}&color=${textColor}`
+
 export const state = () => ({
 	users: [
 		{
@@ -12,7 +14,7 @@ export const state = () => ({
 			joined_on: dayjs('2021-01-16'),
 
 			photo:
-				'https://avatar.oxro.io/avatar.svg?name=matija+osrečki&caps=1',
+				'https://avatar.oxro.io/avatar.svg?name=matija+osre%C4%8Dki&caps=1&fontSize=200&bold=true&background=A7F3D0&color=047857',
 			occupation: 'Student',
 			bio: 'Different strokes for different folkes 🍭',
 			coins: 400,
@@ -36,7 +38,7 @@ export const state = () => ({
 			todos: [
 				{
 					id: nanoid(),
-					name: 'Procitati knjigu',
+					name: 'citati knjigu',
 					desc: '', // optional
 					categories: [
 						{ id: nanoid(), name: 'reading', color: 'red' },
@@ -85,7 +87,7 @@ export const state = () => ({
 					name: 'napraviti pripremu iz Bazi Podataka',
 					desc: '', // optional
 					categories: [
-						{ id: nanoid(), name: 'study', color: 'teal' },
+						{ id: nanoid(), name: 'study', color: 'orange' },
 						{ id: nanoid(), name: 'school', color: 'indigo' },
 						{ id: nanoid(), name: 'coding', color: 'blue' },
 					],
@@ -99,9 +101,28 @@ export const state = () => ({
 				},
 				{
 					id: nanoid(),
+					name: 'bicep curls',
+					desc: '', // optional
+					categories: [
+						{ id: nanoid(), name: 'workout', color: 'cyan' },
+						{ id: nanoid(), name: 'fitness', color: 'lightblue' },
+					],
+					timestamp: 1618916803496,
+					done: false,
+					approved: false,
+					isDaily: false,
+					favorite: false,
+					important: false,
+					partner: 'marian7',
+				},
+				{
+					id: nanoid(),
 					name: 'pogledati utakmicu',
 					desc: '', // optional
-					categories: [{ id: nanoid(), name: 'fun', color: 'pink' }],
+					categories: [
+						{ id: nanoid(), name: 'fun', color: 'pink' },
+						{ id: nanoid(), name: 'sports', color: 'teal' },
+					],
 					timestamp: 1618916803496,
 					done: false,
 					approved: false,
@@ -112,7 +133,7 @@ export const state = () => ({
 				},
 				{
 					id: nanoid(),
-					name: 'live life',
+					name: 'gasirat',
 					desc: '', // optional
 					categories: [],
 					timestamp: 1618916803496,
@@ -121,7 +142,20 @@ export const state = () => ({
 					isDaily: false,
 					favorite: false,
 					important: false,
-					partner: null,
+					partner: 'blueface',
+				},
+				{
+					id: nanoid(),
+					name: 'nacrtati brodić i more',
+					desc: '', // optional
+					categories: [{ id: nanoid(), name: 'art', color: 'amber' }],
+					timestamp: 1618916803496,
+					done: true,
+					approved: false,
+					isDaily: false,
+					favorite: false,
+					important: false,
+					partner: 'lovedoctor',
 				},
 			],
 			notifications: [
@@ -142,7 +176,8 @@ export const state = () => ({
 			birthday: dayjs('2000-11-01'),
 			joined_on: dayjs('2021-11-04'),
 
-			photo: 'https://avatar.oxro.io/avatar.svg?name=marian+babić&caps=1',
+			photo:
+				'https://avatar.oxro.io/avatar.svg?name=marian+babić&caps=1&fontSize=200&bold=true&background=FBCFE8&color=BE185D',
 			occupation: 'Student',
 			bio: 'Ad sed sunt qui sunt vel.',
 			coins: 234,
@@ -172,7 +207,7 @@ export const state = () => ({
 			joined_on: dayjs('2020-09-27'),
 
 			photo:
-				'https://avatar.oxro.io/avatar.svg?name=Patrik+Slovic&caps=1',
+				'https://avatar.oxro.io/avatar.svg?name=Patrik+Slovic&caps=1&fontSize=200&bold=true&background=C7D2FE&color=4338CA',
 			occupation: 'Musician',
 			bio: 'Amet fugiat sequi.',
 			coins: 643,
@@ -202,7 +237,7 @@ export const state = () => ({
 			joined_on: dayjs('2021-03-01'),
 
 			photo:
-				'https://avatar.oxro.io/avatar.svg?name=Tomislav+Mikšik&caps=1',
+				'https://avatar.oxro.io/avatar.svg?name=Tomislav+Mikšik&caps=1&fontSize=200&bold=true&background=BAE6FD&color=0369A1',
 			occupation: 'Influencer',
 			bio: 'Explicabo doloribus aspernatur in.',
 			coins: 110,
@@ -226,7 +261,8 @@ export const state = () => ({
 			countryCode: 'GAB',
 			birthday: dayjs('1978-11-04'),
 			joined_on: dayjs('2021-02-14'),
-			photo: 'https://randomuser.me/api/portraits/men/83.jpg',
+			photo:
+				'https://avatar.oxro.io/avatar.svg?name=Warren+Lowe&caps=1&fontSize=200&bold=true&background=FEF08A&color=A16207',
 			occupation: 'Doctor',
 			bio: 'Nulla error omnis debitis libero id repellendus.',
 			coins: 643,
@@ -241,6 +277,26 @@ export const state = () => ({
 			todos: [],
 		},
 		{
+			username: 'blueface',
+			fname: 'Stan',
+			lname: 'Polo',
+			countryCode: 'FRA',
+			birthday: dayjs('1967-12-02'),
+			joined_on: dayjs('2021-04-21'),
+			photo:
+				'https://avatar.oxro.io/avatar.svg?name=Stan+Polo&caps=1&fontSize=200&bold=true&background=BFDBFE&color=1D4ED8',
+			occupation: 'Doctor',
+			bio: 'Nulla error omnis debitis libero id repellendus.',
+			coins: 23,
+			isPremium: false,
+			categories: ['8MNLJ4yg15YoRch0t3NAG'],
+			socials: [
+				{ id: 'twitter', url: 'https://www.google.com/' },
+				{ id: 'messenger', url: 'https://www.google.com/' },
+			],
+			todos: [],
+		},
+		{
 			username: 'wood42',
 			fname: 'Joseph',
 			lname: 'Woodward',
@@ -248,9 +304,10 @@ export const state = () => ({
 			birthday: dayjs('1991-07-07'),
 			joined_on: dayjs('2020-12-11'),
 
-			photo: 'https://randomuser.me/api/portraits/men/23.jpg',
+			photo:
+				'https://avatar.oxro.io/avatar.svg?name=Joseph+Woodward&caps=1&fontSize=200&bold=true&background=FED7AA&color=C2410C',
 			occupation: 'Coach',
-			bio: '',
+			bio: 'Corrupti qui quae quia commodi.',
 			coins: 32,
 			isPremium: false,
 			categories: ['BR2eOYR1Y6u_Yp_H58xD1', '8MNLJ4yg15YoRch0t3NAG'],
@@ -269,7 +326,8 @@ export const state = () => ({
 			countryCode: 'TWN',
 			birthday: dayjs('1988-01-09'),
 			joined_on: dayjs('2021-04-10'),
-			photo: 'https://randomuser.me/api/portraits/women/35.jpg',
+			photo:
+				'https://avatar.oxro.io/avatar.svg?name=Suzanne+Hunter&caps=1&fontSize=200&bold=true&background=FECACA&color=B91C1C',
 			occupation: 'Fireman',
 			bio: 'Velit ut ut aut ut magni esse.',
 			coins: 643,
@@ -291,7 +349,8 @@ export const state = () => ({
 			fname: 'Barian',
 			lname: 'Mamić',
 			age: 24,
-			photo: 'https://avatar.oxro.io/avatar.svg?name=m+b&caps=1',
+			photo:
+				'https://avatar.oxro.io/avatar.svg?name=m+b&caps=1&fontSize=200&bold=true',
 			bio: 'Skoro sam zaspo 7 puta. U ovih pol@sata',
 			country: 'Croatia', // ili country code; dohvatit cu zastavu prek apija
 			joined_on: 'January, 2021', // timestamp kad je kreirao account
@@ -417,7 +476,8 @@ export const state = () => ({
 			age: 17,
 			// photo:
 			// 	'https://pbs.twimg.com/profile_images/669103856106668033/UF3cgUk4_400x400.jpg',
-			photo: 'https://avatar.oxro.io/avatar.svg?name=Matija+Osrecki',
+			photo:
+				'https://avatar.oxro.io/avatar.svg?name=Matija+Osrecki&fontSize=200&bold=true',
 			bio: 'Different strokes for different folkes 🍭',
 			country: 'Croatia',
 			joined_on: 'March, 2021',

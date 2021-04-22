@@ -1,4 +1,5 @@
 <template>
+	<!-- todo clamp -->
 	<div class="max-h-[80vh] overflow-y-auto">
 		<BaseContainer fieldset label="Notifications" class="p-2">
 			<p

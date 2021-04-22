@@ -15,6 +15,8 @@ export const state = () => ({
 		{ id: nanoid(), partners: ['wood42', 'suzzy'] },
 		{ id: nanoid(), partners: ['patrik_harmonika', 'suzzy'] },
 		{ id: nanoid(), partners: ['wood42', 'tomoKotar14'] },
+		{ id: nanoid(), partners: ['blueface', 'tomoKotar14'] },
+		{ id: nanoid(), partners: ['blueface', 'wood42'] },
 	],
 });
 

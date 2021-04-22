@@ -2,7 +2,8 @@
 	<transition name="dropdown">
 		<BaseContainer
 			v-if="active"
-			class="absolute top-full right-0 mt-2 p-0 divide-y-2 divide-gray-100 text-left text-gray-700 z-50 min-w-[180px] max-h-[50vh] overflow-auto"
+			class="absolute top-full right-0 mt-2 divide-y-2 divide-gray-100 text-left text-gray-700 z-50 min-w-[180px] max-h-[50vh] overflow-auto"
+			no-padding
 		>
 			<slot />
 		</BaseContainer>

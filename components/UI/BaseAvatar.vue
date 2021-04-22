@@ -24,9 +24,9 @@ export default {
 	computed: {
 		avatarSize() {
 			if (this.size === 'xs') {
-				return ['w-5', 'h-5'];
+				return ['w-6', 'h-6'];
 			} else if (this.size === 'sm') {
-				return ['w-7', 'h-7'];
+				return ['w-8', 'h-8'];
 			} else if (this.size === 'lg') {
 				return ['w-12', 'h-12'];
 			} else if (this.size === 'xl') {

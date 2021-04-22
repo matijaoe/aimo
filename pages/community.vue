@@ -12,7 +12,7 @@
 					class="flex items-center gap-3 p-2 rounded-md"
 					:to="`user/${user.username}`"
 				>
-					<BaseAvatar :src="user.photo" />
+					<BaseAvatar :src="user.photo" size="lg" />
 					<div class="flex flex-col justify-around">
 						<h3 class="text-lg">
 							{{ user.fname + ' ' + user.lname }}
