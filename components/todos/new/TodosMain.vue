@@ -50,7 +50,7 @@ export default {
 			} else if (queryFilter === 'approved') {
 				return this.todos.filter((todo) => todo.approved);
 			} else if (queryFilter === 'daily') {
-				return this.todos.filter((todo) => todo.daily);
+				return this.todos.filter((todo) => todo.isDaily);
 			} else if (queryFilter === 'personal') {
 				return this.todos.filter((todo) => !todo.partner);
 			} else {
