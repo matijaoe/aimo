@@ -2,7 +2,7 @@
 	<BaseDropdown>
 		<template slot="toggler">
 			<button
-				class="focus:outline-none rounded-full focus-within:ring-2 ring-amber-200 ring-offset-2 block group hover:bg-gray-100"
+				class="focus:outline-none focus:border-none rounded-full focus-within:ring-2 ring-amber-200 ring-offset-2 block group hover:bg-gray-100"
 			>
 				<div
 					v-tooltip.bottom="'Your profile'"

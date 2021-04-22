@@ -16,7 +16,7 @@
 			type="search"
 			name=""
 			placeholder="Search anything"
-			class="hidden sm:block bg-transparent h-full focus:outline-none rounded-full px-4 focus:ring-0 flex-1 font-medium"
+			class="hidden sm:block bg-transparent h-full focus:outline-none focus:border-none rounded-full px-4 focus:ring-0 flex-1 font-medium"
 		/>
 	</label>
 </template>

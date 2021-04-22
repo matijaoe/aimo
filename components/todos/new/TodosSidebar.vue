@@ -23,7 +23,7 @@
 			<ul class="space-y-0.5">
 				<TodosSidebarLink to="/todos2?filter=favorites">
 					<IconStar size="sm" />
-					Favorites
+					Important
 				</TodosSidebarLink>
 				<TodosSidebarLink to="/todos2?filter=daily">
 					<IconSun size="sm" />

@@ -12,14 +12,16 @@
 			</BaseButton>
 			<input
 				type="search"
-				class="p-3 w-full focus:outline-none"
+				class="p-3 w-full focus:outline-none focus:border-none"
 				placeholder="Find todo"
 			/>
 		</label>
 
 		<BaseDropdown>
 			<template slot="toggler">
-				<button class="focus:outline-none rounded-lg block p-2 group">
+				<button
+					class="focus:outline-none focus:border-none rounded-lg block p-2 group"
+				>
 					<IconDotsVertical
 						class="text-gray-300 group-hover:text-gray-900 transition"
 					/>

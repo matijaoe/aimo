@@ -1,7 +1,7 @@
 <template>
 	<BaseIcon :size="size">
 		<svg
-			fill="none"
+			:fill="fillStyle"
 			stroke="currentColor"
 			viewBox="0 0 24 24"
 			xmlns="http://www.w3.org/2000/svg"
@@ -27,6 +27,20 @@ export default {
 		size: {
 			type: String,
 			default: 'md',
+		},
+		fill: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+	},
+	computed: {
+		fillStyle() {
+			if (this.fill) {
+				return [];
+			} else {
+				return ['none'];
+			}
 		},
 	},
 };

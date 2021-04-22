@@ -28,12 +28,31 @@
 							<slot></slot>
 						</div>
 					</RoughNotation>
-					<div v-if="partner" v-tooltip.left="`@${partner.username}`">
-						<nuxt-link :to="`/user/${partner.username}`">
-							<BaseAvatar size="sm" :src="partner.photo" />
-						</nuxt-link>
+					<div class="flex items-center gap-2">
+						<div
+							class="p-1 rounded-lg group"
+							@click.stop="isImportant = !isImportant"
+						>
+							<IconStar
+								class="fill-current transition"
+								:class="{
+									'text-amber-300': isImportant,
+									'group-hover:text-amber-300': !isImportant,
+									'text-gray-200': !isImportant,
+								}"
+								:fill="isImportant"
+							/>
+						</div>
+						<div
+							v-if="partner"
+							v-tooltip.left="`@${partner.username}`"
+						>
+							<nuxt-link :to="`/user/${partner.username}`">
+								<BaseAvatar size="sm" :src="partner.photo" />
+							</nuxt-link>
+						</div>
+						<div v-else class="w-8 h-8"></div>
 					</div>
-					<div v-else class="w-7 h-7"></div>
 				</div>
 			</div>
 			<!-- tags -->
@@ -41,8 +60,8 @@
 				<BaseTag
 					v-for="tag in tags"
 					:key="tag.name"
-					:color="!done ? tag.color : ''"
-					:class="{ 'opacity-40': done }"
+					:color="!isDone ? tag.color : ''"
+					:class="{ 'opacity-40': isDone }"
 				>
 					{{ tag.name }}
 				</BaseTag>
@@ -54,6 +73,7 @@
 <script>
 import BaseAvatar from 'UI/BaseAvatar.vue';
 import BaseTag from 'UI/BaseTag.vue';
+import IconStar from 'icons/IconStar.vue';
 
 import { mapGetters } from 'vuex';
 
@@ -61,6 +81,7 @@ export default {
 	components: {
 		BaseAvatar,
 		BaseTag,
+		IconStar,
 	},
 	props: {
 		tags: {

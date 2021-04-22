@@ -26,7 +26,7 @@ export default {
 
 <style lang="postcss" scoped>
 button {
-	@apply relative border-none cursor-pointer pointer-events-auto focus:outline-none;
+	@apply relative border-none cursor-pointer pointer-events-auto focus:outline-none focus:border-none;
 	@apply uppercase text-xs font-bold rounded-lg overflow-hidden;
 	@apply tracking-[0.05rem];
 	@apply py-3 px-7;
