@@ -34,11 +34,5 @@ export default {
 				: 'text-gray-300 bg-transparent';
 		},
 	},
-	methods: {
-		changeRoute() {
-			if (this.$route.path === this.link) return;
-			this.$router.replace(this.link);
-		},
-	},
 };
 </script>

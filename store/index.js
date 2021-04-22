@@ -31,7 +31,7 @@ export const state = () => ({
 		{ id: 'QJNdchJLDfKZcR-O3ytn3', name: 'school', color: 'red' },
 		{ id: '8MNLJ4yg15YoRch0t3NAG', name: 'coding', color: 'emerald' },
 		{ id: 'VQDonT7_pB4ACAW6DZsiL', name: 'reading', color: 'indigo' },
-		{ id: 'BR2eOYR1Y6u_Yp_H58xD1', name: 'fitness', color: 'lightblue' },
+		{ id: 'BR2eOYR1Y6u_Yp_H58xD1', name: 'fitness', color: 'lightBlue' },
 		{ id: '0TN9zbVVaZOhWswtztYYn', name: 'workout', color: 'cyan' },
 		{ id: 'uUCM7KHa7XlSzqpqX7iY3', name: 'health', color: 'rose' },
 		{ id: 'VquU1OBaiUo02JuSuZRO8', name: 'midfulness', color: 'orange' },
@@ -39,7 +39,7 @@ export const state = () => ({
 		{ id: 'Bzw_jJ7m-I6vuN4HaFsDv', name: 'fun', color: 'violet' },
 		{ id: 'xUMFQYg3iBJbptNBUqsCK', name: 'nature', color: 'green' },
 		{ id: 'jcE5bvcPrBYb2bstsEWgE', name: 'music', color: 'yellow' },
-		{ id: 'kmTtKxOMeKfuNoU_kG-yp', name: 'art', color: '' },
+		{ id: 'kmTtKxOMeKfuNoU_kG-yp', name: 'art', color: 'amber' },
 		{ id: '4OgWmONbRqhKYtDJTjd0I', name: 'sports', color: 'teal' },
 		{ id: 'wuH147eN-7R2g4EeJrB09', name: '', color: '' },
 		{ id: 'hIYvsT4-lwqyByPZXoAuO', name: '', color: '' },
@@ -73,6 +73,9 @@ export const getters = {
 			(user) => user.username === getters.currentUserId
 		);
 		return currentUser;
+	},
+	currentUserTodos(state, getters) {
+		return getters.currentUser.todos;
 	},
 	categories(state) {
 		return state.categories;

@@ -8,7 +8,7 @@
 		</div>
 
 		<ul class="space-y-0.5">
-			<TodosSidebarLink to="/todos2?filter=all">
+			<TodosSidebarLink to="/todos2">
 				<IconClipboardList size="sm" />
 				All
 			</TodosSidebarLink>
@@ -16,12 +16,16 @@
 				<IconCheck size="sm" />
 				Completed
 			</TodosSidebarLink>
+			<TodosSidebarLink to="/todos2?filter=approved">
+				<IconShieldCheck size="sm" />
+				Approved
+			</TodosSidebarLink>
 		</ul>
 
 		<div>
 			<h3 class="title">Filters</h3>
 			<ul class="space-y-0.5">
-				<TodosSidebarLink to="/todos2?filter=favorites">
+				<TodosSidebarLink to="/todos2?filter=important">
 					<IconStar size="sm" />
 					Important
 				</TodosSidebarLink>
@@ -59,6 +63,7 @@ import IconStar from 'icons/IconStar.vue';
 import IconSun from 'icons/IconSun.vue';
 import IconHeart from 'icons/IconHeart.vue';
 import IconCheck from 'icons/IconCheck.vue';
+import IconShieldCheck from 'icons/IconShieldCheck.vue';
 import BaseButton from 'UI/BaseButton.vue';
 import BaseAvatar from 'UI/BaseAvatar.vue';
 import TodosSidebarLink from './TodosSidebarLink.vue';
@@ -71,6 +76,7 @@ export default {
 		IconSun,
 		IconHeart,
 		IconCheck,
+		IconShieldCheck,
 		BaseButton,
 		BaseAvatar,
 		TodosSidebarLink,

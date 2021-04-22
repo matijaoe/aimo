@@ -2,6 +2,7 @@
 	<nav class="flex flex-col justify-between flex-1 mt-10">
 		<ul class="space-y-2">
 			<li class="border-b-2 border-dashed border-gray-200 pb-4">
+				<!-- todo - replace with button -->
 				<SidebarNavLink
 					text="New todo"
 					to="/todos/new"

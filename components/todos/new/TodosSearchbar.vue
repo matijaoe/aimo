@@ -1,5 +1,5 @@
 <template>
-	<div class="flex items-center bg-white">
+	<div class="flex items-center bg-white border-b-2 border-gray-100">
 		<label class="w-full flex items-center">
 			<BaseButton
 				v-tooltip.bottom="'Search'"

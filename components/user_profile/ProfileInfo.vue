@@ -29,10 +29,10 @@
 				</div>
 			</div>
 			<div>
-				<div class="grid grid-cols-2 gap-4 mx-2 font-medium">
+				<div class="grid grid-cols-2 gap-3 mx-4">
 					<div
 						v-tooltip.left="`From ${countryName}`"
-						class="flex items-center gap-2 justify-self-end py-2 px-4 rounded-lg bg-teal-50 text-teal-500"
+						class="flex items-center justify-end gap-2 py-2 px-4 rounded-lg text-teal-500 bg-teal-50"
 					>
 						<span>{{ countryName }}</span>
 						<div
@@ -41,26 +41,21 @@
 							<img
 								v-if="countryFlag"
 								:src="countryFlag"
-								alt=""
+								alt="Flag"
 								class="object-cover h-full"
-							/>
-							<IconLocation
-								v-else
-								size="sm"
-								class="text-green-500"
 							/>
 						</div>
 					</div>
 					<div
 						v-tooltip.right="'Age'"
-						class="flex items-center gap-2 justify-self-start text-orange-500 py-2 px-4 rounded-lg bg-orange-50"
+						class="flex items-center justify-start gap-2 text-orange-500 py-2 px-4 rounded-lg bg-orange-50"
 					>
 						<IconCake size="sm" class="text-orange-500" />
-						<span>{{ age }} yo</span>
+						<span>{{ age }} years old</span>
 					</div>
 					<div
 						v-tooltip.left="'Joined on'"
-						class="flex items-center gap-2 justify-self-end text-blue-500 py-2 px-4 rounded-lg bg-blue-50"
+						class="flex items-center justify-end gap-2 text-blue-500 py-2 px-4 rounded-lg bg-blue-50"
 					>
 						<!-- inace ce tu ic metoda koje izvuce datum iz timestampa -->
 						<span>{{ joinDate }}</span>
@@ -68,9 +63,9 @@
 					</div>
 					<div
 						v-tooltip.right="'Occupation'"
-						class="flex items-center gap-2 justify-self-start text-purple-500 py-2 px-4 rounded-lg bg-purple-50"
+						class="flex items-center justify-start gap-2 text-indigo-500 py-2 px-4 rounded-lg bg-indigo-50"
 					>
-						<IconAcademicHat size="sm" class="text-purple-500" />
+						<IconIdentification size="sm" class="text-indigo-500" />
 						<span>{{ user.occupation }}</span>
 					</div>
 				</div>
@@ -89,6 +84,7 @@ import IconChat from 'icons/IconChat.vue';
 import IconCalendar from 'icons/IconCalendar.vue';
 import IconCake from 'icons/IconCake.vue';
 import IconAcademicHat from 'icons/IconAcademicHat.vue';
+import IconIdentification from 'icons/IconIdentification.vue';
 
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
@@ -98,12 +94,13 @@ export default {
 		BaseAvatar,
 		BaseContainer,
 		BaseButton,
-		IconLocation,
+		// IconLocation,
 		IconEdit,
 		IconChat,
 		IconCalendar,
 		IconCake,
-		IconAcademicHat,
+		// IconAcademicHat,
+		IconIdentification,
 	},
 	props: ['user', 'isLoggedIn'],
 	data() {

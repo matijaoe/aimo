@@ -140,7 +140,7 @@ export const state = () => ({
 					timestamp: 1618916803496,
 					done: false,
 					approved: false,
-					isDaily: false,
+					isDaily: true,
 					favorite: true,
 					important: false,
 					partner: 'blueface',

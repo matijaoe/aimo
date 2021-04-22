@@ -194,6 +194,124 @@ export const state = () => ({
 			comments: [],
 		},
 	],
+	todos2: [
+		{
+			id: nanoid(),
+			name: 'citati knjigu',
+			desc: '', // optional
+			categories: ['VQDonT7_pB4ACAW6DZsiL', 'VquU1OBaiUo02JuSuZRO8'],
+			timestamp: 1618916803496,
+			done: false,
+			approved: false,
+			isDaily: false,
+			favorite: false,
+			important: true,
+			partner: 'patrik_harmonika',
+		},
+		{
+			id: nanoid(),
+			name: 'odvoziti bicikl',
+			desc: '', // optional
+			categories: [
+				'BR2eOYR1Y6u_Yp_H58xD1',
+				'xUMFQYg3iBJbptNBUqsCK',
+				'uUCM7KHa7XlSzqpqX7iY3',
+			],
+			timestamp: 1618916803496,
+			done: true,
+			approved: false,
+			isDaily: false,
+			favorite: false,
+			important: true,
+			partner: 'marian7',
+		},
+		{
+			id: nanoid(),
+			name: 'random task',
+			desc: '', // optional
+			categories: [],
+			timestamp: 1618916803496,
+			done: true,
+			approved: false,
+			isDaily: false,
+			favorite: true,
+			important: false,
+			partner: null,
+		},
+		{
+			id: nanoid(),
+			name: 'napraviti pripremu iz Bazi Podataka',
+			desc: '', // optional
+			categories: [
+				'OWEhqyLlnnWQGEUAHzGhe',
+				'QJNdchJLDfKZcR-O3ytn3',
+				'8MNLJ4yg15YoRch0t3NAG',
+			],
+			timestamp: 1618916803496,
+			done: false,
+			approved: false,
+			isDaily: false,
+			favorite: false,
+			important: false,
+			partner: 'tomoKotar14',
+		},
+		{
+			id: nanoid(),
+			name: 'bicep curls',
+			desc: '', // optional
+			categories: ['0TN9zbVVaZOhWswtztYYn', 'BR2eOYR1Y6u_Yp_H58xD1'],
+			timestamp: 1618916803496,
+			done: false,
+			approved: false,
+			isDaily: false,
+			favorite: true,
+			important: true,
+			partner: 'marian7',
+		},
+		{
+			id: nanoid(),
+			name: 'pogledati utakmicu',
+			desc: '', // optional
+			categories: [
+				'Bzw_jJ7m-I6vuN4HaFsDv',
+				'4OgWmONbRqhKYtDJTjd0I',
+				'0iUqkyVh0IliBfXtyOj7r',
+			],
+			timestamp: 1618916803496,
+			done: false,
+			approved: false,
+			isDaily: false,
+			favorite: false,
+			important: false,
+			partner: null,
+		},
+		{
+			id: nanoid(),
+			name: 'gasirat',
+			desc: '', // optional
+			categories: [],
+			timestamp: 1618916803496,
+			done: false,
+			approved: false,
+			isDaily: true,
+			favorite: true,
+			important: false,
+			partner: 'blueface',
+		},
+		{
+			id: nanoid(),
+			name: 'nacrtati brodić i more',
+			desc: '', // optional
+			categories: ['kmTtKxOMeKfuNoU_kG-yp'],
+			timestamp: 1618916803496,
+			done: true,
+			approved: false,
+			isDaily: false,
+			favorite: false,
+			important: false,
+			partner: 'lovedoctor',
+		},
+	],
 });
 
 export const getters = {
@@ -205,6 +323,9 @@ export const getters = {
 	},
 	getFavoriteTodos(state, getters) {
 		return getters.allTodos.filter((todo) => todo.favorite);
+	},
+	getImportantTodos(state, getters) {
+		return getters.allTodos.filter((todo) => todo.important);
 	},
 	getTodosByPartner: (state, getters) => (username) => {
 		return getters.allTodos.filter((todo) => todo.partner === username);
