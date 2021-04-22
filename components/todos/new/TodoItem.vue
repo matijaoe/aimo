@@ -9,11 +9,22 @@
 				<!-- toggle -->
 				<div
 					class="w-4 h-4 border-[3px] rounded-full flex-shrink-0 border-gray-200"
-					:class="{ 'bg-gray-200': done }"
+					:class="{ 'bg-gray-200': isDone }"
 				></div>
 				<div class="flex items-center justify-between gap-2 flex-1">
-					<RoughNotation :is-show="done" type="strike-through">
-						<div :class="markDone">
+					<div v-if="isDone">
+						<RoughNotation :is-show="isDone" type="strike-through">
+							<div :class="markDone">
+								<slot></slot>
+							</div>
+						</RoughNotation>
+					</div>
+					<RoughNotation
+						:is-show="isImportant && !isDone"
+						type="highlight"
+						color="#FDE68A"
+					>
+						<div v-if="!isDone">
 							<slot></slot>
 						</div>
 					</RoughNotation>
@@ -67,15 +78,21 @@ export default {
 			required: true,
 			default: false,
 		},
+		important: {
+			type: Boolean,
+			required: true,
+			default: false,
+		},
 	},
 	data() {
 		return {
-			done: this.completed,
+			isDone: this.completed,
+			isImportant: this.important,
 		};
 	},
 	computed: {
 		markDone() {
-			return { 'text-gray-300': this.done };
+			return { 'text-gray-300': this.isDone };
 		},
 		...mapGetters('users', ['getUserById']),
 		partner() {
@@ -84,7 +101,7 @@ export default {
 	},
 	methods: {
 		toggleDone() {
-			this.done = !this.done;
+			this.isDone = !this.isDone;
 		},
 	},
 };
