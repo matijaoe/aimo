@@ -9,7 +9,7 @@
 
 		<!-- Column 2 -->
 		<div class="space-y-2">
-			<ProfileSocials :user="user" />
+			<ProfileSocials :socials="user.socials" />
 			<ProfilePartners :user="user" :user-id="userId" />
 			<ProfileBio :user="user" />
 		</div>

@@ -98,7 +98,7 @@ export default {
 		BaseAvatar,
 		BaseContainer,
 		BaseButton,
-		// IconLocation,
+		IconLocation,
 		IconEdit,
 		IconChat,
 		IconCalendar,

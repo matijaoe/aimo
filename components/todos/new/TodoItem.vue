@@ -84,7 +84,7 @@ export default {
 		IconStar,
 	},
 	props: {
-		tags: {
+		categories: {
 			type: Array,
 			required: false,
 			default: () => [],
@@ -116,8 +116,12 @@ export default {
 			return { 'text-gray-300': this.isDone };
 		},
 		...mapGetters('users', ['getUserById']),
+		...mapGetters(['getCategoryById']),
 		partner() {
 			return this.getUserById(this.partnerId);
+		},
+		tags() {
+			return this.categories.map((id) => this.getCategoryById(id));
 		},
 	},
 	methods: {

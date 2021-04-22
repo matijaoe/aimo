@@ -19,6 +19,7 @@ import TodosMain from 'todos/new/TodosMain.vue';
 
 import { mapGetters } from 'vuex';
 import { orderBy as _orderBy } from 'lodash';
+import { nanoid } from 'nanoid';
 
 export default {
 	components: {

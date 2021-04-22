@@ -28,6 +28,7 @@ export const state = () => ({
 	],
 	categories: [
 		{ id: 'OWEhqyLlnnWQGEUAHzGhe', name: 'study', color: 'blue' },
+		{ id: 'QJNdchJLDfKZcR-O3ytn3', name: 'school', color: 'red' },
 		{ id: '8MNLJ4yg15YoRch0t3NAG', name: 'coding', color: 'emerald' },
 		{ id: 'VQDonT7_pB4ACAW6DZsiL', name: 'reading', color: 'indigo' },
 		{ id: 'BR2eOYR1Y6u_Yp_H58xD1', name: 'fitness', color: 'lightblue' },
@@ -55,7 +56,6 @@ export const state = () => ({
 		{ id: 'b5BjTUQ2C3fb3018njqCt', name: '', color: '' },
 		{ id: 'NKbSyrQazqml18XIZ9Qqo', name: '', color: '' },
 		{ id: 'gwrfhnBOe6Awmk0D0VHJ1', name: '', color: '' },
-		{ id: 'QJNdchJLDfKZcR-O3ytn3', name: '', color: '' },
 		{ id: 'v3u-7QZKJx3XOdM8laFeh', name: '', color: '' },
 		{ id: 'DMvuroCorHDFUVqxvbD-O', name: '', color: '' },
 		{ id: 'SM3yzIzmcOW9RAdHNTUc0', name: '', color: '' },
@@ -73,6 +73,18 @@ export const getters = {
 			(user) => user.username === getters.currentUserId
 		);
 		return currentUser;
+	},
+	categories(state) {
+		return state.categories;
+	},
+	getCategoryById: (state, getters) => (catId) => {
+		return getters.categories.find((cat) => cat.id === catId);
+	},
+	socials(state) {
+		return state.socials;
+	},
+	getSocialById: (state, getters) => (socId) => {
+		return getters.socials.find((cat) => cat.id === socId);
 	},
 };
 

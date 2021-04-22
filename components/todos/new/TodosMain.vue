@@ -4,11 +4,10 @@
 			<TodoItem
 				v-for="todo in todos"
 				:key="todo.id"
-				:tags="todo.categories"
+				:categories="todo.categories"
 				:partner-id="todo.partner"
 				:completed="todo.done"
 				:important="todo.important"
-				:favorite="todo.favorite"
 			>
 				{{ todo.name }}
 			</TodoItem>
