@@ -8,15 +8,19 @@
 		</div>
 
 		<ul class="space-y-0.5">
-			<TodosSidebarLink to="/todos2">
+			<TodosSidebarLink :to="{ name: 'todos2' }">
 				<IconClipboardList size="sm" />
 				All
 			</TodosSidebarLink>
-			<TodosSidebarLink to="/todos2?filter=completed">
+			<TodosSidebarLink
+				:to="{ name: 'todos2', query: { filter: 'completed' } }"
+			>
 				<IconCheck size="sm" />
 				Completed
 			</TodosSidebarLink>
-			<TodosSidebarLink to="/todos2?filter=approved">
+			<TodosSidebarLink
+				:to="{ name: 'todos2', query: { filter: 'approved' } }"
+			>
 				<IconShieldCheck size="sm" />
 				Approved
 			</TodosSidebarLink>
@@ -25,16 +29,22 @@
 		<div>
 			<h3 class="title">Filters</h3>
 			<ul class="space-y-0.5">
-				<TodosSidebarLink to="/todos2?filter=important">
+				<TodosSidebarLink
+					:to="{ name: 'todos2', query: { filter: 'important' } }"
+				>
 					<IconStar size="sm" />
 					Important
 				</TodosSidebarLink>
-				<TodosSidebarLink to="/todos2?filter=daily">
-					<IconSun size="sm" />
+				<TodosSidebarLink
+					:to="{ name: 'todos2', query: { filter: 'daily' } }"
+				>
+					<IconGlobeAlt size="sm" />
 					Daily
 				</TodosSidebarLink>
-				<TodosSidebarLink to="/todos2?filter=personal">
-					<IconHeart size="sm" />
+				<TodosSidebarLink
+					:to="{ name: 'todos2', query: { filter: 'personal' } }"
+				>
+					<IconUserCircle size="sm" />
 					Personal
 				</TodosSidebarLink>
 			</ul>
@@ -60,8 +70,8 @@
 import IconPlus from 'icons/IconPlus.vue';
 import IconClipboardList from 'icons/IconClipboardList.vue';
 import IconStar from 'icons/IconStar.vue';
-import IconSun from 'icons/IconSun.vue';
-import IconHeart from 'icons/IconHeart.vue';
+import IconGlobeAlt from 'icons/IconGlobeAlt.vue';
+import IconUserCircle from 'icons/IconUserCircle.vue';
 import IconCheck from 'icons/IconCheck.vue';
 import IconShieldCheck from 'icons/IconShieldCheck.vue';
 import BaseButton from 'UI/BaseButton.vue';
@@ -73,8 +83,8 @@ export default {
 		IconPlus,
 		IconClipboardList,
 		IconStar,
-		IconSun,
-		IconHeart,
+		IconGlobeAlt,
+		IconUserCircle,
 		IconCheck,
 		IconShieldCheck,
 		BaseButton,

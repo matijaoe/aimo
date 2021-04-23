@@ -11,9 +11,11 @@
 				</div>
 			</BaseButton>
 			<input
+				v-model="searchTerm"
 				type="search"
 				class="p-3 w-full focus:outline-none focus:border-none"
 				placeholder="Find todo"
+				@input="$emit('search', searchTerm)"
 			/>
 		</label>
 
@@ -73,5 +75,10 @@ export default {
 		BaseDropdownItem,
 	},
 	emits: ['search', 'sort'],
+	data() {
+		return {
+			searchTerm: '',
+		};
+	},
 };
 </script>

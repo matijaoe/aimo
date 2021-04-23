@@ -8,6 +8,8 @@
 				:partner-id="todo.partner"
 				:completed="todo.done"
 				:important="todo.important"
+				:approved="todo.approved"
+				:daily="todo.isDaily"
 			>
 				{{ todo.name }}
 			</TodoItem>

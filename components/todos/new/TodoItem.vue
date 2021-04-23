@@ -1,6 +1,7 @@
 <template>
 	<li
-		class="flex items-center gap-4 px-4 py-3 border-t-2 border-gray-100 bg-white cursor-pointer transform hover:-translate-y-1 transition select-none"
+		class="flex items-center gap-4 px-4 py-3 border-t-2 cursor-pointer transform hover:-translate-y-1 transition select-none"
+		:class="itemBg"
 		@click="toggleDone"
 	>
 		<div class="w-full">
@@ -8,12 +9,16 @@
 			<div class="flex items-center gap-4">
 				<!-- toggle -->
 				<div
-					class="w-4 h-4 border-[3px] rounded-full flex-shrink-0 border-gray-200"
-					:class="{ 'bg-gray-200': isDone }"
+					class="w-4 h-4 border-[3px] rounded-full flex-shrink-0"
+					:class="dotColor"
 				></div>
 				<div class="flex items-center justify-between gap-2 flex-1">
 					<div v-if="isDone">
-						<RoughNotation :is-show="isDone" type="strike-through">
+						<RoughNotation
+							:is-show="isDone"
+							type="strike-through"
+							:color="stateColor"
+						>
 							<div :class="markDone">
 								<slot></slot>
 							</div>
@@ -30,16 +35,29 @@
 					</RoughNotation>
 					<div class="flex items-center gap-2">
 						<div
+							v-if="isDaily"
+							v-tooltip.left="'Repeats daily'"
+							class="p-1 rounded-lg"
+						>
+							<IconGlobeAlt class="text-blue-400" />
+						</div>
+						<div
+							v-if="isApproved"
+							v-tooltip.left="'Approved'"
+							class="p-1 rounded-lg"
+						>
+							<IconShieldCheck class="text-emerald-400" />
+						</div>
+						<div
+							v-tooltip.left="
+								isImportant ? 'Important' : 'Mark as important'
+							"
 							class="p-1 rounded-lg group"
 							@click.stop="isImportant = !isImportant"
 						>
 							<IconStar
 								class="fill-current transition"
-								:class="{
-									'text-amber-300': isImportant,
-									'group-hover:text-amber-300': !isImportant,
-									'text-gray-200': !isImportant,
-								}"
+								:class="starStyle"
 								:fill="isImportant"
 							/>
 						</div>
@@ -51,7 +69,13 @@
 								<BaseAvatar size="sm" :src="partner.photo" />
 							</nuxt-link>
 						</div>
-						<div v-else class="w-8 h-8"></div>
+						<div
+							v-else
+							v-tooltip.left="'Personal'"
+							class="flex items-center justify-center"
+						>
+							<IconUserCircle size="lg" class="text-gray-300" />
+						</div>
 					</div>
 				</div>
 			</div>
@@ -74,6 +98,9 @@
 import BaseAvatar from 'UI/BaseAvatar.vue';
 import BaseTag from 'UI/BaseTag.vue';
 import IconStar from 'icons/IconStar.vue';
+import IconGlobeAlt from 'icons/IconGlobeAlt.vue';
+import IconShieldCheck from 'icons/IconShieldCheck.vue';
+import IconUserCircle from 'icons/IconUserCircle.vue';
 
 import { mapGetters } from 'vuex';
 
@@ -82,6 +109,9 @@ export default {
 		BaseAvatar,
 		BaseTag,
 		IconStar,
+		IconGlobeAlt,
+		IconShieldCheck,
+		IconUserCircle,
 	},
 	props: {
 		categories: {
@@ -99,9 +129,19 @@ export default {
 			required: true,
 			default: false,
 		},
+		approved: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
 		important: {
 			type: Boolean,
 			required: true,
+			default: false,
+		},
+		daily: {
+			type: Boolean,
+			required: false,
 			default: false,
 		},
 	},
@@ -109,6 +149,8 @@ export default {
 		return {
 			isDone: this.completed,
 			isImportant: this.important,
+			isApproved: this.approved,
+			isDaily: this.daily,
 		};
 	},
 	computed: {
@@ -123,10 +165,41 @@ export default {
 		tags() {
 			return this.categories.map((id) => this.getCategoryById(id));
 		},
+		stateColor() {
+			// return this.isApproved ? ['#10B981'] : ['currentColor'];
+			return 'currentColor';
+		},
+		dotColor() {
+			if (this.isApproved) {
+				return ['bg-emerald-400', 'border-emerald-400'];
+			} else if (this.isDone) {
+				return ['bg-gray-200', 'border-gray-200'];
+			} else {
+				return ['border-gray-200'];
+			}
+		},
+		itemBg() {
+			// return this.isApproved
+			// 	? ['bg-emerald-50', 'border-emerald-100', 'text-emerald-600']
+			// 	: ['bg-white', 'border-gray-100'];
+			return ['bg-white', 'border-gray-100'];
+		},
+		starStyle() {
+			if (this.isImportant) {
+				return ['text-amber-300'];
+				// } else if (this.isApproved) {
+				// 	return ['text-emerald-200', 'group-hover:text-amber-300'];
+			} else {
+				return ['text-gray-200', 'group-hover:text-amber-300'];
+			}
+		},
 	},
 	methods: {
 		toggleDone() {
-			this.isDone = !this.isDone;
+			// ne mozes odselectati ako je approved
+			if (!this.isApproved) {
+				this.isDone = !this.isDone;
+			}
 		},
 	},
 };

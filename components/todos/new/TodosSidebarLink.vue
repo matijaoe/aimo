@@ -16,8 +16,11 @@
 export default {
 	props: {
 		to: {
-			type: String,
+			type: Object,
 			required: true,
+			default: () => {
+				return { name: 'todos2' };
+			},
 		},
 		tooltip: {
 			type: String,

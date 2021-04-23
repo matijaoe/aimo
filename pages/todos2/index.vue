@@ -19,7 +19,6 @@ import TodosMain from 'todos/new/TodosMain.vue';
 
 import { mapGetters } from 'vuex';
 import { orderBy as _orderBy } from 'lodash';
-import { nanoid } from 'nanoid';
 
 export default {
 	components: {
@@ -33,20 +32,21 @@ export default {
 			todos: [],
 		};
 	},
+
 	computed: {
 		...mapGetters(['currentUser', 'currentUserId']),
 		...mapGetters('partners', ['getPartnersById']),
 		partners() {
 			return this.getPartnersById(this.currentUserId);
 		},
+		allTodos() {
+			return this.currentUser.todos;
+		},
 	},
 	created() {
-		this.todos = this.currentUser.todos;
+		this.todos = this.allTodos;
 	},
 	methods: {
-		allTodos() {
-			this.todos = this.currentUser.todos;
-		},
 		sortTodos(arg) {
 			if (arg === 'asc' || arg === 'desc') {
 				this.todos = _orderBy(
@@ -58,7 +58,11 @@ export default {
 				this.todos = this.currentUser.todos;
 			}
 		},
-		searchTodos() {},
+		searchTodos(term) {
+			this.todos = this.allTodos.filter((todo) => {
+				return todo.name.toLowerCase().includes(term.toLowerCase());
+			});
+		},
 	},
 };
 </script>

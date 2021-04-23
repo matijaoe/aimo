@@ -9,12 +9,12 @@
 		@apply py-2;
 		@apply text-xs;
 		@apply font-medium;
-		@apply shadow-lg;
+		@apply shadow;
 		@apply transition;
 		@apply ease-in-out;
 		@apply duration-150;
-		@apply bg-gray-50;
-		@apply text-gray-700;
+		@apply bg-white;
+		@apply text-gray-800;
 	}
 
 	.tooltip-arrow {
@@ -22,7 +22,7 @@
 		@apply w-0;
 		@apply border-solid;
 		@apply absolute;
-		@apply border-gray-50;
+		@apply border-white;
 		@apply z-30;
 		@apply transition;
 		@apply ease-in-out;
