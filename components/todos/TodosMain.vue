@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import TodoItem from 'todos/new/TodoItem.vue';
+import TodoItem from 'todos/TodoItem.vue';
 import BaseButton from 'UI/BaseButton.vue';
 import IconPlus from 'icons/IconPlus.vue';
 import { mapGetters } from 'vuex';
@@ -36,29 +36,33 @@ import { mapGetters } from 'vuex';
 export default {
 	components: { TodoItem, BaseButton, IconPlus },
 	props: {
-		todos: {
-			type: Array,
-			default: () => [],
+		filter: {
+			type: String,
+			required: true,
+		},
+		filterCategory: {
+			type: String,
+			required: true,
 		},
 	},
 	computed: {
-		...mapGetters(['currentUserTodos']),
+		...mapGetters('todos', [
+			'allTodos',
+			'importantTodos',
+			'completedTodos',
+			'approvedTodos',
+			'dailyTodos',
+			'personalTodos',
+			'todosByPartner',
+		]),
 		filteredTodos() {
-			const queryFilter = this.$route.query.filter;
-			if (queryFilter === 'important') {
-				return this.todos.filter((todo) => todo.important);
-			} else if (queryFilter === 'completed') {
-				return this.todos.filter((todo) => todo.done);
-			} else if (queryFilter === 'approved') {
-				return this.todos.filter((todo) => todo.approved);
-			} else if (queryFilter === 'daily') {
-				return this.todos.filter((todo) => todo.isDaily);
-			} else if (queryFilter === 'personal') {
-				return this.todos.filter((todo) => !todo.partner);
-			} else {
-				this.$router.replace('/todos2');
-				return this.todos;
+			if (this.filterCategory === 'default') {
+				const todoGetterString = `${this.filter}Todos`;
+				return this[todoGetterString];
+			} else if (this.filterCategory === 'partners') {
+				return this.todosByPartner(this.filter);
 			}
+			return [];
 		},
 		hasTodos() {
 			return this.filteredTodos && this.filteredTodos.length > 0;

@@ -1,72 +1,145 @@
 <template>
-	<BaseContainer>
-		<header class="flex justify-between">
-			<div class="flex gap-2">
-				<h2 class="text-lg font-bold">
-					{{ title }}
-					<span v-if="hasPartner">
-						w/
-						<NuxtLink
-							:to="`/user/${partner}`"
-							class="text-amber-300 hover:text-amber-400"
+	<li
+		class="flex items-center gap-4 px-4 py-3 border-t-2 cursor-pointer transform hover:-translate-y-1 transition select-none"
+		:class="itemBg"
+		@click="toggleDone"
+	>
+		<div class="w-full">
+			<!-- first row -->
+			<div class="flex items-center gap-4">
+				<!-- toggle -->
+				<div
+					class="w-4 h-4 border-[3px] rounded-full flex-shrink-0"
+					:class="dotColor"
+				></div>
+				<div class="flex items-center justify-between gap-2 flex-1">
+					<div v-if="isDone">
+						<RoughNotation
+							:is-show="isDone"
+							type="strike-through"
+							:color="stateColor"
 						>
-							{{ partnerFullName }}
-						</NuxtLink>
-					</span>
-				</h2>
-				<IconStar v-if="favorite" />
+							<div :class="markDone">
+								<slot></slot>
+							</div>
+						</RoughNotation>
+					</div>
+					<RoughNotation
+						:is-show="isImportant && !isDone"
+						type="highlight"
+						color="#FDE68A"
+					>
+						<div v-if="!isDone">
+							<slot></slot>
+						</div>
+					</RoughNotation>
+					<div class="flex items-center gap-2">
+						<div
+							v-if="isDaily"
+							v-tooltip.left="'Repeats daily'"
+							class="p-1 rounded-lg"
+						>
+							<IconGlobeAlt class="text-blue-400" />
+						</div>
+						<div
+							v-if="isApproved"
+							v-tooltip.left="'Approved'"
+							class="p-1 rounded-lg"
+						>
+							<IconShieldCheck class="text-emerald-400" />
+						</div>
+						<div
+							v-tooltip.left="
+								isImportant ? 'Important' : 'Mark as important'
+							"
+							class="p-1 rounded-lg group"
+							@click.stop="isImportant = !isImportant"
+						>
+							<IconStar
+								class="fill-current transition"
+								:class="starStyle"
+								:fill="isImportant"
+							/>
+						</div>
+						<div
+							v-if="partner"
+							v-tooltip.left="`@${partner.username}`"
+						>
+							<nuxt-link :to="`/user/${partner.username}`">
+								<BaseAvatar size="sm" :src="partner.photo" />
+							</nuxt-link>
+						</div>
+						<div
+							v-else
+							v-tooltip.left="'Personal'"
+							class="flex items-center justify-center"
+						>
+							<IconUserCircle size="lg" class="text-gray-300" />
+						</div>
+					</div>
+				</div>
 			</div>
-			<BaseAvatar v-if="hasPartner" :src="partnerInfo.photo" />
-		</header>
-
-		<section>
-			<p>
-				Status:
-				<span class="uppercase text-amber-500">{{ status }}</span>
-			</p>
-			<hr class="mt-4 border-coolGray-500" />
-		</section>
-
-		<footer class="flex justify-end">
-			<TodoOptions :todo-id="todoId" />
-		</footer>
-	</BaseContainer>
+			<!-- tags -->
+			<div v-if="tags.length > 0" class="ml-8 space-x-2">
+				<BaseTag
+					v-for="tag in tags"
+					:key="tag.name"
+					:color="!isDone ? tag.color : ''"
+					:class="{ 'opacity-40': isDone }"
+				>
+					{{ tag.name }}
+				</BaseTag>
+			</div>
+		</div>
+	</li>
 </template>
 
 <script>
+import BaseAvatar from 'UI/BaseAvatar.vue';
+import BaseTag from 'UI/BaseTag.vue';
+import IconStar from 'icons/IconStar.vue';
+import IconGlobeAlt from 'icons/IconGlobeAlt.vue';
+import IconShieldCheck from 'icons/IconShieldCheck.vue';
+import IconUserCircle from 'icons/IconUserCircle.vue';
+
 import { mapGetters } from 'vuex';
 
-import BaseAvatar from 'UI/BaseAvatar.vue';
-import BaseContainer from 'UI/BaseContainer';
-import IconStar from 'icons/IconStar';
-import TodoOptions from './TodoOptions.vue';
-
 export default {
-	components: { IconStar, BaseContainer, BaseAvatar, TodoOptions },
+	components: {
+		BaseAvatar,
+		BaseTag,
+		IconStar,
+		IconGlobeAlt,
+		IconShieldCheck,
+		IconUserCircle,
+	},
 	props: {
-		todoId: {
-			type: String,
-			required: true,
+		categories: {
+			type: Array,
+			required: false,
+			default: () => [],
 		},
-		title: {
-			type: String,
-			required: true,
-		},
-		partner: {
+		partnerId: {
 			type: String,
 			required: false,
-			default: 'personal',
+			default: null,
 		},
-		desc: {
-			type: String,
-			required: false,
-			default: 'No description.',
-		},
-		status: {
-			type: String,
+		completed: {
+			type: Boolean,
 			required: true,
+			default: false,
 		},
-		favorite: {
+		approved: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+		important: {
+			type: Boolean,
+			required: true,
+			default: false,
+		},
+		daily: {
 			type: Boolean,
 			required: false,
 			default: false,
@@ -74,19 +147,59 @@ export default {
 	},
 	data() {
 		return {
-			partnerPictureUrl: null,
+			isDone: this.completed,
+			isImportant: this.important,
+			isApproved: this.approved,
+			isDaily: this.daily,
 		};
 	},
 	computed: {
+		markDone() {
+			return { 'text-gray-300': this.isDone };
+		},
 		...mapGetters('users', ['getUserById']),
-		hasPartner() {
-			return this.partner !== 'personal' && this.partner !== '';
+		...mapGetters(['getCategoryById']),
+		partner() {
+			return this.getUserById(this.partnerId);
 		},
-		partnerFullName() {
-			return `${this.partnerInfo.fname} ${this.partnerInfo.lname}`;
+		tags() {
+			return this.categories.map((id) => this.getCategoryById(id));
 		},
-		partnerInfo() {
-			return this.getUserById(this.partner);
+		stateColor() {
+			// return this.isApproved ? ['#10B981'] : ['currentColor'];
+			return 'currentColor';
+		},
+		dotColor() {
+			if (this.isApproved) {
+				return ['bg-emerald-400', 'border-emerald-400'];
+			} else if (this.isDone) {
+				return ['bg-gray-200', 'border-gray-200'];
+			} else {
+				return ['border-gray-200'];
+			}
+		},
+		itemBg() {
+			// return this.isApproved
+			// 	? ['bg-emerald-50', 'border-emerald-100', 'text-emerald-600']
+			// 	: ['bg-white', 'border-gray-100'];
+			return ['bg-white', 'border-gray-100'];
+		},
+		starStyle() {
+			if (this.isImportant) {
+				return ['text-amber-300'];
+				// } else if (this.isApproved) {
+				// 	return ['text-emerald-200', 'group-hover:text-amber-300'];
+			} else {
+				return ['text-gray-200', 'group-hover:text-amber-300'];
+			}
+		},
+	},
+	methods: {
+		toggleDone() {
+			// ne mozes odselectati ako je approved
+			if (!this.isApproved) {
+				this.isDone = !this.isDone;
+			}
 		},
 	},
 };

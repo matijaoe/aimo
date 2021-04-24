@@ -1,14 +1,15 @@
 <template>
-	<TodosWrapper filter-option="partners" :filter-attr="username" />
+	<TodosAndSearchContainer filter-category="partners" :filter="username" />
 </template>
-
 <script>
-import TodosWrapper from 'todos/TodosWrapper.vue';
+import TodosAndSearchContainer from '../../../components/todos/TodosAndSearchContainer';
 export default {
-	components: { TodosWrapper },
-	async asyncData({ params }) {
-		const username =
-			(await params.username) === 'personal' ? '' : params.username;
+	components: { TodosAndSearchContainer },
+	async asyncData({ params, redirect, store }) {
+		const username = await params.username;
+		if (!store.getters['todos/activePartnersUsername'].includes(username)) {
+			redirect('/todos');
+		}
 		return { username };
 	},
 };

@@ -316,7 +316,7 @@ export const state = () => ({
 
 export const getters = {
 	allTodos(state) {
-		return state.todos;
+		return state.todos2;
 	},
 	getTodoById: (state, getters) => (id) => {
 		return getters.allTodos.find((todo) => todo.id === id);
@@ -324,10 +324,28 @@ export const getters = {
 	getFavoriteTodos(state, getters) {
 		return getters.allTodos.filter((todo) => todo.favorite);
 	},
-	getImportantTodos(state, getters) {
+	importantTodos(state, getters) {
 		return getters.allTodos.filter((todo) => todo.important);
 	},
-	getTodosByPartner: (state, getters) => (username) => {
+	completedTodos(state, getters) {
+		return getters.allTodos.filter((todo) => todo.done);
+	},
+	approvedTodos(state, getters) {
+		return getters.allTodos.filter((todo) => todo.approved);
+	},
+	dailyTodos(state, getters) {
+		return getters.allTodos.filter((todo) => todo.isDaily);
+	},
+	personalTodos(state, getters) {
+		return getters.allTodos.filter((todo) => !todo.partner);
+	},
+	activePartnersUsername(state, getters) {
+		return getters.allTodos
+			.filter((todo) => todo.partner)
+			.map((todo) => todo.partner)
+			.filter((value, index, self) => self.indexOf(value) === index);
+	},
+	todosByPartner: (state, getters) => (username) => {
 		return getters.allTodos.filter((todo) => todo.partner === username);
 	},
 	getTodosByStatus: (state, getters) => (status) => {

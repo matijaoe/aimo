@@ -8,19 +8,15 @@
 		</div>
 
 		<ul class="space-y-0.5">
-			<TodosSidebarLink :to="{ name: 'todos2' }">
+			<TodosSidebarLink :to="{ path: '/todos' }">
 				<IconClipboardList size="sm" />
 				All
 			</TodosSidebarLink>
-			<TodosSidebarLink
-				:to="{ name: 'todos2', query: { filter: 'completed' } }"
-			>
+			<TodosSidebarLink :to="{ path: '/todos/completed' }">
 				<IconCheck size="sm" />
 				Completed
 			</TodosSidebarLink>
-			<TodosSidebarLink
-				:to="{ name: 'todos2', query: { filter: 'approved' } }"
-			>
+			<TodosSidebarLink :to="{ path: '/todos/approved' }">
 				<IconShieldCheck size="sm" />
 				Approved
 			</TodosSidebarLink>
@@ -29,21 +25,15 @@
 		<div>
 			<h3 class="title">Filters</h3>
 			<ul class="space-y-0.5">
-				<TodosSidebarLink
-					:to="{ name: 'todos2', query: { filter: 'important' } }"
-				>
+				<TodosSidebarLink :to="{ path: '/todos/important' }">
 					<IconStar size="sm" />
 					Important
 				</TodosSidebarLink>
-				<TodosSidebarLink
-					:to="{ name: 'todos2', query: { filter: 'daily' } }"
-				>
+				<TodosSidebarLink :to="{ path: '/todos/daily' }">
 					<IconGlobeAlt size="sm" />
 					Daily
 				</TodosSidebarLink>
-				<TodosSidebarLink
-					:to="{ name: 'todos2', query: { filter: 'personal' } }"
-				>
+				<TodosSidebarLink :to="{ path: '/todos/personal' }">
 					<IconUserCircle size="sm" />
 					Personal
 				</TodosSidebarLink>
@@ -55,7 +45,7 @@
 				<TodosSidebarLink
 					v-for="partner in partners"
 					:key="partner.username"
-					:to="`/todos/partners/${partner.username}`"
+					:to="{ path: `/todos/partners/${partner.username}` }"
 					class="text-[12px]"
 				>
 					<BaseAvatar size="xs" :src="partner.photo" />
@@ -76,6 +66,7 @@ import IconCheck from 'icons/IconCheck.vue';
 import IconShieldCheck from 'icons/IconShieldCheck.vue';
 import BaseButton from 'UI/BaseButton.vue';
 import BaseAvatar from 'UI/BaseAvatar.vue';
+import { mapGetters } from 'vuex';
 import TodosSidebarLink from './TodosSidebarLink.vue';
 
 export default {
@@ -91,10 +82,11 @@ export default {
 		BaseAvatar,
 		TodosSidebarLink,
 	},
-	props: {
-		partners: {
-			type: Array,
-			required: true,
+	computed: {
+		...mapGetters(['currentUserId']),
+		...mapGetters('partners', ['getPartnersById']),
+		partners() {
+			return this.getPartnersById(this.currentUserId);
 		},
 	},
 };

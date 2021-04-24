@@ -37,11 +37,6 @@
 				</SidebarNavLink>
 			</li>
 			<li>
-				<SidebarNavLink text="Todos.new" to="/todos2">
-					<IconClipboardList />
-				</SidebarNavLink>
-			</li>
-			<li>
 				<SidebarNavLink text="Inbox" to="/inbox">
 					<IconInbox />
 				</SidebarNavLink>

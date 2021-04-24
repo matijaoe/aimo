@@ -1,7 +1,8 @@
 <template>
 	<li
-		v-tooltip.top="tooltip || ''"
+		v-tooltip.top="tooltip"
 		class="border-l-4 border-transparent hover:border-amber-300 hover:bg-amber-50"
+		:class="linkStyle"
 	>
 		<NuxtLink
 			:to="to"
@@ -19,13 +20,21 @@ export default {
 			type: Object,
 			required: true,
 			default: () => {
-				return { name: 'todos2' };
+				return { path: '/todos' };
 			},
 		},
 		tooltip: {
 			type: String,
 			required: false,
-			default: null,
+			default: '',
+		},
+	},
+	computed: {
+		linkStyle() {
+			if (this.to.path === this.$route.fullPath) {
+				return 'border-amber-300 bg-amber-50';
+			}
+			return '';
 		},
 	},
 };
