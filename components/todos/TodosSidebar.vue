@@ -53,6 +53,24 @@
 				</TodosSidebarLink>
 			</ul>
 		</div>
+		<div class="space-y-2">
+			<h3 class="title">Tags</h3>
+			<ul class="space-y-0.5">
+				<TodosSidebarLink
+					v-for="tag in tags"
+					:key="tag.id"
+					:to="{
+						path: `/todos/tag/${tag.name}`,
+						query: { tagId: tag.id },
+					}"
+					class="text-[12px]"
+				>
+					<BaseTag :color="tag.color">
+						{{ tag.name }}
+					</BaseTag>
+				</TodosSidebarLink>
+			</ul>
+		</div>
 	</aside>
 </template>
 
@@ -66,6 +84,7 @@ import IconCheck from 'icons/IconCheck.vue';
 import IconShieldCheck from 'icons/IconShieldCheck.vue';
 import BaseButton from 'UI/BaseButton.vue';
 import BaseAvatar from 'UI/BaseAvatar.vue';
+import BaseTag from 'UI/BaseTag.vue';
 import { mapGetters } from 'vuex';
 import TodosSidebarLink from './TodosSidebarLink.vue';
 
@@ -80,13 +99,18 @@ export default {
 		IconShieldCheck,
 		BaseButton,
 		BaseAvatar,
+		BaseTag,
 		TodosSidebarLink,
 	},
 	computed: {
 		...mapGetters(['currentUserId']),
 		...mapGetters('partners', ['getPartnersById']),
+		...mapGetters('todos', ['activeTags']),
 		partners() {
 			return this.getPartnersById(this.currentUserId);
+		},
+		tags() {
+			return this.activeTags;
 		},
 	},
 };

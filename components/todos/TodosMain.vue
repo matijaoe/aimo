@@ -54,6 +54,7 @@ export default {
 			'dailyTodos',
 			'personalTodos',
 			'todosByPartner',
+			'todosByTag',
 		]),
 		filteredTodos() {
 			if (this.filterCategory === 'default') {
@@ -61,6 +62,8 @@ export default {
 				return this[todoGetterString];
 			} else if (this.filterCategory === 'partners') {
 				return this.todosByPartner(this.filter);
+			} else if (this.filterCategory === 'tags') {
+				return this.todosByTag(this.filter);
 			}
 			return [];
 		},

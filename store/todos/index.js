@@ -345,8 +345,25 @@ export const getters = {
 			.map((todo) => todo.partner)
 			.filter((value, index, self) => self.indexOf(value) === index);
 	},
+	activeTags(state, getters, rootState, rootGetters) {
+		const tagIds = getters.allTodos
+			.filter((todo) => todo.categories.length > 0)
+			.map((todo) => todo.categories)
+			.flat()
+			.filter((value, index, self) => self.indexOf(value) === index);
+		const tags = [];
+		for (const tagId of tagIds) {
+			tags.push(rootGetters.getCategoryById(tagId));
+		}
+		return tags;
+	},
 	todosByPartner: (state, getters) => (username) => {
 		return getters.allTodos.filter((todo) => todo.partner === username);
+	},
+	todosByTag: (state, getters) => (tagId) => {
+		return getters.allTodos.filter((todo) =>
+			todo.categories.includes(tagId)
+		);
 	},
 	getTodosByStatus: (state, getters) => (status) => {
 		return getters.allTodos.filter((todo) => todo.status === status);
