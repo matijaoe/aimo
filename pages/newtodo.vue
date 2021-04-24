@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import TodoDetails from 'todos/new/TodoDetails';
+import TodoDetails from 'todos/TodoDetails';
 
 export default {
 	components: { TodoDetails },
