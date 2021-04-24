@@ -9,7 +9,7 @@
 			>
 				<button
 					class="bg-emerald-200 text-emerald-700 py-2 px-4 rounded-lg"
-					@click="$router.push('/todos2')"
+					@click="$router.push('/todos')"
 				>
 					Zatvori me
 				</button>
