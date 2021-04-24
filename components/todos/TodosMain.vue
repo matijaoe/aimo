@@ -46,6 +46,7 @@ export default {
 		},
 	},
 	computed: {
+		...mapGetters(['currentUserTodos']),
 		...mapGetters('todos', [
 			'allTodos',
 			'importantTodos',
@@ -58,13 +59,22 @@ export default {
 		]),
 		filteredTodos() {
 			if (this.filterCategory === 'default') {
-				const todoGetterString = `${this.filter}Todos`;
-				return this[todoGetterString];
+				return this.defaultCatTodos;
 			} else if (this.filterCategory === 'partners') {
 				return this.todosByPartner(this.filter);
 			} else if (this.filterCategory === 'tags') {
 				return this.todosByTag(this.filter);
 			}
+			return [];
+		},
+		defaultCatTodos() {
+			const option = this.filter;
+			if (option === 'all') return this.currentUserTodos;
+			else if (option === 'approved') return this.approvedTodos;
+			else if (option === 'completed') return this.completedTodos;
+			else if (option === 'important') return this.importantTodos;
+			else if (option === 'daily') return this.dailyTodos;
+			else if (option === 'personal') return this.personalTodos;
 			return [];
 		},
 		hasTodos() {
