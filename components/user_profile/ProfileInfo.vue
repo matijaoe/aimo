@@ -29,10 +29,10 @@
 				</div>
 			</div>
 			<div>
-				<div class="grid grid-cols-2 gap-3 mx-4">
+				<div class="grid grid-cols-2 gap-3">
 					<div
-						v-tooltip.left="`From ${countryName}`"
-						class="flex items-center justify-end gap-2 py-2 px-4 rounded-lg text-teal-500 bg-teal-50"
+						v-tooltip.top="`From ${countryName}`"
+						class="flex items-center justify-end gap-2 p-2 rounded-lg text-red-600"
 					>
 						<span>{{ countryName }}</span>
 						<div
@@ -47,25 +47,25 @@
 						</div>
 					</div>
 					<div
-						v-tooltip.right="'Age'"
-						class="flex items-center justify-start gap-2 text-orange-500 py-2 px-4 rounded-lg bg-orange-50"
+						v-tooltip.top="'Age'"
+						class="flex items-center justify-start gap-2 text-orange-600 p-2 rounded-lg"
 					>
-						<IconCake size="sm" class="text-orange-500" />
+						<IconCake class="text-orange-600" />
 						<span>{{ age }} years old</span>
 					</div>
 					<div
-						v-tooltip.left="'Joined on'"
-						class="flex items-center justify-end gap-2 text-blue-500 py-2 px-4 rounded-lg bg-blue-50"
+						v-tooltip.bottom="'Joined on'"
+						class="flex items-center justify-end gap-2 text-blue-600 p-2 rounded-lg"
 					>
 						<!-- inace ce tu ic metoda koje izvuce datum iz timestampa -->
 						<span>{{ joinDate }}</span>
-						<IconCalendar size="sm" class="text-blue-500" />
+						<IconCalendar class="text-blue-600" />
 					</div>
 					<div
-						v-tooltip.right="'Occupation'"
-						class="flex items-center justify-start gap-2 text-indigo-500 py-2 px-4 rounded-lg bg-indigo-50"
+						v-tooltip.bottom="'Occupation'"
+						class="flex items-center justify-start gap-2 text-indigo-600 p-2 rounded-lg"
 					>
-						<IconIdentification size="sm" class="text-indigo-500" />
+						<IconIdentification class="text-indigo-600" />
 						<span>{{ user.occupation }}</span>
 					</div>
 				</div>
@@ -83,7 +83,6 @@ import IconEdit from 'icons/IconEdit.vue';
 import IconChat from 'icons/IconChat.vue';
 import IconCalendar from 'icons/IconCalendar.vue';
 import IconCake from 'icons/IconCake.vue';
-import IconAcademicHat from 'icons/IconAcademicHat.vue';
 import IconIdentification from 'icons/IconIdentification.vue';
 
 import dayjs from 'dayjs';
@@ -99,7 +98,6 @@ export default {
 		IconChat,
 		IconCalendar,
 		IconCake,
-		// IconAcademicHat,
 		IconIdentification,
 	},
 	props: ['user', 'isLoggedIn'],

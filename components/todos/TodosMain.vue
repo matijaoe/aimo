@@ -46,9 +46,8 @@ export default {
 		},
 	},
 	computed: {
-		...mapGetters(['currentUserTodos']),
 		...mapGetters('todos', [
-			'allTodos',
+			'currentUserTodos',
 			'importantTodos',
 			'completedTodos',
 			'approvedTodos',

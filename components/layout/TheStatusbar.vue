@@ -34,7 +34,7 @@
 					v-tooltip.bottom="fullDateStatus"
 					class="flex items-center gap-1 cursor-default"
 				>
-					<IconCalendar />
+					<IconCalendar size="sm" />
 					<span id="date">
 						{{ currentDate }}
 					</span>
@@ -77,7 +77,7 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters(['currentUserTodos']),
+		...mapGetters('todos', ['currentUserTodos']),
 		finishedCount() {
 			return this.currentUserTodos.filter((todo) => todo.done).length;
 		},

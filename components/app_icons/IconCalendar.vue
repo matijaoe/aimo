@@ -1,5 +1,5 @@
 <template>
-	<BaseIcon size="sm">
+	<BaseIcon :size="size">
 		<svg
 			fill="none"
 			stroke="currentColor"

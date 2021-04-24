@@ -30,7 +30,7 @@ export const state = () => ({
 				'8MNLJ4yg15YoRch0t3NAG',
 				'0TN9zbVVaZOhWswtztYYn',
 				'VQDonT7_pB4ACAW6DZsiL',
-			], // mogli bi ih automatski postavljat na temelju njegovih najcescih todosa
+			],
 			socials: [
 				{ id: 'twitter', url: 'https://www.google.com/' },
 				{ id: 'linkedin', url: 'https://www.google.com/' },
@@ -41,146 +41,6 @@ export const state = () => ({
 				{ id: 'stack-overflow', url: 'https://www.google.com/' },
 				{ id: 'medium', url: 'https://www.google.com/' },
 				{ id: 'bitcoin', url: 'https://www.google.com/' },
-			],
-			todos: [
-				{
-					id: nanoid(),
-					name: 'citati knjigu',
-					desc: '', // optional
-					categories: [
-						'VQDonT7_pB4ACAW6DZsiL',
-						'VquU1OBaiUo02JuSuZRO8',
-					],
-					timestamp: 1618916803496,
-					done: false,
-					approved: false,
-					isDaily: true,
-					favorite: false,
-					important: true,
-					partner: 'patrik_harmonika',
-				},
-				{
-					id: nanoid(),
-					name: 'odvoziti bicikl',
-					desc: '', // optional
-					categories: [
-						'BR2eOYR1Y6u_Yp_H58xD1',
-						'xUMFQYg3iBJbptNBUqsCK',
-						'uUCM7KHa7XlSzqpqX7iY3',
-					],
-					timestamp: 1618916803496,
-					done: true,
-					approved: true,
-					isDaily: false,
-					favorite: false,
-					important: true,
-					partner: 'marian7',
-				},
-				{
-					id: nanoid(),
-					name: 'random task',
-					desc: '', // optional
-					categories: [],
-					timestamp: 1618916803496,
-					done: true,
-					approved: false,
-					isDaily: false,
-					favorite: true,
-					important: false,
-					partner: null,
-				},
-				{
-					id: nanoid(),
-					name: 'napraviti pripremu iz Bazi Podataka',
-					desc: '', // optional
-					categories: [
-						'OWEhqyLlnnWQGEUAHzGhe',
-						'QJNdchJLDfKZcR-O3ytn3',
-						'8MNLJ4yg15YoRch0t3NAG',
-					],
-					timestamp: 1618916803496,
-					done: false,
-					approved: false,
-					isDaily: false,
-					favorite: false,
-					important: false,
-					partner: 'tomoKotar14',
-				},
-				{
-					id: nanoid(),
-					name: 'bicep curls',
-					desc: '', // optional
-					categories: [
-						'0TN9zbVVaZOhWswtztYYn',
-						'BR2eOYR1Y6u_Yp_H58xD1',
-					],
-					timestamp: 1618916803496,
-					done: false,
-					approved: false,
-					isDaily: false,
-					favorite: true,
-					important: true,
-					partner: 'marian7',
-				},
-				{
-					id: nanoid(),
-					name: 'deadlift',
-					desc: '', // optional
-					categories: [
-						'0TN9zbVVaZOhWswtztYYn',
-						'BR2eOYR1Y6u_Yp_H58xD1',
-					],
-					timestamp: 1618916803496,
-					done: true,
-					approved: true,
-					isDaily: false,
-					favorite: true,
-					important: false,
-					partner: 'marian7',
-				},
-				{
-					id: nanoid(),
-					name: 'pogledati utakmicu',
-					desc: '', // optional
-					categories: [
-						'Bzw_jJ7m-I6vuN4HaFsDv',
-						'4OgWmONbRqhKYtDJTjd0I',
-						'0iUqkyVh0IliBfXtyOj7r',
-					],
-					timestamp: 1618916803496,
-					done: false,
-					approved: false,
-					isDaily: false,
-					favorite: false,
-					important: false,
-					partner: null,
-				},
-				{
-					id: nanoid(),
-					name: 'gasirat',
-					desc: '', // optional
-					categories: [],
-					timestamp: 1618916803496,
-					done: false,
-					approved: false,
-					isDaily: true,
-					favorite: true,
-					important: false,
-					partner: 'blueface',
-				},
-				{
-					id: nanoid(),
-					name: 'nacrtati brodić i more',
-					desc: '', // optional
-					categories: ['kmTtKxOMeKfuNoU_kG-yp'],
-					timestamp: 1618916803496,
-					done: true,
-					approved: false,
-					isDaily: false,
-					favorite: false,
-					important: false,
-					partner: 'lovedoctor',
-				},
 			],
 			notifications: [
 				'Marian forgot to share his screen',
@@ -220,7 +80,6 @@ export const state = () => ({
 				{ id: 'stack-overflow', url: 'https://www.google.com/' },
 				{ id: 'default', url: 'https://www.google.com/' },
 			],
-			todos: [],
 		},
 		{
 			username: 'patrik_harmonika',
@@ -250,7 +109,6 @@ export const state = () => ({
 				{ id: 'pinterest', url: 'https://www.google.com/' },
 				{ id: 'youtube', url: 'https://www.google.com/' },
 			],
-			todos: [],
 		},
 		{
 			username: 'tomoKotar14',
@@ -276,7 +134,6 @@ export const state = () => ({
 				{ id: 'whatsapp', url: 'https://www.google.com/' },
 				{ id: 'bitcoin', url: 'https://www.google.com/' },
 			],
-			todos: [],
 		},
 		{
 			username: 'lovedoctor',
@@ -298,7 +155,6 @@ export const state = () => ({
 				{ id: 'unsplash', url: 'https://www.google.com/' },
 				{ id: 'quora', url: 'https://www.google.com/' },
 			],
-			todos: [],
 		},
 		{
 			username: 'blueface',
@@ -318,7 +174,6 @@ export const state = () => ({
 				{ id: 'twitter', url: 'https://www.google.com/' },
 				{ id: 'messenger', url: 'https://www.google.com/' },
 			],
-			todos: [],
 		},
 		{
 			username: 'wood42',
@@ -341,7 +196,6 @@ export const state = () => ({
 				{ id: 'medium', url: 'https://www.google.com/' },
 				{ id: 'youtube', url: 'https://www.google.com/' },
 			],
-			todos: [],
 		},
 		{
 			username: 'suzzy',
@@ -364,7 +218,6 @@ export const state = () => ({
 				{ id: 'tumblr', url: 'https://www.google.com/' },
 				{ id: 'youtube', url: 'https://www.google.com/' },
 			],
-			todos: [],
 		},
 	],
 });
@@ -376,11 +229,11 @@ export const getters = {
 	getUserById: (state, getters) => (username) => {
 		return getters.users.find((user) => user.username === username);
 	},
-	getUserTodos: (state, getters) => (username) => {
-		return getters.users.find((user) => user.username === username)?.todos;
-	},
-	getUserCategories: (_, getters, _2, rootGetters) => (username, amount) => {
-		const todos = getters.getUserTodos(username);
+	getUserCategories: (state, getters, rootState, rootGetters) => (
+		username,
+		amount
+	) => {
+		const todos = rootGetters['todos/getTodosByUser'](username) || [];
 
 		// array of all todo category ids
 		const categoryIds = todos.map((todo) => todo.categories).flat();
@@ -402,10 +255,6 @@ export const getters = {
 	},
 };
 
-// export const mutations = {
-// 	updateValue(state, payload) {
-// 		state.value = payload;
-// 	},
-// };
+export const mutations = {};
 
 export const actions = {};

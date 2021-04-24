@@ -25,7 +25,7 @@ export default {
 			type: Object,
 			required: true,
 			default: () => {
-				return { name: 'todos2' };
+				return { name: 'todos' };
 			},
 		},
 		cta: {

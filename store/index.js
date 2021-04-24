@@ -41,7 +41,7 @@ export const state = () => ({
 		{ id: 'jcE5bvcPrBYb2bstsEWgE', name: 'music', color: 'yellow' },
 		{ id: 'kmTtKxOMeKfuNoU_kG-yp', name: 'art', color: 'amber' },
 		{ id: '4OgWmONbRqhKYtDJTjd0I', name: 'sports', color: 'teal' },
-		{ id: 'wuH147eN-7R2g4EeJrB09', name: '', color: '' },
+		{ id: 'wuH147eN-7R2g4EeJrB09', name: 'skills', color: 'red' },
 		{ id: 'hIYvsT4-lwqyByPZXoAuO', name: '', color: '' },
 		{ id: 'HpnzP7Fl11Soc1SbjHQhW', name: '', color: '' },
 		{ id: 'NdGCz7r63BCRiZ_IRd1eT', name: '', color: '' },
@@ -67,15 +67,7 @@ export const getters = {
 		return state.userId;
 	},
 	currentUser(state, getters) {
-		// tu cemo moc direkt iz firestora dohvatit naseg usera
-		const allUsers = getters['users/users'];
-		const currentUser = allUsers.find(
-			(user) => user.username === getters.currentUserId
-		);
-		return currentUser;
-	},
-	currentUserTodos(state, getters) {
-		return getters.currentUser.todos;
+		return getters['users/getUserById'](getters.currentUserId);
 	},
 	categories(state) {
 		return state.categories;
@@ -91,14 +83,6 @@ export const getters = {
 	},
 };
 
-// export const mutations = {
-// 	updateValue(state, payload) {
-// 		state.value = payload;
-// 	},
-// };
+export const mutations = {};
 
-// export const actions = {
-// 	updateActionValue({ commit }) {
-// 		commit('updateValue', payload);
-// 	},
-// };
+export const actions = {};
