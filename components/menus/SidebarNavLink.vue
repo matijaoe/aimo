@@ -21,7 +21,13 @@ export default {
 			type: String,
 			required: false,
 		},
-		to: String,
+		to: {
+			type: Object,
+			required: true,
+			default: () => {
+				return { name: 'todos2' };
+			},
+		},
 		cta: {
 			type: Boolean,
 			required: false,

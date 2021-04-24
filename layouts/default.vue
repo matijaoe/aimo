@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="flex min-h-screen overflow-x-hidden font-primary text-gray-700 text-sm font-medium overflow-hidden"
+		class="flex min-h-screen overflow-hidden font-primary text-gray-700 text-sm font-medium"
 	>
 		<AppSidebar class="hidden xs:flex w-16 xl:w-64 3xl:w-72" />
 		<div
