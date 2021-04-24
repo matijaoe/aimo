@@ -1,7 +1,11 @@
 <template>
 	<!-- todo clamp -->
-	<div class="max-h-[80vh] overflow-y-auto">
-		<BaseContainer fieldset label="Notifications" class="p-2">
+	<div class="overflow-hidden">
+		<BaseContainer
+			fieldset
+			label="Notifications"
+			class="p-2 overflow-y-auto custom-height"
+		>
 			<p
 				class="px-5 font-medium text-center"
 				:class="{ 'mb-3': notifyCount > 0 }"
@@ -47,3 +51,9 @@ export default {
 	},
 };
 </script>
+
+<style scoped>
+.custom-height {
+	max-height: calc(100vh - 9rem);
+}
+</style>

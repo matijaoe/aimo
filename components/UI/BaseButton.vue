@@ -1,5 +1,9 @@
 <template>
-	<button :class="[mode, { thin: thin }]" @click="$emit('click', $event)">
+	<button
+		:class="[mode, { thin: thin }]"
+		class="focus:border-amber-300 focus:ring focus:ring-amber-200 focus:ring-opacity-50"
+		@click="$emit('click', $event)"
+	>
 		<span class="flex items-center gap-2 w-full">
 			<slot />
 		</span>

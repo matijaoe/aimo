@@ -1,19 +1,19 @@
 <template>
 	<div class="flex items-center bg-white border-b-2 border-gray-100">
-		<label class="w-full flex items-center">
+		<label class="w-full flex items-center pl-2">
 			<BaseButton
-				v-tooltip.bottom="'Search'"
+				v-tooltip.bottom="'Find'"
 				mode="bland"
 				class="block flex-shrink-0"
 			>
-				<div class="p-2 ml-2">
+				<div class="p-2">
 					<IconSearch class="text-gray-400" size="sm" />
 				</div>
 			</BaseButton>
 			<input
 				v-model="searchTerm"
 				type="search"
-				class="p-3 w-full focus:outline-none focus:border-none"
+				class="p-3 w-full focus:outline-none border-none focus:ring-0 bg-transparent"
 				placeholder="Find todo"
 				@input="$emit('search', searchTerm)"
 			/>
@@ -76,6 +76,7 @@ export default {
 	},
 	emits: ['search', 'sort'],
 	data() {
+		// todo - clear searchbar after changing route
 		return {
 			searchTerm: '',
 		};

@@ -12,6 +12,7 @@
 			<ProfileSocials :socials="user.socials" />
 			<ProfilePartners :user="user" :user-id="userId" />
 			<ProfileBio :user="user" />
+			<ProfileCategories :categories="getUserCategories(userId, 8)" />
 		</div>
 
 		<!-- Column 3 -->
@@ -31,6 +32,7 @@ import ProfileSocials from 'profile/ProfileSocials.vue';
 import ProfilePartners from 'profile/ProfilePartners.vue';
 import ProfileBio from 'profile/ProfileBio.vue';
 import ProfileNotifications from 'profile/ProfileNotifications.vue';
+import ProfileCategories from 'profile/ProfileCategories.vue';
 
 import { mapGetters } from 'vuex';
 
@@ -42,6 +44,7 @@ export default {
 		ProfilePartners,
 		ProfileBio,
 		ProfileNotifications,
+		ProfileCategories,
 	},
 	data() {
 		return {
@@ -49,7 +52,7 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters('users', ['users', 'getUserById']),
+		...mapGetters('users', ['users', 'getUserById', 'getUserCategories']),
 		...mapGetters('partners', ['partnerships']),
 		user() {
 			const user = this.getUserById(this.userId);

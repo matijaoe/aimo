@@ -20,6 +20,8 @@ export default {
 				return ['w-6', 'h-6'];
 			} else if (this.size === 'lg') {
 				return ['w-8', 'h-8'];
+			} else if (this.size === 'xl') {
+				return ['w-10', 'h-10'];
 			} else {
 				return ['w-6', 'h-6'];
 			}

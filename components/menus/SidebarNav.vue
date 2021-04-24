@@ -5,7 +5,7 @@
 				<!-- todo - replace with button -->
 				<SidebarNavLink
 					text="New todo"
-					to="/todos/new"
+					:to="{ name: 'newtodo' }"
 					cta
 					exact
 					class="cta"
@@ -14,25 +14,17 @@
 				</SidebarNavLink>
 			</li>
 			<li class="pt-2">
-				<SidebarNavLink text="Home" to="/home">
+				<SidebarNavLink text="Home" :to="{ name: 'home' }">
 					<IconHome />
 				</SidebarNavLink>
 			</li>
-			<!-- <li>
-				<SidebarNavLink
-					text="Profile"
-					:to="`/user/${$store.state.userId}`"
-				>
-					<IconUser />
-				</SidebarNavLink>
-			</li> -->
 			<li>
-				<SidebarNavLink text="Community" to="/community">
+				<SidebarNavLink text="Community" :to="{ name: 'community' }">
 					<IconUserGroup />
 				</SidebarNavLink>
 			</li>
 			<li>
-				<SidebarNavLink text="Todos" to="/todos">
+				<SidebarNavLink text="Todos" :to="{ name: 'todos' }">
 					<IconClipboardList />
 				</SidebarNavLink>
 			</li>
@@ -42,17 +34,17 @@
 				</SidebarNavLink>
 			</li>
 			<li>
-				<SidebarNavLink text="Stats" to="/stats">
+				<SidebarNavLink text="Stats" :to="{ name: 'stats' }">
 					<IconChartBar />
 				</SidebarNavLink>
 			</li>
 		</ul>
 		<div class="space-y-2">
-			<SidebarNavLink text="Settings" to="/settings">
+			<SidebarNavLink text="Settings" :to="{ name: 'settings' }">
 				<IconSettings />
 			</SidebarNavLink>
 			<SidebarNavLink
-				to="/plans"
+				:to="{ name: 'settings' }"
 				class="text-base"
 				tooltip="Switch to Premium"
 			>
@@ -62,7 +54,7 @@
 					>
 						Your plan
 					</span>
-					<span>Free</span>
+					<span>{{ currentPlan }}</span>
 				</div>
 			</SidebarNavLink>
 		</div>
@@ -71,7 +63,6 @@
 
 <script>
 import IconHome from 'icons/IconHome.vue';
-import IconUser from 'icons/IconUser.vue';
 import IconInbox from 'icons/IconInbox.vue';
 import IconUserGroup from 'icons/IconUserGroup.vue';
 import IconClipboardList from 'icons/IconClipboardList.vue';
@@ -85,7 +76,6 @@ import { mapGetters } from 'vuex';
 export default {
 	components: {
 		IconHome,
-		// IconUser,
 		IconInbox,
 		IconUserGroup,
 		IconClipboardList,
@@ -95,16 +85,10 @@ export default {
 		SidebarNavLink,
 	},
 	computed: {
-		...mapGetters('users', ['users']),
-		user() {
-			const userId = this.$store.state.userId;
-			const currUser = this.users.find(
-				(user) => user.username === userId
-			);
-			if (currUser) {
-				return currUser;
-			}
-			return '';
+		...mapGetters(['currentUser']),
+		currentPlan() {
+			const isPremium = this.currentUser.isPremium;
+			return isPremium ? 'Premium' : 'Free';
 		},
 	},
 };

@@ -1,22 +1,33 @@
 <template>
 	<footer
-		class="fixed bottom-0 left-0 z-20 w-full px-2 md:px-8 pt-0.5 pb-1 text-xs text-blue-100 bg-blue-500"
+		class="fixed bottom-0 left-0 z-20 w-full px-4 md:px-8 pt-0.5 pb-1 text-xs text-blue-100 bg-blue-500 select-none"
 	>
 		<div class="flex items-center justify-between">
-			<div class="flex-1 space-x-2">
-				<span>2 todos done</span>
-				<span>/</span>
-				<span>4 todos left</span>
+			<div class="flex-1 space-x-3 flex items-center">
+				<div
+					v-tooltip.top="`${finishedCount} todos done`"
+					class="flex items-center gap-1"
+				>
+					{{ finishedCount }}
+					<IconCheck size="sm" />
+				</div>
+				<div
+					v-tooltip.top="`${approvedCount} todos approved`"
+					class="flex items-center gap-1"
+				>
+					{{ approvedCount }}
+					<IconBadgeCheck size="sm" />
+				</div>
+				<div
+					v-tooltip.top="`${leftCount} todos left`"
+					class="flex items-center gap-1"
+				>
+					{{ leftCount }}
+					<IconXCircle size="sm" />
+				</div>
 			</div>
-			<div
-				class="flex-1 text-center cursor-pointer hidden lg:block space-x-2"
-			>
-				<!-- Home {{ $route.path }} -->
-				<a href="https://github.com/mat2ja/aimo" target="_blank">
-					Github Repo
-				</a>
-				<span>/</span>
-				<a href="https://aimo.vercel.app/" target="_blank">Live Demo</a>
+			<div class="flex-1 text-center cursor-pointer hidden lg:block">
+				<span>{{ $route.path }} </span>
 			</div>
 			<div class="flex items-center justify-end flex-1 gap-4 text-right">
 				<p
@@ -42,14 +53,22 @@
 <script>
 import IconClock from 'icons/IconClock.vue';
 import IconCalendar from 'icons/IconCalendar.vue';
+import IconCheck from 'icons/IconCheck.vue';
+import IconBadgeCheck from 'icons/IconBadgeCheck.vue';
+import IconXCircle from 'icons/IconXCircle.vue';
 
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
+
+import { mapGetters } from 'vuex';
 
 export default {
 	components: {
 		IconClock,
 		IconCalendar,
+		IconCheck,
+		IconBadgeCheck,
+		IconXCircle,
 	},
 	data() {
 		return {
@@ -58,6 +77,16 @@ export default {
 		};
 	},
 	computed: {
+		...mapGetters(['currentUserTodos']),
+		finishedCount() {
+			return this.currentUserTodos.filter((todo) => todo.done).length;
+		},
+		approvedCount() {
+			return this.currentUserTodos.filter((todo) => todo.approved).length;
+		},
+		leftCount() {
+			return this.currentUserTodos.filter((todo) => !todo.done).length;
+		},
 		// https://day.js.org/docs/en/display/format
 		currentDate() {
 			dayjs.extend(advancedFormat);
@@ -77,6 +106,7 @@ export default {
 	},
 	mounted() {
 		this.startTimeAndDate();
+		// console.log(this.$route);
 	},
 	methods: {
 		startTimeAndDate() {
