@@ -1,5 +1,5 @@
 <template>
-	<BaseContainer class="flex adaptive-height" no-padding>
+	<BaseContainer class="flex custom-height" no-padding>
 		<TodosSidebar
 			class="w-[200px] overflow-y-auto flex-shrink-0"
 			:partners="partners"
@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style scoped>
-.adaptive-height {
-	height: calc(100vh - 40px - 2rem - 2rem - 22px - 1rem);
+.custom-height {
+	height: calc(100vh - 9rem);
 }
 </style>
