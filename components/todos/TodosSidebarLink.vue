@@ -1,12 +1,8 @@
 <template>
-	<li
-		v-tooltip.top="tooltip"
-		class="border-l-4 border-transparent hover:border-amber-300 hover:bg-amber-50"
-		:class="linkStyle"
-	>
+	<li v-tooltip.top="tooltip" class="border-transparent">
 		<NuxtLink
 			:to="to"
-			class="flex items-center gap-2 px-4 py-1 rounded-lg text-gray-700 hover:text-gray-900 transition group"
+			class="flex items-center justify-start mx-2 px-3 gap-2 py-1 text-gray-700 hover:text-gray-900 transition group hover:border-amber-300 hover:bg-amber-50 rounded-lg"
 		>
 			<slot />
 		</NuxtLink>
@@ -29,13 +25,11 @@ export default {
 			default: '',
 		},
 	},
-	computed: {
-		linkStyle() {
-			if (this.to.path === this.$route.fullPath) {
-				return 'border-amber-300 bg-amber-50';
-			}
-			return '';
-		},
-	},
 };
 </script>
+
+<style lang="postcss" scoped>
+a.nuxt-link-exact-active {
+	@apply text-amber-900 bg-amber-50;
+}
+</style>

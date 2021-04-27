@@ -1,5 +1,5 @@
 <template>
-	<aside class="border-r-2 border-gray-100 space-y-5">
+	<aside class="border-r-2 border-gray-100 space-y-5 pb-4">
 		<div class="mb-6 p-4">
 			<BaseButton mode="cta" class="w-full py-2" thin>
 				<IconPlus />
@@ -17,7 +17,7 @@
 				Completed
 			</TodosSidebarLink>
 			<TodosSidebarLink :to="{ path: '/todos/approved' }">
-				<IconShieldCheck size="sm" />
+				<IconShieldCheck size="sm" class="text-current" />
 				Approved
 			</TodosSidebarLink>
 		</ul>
@@ -120,12 +120,5 @@ export default {
 <style lang="postcss" scoped>
 .title {
 	@apply text-gray-300 opacity-75 mb-1 font-normal uppercase text-xs pl-4;
-}
-a.nuxt-link-active {
-	/* @apply bg-gray-200; */
-}
-/* todo - exact property in nuxt-link */
-.cta.nuxt-link-exact-active {
-	/* @apply bg-amber-300; */
 }
 </style>
