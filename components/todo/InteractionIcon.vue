@@ -11,10 +11,10 @@
 </template>
 
 <script>
-import IconCheck from '../app_icons/IconCheck';
-import IconFire from '../app_icons/IconFire';
-import IconInfo from '../app_icons/IconInfo';
-import IconPlus from '../app_icons/IconPlus';
+import IconCheck from 'icons/IconCheck';
+import IconFire from 'icons/IconFire';
+import IconInfo from 'icons/IconInfo';
+import IconPlus from 'icons/IconPlus';
 export default {
 	components: { IconPlus, IconInfo, IconFire, IconCheck },
 	props: {

@@ -4,7 +4,9 @@
 			class="w-[200px] overflow-y-auto flex-shrink-0"
 			:partners="partners"
 		/>
-		<Nuxt />
+		<transition>
+			<Nuxt />
+		</transition>
 	</BaseContainer>
 </template>
 

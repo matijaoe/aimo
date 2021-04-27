@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import BaseContainer from '../UI/BaseContainer';
+import BaseContainer from 'UI/BaseContainer';
 export default {
 	components: { BaseContainer },
 	props: {

@@ -85,8 +85,9 @@ import IconShieldCheck from 'icons/IconShieldCheck.vue';
 import BaseButton from 'UI/BaseButton.vue';
 import BaseAvatar from 'UI/BaseAvatar.vue';
 import BaseTag from 'UI/BaseTag.vue';
+import TodosSidebarLink from 'todos/TodosSidebarLink.vue';
+
 import { mapGetters } from 'vuex';
-import TodosSidebarLink from './TodosSidebarLink.vue';
 
 export default {
 	components: {

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import BaseButton from '../UI/BaseButton';
+import BaseButton from 'UI/BaseButton';
 export default {
 	components: { BaseButton },
 	props: {

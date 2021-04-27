@@ -1,10 +1,12 @@
 <template>
-	<TodosAndSearchContainer filter-category="partners" :filter="username" />
+	<TodosWrapper filter-category="partners" :filter="username" />
 </template>
+
 <script>
-import TodosAndSearchContainer from '../../../components/todos/TodosAndSearchContainer';
+import TodosWrapper from 'todos/TodosWrapper';
+
 export default {
-	components: { TodosAndSearchContainer },
+	components: { TodosWrapper },
 	async asyncData({ params, redirect, store }) {
 		const username = await params.username;
 		if (!store.getters['todos/activePartnersUsername'].includes(username)) {

@@ -5,7 +5,7 @@
 			Status:
 			<span class="uppercase text-amber-500">{{ todo.status }}</span>
 		</h3>
-		<DailyTodoRadio :is-daily="todo.isDaily" />
+		<DailyTodoRadio :is-daily="todo.daily" />
 		<!-- todo tagovi za todose -->
 		<p class="text-coolGray-300">
 			Tu ce ic tagovi za todo il sta god odlucimo...

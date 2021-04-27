@@ -44,7 +44,7 @@
 				<IconSettings />
 			</SidebarNavLink>
 			<SidebarNavLink
-				:to="{ name: 'settings' }"
+				:to="{ name: 'plans' }"
 				class="text-base"
 				tooltip="Switch to Premium"
 			>

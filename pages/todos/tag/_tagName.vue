@@ -1,10 +1,12 @@
 <template>
-	<TodosAndSearchContainer filter-category="tags" :filter="tagId" />
+	<TodosWrapper filter-category="tags" :filter="tagId" />
 </template>
+
 <script>
-import TodosAndSearchContainer from '../../../components/todos/TodosAndSearchContainer';
+import TodosWrapper from 'todos/TodosWrapper';
+
 export default {
-	components: { TodosAndSearchContainer },
+	components: { TodosWrapper },
 	async asyncData({ query, redirect, store }) {
 		const tagId = await query.tagId;
 		if (

@@ -9,7 +9,7 @@
 				:completed="todo.done"
 				:important="todo.important"
 				:approved="todo.approved"
-				:daily="todo.isDaily"
+				:daily="todo.daily"
 			>
 				{{ todo.name }}
 			</TodoItem>
@@ -44,6 +44,10 @@ export default {
 			type: String,
 			required: true,
 		},
+		todos: {
+			type: Array,
+			required: true,
+		},
 	},
 	computed: {
 		...mapGetters('todos', [
@@ -60,21 +64,30 @@ export default {
 			if (this.filterCategory === 'default') {
 				return this.defaultCatTodos;
 			} else if (this.filterCategory === 'partners') {
-				return this.todosByPartner(this.filter);
+				const partnerId = this.filter;
+				return this.todos.filter((todo) => todo.partner === partnerId);
 			} else if (this.filterCategory === 'tags') {
-				return this.todosByTag(this.filter);
+				const tagId = this.filter;
+				return this.todos.filter((todo) =>
+					todo.categories.includes(tagId)
+				);
 			}
 			return [];
 		},
 		defaultCatTodos() {
 			const option = this.filter;
-			if (option === 'all') return this.currentUserTodos;
-			else if (option === 'approved') return this.approvedTodos;
-			else if (option === 'completed') return this.completedTodos;
-			else if (option === 'important') return this.importantTodos;
-			else if (option === 'daily') return this.dailyTodos;
-			else if (option === 'personal') return this.personalTodos;
-			return [];
+			if (option === 'all') return this.todos;
+			else if (option === 'approved')
+				return this.todos.filter((todo) => todo.approved);
+			else if (option === 'completed')
+				return this.todos.filter((todo) => todo.done);
+			else if (option === 'important')
+				return this.todos.filter((todo) => todo.important);
+			else if (option === 'daily')
+				return this.todos.filter((todo) => todo.daily);
+			else if (option === 'personal')
+				return this.todos.filter((todo) => !todo.partner);
+			return this.todos;
 		},
 		hasTodos() {
 			return this.filteredTodos && this.filteredTodos.length > 0;

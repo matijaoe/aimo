@@ -1,10 +1,12 @@
 <template>
-	<TodosAndSearchContainer :filter="filter" />
+	<TodosWrapper :filter="filter" />
 </template>
+
 <script>
-import TodosAndSearchContainer from '../../components/todos/TodosAndSearchContainer';
+import TodosWrapper from 'todos/TodosWrapper';
+
 export default {
-	components: { TodosAndSearchContainer },
+	components: { TodosWrapper },
 	async asyncData({ params, redirect }) {
 		const filter = await params.filter;
 		if (

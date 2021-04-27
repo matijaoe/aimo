@@ -1,9 +1,9 @@
 <template>
-	<TodosAndSearchContainer filter="all" />
+	<TodosWrapper filter="all" />
 </template>
 <script>
-import TodosAndSearchContainer from '../../components/todos/TodosAndSearchContainer';
+import TodosWrapper from 'todos/TodosWrapper';
 export default {
-	components: { TodosAndSearchContainer },
+	components: { TodosWrapper },
 };
 </script>
