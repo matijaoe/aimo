@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
 import dayjs from 'dayjs';
+import { db } from '@/firebase';
 
 function freq(nums) {
 	return nums.reduce((acc, curr) => {
@@ -224,6 +225,41 @@ export const state = () => ({
 
 export const getters = {
 	users(state) {
+		// for (const user of state.users) {
+		// 	db.collection('users')
+		// 		.doc(user.username)
+		// 		.set({
+		// 			fname: user.fname,
+		// 			lname: user.lname,
+		// 			countryCode: user.countryCode,
+		// 			birthday: user.birthday.$d,
+		// 			joined_on: user.joined_on.$d,
+		// 			photo: user.photo,
+		// 			occupation: user.occupation,
+		// 			bio: user.bio,
+		// 			coins: user.coins,
+		// 			isPremium: user.isPremium,
+		// 			categories: user.categories,
+		// 			socials: user.socials,
+		// 		})
+		// 		.then(() => {
+		// 			console.log('Document successfully written!');
+		// 		})
+		// 		.catch((error) => {
+		// 			console.error('Error writing document: ', error);
+		// 		});
+		// }
+
+		// db.collection('users')
+		// 	.get()
+		// 	.then((query) => {
+		// 		const usersArray = [];
+		// 		query.docs.forEach((user) => {
+		// 			usersArray.push(user.data());
+		// 		});
+		// 		console.log(usersArray);
+		// 		return usersArray || [];
+		// 	});
 		return state.users || [];
 	},
 	getUserById: (state, getters) => (username) => {
