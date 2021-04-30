@@ -44,6 +44,7 @@ export default {
 		'~/plugins/v-click-outside.js',
 		// https://github.com/Leecason/vue-rough-notation
 		'~/plugins/rough-notation.js',
+		'~/plugins/getusers.js',
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components

@@ -110,12 +110,12 @@ export default {
 	},
 	computed: {
 		age() {
-			const birthday = this.user.birthday;
+			const birthday = dayjs.unix(this.user.birthday.seconds);
 			return dayjs().diff(birthday, 'year');
 		},
 		joinDate() {
 			dayjs.extend(advancedFormat);
-			const date = this.user.joined_on;
+			const date = dayjs.unix(this.user.joined_on.seconds);
 			return date.format('MMM Do, YYYY');
 		},
 	},

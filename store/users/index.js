@@ -291,6 +291,21 @@ export const getters = {
 	},
 };
 
-export const mutations = {};
+export const mutations = {
+	loadUserData(state, userData) {
+		state.users = userData;
+	},
+};
 
-export const actions = {};
+export const actions = {
+	async loadUserData({ commit }) {
+		const users = await db.collection('users').get();
+
+		const userData = [];
+		for (const doc of users.docs) {
+			userData.push({ ...doc.data(), username: doc.id });
+		}
+
+		commit('loadUserData', userData);
+	},
+};
