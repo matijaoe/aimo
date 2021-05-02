@@ -10083,7 +10083,7 @@ vue@^2.6.12:
 
 vuesax@^4.0.1-alpha.25:
   version "4.0.1-alpha.25"
-  resolved "https://registry.npmjs.org/vuesax/-/vuesax-4.0.1-alpha.25.tgz"
+  resolved "https://registry.yarnpkg.com/vuesax/-/vuesax-4.0.1-alpha.25.tgz#2fb97ac8e4f3d479622d2dc6b498e5e57d44495d"
   integrity sha512-cVLpKsem/YsMSbiy2s2M0O6rr8wrakOUFn0JYxtVQ1WgbVUD0/kU2/GMPVeRBNOh+30tRy2TKreFmjqc53vIBQ==
   dependencies:
     vue-router "^3.3.4"

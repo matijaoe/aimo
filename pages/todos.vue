@@ -1,9 +1,6 @@
 <template>
 	<BaseContainer class="flex custom-height" no-padding>
-		<TodosSidebar
-			class="w-[200px] overflow-y-auto flex-shrink-0"
-			:partners="partners"
-		/>
+		<TodosSidebar class="w-[200px] overflow-y-auto flex-shrink-0" />
 		<transition>
 			<Nuxt />
 		</transition>

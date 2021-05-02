@@ -1,11 +1,22 @@
 <template>
 	<div class="flex-1 bg-gray-100 flex flex-col">
-		<TodosSearchbar @search="searchTodos" @sort="sortTodos" />
+		<TodosSearchbar
+			@search="searchTodos"
+			@sort="sortTodos"
+			@newtodo="openNewTodo"
+		/>
 		<TodosList
 			class="flex-1 overflow-y-auto"
 			:filter-category="filterCategory"
 			:filter="filter"
 			:todos="todos"
+			@edit="editTodo"
+		/>
+		<TodoDetails
+			v-if="modalShown"
+			:key="todoId"
+			:todo-id="todoId"
+			@close="modalShown = false"
 		/>
 	</div>
 </template>
@@ -13,6 +24,7 @@
 <script>
 import TodosSearchbar from 'todos/TodosSearchbar.vue';
 import TodosList from 'todos/TodosList.vue';
+import TodoDetails from 'todos/TodoDetails.vue';
 import { orderBy as _orderBy } from 'lodash';
 
 import { mapGetters } from 'vuex';
@@ -21,6 +33,7 @@ export default {
 	components: {
 		TodosSearchbar,
 		TodosList,
+		TodoDetails,
 	},
 	props: {
 		filter: {
@@ -37,6 +50,8 @@ export default {
 	data() {
 		return {
 			todos: [],
+			modalShown: false,
+			todoId: null,
 		};
 	},
 	computed: {
@@ -49,7 +64,14 @@ export default {
 		this.todos = this.allTodos;
 	},
 	methods: {
-		// todo doesnt work for tags and partners
+		openNewTodo() {
+			this.modalShown = true;
+		},
+		editTodo(id) {
+			console.log('EDIT TODO ' + id);
+			this.modalShown = true;
+			this.todoId = id;
+		},
 		sortTodos(arg) {
 			if (arg === 'asc' || arg === 'desc') {
 				this.todos = _orderBy(

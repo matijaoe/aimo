@@ -3,6 +3,7 @@
 		<ul v-if="hasTodos">
 			<TodoItem
 				v-for="todo in filteredTodos"
+				:id="todo.id"
 				:key="todo.id"
 				:categories="todo.categories"
 				:partner-id="todo.partner"
@@ -10,6 +11,7 @@
 				:important="todo.important"
 				:approved="todo.approved"
 				:daily="todo.daily"
+				@edit="$emit('edit', $event)"
 			>
 				{{ todo.name }}
 			</TodoItem>
@@ -49,6 +51,7 @@ export default {
 			required: true,
 		},
 	},
+	emits: ['edit'],
 	computed: {
 		...mapGetters('todos', [
 			'currentUserTodos',

@@ -1,5 +1,5 @@
 <template>
-	<TodoDetails />
+	<TodoDetails :show="true" :new="true" />
 </template>
 
 <script>

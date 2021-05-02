@@ -29,8 +29,7 @@ export default {
 	components: { BaseContainer, BaseAvatar },
 	props: ['user', 'userId'],
 	computed: {
-		...mapGetters('users', ['users', 'getUserById']),
-		...mapGetters('partners', ['partnerships', 'getPartnersById']),
+		...mapGetters('partners', ['getPartnersById']),
 		partners() {
 			return this.getPartnersById(this.userId);
 		},

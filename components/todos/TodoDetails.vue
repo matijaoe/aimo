@@ -5,40 +5,24 @@
 	>
 		<div class="relative w-full h-screen">
 			<article
-				class="absolute top-0 right-0 h-screen w-full max-w-[450px] bg-white border-l-2 border-gray-200 py-10 px-4"
+				class="absolute top-0 right-0 h-screen w-full w-[480px] bg-white border-l-2 border-gray-200 py-10 px-6 overflow-y-auto"
 			>
 				<button
 					class="bg-emerald-200 text-emerald-700 py-2 px-4 rounded-lg"
-					@click="$router.push('/todos')"
+					@click="$emit('close')"
 				>
 					Zatvori me
 				</button>
-				<div class="mt-10 flex flex-col gap-3">
-					<div>
-						<label
-							for="todoTitle"
-							class="uppercase ml-1 tracking-wider text-xs"
-							>Title</label
-						>
-						<input
-							id="todoTitle"
-							type="text"
-							class="text-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+				<!-- todo full widht imputs -->
+				<div class="mt-10 flex flex-col gap-8">
+					<div class="flex gap-4">
+						<vs-input v-model="title" label-placeholder="Title" />
+						<vs-input
+							v-model="description"
+							label-placeholder="Description"
 						/>
 					</div>
-					<div>
-						<label
-							for="todoDesc"
-							class="uppercase ml-1 tracking-wider text-xs"
-							>Description</label
-						>
-						<textarea
-							id="todoDesc"
-							rows="3"
-							class="text-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-						/>
-					</div>
-					<div>
+					<!-- <div>
 						<label
 							for="todoDesc"
 							class="uppercase ml-1 tracking-wider text-xs"
@@ -49,11 +33,75 @@
 							name="cars"
 							class="text-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
 						>
-							<option value="volvo">Volvo</option>
-							<option value="saab">Saab</option>
-							<option value="mercedes">Mercedes</option>
-							<option value="audi">Audi</option>
+							<option selected>None</option>
+							<option
+								v-for="partner in currentUserPartners"
+								:key="partner.username"
+								:value="partner.username"
+							>
+								@{{ partner.username }}
+							</option>
 						</select>
+					</div> -->
+					<div class="flex gap-4 justify-between items-center">
+						<!-- todo switch -->
+						<div class="mx-auto my-1">
+							<vs-checkbox
+								v-model="isPersonal"
+								:color="'#34D399'"
+							>
+								Personal
+							</vs-checkbox>
+						</div>
+						<div v-if="!isPersonal">
+							<vs-select
+								v-model="selectedPartner"
+								filter
+								label-placeholder="Choose partner"
+							>
+								<vs-option
+									v-for="(
+										partner, index
+									) in currentUserPartners"
+									:key="partner.username"
+									:label="partner.username"
+									:value="index + 1"
+								>
+									<div class="flex items-center gap-2">
+										<BaseAvatar
+											size="xs"
+											:src="partner.photo"
+										/>
+										<p class="text-sm font-medium">
+											{{ partner.username }}
+										</p>
+									</div>
+								</vs-option>
+							</vs-select>
+						</div>
+					</div>
+					<div class="flex gap-4 justify-between items-center">
+						<div class="mx-auto">
+							<p>Categories</p>
+						</div>
+						<vs-select v-model="selectedCategories" filter multiple>
+							<vs-option
+								v-for="(category, index) in categories"
+								:key="category.id"
+								:label="category.name"
+								:value="index + 1"
+							>
+								{{ category.name }}
+							</vs-option>
+						</vs-select>
+					</div>
+					<div>
+						<vs-checkbox v-model="isDaily" :color="'#60A5FA'">
+							Repeats daily
+						</vs-checkbox>
+						<vs-checkbox v-model="isImportant" :color="'#FBBF24'">
+							Important
+						</vs-checkbox>
 					</div>
 					<div>
 						<label class="uppercase ml-1 tracking-wider text-xs">
@@ -98,26 +146,75 @@
 
 <script>
 import IconPhoto from 'icons/IconPhoto';
+import BaseAvatar from 'UI/BaseAvatar';
+import { mapGetters } from 'vuex';
 
 export default {
-	components: { IconPhoto },
+	components: {
+		IconPhoto,
+		BaseAvatar,
+	},
 	props: {
-		show: {
-			type: Boolean,
-			required: true,
-			default: true,
-		},
 		new: {
 			type: Boolean,
-			required: true,
-			default: true,
+			required: false,
+			default: false,
+		},
+		todoId: {
+			type: String,
+			required: false,
+			default: null,
 		},
 	},
 	emits: ['close'],
 	data() {
 		return {
+			// select values start from 1
+			inputColor: '#1E293B',
 			shown: true,
+			option: true,
+			title: '',
+			description: '',
+			selectedPartner: '',
+			selectedCategories: [],
+			isDaily: false,
+			isPersonal: false,
+			isApproved: false,
 		};
+	},
+	computed: {
+		...mapGetters(['currentUserPartners', 'categories']),
+		...mapGetters('todos', ['getCurrentUserTodoById']),
+		partners() {
+			return this.currentUserPartners;
+		},
+	},
+	created() {
+		if (this.todoId) {
+			const todo = this.getCurrentUserTodoById(this.todoId);
+			this.title = todo.name;
+			this.description = todo.desc;
+			this.isDaily = todo.daily;
+			this.isImportant = todo.important;
+			this.isApproved = todo.approved;
+			this.isPersonal = !todo.partner;
+
+			const partnerUsernames = this.partners.map((p) => p.username);
+			const partnerIndex = partnerUsernames.indexOf(todo.partner);
+			const partnerOption = partnerIndex !== -1 ? partnerIndex + 1 : '';
+
+			this.selectedPartner = partnerOption;
+			this.selectedCategories = todo.categories;
+		} else {
+			this.title = '';
+			this.description = '';
+			this.isDaily = '';
+			this.isImportant = '';
+			this.isApproved = '';
+			this.isPersonal = '';
+			this.selectedPartner = '';
+			this.selectedCategories = [];
+		}
 	},
 };
 </script>

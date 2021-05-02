@@ -29,7 +29,7 @@
 				</SidebarNavLink>
 			</li>
 			<li>
-				<SidebarNavLink text="Inbox" to="/inbox">
+				<SidebarNavLink text="Inbox" :to="{ name: 'inbox' }">
 					<IconInbox />
 				</SidebarNavLink>
 			</li>
@@ -39,7 +39,7 @@
 				</SidebarNavLink>
 			</li>
 		</ul>
-		<div class="space-y-2">
+		<div class="space-y-2 mt-10">
 			<SidebarNavLink text="Settings" :to="{ name: 'settings' }">
 				<IconSettings />
 			</SidebarNavLink>

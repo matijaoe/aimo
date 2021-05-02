@@ -12,7 +12,10 @@
 					class="w-4 h-4 border-[3px] rounded-full flex-shrink-0"
 					:class="dotColor"
 				></div>
-				<div class="flex items-center justify-between gap-2 flex-1">
+				<div
+					class="flex items-center justify-between gap-2 flex-1"
+					@click.stop="emitTodoEdit"
+				>
 					<div v-if="isDone">
 						<RoughNotation
 							:is-show="isDone"
@@ -24,6 +27,7 @@
 							</div>
 						</RoughNotation>
 					</div>
+
 					<RoughNotation
 						:is-show="isImportant && !isDone"
 						type="highlight"
@@ -114,6 +118,10 @@ export default {
 		IconUserCircle,
 	},
 	props: {
+		id: {
+			type: String,
+			required: true,
+		},
 		categories: {
 			type: Array,
 			required: false,
@@ -145,6 +153,7 @@ export default {
 			default: false,
 		},
 	},
+	emits: ['edit'],
 	data() {
 		return {
 			isDone: this.completed,
@@ -200,6 +209,9 @@ export default {
 			if (!this.isApproved) {
 				this.isDone = !this.isDone;
 			}
+		},
+		emitTodoEdit() {
+			this.$emit('edit', this.id);
 		},
 	},
 };

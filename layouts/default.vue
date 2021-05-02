@@ -2,7 +2,9 @@
 	<div
 		class="flex min-h-screen overflow-hidden font-primary text-gray-700 text-sm font-medium"
 	>
-		<AppSidebar class="hidden xs:flex w-16 xl:w-64 3xl:w-72" />
+		<AppSidebar
+			class="hidden xs:flex w-16 xl:w-64 3xl:w-72 overflow-y-auto"
+		/>
 		<div
 			class="w-full px-4 sm:px-6 lg:px-10 pt-4 pb-8 xs:pt-5 xs:ml-16 xl:ml-64 3xl:ml-72 bg-gray-50 bg-opacity-40"
 		>

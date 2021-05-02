@@ -4,9 +4,9 @@ export const state = () => ({
 	todos: {
 		matijao: [
 			{
-				id: nanoid(),
+				id: '123456789',
 				name: 'citati knjigu',
-				desc: '',
+				desc: 'jer elon musk cita knjige',
 				categories: ['VQDonT7_pB4ACAW6DZsiL', 'VquU1OBaiUo02JuSuZRO8'],
 				timestamp: 1618916803496,
 				done: false,
@@ -18,7 +18,7 @@ export const state = () => ({
 			{
 				id: nanoid(),
 				name: 'odvoziti bicikl',
-				desc: '',
+				desc: 'do zagreba i nazad',
 				categories: [
 					'BR2eOYR1Y6u_Yp_H58xD1',
 					'xUMFQYg3iBJbptNBUqsCK',
@@ -46,7 +46,7 @@ export const state = () => ({
 			{
 				id: nanoid(),
 				name: 'napraviti pripremu iz Bazi Podataka',
-				desc: '',
+				desc: 'aliasi i group by',
 				categories: [
 					'OWEhqyLlnnWQGEUAHzGhe',
 					'QJNdchJLDfKZcR-O3ytn3',
@@ -62,7 +62,7 @@ export const state = () => ({
 			{
 				id: nanoid(),
 				name: 'bicep curls',
-				desc: '',
+				desc: '6 seta po 12 repsa sa 12kg',
 				categories: ['0TN9zbVVaZOhWswtztYYn', 'BR2eOYR1Y6u_Yp_H58xD1'],
 				timestamp: 1618916803496,
 				done: false,
@@ -74,7 +74,7 @@ export const state = () => ({
 			{
 				id: nanoid(),
 				name: 'deadlift',
-				desc: '',
+				desc: 'doc bar do 100kg',
 				categories: ['0TN9zbVVaZOhWswtztYYn', 'BR2eOYR1Y6u_Yp_H58xD1'],
 				timestamp: 1618916803496,
 				done: true,
@@ -86,7 +86,7 @@ export const state = () => ({
 			{
 				id: nanoid(),
 				name: 'pogledati utakmicu',
-				desc: '',
+				desc: 'el clasico',
 				categories: [
 					'Bzw_jJ7m-I6vuN4HaFsDv',
 					'4OgWmONbRqhKYtDJTjd0I',
@@ -102,7 +102,7 @@ export const state = () => ({
 			{
 				id: nanoid(),
 				name: 'gasirat',
-				desc: '',
+				desc: 'klošarit do kraja',
 				categories: [],
 				timestamp: 1618916803496,
 				done: false,
@@ -140,7 +140,7 @@ export const state = () => ({
 			{
 				id: nanoid(),
 				name: 'svirat frulu',
-				desc: '',
+				desc: 'minimum pola sata',
 				categories: ['wuH147eN-7R2g4EeJrB09', 'jcE5bvcPrBYb2bstsEWgE'],
 				timestamp: 1618916803496,
 				done: true,
@@ -160,26 +160,12 @@ export const getters = {
 	getTodosByUser: (state, getters) => (username) => {
 		return state.todos[username];
 	},
-	getTodoById: (state, getters) => (id) => {
+	getCurrentUserTodoById: (state, getters) => (id) => {
+		console.log(getters.currentUserTodos.find((todo) => todo.id === id));
 		return getters.currentUserTodos.find((todo) => todo.id === id);
 	},
-	getFavoriteTodos(state, getters) {
-		return getters.currentUserTodos.filter((todo) => todo.favorite);
-	},
-	importantTodos(state, getters) {
-		return getters.currentUserTodos.filter((todo) => todo.important);
-	},
-	completedTodos(state, getters) {
-		return getters.currentUserTodos.filter((todo) => todo.done);
-	},
-	approvedTodos(state, getters) {
-		return getters.currentUserTodos.filter((todo) => todo.approved);
-	},
-	dailyTodos(state, getters) {
-		return getters.currentUserTodos.filter((todo) => todo.daily);
-	},
-	personalTodos(state, getters) {
-		return getters.currentUserTodos.filter((todo) => !todo.partner);
+	getUserTodoById: (state, getters) => (username, id) => {
+		return getters.getTodosByUser(username).find((todo) => todo.id === id);
 	},
 	activePartnersUsername(state, getters) {
 		return getters.currentUserTodos

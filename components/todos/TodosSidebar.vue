@@ -1,7 +1,11 @@
 <template>
 	<aside class="border-r-2 border-gray-100 space-y-5 pb-4">
 		<div class="mb-6 p-4">
-			<BaseButton mode="cta" class="w-full py-2" thin>
+			<BaseButton
+				mode="cta"
+				class="w-full py-2"
+				@click="$emit('newtodo')"
+			>
 				<IconPlus />
 				Add Todo
 			</BaseButton>
@@ -103,6 +107,7 @@ export default {
 		BaseTag,
 		TodosSidebarLink,
 	},
+	emits: ['newtodo'],
 	computed: {
 		...mapGetters(['currentUserId']),
 		...mapGetters('partners', ['getPartnersById']),

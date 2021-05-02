@@ -46,6 +46,12 @@
 				</BaseDropdownList>
 			</BaseDropdownContent>
 		</BaseDropdown>
+
+		<div class="mr-2">
+			<BaseButton mode="cta--square" @click="$emit('newtodo')">
+				<IconPlus />
+			</BaseButton>
+		</div>
 	</div>
 </template>
 
@@ -55,6 +61,7 @@ import IconSearch from 'icons/IconSearch.vue';
 import IconFilter from 'icons/IconFilter.vue';
 import IconAscending from 'icons/IconAscending.vue';
 import IconDescending from 'icons/IconDescending.vue';
+import IconPlus from 'icons/IconPlus.vue';
 import BaseButton from 'UI/BaseButton.vue';
 import BaseDropdown from 'UI/BaseDropdown.vue';
 import BaseDropdownContent from 'UI/BaseDropdownContent.vue';
@@ -68,15 +75,15 @@ export default {
 		IconFilter,
 		IconAscending,
 		IconDescending,
+		IconPlus,
 		BaseButton,
 		BaseDropdown,
 		BaseDropdownContent,
 		BaseDropdownList,
 		BaseDropdownItem,
 	},
-	emits: ['search', 'sort'],
+	emits: ['search', 'sort', 'newtodo'],
 	data() {
-		// todo - clear searchbar after changing route
 		return {
 			searchTerm: '',
 		};

@@ -34,6 +34,7 @@ export default {
 		'~/assets/css/styles.css',
 		'~/assets/css/v-tooltip.css',
 		'boxicons/css/boxicons.min.css',
+		'vuesax/dist/vuesax.css',
 	],
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -45,6 +46,7 @@ export default {
 		// https://github.com/Leecason/vue-rough-notation
 		'~/plugins/rough-notation.js',
 		'~/plugins/getusers.js',
+		'@/plugins/vuesax.js',
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components

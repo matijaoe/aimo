@@ -1,9 +1,12 @@
 <template>
 	<BaseContainer fieldset label="Categories">
-		<div class="flex flex-wrap gap-2">
+		<div v-if="categories.length" class="flex flex-wrap gap-2">
 			<BaseTag v-for="tag in categories" :key="tag.id" :color="tag.color">
 				{{ tag.name }}
 			</BaseTag>
+		</div>
+		<div v-else>
+			<BaseTag>No categories found</BaseTag>
 		</div>
 	</BaseContainer>
 </template>

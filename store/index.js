@@ -26,6 +26,7 @@ export const state = () => ({
 		{ id: 'whatsapp', name: 'whatsapp' },
 		{ id: 'youtube', name: 'youtube' },
 	],
+	// todo - switch to firebase ids
 	categories: [
 		{ id: 'OWEhqyLlnnWQGEUAHzGhe', name: 'study', color: 'blue' },
 		{ id: 'QJNdchJLDfKZcR-O3ytn3', name: 'school', color: 'red' },
@@ -42,23 +43,6 @@ export const state = () => ({
 		{ id: 'kmTtKxOMeKfuNoU_kG-yp', name: 'art', color: 'amber' },
 		{ id: '4OgWmONbRqhKYtDJTjd0I', name: 'sports', color: 'teal' },
 		{ id: 'wuH147eN-7R2g4EeJrB09', name: 'skills', color: 'red' },
-		{ id: 'hIYvsT4-lwqyByPZXoAuO', name: '', color: '' },
-		{ id: 'HpnzP7Fl11Soc1SbjHQhW', name: '', color: '' },
-		{ id: 'NdGCz7r63BCRiZ_IRd1eT', name: '', color: '' },
-		{ id: 'dzYgdfhE8KNHjz0mfrByw', name: '', color: '' },
-		{ id: '1rWP2rBB1IQ-MsAs0YwWv', name: '', color: '' },
-		{ id: '5GFhSU5t7YjUUYWYq9egX', name: '', color: '' },
-		{ id: '6_9QImDrUjcRVZw7fv4EK', name: '', color: '' },
-		{ id: 'zU5UnFaTv7acsTlJVXA82', name: '', color: '' },
-		{ id: 'ROHsgcS9KTNMaF_WSXAP_', name: '', color: '' },
-		{ id: 'j8r52xLWRpLx8eKaYgQOu', name: '', color: '' },
-		{ id: 'jtrbS_ALwXXn_82WfKMnV', name: '', color: '' },
-		{ id: 'b5BjTUQ2C3fb3018njqCt', name: '', color: '' },
-		{ id: 'NKbSyrQazqml18XIZ9Qqo', name: '', color: '' },
-		{ id: 'gwrfhnBOe6Awmk0D0VHJ1', name: '', color: '' },
-		{ id: 'v3u-7QZKJx3XOdM8laFeh', name: '', color: '' },
-		{ id: 'DMvuroCorHDFUVqxvbD-O', name: '', color: '' },
-		{ id: 'SM3yzIzmcOW9RAdHNTUc0', name: '', color: '' },
 	],
 });
 
@@ -68,6 +52,9 @@ export const getters = {
 	},
 	currentUser(state, getters) {
 		return getters['users/getUserById'](getters.currentUserId);
+	},
+	currentUserPartners(state, getters) {
+		return getters['partners/getPartnersById'](getters.currentUserId) || [];
 	},
 	categories(state) {
 		return state.categories;
