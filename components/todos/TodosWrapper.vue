@@ -16,7 +16,7 @@
 			v-if="modalShown"
 			:key="todoId"
 			:todo-id="todoId"
-			@close="modalShown = false"
+			@close="closeNewTodo"
 		/>
 	</div>
 </template>
@@ -66,6 +66,10 @@ export default {
 	methods: {
 		openNewTodo() {
 			this.modalShown = true;
+		},
+		closeNewTodo() {
+			this.modalShown = false;
+			this.todoId = null;
 		},
 		editTodo(id) {
 			console.log('EDIT TODO ' + id);

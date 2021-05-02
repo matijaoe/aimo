@@ -207,11 +207,21 @@ export const actions = {
 	changeFavorite(context, payload) {
 		context.commit('setFavoriteStatus', payload);
 	},
+	addNewTodo({ commit }, payload) {
+		commit('addNewTodo', payload);
+	},
 };
 
 export const mutations = {
 	setFavoriteStatus(state, payload) {
 		state.todos.find((todo) => todo.id === payload.id).favorite =
 			payload.favorite;
+	},
+	addNewTodo(state, payload) {
+		const newTodo = {
+			...payload,
+			id: nanoid(),
+		};
+		state.todos.matijao.unshift(newTodo);
 	},
 };

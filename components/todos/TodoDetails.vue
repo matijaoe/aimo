@@ -2,17 +2,29 @@
 	<div
 		v-if="shown"
 		class="absolute top-0 left-0 bg-black bg-opacity-40 w-screen h-screen"
+		@click="$emit('close')"
 	>
 		<div class="relative w-full h-screen">
 			<article
 				class="absolute top-0 right-0 h-screen w-full w-[480px] bg-white border-l-2 border-gray-200 py-10 px-6 overflow-y-auto"
+				@click.stop=""
 			>
-				<button
+				<div>
+					<!--				<button
 					class="bg-emerald-200 text-emerald-700 py-2 px-4 rounded-lg"
 					@click="$emit('close')"
 				>
 					Zatvori me
-				</button>
+				</button>-->
+					<BaseButton mode="ghost" @click="$emit('close')">
+						Zatvori me
+					</BaseButton>
+					<BaseButton v-if="isNewTodo" mode="cta" @click="addNewTodo"
+						>Add</BaseButton
+					>
+					<BaseButton v-else mode="cta">Save</BaseButton>
+				</div>
+
 				<!-- todo full widht imputs -->
 				<div class="mt-10 flex flex-col gap-8">
 					<div class="flex gap-4">
@@ -53,11 +65,12 @@
 								Personal
 							</vs-checkbox>
 						</div>
-						<div v-if="!isPersonal">
+						<div>
 							<vs-select
 								v-model="selectedPartner"
 								filter
 								label-placeholder="Choose partner"
+								:disabled="!!isPersonal"
 							>
 								<vs-option
 									v-for="(
@@ -103,7 +116,7 @@
 							Important
 						</vs-checkbox>
 					</div>
-					<div>
+					<div v-if="isCompleted">
 						<label class="uppercase ml-1 tracking-wider text-xs">
 							Photo
 						</label>
@@ -148,9 +161,12 @@
 import IconPhoto from 'icons/IconPhoto';
 import BaseAvatar from 'UI/BaseAvatar';
 import { mapGetters } from 'vuex';
+import { nanoid } from 'nanoid';
+import BaseButton from '../UI/BaseButton';
 
 export default {
 	components: {
+		BaseButton,
 		IconPhoto,
 		BaseAvatar,
 	},
@@ -180,6 +196,7 @@ export default {
 			isDaily: false,
 			isPersonal: false,
 			isApproved: false,
+			isCompleted: false,
 		};
 	},
 	computed: {
@@ -187,6 +204,9 @@ export default {
 		...mapGetters('todos', ['getCurrentUserTodoById']),
 		partners() {
 			return this.currentUserPartners;
+		},
+		isNewTodo() {
+			return !this.todoId;
 		},
 	},
 	created() {
@@ -198,6 +218,7 @@ export default {
 			this.isImportant = todo.important;
 			this.isApproved = todo.approved;
 			this.isPersonal = !todo.partner;
+			this.isCompleted = todo.done;
 
 			const partnerUsernames = this.partners.map((p) => p.username);
 			const partnerIndex = partnerUsernames.indexOf(todo.partner);
@@ -208,13 +229,45 @@ export default {
 		} else {
 			this.title = '';
 			this.description = '';
-			this.isDaily = '';
-			this.isImportant = '';
-			this.isApproved = '';
-			this.isPersonal = '';
+			this.isDaily = false;
+			this.isImportant = false;
+			this.isApproved = false;
+			this.isPersonal = false;
+			this.isCompleted = false;
 			this.selectedPartner = '';
 			this.selectedCategories = [];
 		}
+	},
+	methods: {
+		addNewTodo() {
+			let partnerUsername = '';
+			if (!this.isPersonal) {
+				if (!this.selectedPartner) {
+					this.isPersonal = true;
+				} else {
+					partnerUsername = this.currentUserPartners[
+						this.selectedPartner - 1
+					].username;
+				}
+			}
+			const categories = [];
+			for (const categorySelection of this.selectedCategories) {
+				categories.push(this.categories[categorySelection - 1].id);
+			}
+			const newTodo = {
+				name: this.title,
+				desc: this.description || '',
+				categories,
+				timestamp: Date.now(),
+				done: false,
+				approved: false,
+				daily: this.isDaily,
+				important: this.isImportant,
+				partner: partnerUsername,
+			};
+			this.$store.dispatch('todos/addNewTodo', newTodo);
+			this.$emit('close');
+		},
 	},
 };
 </script>
