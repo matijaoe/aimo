@@ -1,155 +1,9 @@
 // Ovo nije prava struktura od todosa nego samo za mockup
 import { nanoid } from 'nanoid';
+import { db } from '@/firebase';
 export const state = () => ({
 	todos: {
-		matijao: [
-			{
-				id: '123456789',
-				name: 'citati knjigu',
-				desc: 'jer elon musk cita knjige',
-				categories: ['VQDonT7_pB4ACAW6DZsiL', 'VquU1OBaiUo02JuSuZRO8'],
-				timestamp: 1618916803496,
-				done: false,
-				approved: false,
-				daily: true,
-				important: true,
-				partner: 'patrik_harmonika',
-			},
-			{
-				id: nanoid(),
-				name: 'odvoziti bicikl',
-				desc: 'do zagreba i nazad',
-				categories: [
-					'BR2eOYR1Y6u_Yp_H58xD1',
-					'xUMFQYg3iBJbptNBUqsCK',
-					'uUCM7KHa7XlSzqpqX7iY3',
-				],
-				timestamp: 1618916803496,
-				done: true,
-				approved: true,
-				daily: false,
-				important: true,
-				partner: 'marian7',
-			},
-			{
-				id: nanoid(),
-				name: 'random task',
-				desc: '',
-				categories: [],
-				timestamp: 1618916803496,
-				done: true,
-				approved: false,
-				daily: false,
-				important: false,
-				partner: null,
-			},
-			{
-				id: nanoid(),
-				name: 'napraviti pripremu iz Bazi Podataka',
-				desc: 'aliasi i group by',
-				categories: [
-					'OWEhqyLlnnWQGEUAHzGhe',
-					'QJNdchJLDfKZcR-O3ytn3',
-					'8MNLJ4yg15YoRch0t3NAG',
-				],
-				timestamp: 1618916803496,
-				done: false,
-				approved: false,
-				daily: false,
-				important: false,
-				partner: 'tomoKotar14',
-			},
-			{
-				id: nanoid(),
-				name: 'bicep curls',
-				desc: '6 seta po 12 repsa sa 12kg',
-				categories: ['0TN9zbVVaZOhWswtztYYn', 'BR2eOYR1Y6u_Yp_H58xD1'],
-				timestamp: 1618916803496,
-				done: false,
-				approved: false,
-				daily: false,
-				important: true,
-				partner: 'marian7',
-			},
-			{
-				id: nanoid(),
-				name: 'deadlift',
-				desc: 'doc bar do 100kg',
-				categories: ['0TN9zbVVaZOhWswtztYYn', 'BR2eOYR1Y6u_Yp_H58xD1'],
-				timestamp: 1618916803496,
-				done: true,
-				approved: true,
-				daily: false,
-				important: false,
-				partner: 'marian7',
-			},
-			{
-				id: nanoid(),
-				name: 'pogledati utakmicu',
-				desc: 'el clasico',
-				categories: [
-					'Bzw_jJ7m-I6vuN4HaFsDv',
-					'4OgWmONbRqhKYtDJTjd0I',
-					'0iUqkyVh0IliBfXtyOj7r',
-				],
-				timestamp: 1618916803496,
-				done: false,
-				approved: false,
-				daily: false,
-				important: false,
-				partner: null,
-			},
-			{
-				id: nanoid(),
-				name: 'gasirat',
-				desc: 'klošarit do kraja',
-				categories: [],
-				timestamp: 1618916803496,
-				done: false,
-				approved: false,
-				daily: true,
-				important: false,
-				partner: 'blueface',
-			},
-			{
-				id: nanoid(),
-				name: 'nacrtati brodić i more',
-				desc: '',
-				categories: ['kmTtKxOMeKfuNoU_kG-yp'],
-				timestamp: 1618916803496,
-				done: true,
-				approved: false,
-				daily: false,
-				important: false,
-				partner: 'lovedoctor',
-			},
-		],
-		marian7: [
-			{
-				id: nanoid(),
-				name: 'boksati',
-				desc: '',
-				categories: ['BR2eOYR1Y6u_Yp_H58xD1', '0TN9zbVVaZOhWswtztYYn'],
-				timestamp: 1618916803496,
-				done: false,
-				approved: false,
-				daily: true,
-				important: true,
-				partner: 'patrik_harmonika',
-			},
-			{
-				id: nanoid(),
-				name: 'svirat frulu',
-				desc: 'minimum pola sata',
-				categories: ['wuH147eN-7R2g4EeJrB09', 'jcE5bvcPrBYb2bstsEWgE'],
-				timestamp: 1618916803496,
-				done: true,
-				approved: false,
-				daily: true,
-				important: true,
-				partner: null,
-			},
-		],
+		matijao: [],
 	},
 });
 
@@ -210,9 +64,31 @@ export const actions = {
 	addNewTodo({ commit }, payload) {
 		commit('addNewTodo', payload);
 	},
+	async loadUserTodos({ commit }) {
+		try {
+			const todos = await db
+				.collection('users')
+				.doc('matijao')
+				.collection('todos')
+				.get();
+			const userTodos = [];
+			for (const doc of todos.docs) {
+				userTodos.push({
+					...doc.data(),
+					username: doc.id,
+				});
+			}
+			commit('loadUserTodos', userTodos);
+		} catch (error) {
+			console.error(error);
+		}
+	},
 };
 
 export const mutations = {
+	loadUserTodos(state, userTodos) {
+		state.todos.matijao = userTodos;
+	},
 	setFavoriteStatus(state, payload) {
 		state.todos.find((todo) => todo.id === payload.id).favorite =
 			payload.favorite;
@@ -223,5 +99,21 @@ export const mutations = {
 			id: nanoid(),
 		};
 		state.todos.matijao.unshift(newTodo);
+		db.collection('users')
+			.doc('matijao')
+			.collection('todos')
+			.doc(newTodo.id)
+			.set({
+				approved: newTodo.approved,
+				categories: newTodo.categories,
+				daily: newTodo.daily,
+				desc: newTodo.desc,
+				done: newTodo.done,
+				id: nanoid(), // ovo je samo privremeno rješenje da ne izbacuje gresku za id (koji je nepotreban u ovom slucaju)
+				important: newTodo.important,
+				name: newTodo.name,
+				partner: newTodo.partner,
+				timestamp: newTodo.timestamp,
+			});
 	},
 };

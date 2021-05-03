@@ -46,6 +46,7 @@ export default {
 		// https://github.com/Leecason/vue-rough-notation
 		'~/plugins/rough-notation.js',
 		'~/plugins/getusers.js',
+		'~/plugins/getUserTodos.js',
 		'@/plugins/vuesax.js',
 	],
 
