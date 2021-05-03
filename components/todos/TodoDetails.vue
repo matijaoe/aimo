@@ -7,7 +7,7 @@
 		<div class="relative w-full h-screen">
 			<article
 				class="absolute top-0 right-0 h-screen w-full w-[480px] bg-white border-l-2 border-gray-200 py-10 px-6 overflow-y-auto space-y-2"
-				@click.stop=""
+				@click.stop="doNothing"
 			>
 				<!--<div>
 									<button
@@ -18,13 +18,9 @@
 				</button>
 				</div>-->
 
-				<div>
-					<h4 v-if="isNewTodo" class="text-4xl font-bold">
-						New todo
-					</h4>
-				</div>
+				<h4 v-if="isNewTodo" class="text-4xl font-bold">New todo</h4>
 
-				<div class="flex justify-end items-center">
+				<div class="flex justify-end items-center pb-2">
 					<div class="flex items-center gap-4">
 						<IconStar
 							class="fill-current transition"
@@ -55,11 +51,13 @@
 					<div class="ml-auto">
 						<BaseButton
 							v-tooltip.left="'Edit'"
-							class="flex items-center"
+							class="flex items-center group"
 							mode="square"
 							@click="toEdit = !toEdit"
 						>
-							<IconEdit />
+							<IconEdit
+								class="text-gray-300 group-hover:text-gray-700 transition"
+							/>
 						</BaseButton>
 					</div>
 				</div>
@@ -179,7 +177,7 @@
 										<IconEdit size="sm" />
 										Update
 									</BaseButton>
-									<BaseButton mode="fill--color">
+									<BaseButton mode="fill">
 										<IconTrash size="sm" />
 										Delete
 									</BaseButton>
@@ -378,6 +376,7 @@ export default {
 			this.$store.dispatch('todos/addNewTodo', newTodo);
 			this.$emit('close');
 		},
+		doNothing() {},
 	},
 };
 </script>

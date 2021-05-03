@@ -1,10 +1,10 @@
 <template>
 	<button
-		:class="[mode, { thin: thin }]"
-		class="focus:border-amber-300 focus:ring focus:ring-amber-200 focus:ring-opacity-50"
+		:class="[mode, { thin: thin, square: square }]"
+		class="focus:border-amber-300 focus:ring focus:ring-amber-200 focus:ring-opacity-50 relative border-none cursor-pointer pointer-events-auto focus:outline-none focus:border-none uppercase text-xs font-bold rounded-lg overflow-hidden tracking-[0.05rem] transition text-gray-700"
 		@click="$emit('click', $event)"
 	>
-		<span class="flex items-center gap-2 w-full">
+		<span class="flex items-center gap-2 w-full relative">
 			<slot />
 		</span>
 	</button>
@@ -23,6 +23,11 @@ export default {
 			required: false,
 			default: false,
 		},
+		square: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
 	},
 	emits: ['click'],
 };
@@ -30,26 +35,20 @@ export default {
 
 <style lang="postcss" scoped>
 button {
-	@apply relative border-none cursor-pointer pointer-events-auto focus:outline-none focus:border-none;
-	@apply uppercase text-xs font-bold rounded-lg overflow-hidden;
-	@apply tracking-[0.05rem];
 	@apply py-3 px-7;
-	@apply transition;
-	@apply text-gray-700;
 }
 
 button.thin {
 	@apply py-2 px-7;
 }
 
+button.square {
+	@apply p-2;
+}
+
 button::before,
 button::after {
 	@apply absolute top-0 left-0 w-full h-full;
-}
-
-button span {
-	@apply relative;
-	/* mix-blend-mode: difference; */
 }
 
 button::before {
@@ -68,19 +67,7 @@ button:hover::before {
 	@apply bg-amber-200 text-amber-900;
 }
 
-.cta--square {
-	@apply bg-amber-200 text-amber-900 p-2;
-}
-
-.square {
-	@apply p-2;
-}
-
-.cta::before,
-.cta--square::before {
-	@apply bg-amber-300;
-}
- {
+.cta::before {
 	@apply bg-amber-300;
 }
 
@@ -90,14 +77,6 @@ button:hover::before {
 
 .fill::before {
 	@apply bg-gray-200;
-}
-
-.fill--color {
-	@apply bg-amber-200 bg-opacity-70 text-amber-700;
-}
-
-.fill--color::before {
-	@apply bg-amber-100;
 }
 
 .ghost {
@@ -116,9 +95,5 @@ button:hover::before {
 
 .bland::before {
 	content: none;
-}
-
-button.square {
-	@apply: p-2;
 }
 </style>

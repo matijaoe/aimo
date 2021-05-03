@@ -3,7 +3,6 @@
 		<h1 class="text-5xl">Homepage</h1>
 		<div class="flex gap-4">
 			<BaseButton mode="cta" @click="toggleShow">cta</BaseButton>
-			<BaseButton mode="fill--color">fill--color</BaseButton>
 			<BaseButton mode="fill">fill</BaseButton>
 			<BaseButton mode="ghost">ghost</BaseButton>
 			<BaseButton>Regular</BaseButton>

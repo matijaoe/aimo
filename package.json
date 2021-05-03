@@ -21,7 +21,6 @@
         "lodash": "^4.17.21",
         "nanoid": "^3.1.22",
         "nuxt": "^2.15.3",
-        "nuxt-buefy": "^0.4.6",
         "v-click-outside": "^3.1.2",
         "v-tooltip": "^2.1.3",
         "vue-rough-notation": "^0.1.11",
