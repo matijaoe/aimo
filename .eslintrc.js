@@ -20,6 +20,8 @@ module.exports = {
 			{ endOfLine: 'auto' },
 			{ usePrettierrc: true },
 		],
+		'no-unused-vars': 'warn',
+		'no-unused-components': 'warn',
 		'no-sequences': 0,
 		'vue/component-name-in-template-casing': ['error', 'PascalCase'],
 		'vue/no-multiple-template-root': 0,

@@ -12,12 +12,14 @@
 			:todos="todos"
 			@edit="editTodo"
 		/>
-		<TodoDetails
-			v-if="modalShown"
-			:key="todoId"
-			:todo-id="todoId"
-			@close="closeNewTodo"
-		/>
+		<transition name="fade">
+			<TodoDetails
+				v-if="modalShown"
+				:key="todoId"
+				:todo-id="todoId"
+				@close="closeNewTodo"
+			/>
+		</transition>
 	</div>
 </template>
 
@@ -62,7 +64,15 @@ export default {
 	},
 	mounted() {
 		this.todos = this.allTodos;
+		const isNew = this.$route.query.new;
+		console.log(isNew);
+		if (isNew) {
+			this.modalShown = true;
+			console.log(this.modalShown);
+			this.todoId = null;
+		}
 	},
+
 	methods: {
 		openNewTodo() {
 			this.modalShown = true;
@@ -72,7 +82,6 @@ export default {
 			this.todoId = null;
 		},
 		editTodo(id) {
-			console.log('EDIT TODO ' + id);
 			this.modalShown = true;
 			this.todoId = id;
 		},
@@ -95,3 +104,14 @@ export default {
 	},
 };
 </script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 250ms;
+}
+.fade-enter,
+.fade-leave-active {
+	opacity: 0;
+}
+</style>

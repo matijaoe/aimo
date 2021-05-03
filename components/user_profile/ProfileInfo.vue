@@ -78,7 +78,6 @@
 import BaseAvatar from 'UI/BaseAvatar.vue';
 import BaseContainer from 'UI/BaseContainer.vue';
 import BaseButton from 'UI/BaseButton.vue';
-import IconLocation from 'icons/IconLocation.vue';
 import IconEdit from 'icons/IconEdit.vue';
 import IconChat from 'icons/IconChat.vue';
 import IconCalendar from 'icons/IconCalendar.vue';
@@ -93,7 +92,6 @@ export default {
 		BaseAvatar,
 		BaseContainer,
 		BaseButton,
-		// IconLocation,
 		IconEdit,
 		IconChat,
 		IconCalendar,

@@ -6,149 +6,223 @@
 	>
 		<div class="relative w-full h-screen">
 			<article
-				class="absolute top-0 right-0 h-screen w-full w-[480px] bg-white border-l-2 border-gray-200 py-10 px-6 overflow-y-auto"
+				class="absolute top-0 right-0 h-screen w-full w-[480px] bg-white border-l-2 border-gray-200 py-10 px-6 overflow-y-auto space-y-2"
 				@click.stop=""
 			>
-				<div>
-					<!--				<button
+				<!--<div>
+									<button
 					class="bg-emerald-200 text-emerald-700 py-2 px-4 rounded-lg"
 					@click="$emit('close')"
 				>
 					Zatvori me
-				</button>-->
-					<BaseButton mode="ghost" @click="$emit('close')">
-						Zatvori me
-					</BaseButton>
-					<BaseButton v-if="isNewTodo" mode="cta" @click="addNewTodo"
-						>Add</BaseButton
-					>
-					<BaseButton v-else mode="cta">Save</BaseButton>
+				</button>
+				</div>-->
+
+				<div>
+					<h4 v-if="isNewTodo" class="text-4xl font-bold">
+						New todo
+					</h4>
 				</div>
 
-				<!-- todo full widht imputs -->
-				<div class="mt-10 flex flex-col gap-8">
-					<div class="flex gap-4">
-						<vs-input v-model="title" label-placeholder="Title" />
-						<vs-input
-							v-model="description"
-							label-placeholder="Description"
+				<div class="flex justify-end items-center">
+					<div class="flex items-center gap-4">
+						<IconStar
+							class="fill-current transition"
+							:class="starStyle"
+							:fill="isImportant"
+						/>
+						<IconGlobeAlt
+							class="transition"
+							:class="isDaily ? 'text-blue-400' : 'text-gray-300'"
+						/>
+						<IconCheckCircle
+							class="transition"
+							:class="
+								isCompleted
+									? 'text-indigo-400'
+									: 'text-gray-300'
+							"
+						/>
+						<IconShieldCheck
+							class="transition"
+							:class="
+								isApproved
+									? 'text-emerald-400'
+									: 'text-gray-300'
+							"
 						/>
 					</div>
-					<!-- <div>
-						<label
-							for="todoDesc"
-							class="uppercase ml-1 tracking-wider text-xs"
-							>Partners</label
+					<div class="ml-auto">
+						<BaseButton
+							v-tooltip.left="'Edit'"
+							class="flex items-center"
+							mode="square"
+							@click="toEdit = !toEdit"
 						>
-						<select
-							id="cars"
-							name="cars"
-							class="text-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-						>
-							<option selected>None</option>
-							<option
-								v-for="partner in currentUserPartners"
-								:key="partner.username"
-								:value="partner.username"
-							>
-								@{{ partner.username }}
-							</option>
-						</select>
-					</div> -->
-					<div class="flex gap-4 justify-between items-center">
-						<!-- todo switch -->
-						<div class="mx-auto my-1">
-							<vs-checkbox
-								v-model="isPersonal"
-								:color="'#34D399'"
-							>
-								Personal
-							</vs-checkbox>
-						</div>
-						<div>
-							<vs-select
-								v-model="selectedPartner"
-								filter
-								label-placeholder="Choose partner"
-								:disabled="!!isPersonal"
-							>
-								<vs-option
-									v-for="(
-										partner, index
-									) in currentUserPartners"
-									:key="partner.username"
-									:label="partner.username"
-									:value="index + 1"
-								>
-									<div class="flex items-center gap-2">
-										<BaseAvatar
-											size="xs"
-											:src="partner.photo"
-										/>
-										<p class="text-sm font-medium">
-											{{ partner.username }}
-										</p>
-									</div>
-								</vs-option>
-							</vs-select>
-						</div>
+							<IconEdit />
+						</BaseButton>
 					</div>
-					<div class="flex gap-4 justify-between items-center">
-						<div class="mx-auto">
-							<p>Categories</p>
-						</div>
-						<vs-select v-model="selectedCategories" filter multiple>
-							<vs-option
-								v-for="(category, index) in categories"
-								:key="category.id"
-								:label="category.name"
-								:value="index + 1"
-							>
-								{{ category.name }}
-							</vs-option>
-						</vs-select>
+				</div>
+
+				<div v-if="!isNewTodo" class="space-y-4">
+					<div class="flex justify-between items-baseline">
+						<h2 class="text-4xl font-bold ml-1">{{ title }}</h2>
+						<p class="text-xs text-gray-300">{{ createdAt }}</p>
 					</div>
-					<div>
-						<vs-checkbox v-model="isDaily" :color="'#60A5FA'">
-							Repeats daily
-						</vs-checkbox>
-						<vs-checkbox v-model="isImportant" :color="'#FBBF24'">
-							Important
-						</vs-checkbox>
+					<div class="bg-gray-50 rounded-lg p-4 text-sm">
+						<p>{{ description }}</p>
 					</div>
-					<div v-if="isCompleted">
-						<label class="uppercase ml-1 tracking-wider text-xs">
-							Photo
-						</label>
-						<div
-							class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
-						>
-							<div class="space-y-1 text-center">
-								<div class="flex items-center justify-center">
-									<IconPhoto
-										size="xl"
-										class="text-gray-300"
-									/>
-								</div>
-								<div class="flex text-sm text-gray-600">
-									<label
-										for="file-upload"
-										class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-									>
-										<span>Upload a file</span>
-										<input
-											id="file-upload"
-											name="file-upload"
-											type="file"
-											class="sr-only"
-										/>
-									</label>
-									<p class="pl-1">or drag and drop</p>
-								</div>
-								<p class="text-xs text-gray-500">
-									PNG, JPG, GIF up to 10MB
-								</p>
+				</div>
+
+				<div v-if="!isNewTodo" class="mt-8"></div>
+
+				<transition name="fade">
+					<div v-if="toEdit || isNewTodo">
+						<!-- todo full width inputs -->
+						<div class="mt-10 flex flex-col gap-8">
+							<div class="flex gap-4">
+								<vs-input
+									v-model="title"
+									label-placeholder="Title"
+								/>
+								<vs-input
+									v-model="description"
+									label-placeholder="Description"
+								/>
 							</div>
+							<div
+								class="flex gap-4 justify-between items-center"
+							>
+								<div class="ml-2">
+									<vs-checkbox
+										v-model="isPersonal"
+										:color="'#34D399'"
+									>
+										Personal
+									</vs-checkbox>
+								</div>
+								<div>
+									<vs-select
+										v-model="selectedPartner"
+										filter
+										label-placeholder="Choose partner"
+										:disabled="!!isPersonal"
+									>
+										<vs-option
+											v-for="(
+												partner, index
+											) in currentUserPartners"
+											:key="partner.username"
+											:label="partner.username"
+											:value="index + 1"
+										>
+											<div
+												class="flex items-center gap-2"
+											>
+												<BaseAvatar
+													size="xs"
+													:src="partner.photo"
+												/>
+												<p class="text-sm font-medium">
+													{{ partner.username }}
+												</p>
+											</div>
+										</vs-option>
+									</vs-select>
+								</div>
+							</div>
+							<div
+								class="flex gap-4 justify-between items-center"
+							>
+								<div class="ml-3">
+									<p>Categories</p>
+								</div>
+								<vs-select
+									v-model="selectedCategories"
+									filter
+									multiple
+								>
+									<vs-option
+										v-for="(category, index) in categories"
+										:key="category.id"
+										:label="category.name"
+										:value="index + 1"
+									>
+										{{ category.name }}
+									</vs-option>
+								</vs-select>
+							</div>
+							<div>
+								<vs-checkbox
+									v-model="isImportant"
+									:color="'#FBBF24'"
+								>
+									Important
+								</vs-checkbox>
+								<vs-checkbox
+									v-model="isDaily"
+									:color="'#60A5FA'"
+								>
+									Repeats daily
+								</vs-checkbox>
+							</div>
+
+							<div>
+								<div v-if="isNewTodo">
+									<BaseButton mode="cta" @click="addNewTodo">
+										<IconPlus size="sm" />
+										Add
+									</BaseButton>
+								</div>
+								<div v-else>
+									<BaseButton mode="fill">
+										<IconEdit size="sm" />
+										Update
+									</BaseButton>
+									<BaseButton mode="fill--color">
+										<IconTrash size="sm" />
+										Delete
+									</BaseButton>
+								</div>
+							</div>
+						</div>
+					</div>
+				</transition>
+				<div>
+					<vs-checkbox v-model="isCompleted" :color="'#818CF8'">
+						Completed
+					</vs-checkbox>
+				</div>
+
+				<div v-if="isCompleted">
+					<label class="uppercase ml-1 tracking-wider text-xs">
+						Photo
+					</label>
+					<div
+						class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
+					>
+						<div class="space-y-1 text-center">
+							<div class="flex items-center justify-center">
+								<IconPhoto size="xl" class="text-gray-300" />
+							</div>
+							<div class="flex text-sm text-gray-600">
+								<label
+									for="file-upload"
+									class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+								>
+									<span>Upload a file</span>
+									<input
+										id="file-upload"
+										name="file-upload"
+										type="file"
+										class="sr-only"
+									/>
+								</label>
+								<p class="pl-1">or drag and drop</p>
+							</div>
+							<p class="text-xs text-gray-500">
+								PNG, JPG, GIF up to 10MB
+							</p>
 						</div>
 					</div>
 				</div>
@@ -159,15 +233,30 @@
 
 <script>
 import IconPhoto from 'icons/IconPhoto';
+import IconPlus from 'icons/IconPlus';
+import IconEdit from 'icons/IconEdit';
+import IconTrash from 'icons/IconTrash';
+import IconStar from 'icons/IconStar';
+import IconShieldCheck from 'icons/IconShieldCheck';
+import IconCheckCircle from 'icons/IconCheckCircle';
+import IconGlobeAlt from 'icons/IconGlobeAlt';
 import BaseAvatar from 'UI/BaseAvatar';
+import BaseButton from 'UI/BaseButton';
+
 import { mapGetters } from 'vuex';
-import { nanoid } from 'nanoid';
-import BaseButton from '../UI/BaseButton';
+import dayjs from 'dayjs';
 
 export default {
 	components: {
 		BaseButton,
 		IconPhoto,
+		IconPlus,
+		IconEdit,
+		IconTrash,
+		IconStar,
+		IconShieldCheck,
+		IconCheckCircle,
+		IconGlobeAlt,
 		BaseAvatar,
 	},
 	props: {
@@ -195,8 +284,11 @@ export default {
 			selectedCategories: [],
 			isDaily: false,
 			isPersonal: false,
+			isImportant: false,
 			isApproved: false,
 			isCompleted: false,
+			todo: null,
+			toEdit: false,
 		};
 	},
 	computed: {
@@ -208,24 +300,39 @@ export default {
 		isNewTodo() {
 			return !this.todoId;
 		},
+		createdAt() {
+			const dt = dayjs(this.todo.timestamp);
+			const date = dt.format(`MMMM DD`);
+			const time = dt.format(`HH:mm`);
+			return `${date} at ${time}`;
+		},
+		starStyle() {
+			if (this.isImportant) {
+				return ['text-amber-300'];
+				// } else if (this.isApproved) {
+				// 	return ['text-emerald-200', 'group-hover:text-amber-300'];
+			} else {
+				return ['text-gray-200', 'group-hover:text-amber-300'];
+			}
+		},
 	},
 	created() {
 		if (this.todoId) {
-			const todo = this.getCurrentUserTodoById(this.todoId);
-			this.title = todo.name;
-			this.description = todo.desc;
-			this.isDaily = todo.daily;
-			this.isImportant = todo.important;
-			this.isApproved = todo.approved;
-			this.isPersonal = !todo.partner;
-			this.isCompleted = todo.done;
+			this.todo = this.getCurrentUserTodoById(this.todoId);
+			this.title = this.todo.name;
+			this.description = this.todo.desc;
+			this.isDaily = this.todo.daily;
+			this.isImportant = this.todo.important;
+			this.isApproved = this.todo.approved;
+			this.isPersonal = !this.todo.partner;
+			this.isCompleted = this.todo.done;
 
 			const partnerUsernames = this.partners.map((p) => p.username);
-			const partnerIndex = partnerUsernames.indexOf(todo.partner);
+			const partnerIndex = partnerUsernames.indexOf(this.todo.partner);
 			const partnerOption = partnerIndex !== -1 ? partnerIndex + 1 : '';
 
 			this.selectedPartner = partnerOption;
-			this.selectedCategories = todo.categories;
+			this.selectedCategories = this.todo.categories;
 		} else {
 			this.title = '';
 			this.description = '';
@@ -254,6 +361,9 @@ export default {
 			for (const categorySelection of this.selectedCategories) {
 				categories.push(this.categories[categorySelection - 1].id);
 			}
+
+			if (!this.title) return;
+
 			const newTodo = {
 				name: this.title,
 				desc: this.description || '',

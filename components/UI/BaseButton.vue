@@ -1,6 +1,6 @@
 <template>
 	<button
-		:class="[mode, { square: square }]"
+		:class="[mode, { thin: thin }]"
 		class="focus:border-amber-300 focus:ring focus:ring-amber-200 focus:ring-opacity-50"
 		@click="$emit('click', $event)"
 	>
@@ -18,7 +18,7 @@ export default {
 			required: false,
 			default: null,
 		},
-		square: {
+		thin: {
 			type: Boolean,
 			required: false,
 			default: false,
@@ -33,9 +33,13 @@ button {
 	@apply relative border-none cursor-pointer pointer-events-auto focus:outline-none focus:border-none;
 	@apply uppercase text-xs font-bold rounded-lg overflow-hidden;
 	@apply tracking-[0.05rem];
-	@apply py-2 px-7;
+	@apply py-3 px-7;
 	@apply transition;
 	@apply text-gray-700;
+}
+
+button.thin {
+	@apply py-2 px-7;
 }
 
 button::before,
@@ -66,6 +70,10 @@ button:hover::before {
 
 .cta--square {
 	@apply bg-amber-200 text-amber-900 p-2;
+}
+
+.square {
+	@apply p-2;
 }
 
 .cta::before,

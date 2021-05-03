@@ -5,7 +5,7 @@
 				<!-- todo - replace with button -->
 				<SidebarNavLink
 					text="New todo"
-					:to="{ name: 'newtodo' }"
+					:to="{ name: 'todos', query: { new: 'true' } }"
 					cta
 					exact
 					class="cta"
