@@ -36,6 +36,9 @@ export const getters = {
 	getCategoryById: (state, getters) => (catId) => {
 		return getters.categories.find((cat) => cat.id === catId);
 	},
+	getCategoryIdByName: (state, getters) => (tagName) => {
+		return getters.categories.find((cat) => cat.name === tagName).id;
+	},
 	socials(state) {
 		return state.socials;
 	},
@@ -64,9 +67,7 @@ export const actions = {
 			}
 
 			commit('loadCategoriesData', collectionsData);
-		} catch (error) {
-			console.error(error);
-		}
+		} catch (error) {}
 	},
 	async loadSocialsData({ commit }) {
 		try {
@@ -78,8 +79,6 @@ export const actions = {
 			}
 
 			commit('loadSocialsData', socialsData);
-		} catch (error) {
-			console.error(error);
-		}
+		} catch (error) {}
 	},
 };

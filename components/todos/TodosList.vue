@@ -55,11 +55,6 @@ export default {
 	computed: {
 		...mapGetters('todos', [
 			'currentUserTodos',
-			'importantTodos',
-			'completedTodos',
-			'approvedTodos',
-			'dailyTodos',
-			'personalTodos',
 			'todosByPartner',
 			'todosByTag',
 		]),
@@ -70,9 +65,10 @@ export default {
 				const partnerId = this.filter;
 				return this.todos.filter((todo) => todo.partner === partnerId);
 			} else if (this.filterCategory === 'tags') {
-				const tagId = this.filter;
+				const tagName = this.filter;
+				const catId = this.$store.getters.getCategoryIdByName(tagName);
 				return this.todos.filter((todo) =>
-					todo.categories.includes(tagId)
+					todo.categories.includes(catId)
 				);
 			}
 			return [];
@@ -83,13 +79,17 @@ export default {
 			else if (option === 'approved')
 				return this.todos.filter((todo) => todo.approved);
 			else if (option === 'completed')
-				return this.todos.filter((todo) => todo.done);
+				return this.todos.filter((todo) => todo.done && !todo.approved);
 			else if (option === 'important')
 				return this.todos.filter((todo) => todo.important);
 			else if (option === 'daily')
 				return this.todos.filter((todo) => todo.daily);
 			else if (option === 'personal')
 				return this.todos.filter((todo) => !todo.partner);
+			else if (option === 'inprogress')
+				return this.todos.filter(
+					(todo) => !todo.done && !todo.approved
+				);
 			return this.todos;
 		},
 		hasTodos() {

@@ -19,6 +19,10 @@
 				<IconClipboardList size="sm" />
 				All
 			</TodosSidebarLink>
+			<TodosSidebarLink :to="{ path: '/todos/inprogress' }">
+				<IconClock size="sm" />
+				In progress
+			</TodosSidebarLink>
 			<TodosSidebarLink :to="{ path: '/todos/completed' }">
 				<IconCheck size="sm" />
 				Completed
@@ -68,7 +72,6 @@
 					:key="tag.id"
 					:to="{
 						path: `/todos/tag/${tag.name}`,
-						query: { tagId: tag.id },
 					}"
 					class="text-[12px]"
 				>
@@ -89,6 +92,7 @@ import IconGlobeAlt from 'icons/IconGlobeAlt.vue';
 import IconUserCircle from 'icons/IconUserCircle.vue';
 import IconCheck from 'icons/IconCheck.vue';
 import IconShieldCheck from 'icons/IconShieldCheck.vue';
+import IconClock from 'icons/IconClock.vue';
 import BaseButton from 'UI/BaseButton.vue';
 import BaseAvatar from 'UI/BaseAvatar.vue';
 import BaseTag from 'UI/BaseTag.vue';
@@ -109,6 +113,7 @@ export default {
 		BaseAvatar,
 		BaseTag,
 		TodosSidebarLink,
+		IconClock,
 	},
 	emits: ['newtodo'],
 	computed: {

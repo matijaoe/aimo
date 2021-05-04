@@ -16,6 +16,7 @@ export default {
 				'important',
 				'daily',
 				'personal',
+				'inprogress',
 			].includes(filter)
 		) {
 			redirect('/todos');
