@@ -9,7 +9,7 @@
 			class="flex-1 overflow-y-auto"
 			:filter-category="filterCategory"
 			:filter="filter"
-			:todos="todos"
+			:todos="allTodos"
 			@edit="editTodo"
 		/>
 		<transition name="fade">
@@ -54,21 +54,33 @@ export default {
 			todos: [],
 			modalShown: false,
 			todoId: null,
+			term: '',
+			sortArg: '',
 		};
 	},
 	computed: {
 		...mapGetters('todos', ['currentUserTodos']),
 		allTodos() {
-			return this.currentUserTodos;
+			const allTodos = this.currentUserTodos.filter((todo) => {
+				return todo.name
+					.toLowerCase()
+					.includes(this.term.toLowerCase());
+			});
+			if (this.sortArg === 'asc' || this.sortArg === 'desc') {
+				return _orderBy(
+					allTodos,
+					[(todo) => todo.name.toLowerCase()],
+					[this.sortArg]
+				);
+			}
+			return allTodos;
 		},
 	},
 	mounted() {
-		this.todos = this.allTodos;
+		// this.todos = this.allTodos;
 		const isNew = this.$route.query.new;
-		console.log(isNew);
 		if (isNew) {
 			this.modalShown = true;
-			console.log(this.modalShown);
 			this.todoId = null;
 		}
 	},
@@ -86,7 +98,8 @@ export default {
 			this.todoId = id;
 		},
 		sortTodos(arg) {
-			if (arg === 'asc' || arg === 'desc') {
+			this.sortArg = arg;
+			/* if (arg === 'asc' || arg === 'desc') {
 				this.todos = _orderBy(
 					this.allTodos,
 					[(todo) => todo.name.toLowerCase()],
@@ -94,12 +107,13 @@ export default {
 				);
 			} else {
 				this.todos = this.allTodos;
-			}
+			} */
 		},
 		searchTodos(term) {
-			this.todos = this.allTodos.filter((todo) => {
-				return todo.name.toLowerCase().includes(term.toLowerCase());
-			});
+			this.term = term;
+			// this.todos = this.allTodos.filter((todo) => {
+			// return todo.name.toLowerCase().includes(term.toLowerCase());
+			// });
 		},
 	},
 };

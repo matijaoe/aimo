@@ -1,5 +1,6 @@
 // Ovo nije prava struktura od todosa nego samo za mockup
 import { nanoid } from 'nanoid';
+import Vue from 'vue';
 import { db } from '@/firebase';
 export const state = () => ({
 	todos: {
@@ -15,7 +16,6 @@ export const getters = {
 		return state.todos[username];
 	},
 	getCurrentUserTodoById: (state, getters) => (id) => {
-		console.log(getters.currentUserTodos.find((todo) => todo.id === id));
 		return getters.currentUserTodos.find((todo) => todo.id === id);
 	},
 	getUserTodoById: (state, getters) => (username, id) => {
@@ -64,6 +64,15 @@ export const actions = {
 	addNewTodo({ commit }, payload) {
 		commit('addNewTodo', payload);
 	},
+	updateTodo({ commit }, payload) {
+		commit('updateTodo', payload);
+	},
+	updateIsDoneStatus({ commit }, payload) {
+		commit('updateIsDoneStatus', payload);
+	},
+	deleteTodo({ commit }, payload) {
+		commit('deleteTodo', payload);
+	},
 	async loadUserTodos({ commit }) {
 		try {
 			const todos = await db
@@ -109,11 +118,29 @@ export const mutations = {
 				daily: newTodo.daily,
 				desc: newTodo.desc,
 				done: newTodo.done,
-				id: nanoid(), // ovo je samo privremeno rješenje da ne izbacuje gresku za id (koji je nepotreban u ovom slucaju)
+				id: newTodo.id, // ovo je samo privremeno rješenje da ne izbacuje gresku za id (koji je nepotreban u ovom slucaju)
 				important: newTodo.important,
 				name: newTodo.name,
 				partner: newTodo.partner,
 				timestamp: newTodo.timestamp,
 			});
+	},
+	updateTodo(state, payload) {
+		const index = state.todos.matijao.findIndex(
+			(todo) => todo.id === payload.id
+		);
+		Vue.set(state.todos.matijao, index, payload);
+	},
+	updateIsDoneStatus(state, payload) {
+		const index = state.todos.matijao.findIndex(
+			(todo) => todo.id === payload.id
+		);
+		state.todos.matijao[index].done = payload.done;
+	},
+	deleteTodo(state, payload) {
+		const index = state.todos.matijao.findIndex(
+			(todo) => todo.id === payload.id
+		);
+		state.todos.matijao.splice(index, 1);
 	},
 };

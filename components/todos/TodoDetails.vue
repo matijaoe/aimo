@@ -173,11 +173,14 @@
 									</BaseButton>
 								</div>
 								<div v-else>
-									<BaseButton mode="fill">
+									<BaseButton
+										mode="fill"
+										@click="updateTodoInfo"
+									>
 										<IconEdit size="sm" />
 										Update
 									</BaseButton>
-									<BaseButton mode="fill">
+									<BaseButton mode="fill" @click="deleteTodo">
 										<IconTrash size="sm" />
 										Delete
 									</BaseButton>
@@ -186,7 +189,7 @@
 						</div>
 					</div>
 				</transition>
-				<div>
+				<div v-if="todoId">
 					<vs-checkbox v-model="isCompleted" :color="'#818CF8'">
 						Completed
 					</vs-checkbox>
@@ -314,6 +317,14 @@ export default {
 			}
 		},
 	},
+	watch: {
+		isCompleted(newValue) {
+			this.$store.dispatch('todos/updateIsDoneStatus', {
+				id: this.todoId,
+				done: newValue,
+			});
+		},
+	},
 	created() {
 		if (this.todoId) {
 			this.todo = this.getCurrentUserTodoById(this.todoId);
@@ -330,7 +341,7 @@ export default {
 			const partnerOption = partnerIndex !== -1 ? partnerIndex + 1 : '';
 
 			this.selectedPartner = partnerOption;
-			this.selectedCategories = this.todo.categories;
+			this.selectedCategories = this.categoryIdToIndex();
 		} else {
 			this.title = '';
 			this.description = '';
@@ -344,7 +355,49 @@ export default {
 		}
 	},
 	methods: {
+		isCategorySelected(index) {
+			return index in this.categoryIdToIndex();
+		},
 		addNewTodo() {
+			if (!this.title) return;
+			const newTodo = this.extractTodoInfo();
+			this.$store.dispatch('todos/addNewTodo', newTodo);
+			this.$emit('close');
+		},
+		updateTodoInfo() {
+			if (!this.title) return;
+			const updatedTodo = {
+				...this.extractTodoInfo(),
+				id: this.todoId,
+			};
+			this.$store.dispatch('todos/updateTodo', updatedTodo);
+			this.$emit('close');
+		},
+		deleteTodo() {
+			this.$store.dispatch('todos/deleteTodo', { id: this.todoId });
+			this.$emit('close');
+		},
+		extractTodoInfo() {
+			return {
+				name: this.title,
+				desc: this.description || '',
+				categories: this.extractCategories(),
+				timestamp: Date.now(),
+				done: this.isCompleted,
+				approved: false,
+				daily: this.isDaily,
+				important: this.isImportant,
+				partner: this.extractPartner(),
+			};
+		},
+		extractCategories() {
+			const categories = [];
+			for (const categorySelection of this.selectedCategories) {
+				categories.push(this.categories[categorySelection - 1].id);
+			}
+			return categories;
+		},
+		extractPartner() {
 			let partnerUsername = '';
 			if (!this.isPersonal) {
 				if (!this.selectedPartner) {
@@ -355,26 +408,15 @@ export default {
 					].username;
 				}
 			}
-			const categories = [];
-			for (const categorySelection of this.selectedCategories) {
-				categories.push(this.categories[categorySelection - 1].id);
+			return partnerUsername;
+		},
+		categoryIdToIndex() {
+			const selected = [];
+			const categoriesIds = this.categories.map((cat) => cat.id);
+			for (const categoryId of this.todo.categories) {
+				selected.push(categoriesIds.indexOf(categoryId) + 1);
 			}
-
-			if (!this.title) return;
-
-			const newTodo = {
-				name: this.title,
-				desc: this.description || '',
-				categories,
-				timestamp: Date.now(),
-				done: false,
-				approved: false,
-				daily: this.isDaily,
-				important: this.isImportant,
-				partner: partnerUsername,
-			};
-			this.$store.dispatch('todos/addNewTodo', newTodo);
-			this.$emit('close');
+			return selected;
 		},
 		doNothing() {},
 	},

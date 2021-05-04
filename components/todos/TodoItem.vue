@@ -16,9 +16,9 @@
 					class="flex items-center justify-between gap-2 flex-1"
 					@click.stop="emitTodoEdit"
 				>
-					<div v-if="isDone">
+					<div v-if="completed">
 						<RoughNotation
-							:is-show="isDone"
+							:is-show="completed"
 							type="strike-through"
 							:color="stateColor"
 						>
@@ -29,17 +29,17 @@
 					</div>
 
 					<RoughNotation
-						:is-show="isImportant && !isDone"
+						:is-show="important && !completed"
 						type="highlight"
 						color="#FDE68A"
 					>
-						<div v-if="!isDone">
+						<div v-if="!completed">
 							<slot></slot>
 						</div>
 					</RoughNotation>
 					<div class="flex items-center gap-2">
 						<div
-							v-if="isDaily"
+							v-if="daily"
 							v-tooltip.left="'Repeats daily'"
 							class="p-1 rounded-lg"
 						>
@@ -54,7 +54,7 @@
 						</div>
 						<div
 							v-tooltip.left="
-								isImportant ? 'Important' : 'Mark as important'
+								important ? 'Important' : 'Mark as important'
 							"
 							class="p-1 rounded-lg group"
 							@click.stop="isImportant = !isImportant"
@@ -62,7 +62,7 @@
 							<IconStar
 								class="fill-current transition"
 								:class="starStyle"
-								:fill="isImportant"
+								:fill="important"
 							/>
 						</div>
 						<div
@@ -88,8 +88,8 @@
 				<BaseTag
 					v-for="tag in tags"
 					:key="tag.name"
-					:color="!isDone ? tag.color : ''"
-					:class="{ 'opacity-40': isDone }"
+					:color="!completed ? tag.color : ''"
+					:class="{ 'opacity-40': completed }"
 				>
 					{{ tag.name }}
 				</BaseTag>
@@ -159,12 +159,11 @@ export default {
 			isDone: this.completed,
 			isImportant: this.important,
 			isApproved: this.approved,
-			isDaily: this.daily,
 		};
 	},
 	computed: {
 		markDone() {
-			return { 'text-gray-300': this.isDone };
+			return { 'text-gray-300': this.completed };
 		},
 		...mapGetters('users', ['getUserById']),
 		...mapGetters(['getCategoryById']),
@@ -181,7 +180,7 @@ export default {
 		dotColor() {
 			if (this.isApproved) {
 				return ['bg-emerald-400', 'border-emerald-400'];
-			} else if (this.isDone) {
+			} else if (this.completed) {
 				return ['bg-gray-200', 'border-gray-200'];
 			} else {
 				return ['border-gray-200'];
@@ -194,7 +193,7 @@ export default {
 			return ['bg-white', 'border-gray-100'];
 		},
 		starStyle() {
-			if (this.isImportant) {
+			if (this.important) {
 				return ['text-amber-300'];
 				// } else if (this.isApproved) {
 				// 	return ['text-emerald-200', 'group-hover:text-amber-300'];
@@ -208,6 +207,10 @@ export default {
 			// ne mozes odselectati ako je approved
 			if (!this.isApproved) {
 				this.isDone = !this.isDone;
+				this.$store.dispatch('todos/updateIsDoneStatus', {
+					id: this.id,
+					done: this.isDone,
+				});
 			}
 		},
 		emitTodoEdit() {

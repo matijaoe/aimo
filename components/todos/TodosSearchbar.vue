@@ -31,7 +31,7 @@
 			</template>
 			<BaseDropdownContent>
 				<BaseDropdownList>
-					<BaseDropdownItem option @click="$emit('sort', 'reset')">
+					<BaseDropdownItem option @click="$emit('sort', '')">
 						<IconFilter size="sm" />
 						Reset Sort
 					</BaseDropdownItem>
