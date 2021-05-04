@@ -57,7 +57,7 @@
 								important ? 'Important' : 'Mark as important'
 							"
 							class="p-1 rounded-lg group"
-							@click.stop="isImportant = !isImportant"
+							@click.stop="toggleImportant"
 						>
 							<IconStar
 								class="fill-current transition"
@@ -212,6 +212,13 @@ export default {
 					done: this.isDone,
 				});
 			}
+		},
+		toggleImportant() {
+			this.isImportant = !this.isImportant;
+			this.$store.dispatch('todos/updateImportantStatus', {
+				id: this.id,
+				important: this.isImportant,
+			});
 		},
 		emitTodoEdit() {
 			this.$emit('edit', this.id);

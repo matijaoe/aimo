@@ -81,6 +81,9 @@ export const actions = {
 	updateIsDoneStatus({ commit }, payload) {
 		commit('updateIsDoneStatus', payload);
 	},
+	updateImportantStatus({ commit }, payload) {
+		commit('updateImportantStatus', payload);
+	},
 	deleteTodo({ commit }, payload) {
 		commit('deleteTodo', payload);
 	},
@@ -153,5 +156,11 @@ export const mutations = {
 			(todo) => todo.id === payload.id
 		);
 		state.todos.matijao.splice(index, 1);
+	},
+	updateImportantStatus(state, payload) {
+		const index = state.todos.matijao.findIndex(
+			(todo) => todo.id === payload.id
+		);
+		state.todos.matijao[index].important = payload.important;
 	},
 };
