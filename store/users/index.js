@@ -1,4 +1,4 @@
-import { db } from '@/firebase';
+import * as fb from '@/firebase';
 
 function freq(nums) {
 	return nums.reduce((acc, curr) => {
@@ -55,7 +55,7 @@ export const mutations = {
 export const actions = {
 	async loadUserData({ commit }) {
 		try {
-			const users = await db.collection('users').get();
+			const users = await fb.usersCollection.get();
 
 			const userData = [];
 			for (const doc of users.docs) {
@@ -84,6 +84,7 @@ export const actions = {
 		// 			isPremium: user.isPremium,
 		// 			categories: user.categories,
 		// 			socials: user.socials,
+		// 			partners: [],
 		// 		})
 		// 		.then(() => {
 		// 			console.log('Document successfully written!');

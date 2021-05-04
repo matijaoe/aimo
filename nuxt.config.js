@@ -48,6 +48,8 @@ export default {
 		'~/plugins/getusers.js',
 		'~/plugins/getUserTodos.js',
 		'@/plugins/vuesax.js',
+		'@/plugins/getCategories.js',
+		'@/plugins/getSocials.js',
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components

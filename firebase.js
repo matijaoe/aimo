@@ -17,4 +17,15 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-export { firebase, db };
+// collection references
+const usersCollection = db.collection('users');
+const categoriesCollection = db.collection('categories');
+const socialsCollection = db.collection('socials');
+
+export {
+	firebase,
+	db,
+	usersCollection,
+	categoriesCollection,
+	socialsCollection,
+};

@@ -1,53 +1,27 @@
+import * as fb from '@/firebase';
+
 export const state = () => ({
 	userId: 'matijao',
-	socials: [
-		{ id: 'behance', name: 'behance' },
-		{ id: 'bitcoin', name: 'bitcoin' },
-		{ id: 'codepen', name: 'codepen' },
-		{ id: 'default', name: 'default' },
-		{ id: 'discord', name: 'discord' },
-		{ id: 'dribbble', name: 'dribbble' },
-		{ id: 'facebook', name: 'facebook' },
-		{ id: 'github', name: 'github' },
-		{ id: 'instagram', name: 'instagram' },
-		{ id: 'linkedin', name: 'linkedin' },
-		{ id: 'medium', name: 'medium' },
-		{ id: 'messenger', name: 'messenger' },
-		{ id: 'patreon', name: 'patreon' },
-		{ id: 'pinterest', name: 'pinterest' },
-		{ id: 'quora', name: 'quora' },
-		{ id: 'reddit', name: 'reddit' },
-		{ id: 'slack', name: 'slack' },
-		{ id: 'stack-overflow', name: 'stack-overflow' },
-		{ id: 'telegram', name: 'telegram' },
-		{ id: 'tumblr', name: 'tumblr' },
-		{ id: 'twitter', name: 'twitter' },
-		{ id: 'unsplash', name: 'unsplash' },
-		{ id: 'whatsapp', name: 'whatsapp' },
-		{ id: 'youtube', name: 'youtube' },
-	],
-	// todo - switch to firebase ids
-	categories: [
-		{ id: 'OWEhqyLlnnWQGEUAHzGhe', name: 'study', color: 'blue' },
-		{ id: 'QJNdchJLDfKZcR-O3ytn3', name: 'school', color: 'red' },
-		{ id: '8MNLJ4yg15YoRch0t3NAG', name: 'coding', color: 'emerald' },
-		{ id: 'VQDonT7_pB4ACAW6DZsiL', name: 'reading', color: 'indigo' },
-		{ id: 'BR2eOYR1Y6u_Yp_H58xD1', name: 'fitness', color: 'lightBlue' },
-		{ id: '0TN9zbVVaZOhWswtztYYn', name: 'workout', color: 'cyan' },
-		{ id: 'uUCM7KHa7XlSzqpqX7iY3', name: 'health', color: 'rose' },
-		{ id: 'VquU1OBaiUo02JuSuZRO8', name: 'midfulness', color: 'orange' },
-		{ id: '0iUqkyVh0IliBfXtyOj7r', name: 'social', color: 'pink' },
-		{ id: 'Bzw_jJ7m-I6vuN4HaFsDv', name: 'fun', color: 'violet' },
-		{ id: 'xUMFQYg3iBJbptNBUqsCK', name: 'nature', color: 'green' },
-		{ id: 'jcE5bvcPrBYb2bstsEWgE', name: 'music', color: 'yellow' },
-		{ id: 'kmTtKxOMeKfuNoU_kG-yp', name: 'art', color: 'amber' },
-		{ id: '4OgWmONbRqhKYtDJTjd0I', name: 'sports', color: 'teal' },
-		{ id: 'wuH147eN-7R2g4EeJrB09', name: 'skills', color: 'red' },
-	],
 });
 
 export const getters = {
 	currentUserId(state) {
+		// primjer koda za DODAVANJE socials-a u bazu (na isti nacin i categories, etc.)
+		// warning: ne izvrsavati zakomentirani kod ako je nepotrebno, jer ce napraviti dupliće u bazi
+
+		// for (const social of state.socials) {
+		// 	db.collection('socials')
+		// 		.doc()
+		// 		.set({
+		// 			name: social.name,
+		// 		})
+		// 		.then(() => {
+		// 			console.log('Document successfully written!');
+		// 		})
+		// 		.catch((error) => {
+		// 			console.error('Error writing document: ', error);
+		// 		});
+		// }
 		return state.userId;
 	},
 	currentUser(state, getters) {
@@ -70,6 +44,42 @@ export const getters = {
 	},
 };
 
-export const mutations = {};
+export const mutations = {
+	loadCategoriesData(state, collectionsData) {
+		state.categories = collectionsData;
+	},
+	loadSocialsData(state, socialsData) {
+		state.socials = socialsData;
+	},
+};
 
-export const actions = {};
+export const actions = {
+	async loadCategoriesData({ commit }) {
+		try {
+			const categories = await fb.categoriesCollection.get();
+
+			const collectionsData = [];
+			for (const doc of categories.docs) {
+				collectionsData.push({ ...doc.data(), id: doc.id });
+			}
+
+			commit('loadCategoriesData', collectionsData);
+		} catch (error) {
+			console.error(error);
+		}
+	},
+	async loadSocialsData({ commit }) {
+		try {
+			const socials = await fb.socialsCollection.get();
+
+			const socialsData = [];
+			for (const doc of socials.docs) {
+				socialsData.push({ ...doc.data(), id: doc.id });
+			}
+
+			commit('loadSocialsData', socialsData);
+		} catch (error) {
+			console.error(error);
+		}
+	},
+};

@@ -41,10 +41,10 @@ export const getters = {
 	},
 };
 
-// export const mutations = {
-// 	updateValue(state, payload) {
-// 		state.value = payload;
-// 	},
-// };
+export const mutations = {
+	// 	updateValue(state, payload) {
+	// 		state.value = payload;
+	// 	},
+};
 
 export const actions = {};
