@@ -18,6 +18,17 @@ export const getters = {
 	getCurrentUserTodoById: (state, getters) => (id) => {
 		return getters.currentUserTodos.find((todo) => todo.id === id);
 	},
+	getCurrentUserTodoPartners(state, getters, rootState, rootGetters) {
+		const partnerUsernames = state.todos.matijao
+			.map((todo) => todo.partner)
+			.filter(
+				(username, index, self) =>
+					username !== '' && self.indexOf(username) === index
+			);
+		return rootGetters['partners/getPartnersById'](
+			rootGetters.currentUserId
+		).filter((partner) => partnerUsernames.includes(partner.username));
+	},
 	getUserTodoById: (state, getters) => (username, id) => {
 		return getters.getTodosByUser(username).find((todo) => todo.id === id);
 	},

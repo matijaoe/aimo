@@ -113,10 +113,9 @@ export default {
 	emits: ['newtodo'],
 	computed: {
 		...mapGetters(['currentUserId']),
-		...mapGetters('partners', ['getPartnersById']),
-		...mapGetters('todos', ['activeTags']),
+		...mapGetters('todos', ['activeTags', 'getCurrentUserTodoPartners']),
 		partners() {
-			return this.getPartnersById(this.currentUserId);
+			return this.getCurrentUserTodoPartners;
 		},
 		tags() {
 			return this.activeTags;
