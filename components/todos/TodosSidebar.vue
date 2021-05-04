@@ -1,17 +1,15 @@
 <template>
 	<aside class="border-r-2 border-gray-100 space-y-5 pb-4">
 		<div class="mb-6 p-4">
-			<nuxt-link :to="{ name: 'todos', query: { new: 'true' } }">
-				<BaseButton
-					mode="cta"
-					class="w-full py-2"
-					thin
-					@click="$emit('newtodo')"
-				>
-					<IconPlus />
-					Add todo
-				</BaseButton>
-			</nuxt-link>
+			<BaseButton
+				mode="cta"
+				class="w-full py-2"
+				thin
+				@click="$emit('new-todo')"
+			>
+				<IconPlus />
+				Add todo
+			</BaseButton>
 		</div>
 
 		<ul class="space-y-0.5">

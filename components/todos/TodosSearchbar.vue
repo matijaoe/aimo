@@ -48,7 +48,13 @@
 		</BaseDropdown>
 
 		<div class="mr-2">
-			<BaseButton mode="cta" thin square @click="$emit('newtodo')">
+			<BaseButton
+				id="add-todo"
+				mode="cta"
+				thin
+				square
+				@click="$emit('newtodo')"
+			>
 				<IconPlus />
 			</BaseButton>
 		</div>

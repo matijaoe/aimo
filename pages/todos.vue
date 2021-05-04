@@ -1,6 +1,9 @@
 <template>
 	<BaseContainer class="flex custom-height" no-padding>
-		<TodosSidebar class="w-[200px] overflow-y-auto flex-shrink-0" />
+		<TodosSidebar
+			class="w-[200px] overflow-y-auto flex-shrink-0"
+			@new-todo="toggleNewTodo"
+		/>
 		<transition>
 			<Nuxt />
 		</transition>
@@ -14,6 +17,19 @@ export default {
 	components: {
 		BaseContainer,
 		TodosSidebar,
+	},
+	mounted() {
+		const isNew = this.$route.query.newtodo;
+		if (isNew) {
+			setTimeout(() => {
+				this.toggleNewTodo();
+			}, 600);
+		}
+	},
+	methods: {
+		toggleNewTodo() {
+			document.getElementById('add-todo').click();
+		},
 	},
 };
 </script>

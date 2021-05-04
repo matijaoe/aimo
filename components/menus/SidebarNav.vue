@@ -1,17 +1,16 @@
 <template>
 	<nav class="flex flex-col justify-between flex-1 mt-10">
 		<ul class="space-y-2">
+			<!-- todo - logic for this BOTUN -->
 			<li class="border-b-2 border-dashed border-gray-200 pb-4">
-				<!-- todo - replace with button -->
-				<SidebarNavLink
-					text="New todo"
-					:to="{ name: 'todos', query: { new: 'true' } }"
-					cta
-					exact
-					class="cta"
+				<BaseButton
+					class="w-full flex justify-center"
+					mode="cta"
+					@click="toggleNewTodo"
 				>
 					<IconPlus />
-				</SidebarNavLink>
+					New Todo
+				</BaseButton>
 			</li>
 			<li class="pt-2">
 				<SidebarNavLink text="Home" :to="{ name: 'home' }">
@@ -72,9 +71,11 @@ import IconPlus from 'icons/IconPlus.vue';
 import SidebarNavLink from 'menus/SidebarNavLink.vue';
 
 import { mapGetters } from 'vuex';
+import BaseButton from '../UI/BaseButton';
 
 export default {
 	components: {
+		BaseButton,
 		IconHome,
 		IconInbox,
 		IconUserGroup,
@@ -89,6 +90,14 @@ export default {
 		currentPlan() {
 			const isPremium = this.currentUser.isPremium;
 			return isPremium ? 'Premium' : 'Free';
+		},
+	},
+	methods: {
+		toggleNewTodo() {
+			this.$router.push('/todos?newtodo=true');
+			/* setTimeout(() => {
+				document.getElementById('add-todo').click();
+			}, 300); */
 		},
 	},
 };
