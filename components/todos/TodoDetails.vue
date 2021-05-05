@@ -61,15 +61,17 @@
 					</div>
 					<div class="ml-auto flex items-center gap-2">
 						<BaseButton
+							v-if="todoId"
 							v-tooltip.bottom="'Details'"
 							square
 							mode="cta"
-							:to="{ path: `/todo/${todo.id}` }"
+							:to="{ path: `/todo/${todoId}` }"
 							@click="showTodoPage"
 						>
 							<IconLink />
 						</BaseButton>
 						<BaseButton
+							v-if="todoId"
 							v-tooltip.bottom="'Edit'"
 							class="flex items-center group"
 							square
@@ -132,7 +134,7 @@
 									<vs-option
 										v-for="(
 											partnerOption, index
-										) in currentUserPartners"
+										) in partners"
 										:key="partnerOption.username"
 										:label="partnerOption.username"
 										:value="index + 1"
@@ -313,11 +315,6 @@ export default {
 		BaseAvatar,
 	},
 	props: {
-		new: {
-			type: Boolean,
-			required: false,
-			default: false,
-		},
 		todoId: {
 			type: String,
 			required: false,
@@ -429,7 +426,7 @@ export default {
 		addNewTodo() {
 			if (!this.title) return;
 			const newTodo = this.extractTodoInfo();
-			this.$store.dispatch('todos/addTodo', newTodo);
+			this.addTodo(newTodo);
 			this.$emit('close');
 		},
 		updateTodoInfo() {
