@@ -4,7 +4,11 @@
 		<VerityIndicator label="Important:" :is-shown="todo.important" />
 		<VerityIndicator label="Daily:" :is-shown="todo.daily" />
 		<VerityIndicator label="Completed:" :is-shown="todo.done" />
-		<VerityIndicator label="Approved:" :is-shown="todo.approved" />
+		<VerityIndicator
+			v-if="hasPartner"
+			label="Approved:"
+			:is-shown="todo.approved"
+		/>
 		<TagLabels :categories="todo.categories" />
 	</BaseContainer>
 </template>
@@ -20,6 +24,11 @@ export default {
 		todo: {
 			type: Object,
 			required: true,
+		},
+		hasPartner: {
+			type: Boolean,
+			required: false,
+			default: false,
 		},
 	},
 	computed: {

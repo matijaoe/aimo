@@ -3,7 +3,11 @@
 		<div class="flex items-center gap-2 col-span-2">
 			<h1 class="text-2xl font-bold">{{ todo.name }}</h1>
 		</div>
-		<TodoInfoCard class="row-span-2" :todo="todo" />
+		<TodoInfoCard
+			class="row-span-2"
+			:todo="todo"
+			:has-partner="!!partner"
+		/>
 		<TodoPartnerCard :partner="partner" />
 		<TodoDescCard :desc="todo.desc" />
 	</div>

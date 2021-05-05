@@ -9,15 +9,6 @@
 				class="absolute top-0 right-0 h-screen w-full w-[480px] bg-white border-l-2 border-gray-200 py-10 px-6 overflow-y-auto space-y-2"
 				@click.stop="doNothing"
 			>
-				<!--<div>
-									<button
-					class="bg-emerald-200 text-emerald-700 py-2 px-4 rounded-lg"
-					@click="$emit('close')"
-				>
-					Zatvori me
-				</button>
-				</div>-->
-
 				<h4 v-if="isNewTodo" class="text-4xl font-bold">New todo</h4>
 
 				<div class="flex justify-end items-center pb-2">
@@ -201,46 +192,13 @@
 						Completed
 					</vs-checkbox>
 				</div>
-
-				<div v-if="isCompleted">
-					<label class="uppercase ml-1 tracking-wider text-xs">
-						Photo
-					</label>
-					<div
-						class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
-					>
-						<div class="space-y-1 text-center">
-							<div class="flex items-center justify-center">
-								<IconPhoto size="xl" class="text-gray-300" />
-							</div>
-							<div class="flex text-sm text-gray-600">
-								<label
-									for="file-upload"
-									class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-								>
-									<span>Upload a file</span>
-									<input
-										id="file-upload"
-										name="file-upload"
-										type="file"
-										class="sr-only"
-									/>
-								</label>
-								<p class="pl-1">or drag and drop</p>
-							</div>
-							<p class="text-xs text-gray-500">
-								PNG, JPG, GIF up to 10MB
-							</p>
-						</div>
-					</div>
-				</div>
+				<UploadBox :is-completed="isCompleted" />
 			</article>
 		</div>
 	</div>
 </template>
 
 <script>
-import IconPhoto from 'icons/IconPhoto';
 import IconPlus from 'icons/IconPlus';
 import IconEdit from 'icons/IconEdit';
 import IconTrash from 'icons/IconTrash';
@@ -254,11 +212,12 @@ import BaseButton from 'UI/BaseButton';
 
 import { mapGetters } from 'vuex';
 import dayjs from 'dayjs';
+import UploadBox from '../todo/UploadBox';
 
 export default {
 	components: {
+		UploadBox,
 		BaseButton,
-		IconPhoto,
 		IconPlus,
 		IconEdit,
 		IconTrash,

@@ -2,6 +2,7 @@
 	<div>
 		<TodoDetails :todo="todo" :partner="partner" />
 		<TodoMenu :todo="todo" />
+		<UploadBox :is-completed="todo.done" />
 		<TodoInteractionWrapper :interactions="interactions" />
 	</div>
 </template>
@@ -10,10 +11,11 @@
 import TodoDetails from '@/components/todo/TodoDetails';
 import TodoMenu from '@/components/todo/TodoMenu';
 import TodoInteractionWrapper from '@/components/todo/TodoInteractionWrapper';
+import UploadBox from '@/components/todo/UploadBox';
 import { nanoid } from 'nanoid';
 
 export default {
-	components: { TodoInteractionWrapper, TodoMenu, TodoDetails },
+	components: { TodoInteractionWrapper, TodoMenu, TodoDetails, UploadBox },
 	data() {
 		return {
 			todoId: null,

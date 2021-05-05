@@ -18,6 +18,13 @@
 		>
 			<IconGlobeAlt class="fill-current transition" :class="globeStyle" />
 		</div>
+		<div
+			v-tooltip.left="todo.done ? 'Completed' : 'In progress'"
+			class="p-1 rounded-lg hover:cursor-pointer"
+			@click.stop="toggleCompleted"
+		>
+			<IconCheck class="fill-current transition" :class="checkStyle" />
+		</div>
 		<BaseButton mode="fill">Submit engagement</BaseButton>
 		<BaseButton mode="cta">Give Coins</BaseButton>
 		<BaseButton mode="ghost">Give up</BaseButton>
@@ -28,8 +35,9 @@
 import BaseButton from 'UI/BaseButton';
 import IconStar from 'icons/IconStar';
 import IconGlobeAlt from 'icons/IconGlobeAlt';
+import IconCheck from 'icons/IconCheck';
 export default {
-	components: { BaseButton, IconStar, IconGlobeAlt },
+	components: { BaseButton, IconStar, IconGlobeAlt, IconCheck },
 	props: {
 		todo: {
 			type: Object,
@@ -51,6 +59,13 @@ export default {
 				return ['text-gray-200', 'group-hover:text-blue-400'];
 			}
 		},
+		checkStyle() {
+			if (this.todo.done) {
+				return ['text-green-400'];
+			} else {
+				return ['text-gray-200', 'group-hover:text-green-400'];
+			}
+		},
 	},
 	methods: {
 		toggleImportant() {
@@ -63,6 +78,12 @@ export default {
 			this.$store.dispatch('todos/updateDailyStatus', {
 				id: this.todo.id,
 				daily: !this.todo.daily,
+			});
+		},
+		toggleCompleted() {
+			this.$store.dispatch('todos/updateIsDoneStatus', {
+				id: this.todo.id,
+				done: !this.todo.done,
 			});
 		},
 	},
