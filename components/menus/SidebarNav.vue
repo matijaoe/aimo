@@ -28,6 +28,11 @@
 				</SidebarNavLink>
 			</li>
 			<li>
+				<SidebarNavLink text="Reviews" :to="{ name: 'reviews' }">
+					<IconClipboardCheck />
+				</SidebarNavLink>
+			</li>
+			<li>
 				<SidebarNavLink text="Inbox" :to="{ name: 'inbox' }">
 					<IconInbox />
 				</SidebarNavLink>
@@ -72,9 +77,11 @@ import SidebarNavLink from 'menus/SidebarNavLink.vue';
 
 import { mapGetters } from 'vuex';
 import BaseButton from '../UI/BaseButton';
+import IconClipboardCheck from '../app_icons/IconClipboardCheck';
 
 export default {
 	components: {
+		IconClipboardCheck,
 		BaseButton,
 		IconHome,
 		IconInbox,
