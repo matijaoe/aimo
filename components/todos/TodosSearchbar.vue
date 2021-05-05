@@ -47,7 +47,7 @@
 			</BaseDropdownContent>
 		</BaseDropdown>
 
-		<div class="mr-2">
+		<div class="mr-2 hidden">
 			<BaseButton
 				id="add-todo"
 				mode="cta"

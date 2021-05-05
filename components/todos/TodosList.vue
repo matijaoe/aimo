@@ -21,7 +21,7 @@
 			class="w-full h-full flex flex-col items-center justify-center gap-12"
 		>
 			<p class="font-semibold text-5xl">You're fresh outta todos 🙄</p>
-			<BaseButton mode="cta">
+			<BaseButton mode="cta" @click="$emit('newtodo')">
 				<IconPlus />
 				Add Todo
 			</BaseButton>

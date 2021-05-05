@@ -184,6 +184,13 @@
 										<IconTrash size="sm" />
 										Delete
 									</BaseButton>
+									<BaseButton
+										mode="fill"
+										@click="showTodoPage"
+									>
+										<IconExclamationCircle size="sm" />
+										Details
+									</BaseButton>
 								</div>
 							</div>
 						</div>
@@ -237,6 +244,7 @@ import IconPhoto from 'icons/IconPhoto';
 import IconPlus from 'icons/IconPlus';
 import IconEdit from 'icons/IconEdit';
 import IconTrash from 'icons/IconTrash';
+import IconExclamationCircle from 'icons/IconExclamationCircle';
 import IconStar from 'icons/IconStar';
 import IconShieldCheck from 'icons/IconShieldCheck';
 import IconCheckCircle from 'icons/IconCheckCircle';
@@ -254,6 +262,7 @@ export default {
 		IconPlus,
 		IconEdit,
 		IconTrash,
+		IconExclamationCircle,
 		IconStar,
 		IconShieldCheck,
 		IconCheckCircle,
@@ -376,6 +385,9 @@ export default {
 		deleteTodo() {
 			this.$store.dispatch('todos/deleteTodo', { id: this.todoId });
 			this.$emit('close');
+		},
+		showTodoPage() {
+			this.$router.push(`/todo/${this.todoId}`);
 		},
 		extractTodoInfo() {
 			return {

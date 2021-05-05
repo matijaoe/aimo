@@ -84,6 +84,9 @@ export const actions = {
 	updateImportantStatus({ commit }, payload) {
 		commit('updateImportantStatus', payload);
 	},
+	updateDailyStatus({ commit }, payload) {
+		commit('updateDailyStatus', payload);
+	},
 	deleteTodo({ commit }, payload) {
 		commit('deleteTodo', payload);
 	},
@@ -163,5 +166,11 @@ export const mutations = {
 			(todo) => todo.id === payload.id
 		);
 		state.todos.matijao[index].important = payload.important;
+	},
+	updateDailyStatus(state, payload) {
+		const index = state.todos.matijao.findIndex(
+			(todo) => todo.id === payload.id
+		);
+		state.todos.matijao[index].daily = payload.daily;
 	},
 };

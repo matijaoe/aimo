@@ -1,23 +1,21 @@
 <template>
 	<BaseContainer fieldset label="info">
-		<h3>Due: {{ dueDate }}</h3>
-		<h3>
-			Status:
-			<span class="uppercase text-amber-500">{{ todo.status }}</span>
-		</h3>
-		<DailyTodoRadio :is-daily="todo.daily" />
-		<!-- todo tagovi za todose -->
-		<p class="text-coolGray-300">
-			Tu ce ic tagovi za todo il sta god odlucimo...
-		</p>
+		<h3>Created: {{ createdDate }}</h3>
+		<VerityIndicator label="Important:" :is-shown="todo.important" />
+		<VerityIndicator label="Daily:" :is-shown="todo.daily" />
+		<VerityIndicator label="Completed:" :is-shown="todo.done" />
+		<VerityIndicator label="Approved:" :is-shown="todo.approved" />
+		<TagLabels :categories="todo.categories" />
 	</BaseContainer>
 </template>
 
 <script>
 import BaseContainer from 'UI/BaseContainer';
-import DailyTodoRadio from './DailyTodoRadio';
+import dayjs from 'dayjs';
+import VerityIndicator from './VerityIndicator';
+import TagLabels from './TagLabels';
 export default {
-	components: { BaseContainer, DailyTodoRadio },
+	components: { BaseContainer, VerityIndicator, TagLabels },
 	props: {
 		todo: {
 			type: Object,
@@ -25,10 +23,11 @@ export default {
 		},
 	},
 	computed: {
-		dueDate() {
-			const date = this.todo.timestamp;
-			const mo = date.toLocaleString('en', { month: 'long' });
-			return `${mo} ${date.getDate()}, ${date.getFullYear()}`;
+		createdDate() {
+			const dt = dayjs(this.todo.timestamp);
+			const date = dt.format(`MMMM DD`);
+			const time = dt.format(`HH:mm`);
+			return `${date} at ${time}`;
 		},
 	},
 };

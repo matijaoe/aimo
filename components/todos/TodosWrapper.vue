@@ -11,6 +11,7 @@
 			:filter="filter"
 			:todos="allTodos"
 			@edit="editTodo"
+			@newtodo="openNewTodo"
 		/>
 		<transition name="fade">
 			<TodoDetails
