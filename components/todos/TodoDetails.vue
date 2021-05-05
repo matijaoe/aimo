@@ -192,7 +192,9 @@
 						Completed
 					</vs-checkbox>
 				</div>
-				<UploadBox :is-completed="isCompleted && !isApproved" />
+				<UploadBox
+					:is-completed="isCompleted && !isApproved && !isPersonal"
+				/>
 			</article>
 		</div>
 	</div>

@@ -7,7 +7,9 @@
 			enter-class="opacity-0  transform translate-y-5"
 			enter-to-class="opacity-100 transform translate-y-0"
 		>
-			<UploadBox :is-completed="todo.done && !todo.approved" />
+			<UploadBox
+				:is-completed="todo.done && !todo.approved && !!partner"
+			/>
 		</transition>
 		<TodoInteractionWrapper :interactions="interactions" />
 	</div>
