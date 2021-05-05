@@ -1,7 +1,8 @@
 // Ovo nije prava struktura od todosa nego samo za mockup
 import { nanoid } from 'nanoid';
 import Vue from 'vue';
-import { db } from '@/firebase';
+import * as fb from '@/firebase';
+
 export const state = () => ({
 	todos: {
 		matijao: [],
@@ -68,54 +69,9 @@ export const getters = {
 	// },
 };
 
-export const actions = {
-	changeFavorite(context, payload) {
-		context.commit('setFavoriteStatus', payload);
-	},
-	addNewTodo({ commit }, payload) {
-		commit('addNewTodo', payload);
-	},
-	updateTodo({ commit }, payload) {
-		commit('updateTodo', payload);
-	},
-	updateIsDoneStatus({ commit }, payload) {
-		commit('updateIsDoneStatus', payload);
-	},
-	updateImportantStatus({ commit }, payload) {
-		commit('updateImportantStatus', payload);
-	},
-	deleteTodo({ commit }, payload) {
-		commit('deleteTodo', payload);
-	},
-	async loadUserTodos({ commit }) {
-		try {
-			const todos = await db
-				.collection('users')
-				.doc('matijao')
-				.collection('todos')
-				.get();
-			const userTodos = [];
-			for (const doc of todos.docs) {
-				userTodos.push({
-					...doc.data(),
-					username: doc.id,
-				});
-			}
-			commit('loadUserTodos', userTodos);
-		} catch (error) {
-			// eslint-disable-next-line no-console
-			console.error(error);
-		}
-	},
-};
-
 export const mutations = {
 	loadUserTodos(state, userTodos) {
 		state.todos.matijao = userTodos;
-	},
-	setFavoriteStatus(state, payload) {
-		state.todos.find((todo) => todo.id === payload.id).favorite =
-			payload.favorite;
 	},
 	addNewTodo(state, payload) {
 		const newTodo = {
@@ -123,22 +79,6 @@ export const mutations = {
 			id: nanoid(),
 		};
 		state.todos.matijao.unshift(newTodo);
-		db.collection('users')
-			.doc('matijao')
-			.collection('todos')
-			.doc(newTodo.id)
-			.set({
-				approved: newTodo.approved,
-				categories: newTodo.categories,
-				daily: newTodo.daily,
-				desc: newTodo.desc,
-				done: newTodo.done,
-				id: newTodo.id, // ovo je samo privremeno rješenje da ne izbacuje gresku za id (koji je nepotreban u ovom slucaju)
-				important: newTodo.important,
-				name: newTodo.name,
-				partner: newTodo.partner,
-				timestamp: newTodo.timestamp,
-			});
 	},
 	updateTodo(state, payload) {
 		const index = state.todos.matijao.findIndex(
@@ -163,5 +103,114 @@ export const mutations = {
 			(todo) => todo.id === payload.id
 		);
 		state.todos.matijao[index].important = payload.important;
+	},
+};
+
+export const actions = {
+	async addNewTodo({ commit }, payload) {
+		try {
+			await fb.usersCollection
+				.doc('matijao')
+				.collection('todos')
+				.doc(payload.id)
+				.set({
+					approved: payload.approved,
+					categories: payload.categories,
+					daily: payload.daily,
+					desc: payload.desc,
+					done: payload.done,
+					id: payload.id, // ovo je samo privremeno rješenje da ne izbacuje gresku za id (koji je nepotreban u ovom slucaju)
+					important: payload.important,
+					name: payload.name,
+					partner: payload.partner,
+					timestamp: payload.timestamp,
+				});
+		} catch (error) {
+			console.log(error);
+		}
+		commit('addNewTodo', payload);
+	},
+	async updateTodo({ commit }, payload) {
+		try {
+			await fb.usersCollection
+				.doc('matijao')
+				.collection('todos')
+				.doc(payload.id)
+				.set({
+					approved: payload.approved,
+					categories: payload.categories,
+					daily: payload.daily,
+					desc: payload.desc,
+					done: payload.done,
+					id: payload.id, // ovo je samo privremeno rješenje da ne izbacuje gresku za id (koji je nepotreban u ovom slucaju)
+					important: payload.important,
+					name: payload.name,
+					partner: payload.partner,
+					timestamp: payload.timestamp,
+				});
+		} catch (error) {
+			console.log(error);
+		}
+		commit('updateTodo', payload);
+	},
+	async updateIsDoneStatus({ commit }, payload) {
+		try {
+			await fb.usersCollection
+				.doc('matijao')
+				.collection('todos')
+				.doc(payload.id)
+				.update({
+					done: payload.done,
+				});
+		} catch (error) {
+			console.log(error);
+		}
+		commit('updateIsDoneStatus', payload);
+	},
+	async updateImportantStatus({ commit }, payload) {
+		try {
+			await fb.usersCollection
+				.doc('matijao')
+				.collection('todos')
+				.doc(payload.id)
+				.update({
+					important: payload.important,
+				});
+		} catch (error) {
+			console.log(error);
+		}
+		commit('updateImportantStatus', payload);
+	},
+	async deleteTodo({ commit }, payload) {
+		try {
+			await fb.usersCollection
+				.doc('matijao')
+				.collection('todos')
+				.doc(payload.id)
+				.delete();
+		} catch (error) {
+			console.log(error);
+		}
+		commit('deleteTodo', payload);
+	},
+	async loadUserTodos({ commit }) {
+		try {
+			const todos = await fb.usersCollection
+				.doc('matijao')
+				.collection('todos')
+				.orderBy('timestamp', 'desc')
+				.get();
+			const userTodos = [];
+			for (const doc of todos.docs) {
+				userTodos.push({
+					...doc.data(),
+					username: doc.id,
+				});
+			}
+			commit('loadUserTodos', userTodos);
+		} catch (error) {
+			// eslint-disable-next-line no-console
+			console.error(error);
+		}
 	},
 };

@@ -67,31 +67,31 @@ export const actions = {
 			console.error(error);
 		}
 	},
-	addUsers() {
-		// for (const user of state.users) {
-		// 	db.collection('users')
-		// 		.doc(user.username)
-		// 		.set({
-		// 			fname: user.fname,
-		// 			lname: user.lname,
-		// 			countryCode: user.countryCode,
-		// 			birthday: user.birthday.$d,
-		// 			joined_on: user.joined_on.$d,
-		// 			photo: user.photo,
-		// 			occupation: user.occupation,
-		// 			bio: user.bio,
-		// 			coins: user.coins,
-		// 			isPremium: user.isPremium,
-		// 			categories: user.categories,
-		// 			socials: user.socials,
-		// 			partners: [],
-		// 		})
-		// 		.then(() => {
-		// 			console.log('Document successfully written!');
-		// 		})
-		// 		.catch((error) => {
-		// 			console.error('Error writing document: ', error);
-		// 		});
-		// }
-	},
+	// async addUsers() {
+	// 	for (const user of state.users) {
+	// 		await fb.usersCollection
+	// 			.doc(user.username)
+	// 			.set({
+	// 				fname: user.fname,
+	// 				lname: user.lname,
+	// 				countryCode: user.countryCode,
+	// 				birthday: user.birthday.$d,
+	// 				joined_on: user.joined_on.$d,
+	// 				photo: user.photo,
+	// 				occupation: user.occupation,
+	// 				bio: user.bio,
+	// 				coins: user.coins,
+	// 				isPremium: user.isPremium,
+	// 				categories: user.categories,
+	// 				socials: user.socials,
+	// 				partners: [],
+	// 			})
+	// 			.then(() => {
+	// 				console.log('Document successfully written!');
+	// 			})
+	// 			.catch((error) => {
+	// 				console.error('Error writing document: ', error);
+	// 			});
+	// 	}
+	// },
 };
