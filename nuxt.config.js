@@ -45,7 +45,7 @@ export default {
 		'~/plugins/v-click-outside.js',
 		// https://github.com/Leecason/vue-rough-notation
 		'~/plugins/rough-notation.js',
-		'~/plugins/getUsers.js',
+		'~/plugins/getusers.js',
 		'~/plugins/getUserTodos.js',
 		'@/plugins/vuesax.js',
 		'@/plugins/getCategories.js',
