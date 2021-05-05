@@ -22,7 +22,7 @@
 				In progress
 			</TodosSidebarLink>
 			<TodosSidebarLink :to="{ path: '/todos/completed' }">
-				<IconCheck size="sm" />
+				<IconCheckCircle size="sm" />
 				Completed
 			</TodosSidebarLink>
 			<TodosSidebarLink :to="{ path: '/todos/approved' }">
@@ -88,7 +88,7 @@ import IconClipboardList from 'icons/IconClipboardList.vue';
 import IconStar from 'icons/IconStar.vue';
 import IconGlobeAlt from 'icons/IconGlobeAlt.vue';
 import IconUserCircle from 'icons/IconUserCircle.vue';
-import IconCheck from 'icons/IconCheck.vue';
+import IconCheckCircle from 'icons/IconCheckCircle.vue';
 import IconShieldCheck from 'icons/IconShieldCheck.vue';
 import IconClock from 'icons/IconClock.vue';
 import BaseButton from 'UI/BaseButton.vue';
@@ -105,7 +105,7 @@ export default {
 		IconStar,
 		IconGlobeAlt,
 		IconUserCircle,
-		IconCheck,
+		IconCheckCircle,
 		IconShieldCheck,
 		BaseButton,
 		BaseAvatar,

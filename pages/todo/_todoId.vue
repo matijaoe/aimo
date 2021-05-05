@@ -2,11 +2,11 @@
 	<div>
 		<TodoDetails :todo="todo" :partner="partner" />
 		<TodoMenu :todo="todo" />
-		<transition
+		<!-- TODO matija rjesit transition -->
+		<transition -->
 			enter-active-class="transition-all duration-800 ease-out-quad"
-			enter-class="opacity-0  transform translate-y-5"
-			enter-to-class="opacity-100 transform translate-y-0"
-		>
+			enter-class="opacity-0 transform translate-y-5"
+			enter-to-class="opacity-100 transform translate-y-0" >
 			<UploadBox
 				:is-completed="todo.done && !todo.approved && !!partner"
 			/>
@@ -20,6 +20,7 @@ import TodoDetails from '@/components/todo/TodoDetails';
 import TodoMenu from '@/components/todo/TodoMenu';
 import TodoInteractionWrapper from '@/components/todo/TodoInteractionWrapper';
 import UploadBox from '@/components/todo/UploadBox';
+
 import { nanoid } from 'nanoid';
 
 export default {

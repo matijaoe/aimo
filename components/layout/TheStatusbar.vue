@@ -9,7 +9,7 @@
 					class="flex items-center gap-1"
 				>
 					{{ finishedCount }}
-					<IconCheck size="sm" />
+					<IconCheckCircle size="sm" />
 				</div>
 				<div
 					v-tooltip.top="`${approvedCount} todos approved`"
@@ -53,7 +53,7 @@
 <script>
 import IconClock from 'icons/IconClock.vue';
 import IconCalendar from 'icons/IconCalendar.vue';
-import IconCheck from 'icons/IconCheck.vue';
+import IconCheckCircle from 'icons/IconCheckCircle.vue';
 import IconBadgeCheck from 'icons/IconBadgeCheck.vue';
 import IconXCircle from 'icons/IconXCircle.vue';
 
@@ -66,7 +66,7 @@ export default {
 	components: {
 		IconClock,
 		IconCalendar,
-		IconCheck,
+		IconCheckCircle,
 		IconBadgeCheck,
 		IconXCircle,
 	},
