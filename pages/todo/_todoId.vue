@@ -2,7 +2,13 @@
 	<div>
 		<TodoDetails :todo="todo" :partner="partner" />
 		<TodoMenu :todo="todo" />
-		<UploadBox :is-completed="todo.done" />
+		<transition
+			enter-active-class="transition-all duration-800 ease-out-quad"
+			enter-class="opacity-0  transform translate-y-5"
+			enter-to-class="opacity-100 transform translate-y-0"
+		>
+			<UploadBox :is-completed="todo.done && !todo.approved" />
+		</transition>
 		<TodoInteractionWrapper :interactions="interactions" />
 	</div>
 </template>

@@ -69,22 +69,28 @@ export default {
 	},
 	methods: {
 		toggleImportant() {
-			this.$store.dispatch('todos/updateImportantStatus', {
-				id: this.todo.id,
-				important: !this.todo.important,
-			});
+			if (!this.todo.approved) {
+				this.$store.dispatch('todos/updateImportantStatus', {
+					id: this.todo.id,
+					important: !this.todo.important,
+				});
+			}
 		},
 		toggleDaily() {
-			this.$store.dispatch('todos/updateDailyStatus', {
-				id: this.todo.id,
-				daily: !this.todo.daily,
-			});
+			if (!this.todo.approved) {
+				this.$store.dispatch('todos/updateDailyStatus', {
+					id: this.todo.id,
+					daily: !this.todo.daily,
+				});
+			}
 		},
 		toggleCompleted() {
-			this.$store.dispatch('todos/updateIsDoneStatus', {
-				id: this.todo.id,
-				done: !this.todo.done,
-			});
+			if (!this.todo.approved) {
+				this.$store.dispatch('todos/updateIsDoneStatus', {
+					id: this.todo.id,
+					done: !this.todo.done,
+				});
+			}
 		},
 	},
 };

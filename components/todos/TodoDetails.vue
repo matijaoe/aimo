@@ -187,12 +187,12 @@
 						</div>
 					</div>
 				</transition>
-				<div v-if="todoId">
+				<div v-if="!isApproved">
 					<vs-checkbox v-model="isCompleted" :color="'#818CF8'">
 						Completed
 					</vs-checkbox>
 				</div>
-				<UploadBox :is-completed="isCompleted" />
+				<UploadBox :is-completed="isCompleted && !isApproved" />
 			</article>
 		</div>
 	</div>
@@ -287,10 +287,15 @@ export default {
 	},
 	watch: {
 		isCompleted(newValue) {
-			this.$store.dispatch('todos/updateIsDoneStatus', {
-				id: this.todoId,
-				done: newValue,
-			});
+			if (!this.isApproved) {
+				this.isCompleted = newValue;
+				this.$store.dispatch('todos/updateIsDoneStatus', {
+					id: this.todoId,
+					done: newValue,
+				});
+			} else {
+				this.isCompleted = true;
+			}
 		},
 	},
 	created() {
