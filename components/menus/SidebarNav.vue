@@ -1,17 +1,6 @@
 <template>
 	<nav class="flex flex-col justify-between flex-1 mt-10">
 		<ul class="space-y-2">
-			<!-- todo - logic for this BOTUN -->
-			<li class="border-b-2 border-dashed border-gray-200 pb-4">
-				<BaseButton
-					class="w-full flex justify-center"
-					mode="cta"
-					@click="toggleNewTodo"
-				>
-					<IconPlus />
-					New Todo
-				</BaseButton>
-			</li>
 			<li class="pt-2">
 				<SidebarNavLink text="Home" :to="{ name: 'home' }">
 					<IconHome />
@@ -67,22 +56,18 @@ import IconUserGroup from 'icons/IconUserGroup.vue';
 import IconClipboardList from 'icons/IconClipboardList.vue';
 import IconChartBar from 'icons/IconChartBar.vue';
 import IconSettings from 'icons/IconSettings.vue';
-import IconPlus from 'icons/IconPlus.vue';
 import SidebarNavLink from 'menus/SidebarNavLink.vue';
 
 import { mapGetters } from 'vuex';
-import BaseButton from '../UI/BaseButton';
 
 export default {
 	components: {
-		BaseButton,
 		IconHome,
 		IconInbox,
 		IconUserGroup,
 		IconClipboardList,
 		IconChartBar,
 		IconSettings,
-		IconPlus,
 		SidebarNavLink,
 	},
 	computed: {
@@ -95,9 +80,6 @@ export default {
 	methods: {
 		toggleNewTodo() {
 			this.$router.push('/todos?newtodo=true');
-			/* setTimeout(() => {
-				document.getElementById('add-todo').click();
-			}, 300); */
 		},
 	},
 };
@@ -107,7 +89,6 @@ export default {
 a.nuxt-link-active {
 	@apply bg-gray-200;
 }
-/* todo - exact property in nuxt-link */
 .cta.nuxt-link-exact-active {
 	@apply bg-amber-300;
 }

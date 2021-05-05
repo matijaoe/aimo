@@ -72,8 +72,8 @@ export const actions = {
 	changeFavorite(context, payload) {
 		context.commit('setFavoriteStatus', payload);
 	},
-	addNewTodo({ commit }, payload) {
-		commit('addNewTodo', payload);
+	addTodo({ commit }, payload) {
+		commit('addTodo', payload);
 	},
 	updateTodo({ commit }, payload) {
 		commit('updateTodo', payload);
@@ -120,7 +120,7 @@ export const mutations = {
 		state.todos.find((todo) => todo.id === payload.id).favorite =
 			payload.favorite;
 	},
-	addNewTodo(state, payload) {
+	addTodo(state, payload) {
 		const newTodo = {
 			...payload,
 			id: nanoid(),

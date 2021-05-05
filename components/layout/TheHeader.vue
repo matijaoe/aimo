@@ -36,15 +36,3 @@ export default {
 	},
 };
 </script>
-
-<style scoped>
-.dropdown-enter-active,
-.dropdown-leave-active {
-	transition: all 300ms;
-}
-.dropdown-enter,
-.dropdown-leave-to {
-	opacity: 0;
-	transform: translateY(10px);
-}
-</style>

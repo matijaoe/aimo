@@ -1,5 +1,18 @@
 <template>
+	<nuxt-link v-if="link" :to="to">
+		<button
+			:class="[mode, { thin: thin, square: square }]"
+			class="focus:border-amber-300 focus:ring focus:ring-amber-200 focus:ring-opacity-50 relative border-none cursor-pointer pointer-events-auto focus:outline-none focus:border-none uppercase text-xs font-bold rounded-lg overflow-hidden tracking-[0.05rem] transition text-gray-700"
+			@click="$emit('click', $event)"
+		>
+			<span class="flex items-center gap-2 w-full relative">
+				<slot />
+			</span>
+		</button>
+	</nuxt-link>
+
 	<button
+		v-else
 		:class="[mode, { thin: thin, square: square }]"
 		class="focus:border-amber-300 focus:ring focus:ring-amber-200 focus:ring-opacity-50 relative border-none cursor-pointer pointer-events-auto focus:outline-none focus:border-none uppercase text-xs font-bold rounded-lg overflow-hidden tracking-[0.05rem] transition text-gray-700"
 		@click="$emit('click', $event)"
@@ -27,6 +40,16 @@ export default {
 			type: Boolean,
 			required: false,
 			default: false,
+		},
+		link: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+		to: {
+			type: Object,
+			required: false,
+			default: () => ({}),
 		},
 	},
 	emits: ['click'],
@@ -69,6 +92,20 @@ button:hover::before {
 
 .cta::before {
 	@apply bg-amber-300;
+}
+.warn {
+	@apply bg-red-400 text-white;
+}
+
+.warn::before {
+	@apply bg-red-500;
+}
+.info {
+	@apply bg-indigo-400 text-white;
+}
+
+.info::before {
+	@apply bg-indigo-500;
 }
 
 .fill {

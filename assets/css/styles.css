@@ -59,3 +59,22 @@ img {
 		opacity: 1;
 	}
 }
+
+.fade-in-up-enter-active,
+.fade-in-up-leave-active {
+	transition: all 300ms;
+}
+.fade-in-up-enter,
+.fade-in-up-leave-to {
+	opacity: 0;
+	transform: translateY(10px);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 250ms;
+}
+.fade-enter,
+.fade-leave-active {
+	opacity: 0;
+}
