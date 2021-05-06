@@ -48,6 +48,7 @@ export default {
 		'@/plugins/vuesax.js',
 		'~/plugins/getUsers.js',
 		'~/plugins/getUserTodos.js',
+		'~/plugins/getUserReviews.js',
 		'@/plugins/getCategories.js',
 		'@/plugins/getSocials.js',
 	],

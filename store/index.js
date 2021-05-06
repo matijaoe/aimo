@@ -2,6 +2,8 @@ import * as fb from '@/firebase';
 
 export const state = () => ({
 	userId: 'matijao',
+	categories: [],
+	state: [],
 });
 
 export const getters = {

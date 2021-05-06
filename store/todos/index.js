@@ -104,16 +104,16 @@ export const mutations = {
 		);
 		state.todos.matijao[index].important = payload.important;
 	},
-	updateDailyStatus(state, payload) {
+	updateDailyStatus(state, todoStatus) {
 		const index = state.todos.matijao.findIndex(
-			(todo) => todo.id === payload.id
+			(todo) => todo.id === todoStatus.id
 		);
-		state.todos.matijao[index].daily = payload.daily;
+		state.todos.matijao[index].daily = todoStatus.daily;
 	},
 };
 
 export const actions = {
-	async addNewTodo({ commit, getters, rootGetters }, payload) {
+	async addTodo({ commit, getters, rootGetters }, payload) {
 		try {
 			await fb.usersCollection
 				.doc(rootGetters.currentUserId)
@@ -198,6 +198,20 @@ export const actions = {
 			console.log(error);
 		}
 		commit('deleteTodo', payload);
+	},
+	async updateDailyStatus({ commit, getters, rootGetters }, todoStatus) {
+		try {
+			await fb.usersCollection
+				.doc(rootGetters.currentUserId)
+				.collection('todos')
+				.doc(todoStatus.id)
+				.update({
+					daily: todoStatus.daily,
+				});
+		} catch (error) {
+			console.log(error);
+		}
+		commit('updateDailyStatus', todoStatus);
 	},
 	async loadUserTodos({ commit, getters, rootGetters }) {
 		try {

@@ -10,55 +10,15 @@
 				@click.stop=""
 			>
 				<h4 v-if="isNewTodo" class="text-4xl font-bold">New todo</h4>
-
 				<div class="flex justify-end items-center pb-2">
-					<div class="flex items-center gap-4">
-						<IconStar
-							v-tooltip.bottom="'Important'"
-							class="fill-current transition"
-							:class="starStyle"
-							:fill="isImportant"
-						/>
-						<IconGlobeAlt
-							v-tooltip.bottom="'Repeats daily'"
-							class="transition"
-							:class="isDaily ? 'text-blue-400' : 'text-gray-300'"
-						/>
-						<IconCheckCircle
-							v-tooltip.bottom="'Completed'"
-							class="transition"
-							:class="
-								isCompleted
-									? 'text-indigo-400'
-									: 'text-gray-300'
-							"
-						/>
-						<IconShieldCheck
-							v-tooltip.bottom="'Approved'"
-							class="transition"
-							:class="
-								isApproved
-									? 'text-emerald-400'
-									: 'text-gray-300'
-							"
-						/>
-						<!-- todo PARTNER OBJECT -->
-						<div
-							v-if="!isPersonal"
-							v-tooltip.bottom="`@${selectedPartner}`"
-						>
-							<nuxt-link :to="`/user/${selectedPartner}`">
-								<BaseAvatar size="xs" />
-							</nuxt-link>
-						</div>
-						<div
-							v-else
-							v-tooltip.bottom="'Personal'"
-							class="flex items-center justify-center"
-						>
-							<IconUserCircle class="text-gray-300" />
-						</div>
-					</div>
+					<TodoAttributes
+						:is-important="isImportant"
+						:is-daily="isDaily"
+						:is-completed="isCompleted"
+						:is-approved="isApproved"
+						:is-personal="isPersonal"
+						:partner="partner"
+					/>
 					<div class="ml-auto flex items-center gap-2">
 						<BaseButton
 							v-if="todoId"
@@ -295,23 +255,20 @@ import BaseButton from 'UI/BaseButton';
 
 import { mapGetters, mapActions } from 'vuex';
 import dayjs from 'dayjs';
+import TodoAttributes from './TodoAttributes';
 
 export default {
 	components: {
+		TodoAttributes,
 		BaseButton,
 		IconPhoto,
 		IconPlus,
 		IconEdit,
 		IconTrash,
 		IconLink,
-		IconStar,
-		IconShieldCheck,
-		IconCheckCircle,
-		IconGlobeAlt,
 		IconClock,
 		IconCheck,
 		IconSparkles,
-		IconUserCircle,
 		BaseAvatar,
 	},
 	props: {
@@ -348,12 +305,10 @@ export default {
 			return this.currentUserPartners;
 		},
 		partner() {
-			// todo - dohvatit cijeli objekt odabranog partnera
-			return {};
-		},
-		categories() {
-			// todo - dohvatit array objekata kategorija
-			return [];
+			if (!this.isPersonal && this.selectedPartner) {
+				return this.partners[this.selectedPartner - 1];
+			}
+			return null;
 		},
 		isNewTodo() {
 			return !this.todoId;
@@ -363,13 +318,6 @@ export default {
 			const date = dt.format(`MMMM DD`);
 			const time = dt.format(`HH:mm`);
 			return `${date} at ${time}`;
-		},
-		starStyle() {
-			if (this.isImportant) {
-				return ['text-amber-300'];
-			} else {
-				return ['text-gray-200', 'group-hover:text-amber-300'];
-			}
 		},
 		completedColor() {
 			if (this.isCompleted) {
@@ -389,6 +337,11 @@ export default {
 				id: this.todoId,
 				done: newValue,
 			});
+		},
+		isPersonal(newValue) {
+			if (newValue) {
+				this.selectedPartner = 0;
+			}
 		},
 	},
 	created() {
@@ -415,7 +368,7 @@ export default {
 			this.isDaily = false;
 			this.isImportant = false;
 			this.isApproved = false;
-			this.isPersonal = false;
+			this.isPersonal = true;
 			this.isCompleted = false;
 			this.selectedPartner = '';
 			this.selectedCategories = [];
