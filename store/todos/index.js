@@ -115,6 +115,7 @@ export const mutations = {
 export const actions = {
 	async addTodo({ commit, getters, rootGetters }, payload) {
 		try {
+			// todo - popraviti unos u bazu
 			await fb.usersCollection
 				.doc(rootGetters.currentUserId)
 				.collection('todos')

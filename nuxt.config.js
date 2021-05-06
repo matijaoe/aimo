@@ -91,6 +91,7 @@ export default {
 		menus: resolve(__dirname, './components/menus'),
 		profile: resolve(__dirname, './components/user_profile'),
 		todos: resolve(__dirname, './components/todos'),
+		reviews: resolve(__dirname, './components/reviews'),
 	},
 
 	pageTransition: 'fade-in-right',

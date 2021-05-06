@@ -36,17 +36,11 @@
 </template>
 
 <script>
-import IconPlus from 'icons/IconPlus.vue';
 import IconClipboardList from 'icons/IconClipboardList.vue';
-import IconStar from 'icons/IconStar.vue';
-import IconGlobeAlt from 'icons/IconGlobeAlt.vue';
-import IconUserCircle from 'icons/IconUserCircle.vue';
 import IconCheckCircle from 'icons/IconCheckCircle.vue';
 import IconShieldCheck from 'icons/IconShieldCheck.vue';
 import IconClock from 'icons/IconClock.vue';
-import BaseButton from 'UI/BaseButton.vue';
 import BaseAvatar from 'UI/BaseAvatar.vue';
-import BaseTag from 'UI/BaseTag.vue';
 import TodosSidebarLink from 'todos/TodosSidebarLink.vue';
 
 import { mapGetters } from 'vuex';
@@ -60,12 +54,11 @@ export default {
 		TodosSidebarLink,
 		IconClock,
 	},
-	emits: ['newtodo'],
 	computed: {
 		...mapGetters(['currentUserId']),
-		...mapGetters('todos', ['getCurrentUserTodoPartners']),
+		...mapGetters('reviews', ['activeReviewPartners']),
 		partners() {
-			return this.getCurrentUserTodoPartners;
+			return this.activeReviewPartners;
 		},
 	},
 };

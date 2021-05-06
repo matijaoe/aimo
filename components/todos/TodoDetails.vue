@@ -31,7 +31,7 @@
 							<IconLink />
 						</BaseButton>
 						<BaseButton
-							v-if="todoId"
+							v-if="todoId && !isApproved"
 							v-tooltip.bottom="'Edit'"
 							class="flex items-center group"
 							square
