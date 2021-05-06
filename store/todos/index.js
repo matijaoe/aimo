@@ -113,10 +113,10 @@ export const mutations = {
 };
 
 export const actions = {
-	async addNewTodo({ commit }, payload) {
+	async addNewTodo({ commit, getters, rootGetters }, payload) {
 		try {
 			await fb.usersCollection
-				.doc('matijao')
+				.doc(rootGetters.currentUserId)
 				.collection('todos')
 				.doc(payload.id)
 				.set({
@@ -136,10 +136,10 @@ export const actions = {
 		}
 		commit('addNewTodo', payload);
 	},
-	async updateTodo({ commit }, payload) {
+	async updateTodo({ commit, getters, rootGetters }, payload) {
 		try {
 			await fb.usersCollection
-				.doc('matijao')
+				.doc(rootGetters.currentUserId)
 				.collection('todos')
 				.doc(payload.id)
 				.set({
@@ -159,10 +159,10 @@ export const actions = {
 		}
 		commit('updateTodo', payload);
 	},
-	async updateIsDoneStatus({ commit }, payload) {
+	async updateIsDoneStatus({ commit, getters, rootGetters }, payload) {
 		try {
 			await fb.usersCollection
-				.doc('matijao')
+				.doc(rootGetters.currentUserId)
 				.collection('todos')
 				.doc(payload.id)
 				.update({
@@ -173,10 +173,10 @@ export const actions = {
 		}
 		commit('updateIsDoneStatus', payload);
 	},
-	async updateImportantStatus({ commit }, payload) {
+	async updateImportantStatus({ commit, getters, rootGetters }, payload) {
 		try {
 			await fb.usersCollection
-				.doc('matijao')
+				.doc(rootGetters.currentUserId)
 				.collection('todos')
 				.doc(payload.id)
 				.update({
@@ -187,10 +187,10 @@ export const actions = {
 		}
 		commit('updateImportantStatus', payload);
 	},
-	async deleteTodo({ commit }, payload) {
+	async deleteTodo({ commit, getters, rootGetters }, payload) {
 		try {
 			await fb.usersCollection
-				.doc('matijao')
+				.doc(rootGetters.currentUserId)
 				.collection('todos')
 				.doc(payload.id)
 				.delete();
@@ -199,10 +199,10 @@ export const actions = {
 		}
 		commit('deleteTodo', payload);
 	},
-	async loadUserTodos({ commit }) {
+	async loadUserTodos({ commit, getters, rootGetters }) {
 		try {
 			const todos = await fb.usersCollection
-				.doc('matijao')
+				.doc(rootGetters.currentUserId)
 				.collection('todos')
 				.orderBy('timestamp', 'desc')
 				.get();

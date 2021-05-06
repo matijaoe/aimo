@@ -50,7 +50,6 @@ export default {
 		'~/plugins/getUserTodos.js',
 		'@/plugins/getCategories.js',
 		'@/plugins/getSocials.js',
-		'@/plugins/getPartners.js',
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
