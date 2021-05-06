@@ -1,25 +1,8 @@
 import * as fb from '@/firebase';
 import fbApp from 'firebase/app';
-import { nanoid } from 'nanoid';
 
 export const state = () => ({
-	partnerships: [
-		{ id: nanoid(), partners: ['matijao', 'marian7'] },
-		{ id: nanoid(), partners: ['matijao', 'patrik_harmonika'] },
-		{ id: nanoid(), partners: ['matijao', 'lovedoctor'] },
-		{ id: nanoid(), partners: ['matijao', 'blueface'] },
-		{ id: nanoid(), partners: ['patrik_harmonika', 'marian7'] },
-		{ id: nanoid(), partners: ['patrik_harmonika', 'tomoKotar14'] },
-		{ id: nanoid(), partners: ['tomoKotar14', 'matijao'] },
-		{ id: nanoid(), partners: ['tomoKotar14', 'marian7'] },
-		{ id: nanoid(), partners: ['lovedoctor', 'patrik_harmonika'] },
-		{ id: nanoid(), partners: ['lovedoctor', 'wood42'] },
-		{ id: nanoid(), partners: ['wood42', 'suzzy'] },
-		{ id: nanoid(), partners: ['patrik_harmonika', 'suzzy'] },
-		{ id: nanoid(), partners: ['wood42', 'tomoKotar14'] },
-		{ id: nanoid(), partners: ['blueface', 'tomoKotar14'] },
-		{ id: nanoid(), partners: ['blueface', 'wood42'] },
-	],
+	partnerships: [],
 });
 
 export const getters = {
@@ -41,7 +24,7 @@ export const getters = {
 		return userPartners;
 	},
 };
-/*
+
 export const mutations = {
 	// 	updateValue(state, payload) {
 	// 		state.value = payload;
@@ -65,8 +48,8 @@ export const actions = {
 				for (const docPartner of userPartners.docs) {
 					const areDuplicates = actions.checkIfDuplicates(
 						partnersData,
-						docPartner,
-						doc
+						doc,
+						docPartner
 					);
 					if (!areDuplicates) {
 						partnersData.push([doc.id, docPartner.id]);
@@ -74,21 +57,35 @@ export const actions = {
 				}
 			}
 
-			commit('loadPartnersData', partnersData);
+			commit(
+				'loadPartnersData',
+				actions.convertToArrayOfObjects(partnersData)
+			);
 		} catch (error) {
 			console.error(error);
 		}
 	},
 
-	checkIfDuplicates(partnersData, docPartner, doc) {
+	checkIfDuplicates(partnersData, doc, docPartner) {
 		const alreadyPartners = partnersData.filter(
 			(partnership) =>
 				partnership[0] === docPartner.id && partnership[1] === doc.id
 		);
 		if (alreadyPartners.length === 0) {
-			return true;
+			return false;
 		}
-		return false;
+		return true;
+	},
+
+	convertToArrayOfObjects(partnersData) {
+		const arrayOfPartnershipObjects = [];
+		for (const partnershipArray of partnersData) {
+			arrayOfPartnershipObjects.push({
+				partners: partnershipArray,
+			});
+		}
+
+		return arrayOfPartnershipObjects;
 	},
 
 	async addPartner({ commit }, partner1, partner2) {
@@ -107,4 +104,4 @@ export const actions = {
 				partnerSince: fbApp.firestore.Timestamp.now(),
 			});
 	},
-}; */
+};
