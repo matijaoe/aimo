@@ -13,10 +13,12 @@
 		</BaseButton>
 		<input
 			id=""
+			v-model="searchTerm"
 			type="search"
 			name=""
 			placeholder="Search anything"
 			class="hidden sm:block bg-transparent h-full focus:outline-none border-none rounded-full px-4 focus:ring-0 flex-1 font-medium"
+			@input="searchSomething(searchTerm)"
 		/>
 	</label>
 </template>
@@ -27,6 +29,16 @@ import BaseButton from 'UI/BaseButton.vue';
 
 export default {
 	components: { IconSearch, BaseButton },
+	data() {
+		return {
+			searchTerm: '',
+		};
+	},
+	methods: {
+		searchSomething() {
+			this.$store.dispatch('searchAnything', this.searchTerm);
+		},
+	},
 };
 </script>
 

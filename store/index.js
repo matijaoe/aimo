@@ -4,26 +4,11 @@ export const state = () => ({
 	userId: 'matijao',
 	categories: [],
 	state: [],
+	searchResults: {},
 });
 
 export const getters = {
 	currentUserId(state) {
-		// primjer koda za DODAVANJE socials-a u bazu (na isti nacin i categories, etc.)
-		// warning: ne izvrsavati zakomentirani kod ako je nepotrebno, jer ce napraviti dupliće u bazi
-
-		// for (const social of state.socials) {
-		// 	db.collection('socials')
-		// 		.doc()
-		// 		.set({
-		// 			name: social.name,
-		// 		})
-		// 		.then(() => {
-		// 			console.log('Document successfully written!');
-		// 		})
-		// 		.catch((error) => {
-		// 			console.error('Error writing document: ', error);
-		// 		});
-		// }
 		return state.userId;
 	},
 	currentUser(state, getters) {
@@ -47,6 +32,9 @@ export const getters = {
 	getSocialById: (state, getters) => (socId) => {
 		return getters.socials.find((cat) => cat.id === socId);
 	},
+	getSearchResults(state) {
+		return state.searchResults;
+	},
 };
 
 export const mutations = {
@@ -55,6 +43,10 @@ export const mutations = {
 	},
 	loadSocialsData(state, socialsData) {
 		state.socials = socialsData;
+	},
+	searchAnything(state, results) {
+		console.log(results);
+		state.searchResults = results;
 	},
 };
 
@@ -82,5 +74,66 @@ export const actions = {
 
 			commit('loadSocialsData', socialsData);
 		} catch (error) {}
+	},
+	async searchAnything({ commit, getters, rootGetters }, term) {
+		const limit = 4;
+		term = term.toLowerCase();
+		console.log(term);
+		if (term.replace(/\s+/g, '') === '') {
+			commit('searchAnything', {});
+			return;
+		}
+		try {
+			const foundTodos = [];
+			const todosRef = await fb.usersCollection
+				.doc(rootGetters.currentUserId)
+				.collection('todos')
+				.get();
+			const filteredTodos = todosRef.docs.filter((p) =>
+				p.data().name.toLowerCase().includes(term)
+			);
+			for (const doc of filteredTodos) {
+				if (foundTodos.length === limit) {
+					break;
+				}
+				foundTodos.push(doc.data());
+			}
+
+			const foundUsers = [];
+			const userRef = await fb.usersCollection.get();
+			const filteredUsers = userRef.docs.filter(
+				(p) =>
+					p.data().fname.toLowerCase().includes(term) ||
+					p.data().lname.toLowerCase().includes(term) ||
+					p.id.toLowerCase().includes(term)
+			);
+			for (const doc of filteredUsers) {
+				if (foundUsers.length === limit) {
+					break;
+				}
+				foundUsers.push(doc.data());
+			}
+
+			const foundCategories = [];
+			const categoriesRef = await fb.categoriesCollection.get();
+			const filteredCategories = categoriesRef.docs.filter((p) =>
+				p.data().name.toLowerCase().includes(term)
+			);
+			for (const doc of filteredCategories) {
+				if (foundCategories.length === limit) {
+					break;
+				}
+				foundCategories.push(doc.data());
+			}
+
+			const results = {
+				users: foundUsers,
+				todos: foundTodos,
+				categories: foundCategories,
+			};
+			commit('searchAnything', results);
+		} catch (error) {
+			console.log(error);
+		}
 	},
 };
