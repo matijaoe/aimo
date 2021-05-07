@@ -63,7 +63,10 @@
 								:fill="review.important"
 							/>
 						</div>
-						<div v-tooltip.left="`@${partner.username}`">
+						<div
+							v-tooltip.left="`@${partner.username}`"
+							@click.stop=""
+						>
 							<nuxt-link :to="`/user/${partner.username}`">
 								<BaseAvatar size="sm" :src="partner.photo" />
 							</nuxt-link>

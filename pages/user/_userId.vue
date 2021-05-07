@@ -46,6 +46,15 @@ export default {
 		ProfileNotifications,
 		ProfileCategories,
 	},
+	async asyncData({ params, store, redirect }) {
+		const userId = await params.userId;
+		const user = await store.dispatch('users/loadUserById', userId);
+		if (user.error) {
+			// todo - redirect to 404
+			redirect('/home');
+		}
+		return { user };
+	},
 	data() {
 		return {
 			userId: this.$route.params.userId,
@@ -54,10 +63,10 @@ export default {
 	computed: {
 		...mapGetters('users', ['users', 'getUserById', 'getUserCategories']),
 		...mapGetters('partners', ['partnerships']),
-		user() {
+		/* user() {
 			const user = this.getUserById(this.userId);
 			return user;
-		},
+		}, */
 		isLoggedInUser() {
 			const currentLoggedInUser = this.$store.getters.currentUserId;
 			return currentLoggedInUser === this.userId;

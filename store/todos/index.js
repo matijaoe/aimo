@@ -234,4 +234,15 @@ export const actions = {
 			console.error(error);
 		}
 	},
+	async updateUserTodo(context, todo) {
+		try {
+			await fb.usersCollection
+				.doc(todo.owner)
+				.collection('todos')
+				.doc(todo.id)
+				.update({ approved: true, review: todo.review });
+		} catch (error) {
+			console.log(error);
+		}
+	},
 };

@@ -53,6 +53,17 @@ export const mutations = {
 };
 
 export const actions = {
+	async updateUserCoins(context, updateInfo) {
+		try {
+			const doc = await fb.usersCollection.doc(updateInfo.username).get();
+			const { coins } = doc.data();
+			await fb.usersCollection
+				.doc(updateInfo.username)
+				.update({ coins: coins + updateInfo.amount });
+		} catch (error) {
+			console.log(error);
+		}
+	},
 	async loadUserData({ commit }) {
 		try {
 			const users = await fb.usersCollection.get();
@@ -66,6 +77,24 @@ export const actions = {
 		} catch (error) {
 			console.error(error);
 		}
+	},
+	async loadUserById(context, username) {
+		let user = {};
+		try {
+			const doc = await fb.usersCollection.doc(username).get();
+			if (doc.exists) {
+				user = {
+					...doc.data(),
+					username,
+				};
+			} else {
+				return { error: true };
+			}
+		} catch (error) {
+			// eslint-disable-next-line no-console
+			console.log(error);
+		}
+		return user;
 	},
 	// async addUsers() {
 	// 	for (const user of state.users) {

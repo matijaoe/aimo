@@ -51,10 +51,16 @@
 					>
 						<h3>Write your review:</h3>
 						<textarea
+							v-model="reviewText"
 							class="mt-1 flex px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md focus:outline-none"
 						></textarea>
+						<p v-if="reviewTextError" class="text-red-600">
+							Please enter a valid input.
+						</p>
 					</div>
-					<BaseButton mode="cta"> Send Review </BaseButton>
+					<BaseButton mode="cta" @click="sendTodoReview">
+						Send Review
+					</BaseButton>
 				</div>
 				<div v-else class="mt-1 flex justify-center px-6 pt-5 pb-6">
 					<h3 class="text-lg">
@@ -73,7 +79,7 @@
 <script>
 import IconClock from 'icons/IconClock';
 
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import dayjs from 'dayjs';
 import TodoAttributes from 'todos/TodoAttributes';
 import BaseButton from '../UI/BaseButton';
@@ -91,6 +97,12 @@ export default {
 			required: true,
 		},
 	},
+	data() {
+		return {
+			reviewText: '',
+			reviewTextError: false,
+		};
+	},
 	computed: {
 		...mapGetters('users', ['getUserById']),
 		...mapGetters('reviews', ['getReviewByTodoId']),
@@ -105,6 +117,37 @@ export default {
 			const date = dt.format(`MMMM DD`);
 			const time = dt.format(`HH:mm`);
 			return `${date} at ${time}`;
+		},
+	},
+	watch: {
+		reviewText() {
+			if (this.reviewTextError) {
+				if (!this.validateReview()) {
+					this.reviewTextError = false;
+				}
+			}
+		},
+	},
+	methods: {
+		...mapActions('reviews', ['sendReview']),
+		sendTodoReview() {
+			if (this.validateReview()) {
+				this.reviewTextError = true;
+				return;
+			}
+			// slanje podataka
+			const review = {
+				...this.review,
+				review: this.reviewText,
+			};
+			this.sendReview(review);
+			this.closeReview();
+		},
+		validateReview() {
+			if (this.reviewText.trim() === '') {
+				return true;
+			}
+			return false;
 		},
 	},
 };

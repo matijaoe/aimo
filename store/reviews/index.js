@@ -31,9 +31,33 @@ export const mutations = {
 		state.reviews = payload.userReviews;
 		state.reviewTodos = payload.reviewTodos;
 	},
+	updateReview(state, review) {
+		const todoId = review.id;
+		const indexReview = state.reviews.findIndex(
+			(rev) => rev.todoId === todoId
+		);
+		const indexReviewTodo = state.reviewTodos.findIndex(
+			(rev) => rev.id === todoId
+		);
+		state.reviews[indexReview].reviewed = true;
+		state.reviewTodos[indexReviewTodo].approved = true;
+		state.reviewTodos[indexReviewTodo].review = review.review;
+	},
 };
 
 export const actions = {
+	sendReview({ commit, dispatch }, review) {
+		dispatch(
+			'users/updateUserCoins',
+			{
+				username: review.owner,
+				amount: 10,
+			},
+			{ root: true }
+		);
+		dispatch('todos/updateUserTodo', review, { root: true });
+		commit('updateReview', review);
+	},
 	async loadUserReviews({ commit, getters, rootGetters }) {
 		try {
 			const reviews = await fb.usersCollection

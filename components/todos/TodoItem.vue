@@ -68,6 +68,7 @@
 						<div
 							v-if="partner"
 							v-tooltip.left="`@${partner.username}`"
+							@click.stop=""
 						>
 							<nuxt-link :to="`/user/${partner.username}`">
 								<BaseAvatar size="sm" :src="partner.photo" />
