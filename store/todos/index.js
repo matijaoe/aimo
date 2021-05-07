@@ -1,5 +1,4 @@
 // Ovo nije prava struktura od todosa nego samo za mockup
-import { nanoid } from 'nanoid';
 import Vue from 'vue';
 import * as fb from '@/firebase';
 
@@ -76,7 +75,6 @@ export const mutations = {
 	addNewTodo(state, payload) {
 		const newTodo = {
 			...payload,
-			id: nanoid(),
 		};
 		state.todos.matijao.unshift(newTodo);
 	},
@@ -115,26 +113,28 @@ export const mutations = {
 export const actions = {
 	async addTodo({ commit, getters, rootGetters }, payload) {
 		try {
-			// todo - popraviti unos u bazu
-			await fb.usersCollection
+			const newTodo = fb.usersCollection
 				.doc(rootGetters.currentUserId)
 				.collection('todos')
-				.doc(payload.id)
-				.set({
-					approved: payload.approved,
-					categories: payload.categories,
-					daily: payload.daily,
-					desc: payload.desc,
-					done: payload.done,
-					id: payload.id, // ovo je samo privremeno rješenje da ne izbacuje gresku za id (koji je nepotreban u ovom slucaju)
-					important: payload.important,
-					name: payload.name,
-					partner: payload.partner,
-					timestamp: payload.timestamp,
-				});
+				.doc();
+
+			await newTodo.set({
+				approved: payload.approved,
+				categories: payload.categories,
+				daily: payload.daily,
+				desc: payload.desc,
+				done: payload.done,
+				important: payload.important,
+				name: payload.name,
+				partner: payload.partner,
+				timestamp: payload.timestamp,
+				id: newTodo.id,
+			});
+			payload.id = newTodo.id;
 		} catch (error) {
 			console.log(error);
 		}
+
 		commit('addNewTodo', payload);
 	},
 	async updateTodo({ commit, getters, rootGetters }, payload) {
