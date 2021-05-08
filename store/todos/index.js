@@ -153,7 +153,6 @@ export const actions = {
 					daily: payload.daily,
 					desc: payload.desc,
 					done: payload.done,
-					id: payload.id, // ovo je samo privremeno rješenje da ne izbacuje gresku za id (koji je nepotreban u ovom slucaju)
 					important: payload.important,
 					name: payload.name,
 					partner: payload.partner,
