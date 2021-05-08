@@ -31,6 +31,7 @@
 
 <script>
 import IconPhoto from 'icons/IconPhoto';
+
 export default {
 	components: { IconPhoto },
 	props: {

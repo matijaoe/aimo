@@ -1,10 +1,10 @@
 <template>
 	<BaseContainer fieldset label="info">
 		<h3>Created: {{ createdDate }}</h3>
-		<VerityIndicator label="Important:" :is-shown="todo.important" />
-		<VerityIndicator label="Daily:" :is-shown="todo.daily" />
-		<VerityIndicator label="Completed:" :is-shown="todo.done" />
-		<VerityIndicator
+		<VerifyIndicator label="Important:" :is-shown="todo.important" />
+		<VerifyIndicator label="Daily:" :is-shown="todo.daily" />
+		<VerifyIndicator label="Completed:" :is-shown="todo.done" />
+		<VerifyIndicator
 			v-if="hasPartner"
 			label="Approved:"
 			:is-shown="todo.approved"
@@ -16,10 +16,10 @@
 <script>
 import BaseContainer from 'UI/BaseContainer';
 import dayjs from 'dayjs';
-import VerityIndicator from './VerityIndicator';
+import VerifyIndicator from './VerifyIndicator';
 import TagLabels from './TagLabels';
 export default {
-	components: { BaseContainer, VerityIndicator, TagLabels },
+	components: { BaseContainer, VerifyIndicator, TagLabels },
 	props: {
 		todo: {
 			type: Object,

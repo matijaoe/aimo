@@ -171,41 +171,7 @@
 
 				<!-- todo - put on bottom -->
 				<div v-else class="space-y-4">
-					<div v-if="isCompleted">
-						<label class="uppercase ml-1 tracking-wider text-xs">
-							Photo
-						</label>
-						<div
-							class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
-						>
-							<div class="space-y-1 text-center">
-								<div class="flex items-center justify-center">
-									<IconPhoto
-										size="xl"
-										class="text-gray-300"
-									/>
-								</div>
-								<div class="flex text-sm text-gray-600">
-									<label
-										for="file-upload"
-										class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-									>
-										<span>Upload a file</span>
-										<input
-											id="file-upload"
-											name="file-upload"
-											type="file"
-											class="sr-only"
-										/>
-									</label>
-									<p class="pl-1">or drag and drop</p>
-								</div>
-								<p class="text-xs text-gray-500">
-									PNG, JPG, GIF up to 10MB
-								</p>
-							</div>
-						</div>
-					</div>
+					<UploadBox :is-completed="isCompleted" />
 
 					<div v-if="todoId">
 						<button
@@ -237,31 +203,26 @@
 </template>
 
 <script>
-import IconPhoto from 'icons/IconPhoto';
 import IconPlus from 'icons/IconPlus';
 import IconEdit from 'icons/IconEdit';
 import IconTrash from 'icons/IconTrash';
 import IconLink from 'icons/IconLink';
-import IconStar from 'icons/IconStar';
-import IconShieldCheck from 'icons/IconShieldCheck';
-import IconCheckCircle from 'icons/IconCheckCircle';
-import IconGlobeAlt from 'icons/IconGlobeAlt';
 import IconClock from 'icons/IconClock';
 import IconCheck from 'icons/IconCheck';
 import IconSparkles from 'icons/IconSparkles';
-import IconUserCircle from 'icons/IconUserCircle';
 import BaseAvatar from 'UI/BaseAvatar';
 import BaseButton from 'UI/BaseButton';
+import TodoAttributes from 'todos/TodoAttributes';
+import UploadBox from '@/components/todo/UploadBox';
 
 import { mapGetters, mapActions } from 'vuex';
 import dayjs from 'dayjs';
-import TodoAttributes from './TodoAttributes';
 
 export default {
 	components: {
+		UploadBox,
 		TodoAttributes,
 		BaseButton,
-		IconPhoto,
 		IconPlus,
 		IconEdit,
 		IconTrash,
@@ -333,7 +294,8 @@ export default {
 	},
 	watch: {
 		isCompleted(newValue) {
-			this.$store.dispatch('todos/updateIsDoneStatus', {
+			this.updateTodo({
+				...this.todo,
 				id: this.todoId,
 				done: newValue,
 			});

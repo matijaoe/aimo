@@ -36,6 +36,9 @@ import BaseButton from 'UI/BaseButton';
 import IconStar from 'icons/IconStar';
 import IconGlobeAlt from 'icons/IconGlobeAlt';
 import IconCheck from 'icons/IconCheck';
+
+import { mapActions } from 'vuex';
+
 export default {
 	components: { BaseButton, IconStar, IconGlobeAlt, IconCheck },
 	props: {
@@ -68,9 +71,11 @@ export default {
 		},
 	},
 	methods: {
+		...mapActions('todos', ['updateTodo']),
 		toggleImportant() {
 			if (!this.todo.approved) {
-				this.$store.dispatch('todos/updateImportantStatus', {
+				this.updateTodo({
+					...this.todo,
 					id: this.todo.id,
 					important: !this.todo.important,
 				});
@@ -78,7 +83,8 @@ export default {
 		},
 		toggleDaily() {
 			if (!this.todo.approved) {
-				this.$store.dispatch('todos/updateDailyStatus', {
+				this.updateTodo({
+					...this.todo,
 					id: this.todo.id,
 					daily: !this.todo.daily,
 				});
@@ -86,7 +92,8 @@ export default {
 		},
 		toggleCompleted() {
 			if (!this.todo.approved) {
-				this.$store.dispatch('todos/updateIsDoneStatus', {
+				this.updateTodo({
+					...this.todo,
 					id: this.todo.id,
 					done: !this.todo.done,
 				});

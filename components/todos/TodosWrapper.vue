@@ -78,7 +78,6 @@ export default {
 		},
 	},
 	mounted() {
-		// this.todos = this.allTodos;
 		const isNew = this.$route.query.new;
 		if (isNew) {
 			this.modalShown = true;
@@ -100,21 +99,9 @@ export default {
 		},
 		sortTodos(arg) {
 			this.sortArg = arg;
-			/* if (arg === 'asc' || arg === 'desc') {
-				this.todos = _orderBy(
-					this.allTodos,
-					[(todo) => todo.name.toLowerCase()],
-					[arg]
-				);
-			} else {
-				this.todos = this.allTodos;
-			} */
 		},
 		searchTodos(term) {
 			this.term = term;
-			// this.todos = this.allTodos.filter((todo) => {
-			// return todo.name.toLowerCase().includes(term.toLowerCase());
-			// });
 		},
 	},
 };

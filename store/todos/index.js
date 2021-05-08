@@ -10,6 +10,11 @@ export const getters = {
 	currentUserTodos(state) {
 		return state.currentUserTodos;
 	},
+	currentUserTodoCollection(state, getters, rootState, rootGetters) {
+		return fb.usersCollection
+			.doc(rootGetters.currentUserId)
+			.collection('todos');
+	},
 	getCurrentUserTodoById: (state, getters) => (id) => {
 		return getters.currentUserTodos.find((todo) => todo.id === id);
 	},
@@ -26,7 +31,7 @@ export const getters = {
 		}
 		return activePartners;
 	},
-	activePartnersUsername(state, getters, rootState, rootGetters) {
+	activePartnersUsername(state, getters) {
 		return getters.currentUserTodos
 			.filter((todo) => todo.partner)
 			.map((todo) => todo.partner)
@@ -54,77 +59,37 @@ export const getters = {
 			todo.categories.includes(tagId)
 		);
 	},
-	// getTodosByStatus: (state, getters) => (status) => {
-	// 	return getters.currentUserTodos.filter((todo) => todo.status === status);
-	// },
-	// getTodoInteractions: (state, getters) => (id) => {
-	// 	return getters.getTodoById(id).interactions;
-	// },
 };
 
 export const mutations = {
 	loadUserTodos(state, userTodos) {
 		state.currentUserTodos = userTodos;
 	},
-	addNewTodo(state, payload) {
-		const newTodo = {
-			...payload,
-		};
+	addNewTodo(state, todo) {
+		const newTodo = { ...todo };
 		state.currentUserTodos.unshift(newTodo);
 	},
-	updateTodo(state, payload) {
-		const index = state.currentUserTodos.findIndex(
-			(todo) => todo.id === payload.id
-		);
-		Vue.set(state.currentUserTodos, index, payload);
+	updateTodo(state, todo) {
+		const index = state.currentUserTodos.findIndex((t) => t.id === todo.id);
+		Vue.set(state.currentUserTodos, index, todo);
 	},
-	updateIsDoneStatus(state, payload) {
-		const index = state.currentUserTodos.findIndex(
-			(todo) => todo.id === payload.id
-		);
-		state.currentUserTodos[index].done = payload.done;
-	},
-	deleteTodo(state, payload) {
-		const index = state.currentUserTodos.findIndex(
-			(todo) => todo.id === payload.id
-		);
+	deleteTodo(state, todo) {
+		const index = state.currentUserTodos.findIndex((t) => t.id === todo.id);
 		state.currentUserTodos.splice(index, 1);
-	},
-	updateImportantStatus(state, payload) {
-		const index = state.currentUserTodos.findIndex(
-			(todo) => todo.id === payload.id
-		);
-		state.currentUserTodos[index].important = payload.important;
-	},
-	updateDailyStatus(state, todoStatus) {
-		const index = state.currentUserTodos.findIndex(
-			(todo) => todo.id === todoStatus.id
-		);
-		state.currentUserTodos[index].daily = todoStatus.daily;
 	},
 };
 
 export const actions = {
-	async addTodo({ commit, getters, rootGetters }, todoInfo) {
+	async addTodo({ commit, rootGetters }, todo) {
 		try {
 			const newTodo = await fb.usersCollection
 				.doc(rootGetters.currentUserId)
 				.collection('todos')
-				.add({
-					approved: todoInfo.approved,
-					categories: todoInfo.categories,
-					daily: todoInfo.daily,
-					desc: todoInfo.desc,
-					done: todoInfo.done,
-					important: todoInfo.important,
-					name: todoInfo.name,
-					partner: todoInfo.partner,
-					timestamp: todoInfo.timestamp,
-				});
+				.add(todo);
 
-			if (todoInfo.partner) {
+			if (todo.partner) {
 				await fb.usersCollection
-					.doc(todoInfo.partner)
+					.doc(todo.partner)
 					.collection('reviews')
 					.add({
 						partner: rootGetters.currentUserId,
@@ -132,108 +97,41 @@ export const actions = {
 						reviewed: false,
 					});
 			}
-
-			todoInfo.id = newTodo.id;
+			todo.id = newTodo.id;
 		} catch (error) {
 			console.log(error);
 		}
 
-		commit('addNewTodo', todoInfo);
+		commit('addNewTodo', todo);
 	},
-	async updateTodo({ commit, getters, rootGetters }, payload) {
-		commit('updateTodo', payload);
+	async updateTodo({ commit, getters }, todo) {
+		commit('updateTodo', todo);
 		try {
-			await fb.usersCollection
-				.doc(rootGetters.currentUserId)
-				.collection('todos')
-				.doc(payload.id)
-				.set({
-					approved: payload.approved,
-					categories: payload.categories,
-					daily: payload.daily,
-					desc: payload.desc,
-					done: payload.done,
-					important: payload.important,
-					name: payload.name,
-					partner: payload.partner,
-					timestamp: payload.timestamp,
-				});
+			await getters.currentUserTodoCollection.doc(todo.id).update(todo);
 		} catch (error) {
 			console.log(error);
 		}
 	},
-	async updateIsDoneStatus({ commit, getters, rootGetters }, payload) {
-		commit('updateIsDoneStatus', payload);
+	async deleteTodo({ commit, getters }, todo) {
 		try {
-			await fb.usersCollection
-				.doc(rootGetters.currentUserId)
-				.collection('todos')
-				.doc(payload.id)
-				.update({
-					done: payload.done,
-				});
+			await getters.currentUserTodoCollection.doc(todo.id).delete();
 		} catch (error) {
 			console.log(error);
 		}
+		commit('deleteTodo', todo);
 	},
-	async updateImportantStatus({ commit, getters, rootGetters }, payload) {
-		commit('updateImportantStatus', payload);
+	async loadUserTodos({ commit, getters }) {
 		try {
-			await fb.usersCollection
-				.doc(rootGetters.currentUserId)
-				.collection('todos')
-				.doc(payload.id)
-				.update({
-					important: payload.important,
-				});
-		} catch (error) {
-			console.log(error);
-		}
-	},
-	async deleteTodo({ commit, getters, rootGetters }, payload) {
-		try {
-			await fb.usersCollection
-				.doc(rootGetters.currentUserId)
-				.collection('todos')
-				.doc(payload.id)
-				.delete();
-		} catch (error) {
-			console.log(error);
-		}
-		commit('deleteTodo', payload);
-	},
-	async updateDailyStatus({ commit, getters, rootGetters }, todoStatus) {
-		commit('updateDailyStatus', todoStatus);
-		try {
-			await fb.usersCollection
-				.doc(rootGetters.currentUserId)
-				.collection('todos')
-				.doc(todoStatus.id)
-				.update({
-					daily: todoStatus.daily,
-				});
-		} catch (error) {
-			console.log(error);
-		}
-	},
-	async loadUserTodos({ commit, getters, rootGetters }) {
-		try {
-			const todos = await fb.usersCollection
-				.doc(rootGetters.currentUserId)
-				.collection('todos')
+			const todos = await getters.currentUserTodoCollection
 				.orderBy('timestamp', 'desc')
 				.get();
+
 			const userTodos = [];
 			for (const doc of todos.docs) {
-				userTodos.push({
-					...doc.data(),
-					// todo - trenutno id vec postoji, to cemo mijenjati
-					id: doc.id,
-				});
+				userTodos.push({ ...doc.data(), id: doc.id });
 			}
 			commit('loadUserTodos', userTodos);
 		} catch (error) {
-			// eslint-disable-next-line no-console
 			console.error(error);
 		}
 	},

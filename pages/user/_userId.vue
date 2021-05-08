@@ -65,15 +65,10 @@ export default {
 		};
 	},
 	computed: {
+		...mapGetters(['currentUserId']),
 		...mapGetters('users', ['users', 'getUserById']),
-		...mapGetters('partners', ['partnerships']),
-		/* user() {
-			const user = this.getUserById(this.userId);
-			return user;
-		}, */
 		isLoggedInUser() {
-			const currentLoggedInUser = this.$store.getters.currentUserId;
-			return currentLoggedInUser === this.userId;
+			return this.currentUserId === this.userId;
 		},
 	},
 };

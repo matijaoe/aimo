@@ -11,6 +11,7 @@
 				:important="todo.important"
 				:approved="todo.approved"
 				:daily="todo.daily"
+				:todo="todo"
 				@edit="$emit('edit', $event)"
 			>
 				{{ todo.name }}
@@ -53,11 +54,7 @@ export default {
 	},
 	emits: ['edit'],
 	computed: {
-		...mapGetters('todos', [
-			'currentUserTodos',
-			'todosByPartner',
-			'todosByTag',
-		]),
+		...mapGetters(['getCategoryIdByName']),
 		filteredTodos() {
 			if (this.filterCategory === 'default') {
 				return this.defaultCatTodos;
@@ -66,7 +63,7 @@ export default {
 				return this.todos.filter((todo) => todo.partner === partnerId);
 			} else if (this.filterCategory === 'tags') {
 				const tagName = this.filter;
-				const catId = this.$store.getters.getCategoryIdByName(tagName);
+				const catId = this.getCategoryIdByName(tagName);
 				return this.todos.filter((todo) =>
 					todo.categories.includes(catId)
 				);

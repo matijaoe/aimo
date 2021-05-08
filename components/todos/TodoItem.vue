@@ -1,7 +1,6 @@
 <template>
 	<li
-		class="flex items-center gap-4 px-4 py-3 border-t-2 cursor-pointer transform hover:-translate-y-1 transition select-none"
-		:class="itemBg"
+		class="flex items-center gap-4 px-4 py-3 border-t-2 cursor-pointer transform hover:-translate-y-1 transition select-none bg-white border-gray-100"
 		@click="toggleDone"
 	>
 		<div class="w-full">
@@ -11,7 +10,7 @@
 				<div
 					class="w-4 h-4 border-[3px] rounded-full flex-shrink-0"
 					:class="dotColor"
-				></div>
+				/>
 				<div
 					class="flex items-center justify-between gap-2 flex-1"
 					@click.stop="emitTodoEdit"
@@ -20,10 +19,9 @@
 						<RoughNotation
 							:is-show="completed"
 							type="strike-through"
-							:color="stateColor"
 						>
 							<div :class="markDone">
-								<slot></slot>
+								<slot />
 							</div>
 						</RoughNotation>
 					</div>
@@ -34,7 +32,7 @@
 						color="#FDE68A"
 					>
 						<div v-if="!completed">
-							<slot></slot>
+							<slot />
 						</div>
 					</RoughNotation>
 					<div class="flex items-center gap-2">
@@ -84,6 +82,7 @@
 					</div>
 				</div>
 			</div>
+
 			<!-- tags -->
 			<div v-if="tags.length > 0" class="ml-8 space-x-2">
 				<BaseTag
@@ -107,7 +106,7 @@ import IconGlobeAlt from 'icons/IconGlobeAlt.vue';
 import IconShieldCheck from 'icons/IconShieldCheck.vue';
 import IconUserCircle from 'icons/IconUserCircle.vue';
 
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
 	components: {
@@ -119,15 +118,22 @@ export default {
 		IconUserCircle,
 	},
 	props: {
+		// todo currently not really used
+		todo: {
+			type: Object,
+			required: false,
+			default: () => {},
+		},
 		id: {
 			type: String,
 			required: true,
 		},
 		categories: {
 			type: Array,
-			required: false,
+			required: true,
 			default: () => [],
 		},
+
 		partnerId: {
 			type: String,
 			required: false,
@@ -150,7 +156,7 @@ export default {
 		},
 		daily: {
 			type: Boolean,
-			required: false,
+			required: true,
 			default: false,
 		},
 	},
@@ -174,10 +180,6 @@ export default {
 		tags() {
 			return this.categories.map((id) => this.getCategoryById(id));
 		},
-		stateColor() {
-			// return this.isApproved ? ['#10B981'] : ['currentColor'];
-			return 'currentColor';
-		},
 		dotColor() {
 			if (this.isApproved) {
 				return ['bg-emerald-400', 'border-emerald-400'];
@@ -187,28 +189,21 @@ export default {
 				return ['border-gray-200'];
 			}
 		},
-		itemBg() {
-			// return this.isApproved
-			// 	? ['bg-emerald-50', 'border-emerald-100', 'text-emerald-600']
-			// 	: ['bg-white', 'border-gray-100'];
-			return ['bg-white', 'border-gray-100'];
-		},
 		starStyle() {
 			if (this.important) {
 				return ['text-amber-300'];
-				// } else if (this.isApproved) {
-				// 	return ['text-emerald-200', 'group-hover:text-amber-300'];
 			} else {
 				return ['text-gray-200', 'group-hover:text-amber-300'];
 			}
 		},
 	},
 	methods: {
+		...mapActions('todos', ['updateTodo']),
 		toggleDone() {
-			// ne mozes odselectati ako je approved
 			if (!this.isApproved) {
 				this.isDone = !this.isDone;
-				this.$store.dispatch('todos/updateIsDoneStatus', {
+				this.updateTodo({
+					...this.todo,
 					id: this.id,
 					done: this.isDone,
 				});
@@ -216,7 +211,8 @@ export default {
 		},
 		toggleImportant() {
 			this.isImportant = !this.isImportant;
-			this.$store.dispatch('todos/updateImportantStatus', {
+			this.updateTodo({
+				...this.todo,
 				id: this.id,
 				important: this.isImportant,
 			});
