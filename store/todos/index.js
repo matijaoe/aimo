@@ -3,36 +3,30 @@ import Vue from 'vue';
 import * as fb from '@/firebase';
 
 export const state = () => ({
-	todos: {
-		matijao: [],
-	},
+	currentUserTodos: [],
 });
 
 export const getters = {
-	currentUserTodos(state, getters, rootState, rootGetters) {
-		return getters.getTodosByUser(rootGetters.currentUserId);
-	},
-	getTodosByUser: (state, getters) => (username) => {
-		return state.todos[username];
+	currentUserTodos(state) {
+		return state.currentUserTodos;
 	},
 	getCurrentUserTodoById: (state, getters) => (id) => {
 		return getters.currentUserTodos.find((todo) => todo.id === id);
 	},
 	getCurrentUserTodoPartners(state, getters, rootState, rootGetters) {
-		const partnerUsernames = state.todos.matijao
+		const partnerUsernames = getters.currentUserTodos
 			.map((todo) => todo.partner)
 			.filter(
 				(username, index, self) =>
 					username !== '' && self.indexOf(username) === index
 			);
-		return rootGetters['partners/getPartnersById'](
-			rootGetters.currentUserId
-		).filter((partner) => partnerUsernames.includes(partner.username));
+		const activePartners = [];
+		for (const partUsername of partnerUsernames) {
+			activePartners.push(rootGetters['users/getUserById'](partUsername));
+		}
+		return activePartners;
 	},
-	getUserTodoById: (state, getters) => (username, id) => {
-		return getters.getTodosByUser(username).find((todo) => todo.id === id);
-	},
-	activePartnersUsername(state, getters) {
+	activePartnersUsername(state, getters, rootState, rootGetters) {
 		return getters.currentUserTodos
 			.filter((todo) => todo.partner)
 			.map((todo) => todo.partner)
@@ -70,43 +64,43 @@ export const getters = {
 
 export const mutations = {
 	loadUserTodos(state, userTodos) {
-		state.todos.matijao = userTodos;
+		state.currentUserTodos = userTodos;
 	},
 	addNewTodo(state, payload) {
 		const newTodo = {
 			...payload,
 		};
-		state.todos.matijao.unshift(newTodo);
+		state.currentUserTodos.unshift(newTodo);
 	},
 	updateTodo(state, payload) {
-		const index = state.todos.matijao.findIndex(
+		const index = state.currentUserTodos.findIndex(
 			(todo) => todo.id === payload.id
 		);
-		Vue.set(state.todos.matijao, index, payload);
+		Vue.set(state.currentUserTodos, index, payload);
 	},
 	updateIsDoneStatus(state, payload) {
-		const index = state.todos.matijao.findIndex(
+		const index = state.currentUserTodos.findIndex(
 			(todo) => todo.id === payload.id
 		);
-		state.todos.matijao[index].done = payload.done;
+		state.currentUserTodos[index].done = payload.done;
 	},
 	deleteTodo(state, payload) {
-		const index = state.todos.matijao.findIndex(
+		const index = state.currentUserTodos.findIndex(
 			(todo) => todo.id === payload.id
 		);
-		state.todos.matijao.splice(index, 1);
+		state.currentUserTodos.splice(index, 1);
 	},
 	updateImportantStatus(state, payload) {
-		const index = state.todos.matijao.findIndex(
+		const index = state.currentUserTodos.findIndex(
 			(todo) => todo.id === payload.id
 		);
-		state.todos.matijao[index].important = payload.important;
+		state.currentUserTodos[index].important = payload.important;
 	},
 	updateDailyStatus(state, todoStatus) {
-		const index = state.todos.matijao.findIndex(
+		const index = state.currentUserTodos.findIndex(
 			(todo) => todo.id === todoStatus.id
 		);
-		state.todos.matijao[index].daily = todoStatus.daily;
+		state.currentUserTodos[index].daily = todoStatus.daily;
 	},
 };
 
@@ -225,7 +219,8 @@ export const actions = {
 			for (const doc of todos.docs) {
 				userTodos.push({
 					...doc.data(),
-					username: doc.id,
+					// todo - trenutno id vec postoji, to cemo mijenjati
+					id: doc.id,
 				});
 			}
 			commit('loadUserTodos', userTodos);
@@ -244,5 +239,25 @@ export const actions = {
 		} catch (error) {
 			console.log(error);
 		}
+	},
+	async getUserTodosByUsername(context, username) {
+		try {
+			const resp = await fb.usersCollection
+				.doc(username)
+				.collection('todos')
+				.orderBy('timestamp', 'desc')
+				.get();
+			const todos = [];
+			for (const doc of resp.docs) {
+				todos.push({
+					...doc.data(),
+					id: doc.id,
+				});
+			}
+			return todos;
+		} catch (error) {
+			console.log(error);
+		}
+		return [];
 	},
 };

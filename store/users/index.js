@@ -123,4 +123,26 @@ export const actions = {
 	// 			});
 	// 	}
 	// },
+	async getUserCategories({ dispatch, rootGetters }, info) {
+		const todos =
+			(await dispatch('todos/getUserTodosByUsername', info.username, {
+				root: true,
+			})) || [];
+
+		// array of all todo category ids
+		const categoryIds = todos.map((todo) => todo.categories).flat();
+
+		// object of category ids frequencies
+		const categoryFreq = freq(categoryIds);
+
+		// array of category ids ordered by frequency
+		const categoriesSorted = Object.entries(categoryFreq)
+			.sort((a, b) => b[1] - a[1])
+			.map((arr) => arr[0])
+			.slice(0, info.amount || -1);
+
+		return categoriesSorted.map((catId) => {
+			return rootGetters.getCategoryById(catId);
+		});
+	},
 };

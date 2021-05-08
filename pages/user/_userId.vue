@@ -12,7 +12,7 @@
 			<ProfileSocials :socials="user.socials" />
 			<ProfilePartners :user="user" :user-id="userId" />
 			<ProfileBio :user="user" />
-			<ProfileCategories :categories="getUserCategories(userId, 8)" />
+			<ProfileCategories :categories="getUserCategories" />
 		</div>
 
 		<!-- Column 3 -->
@@ -49,11 +49,15 @@ export default {
 	async asyncData({ params, store, redirect }) {
 		const userId = await params.userId;
 		const user = await store.dispatch('users/loadUserById', userId);
+		const getUserCategories = await store.dispatch(
+			'users/getUserCategories',
+			{ username: userId, amount: 8 }
+		);
 		if (user.error) {
 			// todo - redirect to 404
 			redirect('/home');
 		}
-		return { user };
+		return { user, getUserCategories };
 	},
 	data() {
 		return {
@@ -61,7 +65,7 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters('users', ['users', 'getUserById', 'getUserCategories']),
+		...mapGetters('users', ['users', 'getUserById']),
 		...mapGetters('partners', ['partnerships']),
 		/* user() {
 			const user = this.getUserById(this.userId);
