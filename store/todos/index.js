@@ -105,31 +105,40 @@ export const mutations = {
 };
 
 export const actions = {
-	async addTodo({ commit, getters, rootGetters }, payload) {
+	async addTodo({ commit, getters, rootGetters }, todoInfo) {
 		try {
-			const newTodo = fb.usersCollection
+			const newTodo = await fb.usersCollection
 				.doc(rootGetters.currentUserId)
 				.collection('todos')
-				.doc();
+				.add({
+					approved: todoInfo.approved,
+					categories: todoInfo.categories,
+					daily: todoInfo.daily,
+					desc: todoInfo.desc,
+					done: todoInfo.done,
+					important: todoInfo.important,
+					name: todoInfo.name,
+					partner: todoInfo.partner,
+					timestamp: todoInfo.timestamp,
+				});
 
-			await newTodo.set({
-				approved: payload.approved,
-				categories: payload.categories,
-				daily: payload.daily,
-				desc: payload.desc,
-				done: payload.done,
-				important: payload.important,
-				name: payload.name,
-				partner: payload.partner,
-				timestamp: payload.timestamp,
-				id: newTodo.id,
-			});
-			payload.id = newTodo.id;
+			if (todoInfo.partner) {
+				await fb.usersCollection
+					.doc(todoInfo.partner)
+					.collection('reviews')
+					.add({
+						partner: rootGetters.currentUserId,
+						todoId: newTodo.id,
+						reviewed: false,
+					});
+			}
+
+			todoInfo.id = newTodo.id;
 		} catch (error) {
 			console.log(error);
 		}
 
-		commit('addNewTodo', payload);
+		commit('addNewTodo', todoInfo);
 	},
 	async updateTodo({ commit, getters, rootGetters }, payload) {
 		try {
