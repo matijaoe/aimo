@@ -6,6 +6,7 @@
 				icon-after
 				label-placeholder="Email"
 				autocomplete="off"
+				@focus="handleError"
 			>
 				<template v-if="validEmail" #message-success>
 					Email Valid
@@ -25,6 +26,7 @@
 				:visible-password="hasVisiblePassword"
 				icon-after
 				@click-icon="hasVisiblePassword = !hasVisiblePassword"
+				@focus="handleError"
 			>
 				<template #icon>
 					<i v-if="!hasVisiblePassword" class="bx bx-show-alt"></i>
@@ -63,9 +65,9 @@
 				</div>
 			</transition>
 		</form>
-		<div v-if="error" class="mt-8">
-			<p class="font-semibold text-red-500">{{ error }}</p>
-		</div>
+		<!-- <div v-if="error" class="mt-8 max-w-[160px]">
+			<p class="font-semibold text-red-500 text-sm">{{ error }}</p>
+		</div> -->
 	</div>
 </template>
 
@@ -133,10 +135,9 @@ export default {
 	methods: {
 		submitForm() {
 			this.formIsValid = true;
-			console.log(this.validEmail, this.validPassword);
 			if (!this.validEmail || !this.validPassword) {
 				this.formIsValid = false;
-				this.error = 'Invalid details, please try again';
+				this.error = 'Please check your details';
 				this.openErrorModal();
 				return;
 			}
@@ -154,6 +155,7 @@ export default {
 			} catch (err) {
 				console.log(err);
 
+				// firebase auth errors
 				if (err.message === 'EMAIL_EXISTS') {
 					this.error = 'Email already in use.';
 				} else if (err.message === 'TOO_MANY_ATTEMPTS_TRY_LATER') {
@@ -182,6 +184,7 @@ export default {
 				return true;
 			}
 		},
+		// todo doesnt work with custom options
 		errorModal() {
 			this.$vs.notification({
 				title: '😕',
@@ -190,6 +193,9 @@ export default {
 		},
 		openErrorModal() {
 			this.errorModal('top-right', 'primary');
+		},
+		handleError() {
+			this.error = null;
 		},
 	},
 };
