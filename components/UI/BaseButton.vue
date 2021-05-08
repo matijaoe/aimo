@@ -1,7 +1,10 @@
 <template>
 	<nuxt-link v-if="link" :to="to">
 		<button
-			:class="[mode, { thin: thin, square: square }]"
+			:class="[
+				mode,
+				{ thin: thin, square: square, 'square--big': squareBig },
+			]"
 			class="focus:border-amber-300 focus:ring focus:ring-amber-200 focus:ring-opacity-50 relative border-none cursor-pointer pointer-events-auto focus:outline-none focus:border-none uppercase text-xs font-bold rounded-lg overflow-hidden tracking-[0.05rem] transition text-gray-700"
 			@click="$emit('click', $event)"
 		>
@@ -13,7 +16,10 @@
 
 	<button
 		v-else
-		:class="[mode, { thin: thin, square: square }]"
+		:class="[
+			mode,
+			{ thin: thin, square: square, 'square--big': squareBig },
+		]"
 		class="focus:border-amber-300 focus:ring focus:ring-amber-200 focus:ring-opacity-50 relative border-none cursor-pointer pointer-events-auto focus:outline-none focus:border-none uppercase text-xs font-bold rounded-lg overflow-hidden tracking-[0.05rem] transition text-gray-700"
 		@click="$emit('click', $event)"
 	>
@@ -37,6 +43,11 @@ export default {
 			default: false,
 		},
 		square: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+		squareBig: {
 			type: Boolean,
 			required: false,
 			default: false,
@@ -67,6 +78,10 @@ button.thin {
 
 button.square {
 	@apply p-2;
+}
+
+button.square--big {
+	@apply p-3;
 }
 
 button::before,
@@ -106,6 +121,15 @@ button:hover::before {
 
 .info::before {
 	@apply bg-indigo-500;
+}
+
+.google {
+	background: #659af7;
+	color: white;
+}
+
+.google::before {
+	background: #4c8bf5;
 }
 
 .fill {
