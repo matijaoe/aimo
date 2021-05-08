@@ -141,6 +141,7 @@ export const actions = {
 		commit('addNewTodo', todoInfo);
 	},
 	async updateTodo({ commit, getters, rootGetters }, payload) {
+		commit('updateTodo', payload);
 		try {
 			await fb.usersCollection
 				.doc(rootGetters.currentUserId)
@@ -161,9 +162,9 @@ export const actions = {
 		} catch (error) {
 			console.log(error);
 		}
-		commit('updateTodo', payload);
 	},
 	async updateIsDoneStatus({ commit, getters, rootGetters }, payload) {
+		commit('updateIsDoneStatus', payload);
 		try {
 			await fb.usersCollection
 				.doc(rootGetters.currentUserId)
@@ -175,9 +176,9 @@ export const actions = {
 		} catch (error) {
 			console.log(error);
 		}
-		commit('updateIsDoneStatus', payload);
 	},
 	async updateImportantStatus({ commit, getters, rootGetters }, payload) {
+		commit('updateImportantStatus', payload);
 		try {
 			await fb.usersCollection
 				.doc(rootGetters.currentUserId)
@@ -189,7 +190,6 @@ export const actions = {
 		} catch (error) {
 			console.log(error);
 		}
-		commit('updateImportantStatus', payload);
 	},
 	async deleteTodo({ commit, getters, rootGetters }, payload) {
 		try {
@@ -204,6 +204,7 @@ export const actions = {
 		commit('deleteTodo', payload);
 	},
 	async updateDailyStatus({ commit, getters, rootGetters }, todoStatus) {
+		commit('updateDailyStatus', todoStatus);
 		try {
 			await fb.usersCollection
 				.doc(rootGetters.currentUserId)
@@ -215,7 +216,6 @@ export const actions = {
 		} catch (error) {
 			console.log(error);
 		}
-		commit('updateDailyStatus', todoStatus);
 	},
 	async loadUserTodos({ commit, getters, rootGetters }) {
 		try {

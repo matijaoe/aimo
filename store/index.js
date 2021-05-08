@@ -1,7 +1,7 @@
 import * as fb from '@/firebase';
 
 export const state = () => ({
-	userId: 'patrik_harmonika',
+	userId: 'matijao',
 	categories: [],
 	state: [],
 	searchResults: {},
