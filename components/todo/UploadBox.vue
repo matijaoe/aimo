@@ -1,10 +1,12 @@
 <template>
 	<div v-if="isCompleted">
-		<label class="uppercase ml-1 tracking-wider text-xs"> Photo </label>
-		<div
+		<fieldset
 			v-if="!photoUrl"
 			class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
 		>
+			<legend class="px-2 uppercase text-xs font-bold text-current">
+				Proof
+			</legend>
 			<div class="space-y-1 text-center">
 				<div class="flex items-center justify-center">
 					<IconPhoto size="xl" class="text-gray-300" />
@@ -27,7 +29,7 @@
 				</div>
 				<p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
 			</div>
-		</div>
+		</fieldset>
 		<div v-else>
 			<img :src="photoUrl" alt="Todo image" />
 			<vs-button danger border @click="removePicture">
