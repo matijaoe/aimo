@@ -115,6 +115,18 @@ export const actions = {
 	async deleteTodo({ commit, getters }, todo) {
 		try {
 			await getters.currentUserTodoCollection.doc(todo.id).delete();
+			if (todo.partner) {
+				const querySnapshot = await fb.usersCollection
+					.doc(todo.partner.username)
+					.collection('reviews')
+					.where('todoId', '==', todo.id)
+					.get();
+				const batch = fb.db.batch();
+				querySnapshot.forEach((doc) => {
+					batch.delete(doc.ref);
+				});
+				batch.commit();
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -165,5 +177,14 @@ export const actions = {
 			console.log(error);
 		}
 		return [];
+	},
+	async getCommunityTodos(context) {
+		const todos = await fb.usersCollection
+			.doc('matijao')
+			.collection('todos')
+			.where('approved', '==', true)
+			.get();
+		console.log(todos);
+		todos.forEach((doc) => console.log(doc.data()));
 	},
 };

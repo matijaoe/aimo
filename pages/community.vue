@@ -22,6 +22,9 @@
 				</NuxtLink>
 			</BaseContainer>
 		</ul>
+		<BaseButton @click="$store.dispatch('todos/getCommunityTodos')"
+			>click me</BaseButton
+		>
 	</div>
 </template>
 
@@ -29,9 +32,11 @@
 import { mapGetters } from 'vuex';
 import BaseAvatar from 'UI/BaseAvatar.vue';
 import BaseContainer from 'UI/BaseContainer.vue';
+import BaseButton from '../components/UI/BaseButton';
 
 export default {
 	components: {
+		BaseButton,
 		BaseAvatar,
 		BaseContainer,
 	},

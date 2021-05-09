@@ -53,10 +53,7 @@ export default {
 	computed: {
 		...mapGetters('reviews', ['currentUserTodoReviews']),
 		allTodos() {
-			// TODO DELETE REVIEW AFTER USER DELETE
-			console.log(this.currentUserTodoReviews);
 			const allTodos = this.currentUserTodoReviews.filter((todo) => {
-				console.log(todo.name); // todo referenca na stari todo
 				return todo.name
 					.toLowerCase()
 					.includes(this.term.toLowerCase());

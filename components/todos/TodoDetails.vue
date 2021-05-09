@@ -354,7 +354,7 @@ export default {
 			this.$emit('close');
 		},
 		deleteCurrTodo() {
-			this.deleteTodo({ id: this.todoId });
+			this.deleteTodo({ id: this.todoId, partner: this.partner });
 			this.$emit('close');
 		},
 		showTodoPage() {
