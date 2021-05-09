@@ -9,7 +9,9 @@
 			enter-to-class="opacity-100 transform translate-y-0"
 		>
 			<UploadBox
-				:is-completed="todo.done && !todo.approved && !!partner"
+				:is-completed="todo.completed"
+				:todo-id="todo.id"
+				:todo-photo="todo.photo"
 			/>
 		</transition>
 		<TodoInteractionWrapper :interactions="interactions" />
@@ -71,6 +73,7 @@ export default {
 	},
 	created() {
 		this.todoId = this.$route.params.todoId;
+		console.log(this.todo, this.partner, this.todoId);
 	},
 };
 </script>
