@@ -1,9 +1,14 @@
 <template>
 	<div v-if="tags.length > 0" class="flex gap-2">
-		<BaseTag v-for="tag in tags" :key="tag.name" :color="tag.color">
-			<NuxtLink :to="`/community/${tag.name}`">
-				{{ tag.name }}
-			</NuxtLink>
+		<BaseTag
+			v-for="tag in tags"
+			:key="tag.name"
+			:color="tag.color"
+			class="transform hover:scale-110 hover:-rotate-6 hover:-translate-y-1 transition"
+			link
+			:to="{ path: `/community/${tag.name}` }"
+		>
+			{{ tag.name }}
 		</BaseTag>
 	</div>
 </template>

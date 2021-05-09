@@ -1,16 +1,11 @@
 <template>
-	<NuxtLink
-		class="flex items-center gap-3 p-2 rounded-md"
-		:to="`/user/${user.username}`"
-	>
+	<NuxtLink class="flex items-center gap-2" :to="`/user/${user.username}`">
 		<BaseAvatar :src="user.photo" size="sm" />
-		<div class="flex flex-col justify-around">
-			<h3 class="text-lg" :class="hoverEffect">
-				{{ user.fname + ' ' + user.lname }}
-			</h3>
-			<p class="opacity-40 text-xs" :class="hoverEffect">
-				@{{ user.username }}
+		<div class="flex flex-col justify-around text-xs">
+			<p>
+				{{ fullName }}
 			</p>
+			<p class="text-xs text-gray-300">@{{ user.username }}</p>
 		</div>
 	</NuxtLink>
 </template>
@@ -26,8 +21,8 @@ export default {
 		},
 	},
 	computed: {
-		hoverEffect() {
-			return 'hover:text-indigo-700 hover:border-indigo-100';
+		fullName() {
+			return `${this.user.fname} ${this.user.lname}`;
 		},
 	},
 };

@@ -1,25 +1,26 @@
 <template>
-	<article class="grid col-1 gap-2 mt-2">
-		<h3 class="text-2xl text-amber-500">{{ todo.name }}</h3>
-		<TagLabels
-			v-if="todo.categories.length > 0"
-			:categories="todo.categories"
-		/>
-		<div v-else class="flex gap-2">
-			<BaseTag> No categories </BaseTag>
+	<div class="space-y-4">
+		<div class="flex flex-col gap-2 justify-center ml-2 col-span-1">
+			<h3 class="text-lg">{{ todo.name }}</h3>
+			<TagLabels
+				v-if="todo.categories.length > 0"
+				:categories="todo.categories"
+			/>
 		</div>
-		<BaseContainer fieldset label="Description">
+		<div
+			v-if="todo.desc"
+			class="border-2 border-dashed border-gray-200 bg-gray-50 rounded-lg p-4 text-sm"
+		>
 			<p>{{ todo.desc }}</p>
-		</BaseContainer>
-	</article>
+		</div>
+	</div>
 </template>
 
 <script>
-import BaseContainer from 'UI/BaseContainer';
 import TagLabels from '../todo/TagLabels';
-import BaseTag from '../UI/BaseTag';
+
 export default {
-	components: { BaseTag, BaseContainer, TagLabels },
+	components: { TagLabels },
 	props: {
 		todo: {
 			type: Object,

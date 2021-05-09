@@ -1,7 +1,8 @@
 <template>
-	<BaseContainer class="p-1" :class="[spanCalc]">
+	<BaseContainer class="space-y-2">
 		<PostHeader :todo="todo" />
 		<PostDetails :todo="todo" />
+		<PostOptions />
 	</BaseContainer>
 </template>
 
@@ -10,8 +11,15 @@ import BaseContainer from 'UI/BaseContainer';
 import { mapGetters } from 'vuex';
 import PostHeader from './PostHeader';
 import PostDetails from './PostDetails';
+import PostOptions from './PostOptions';
+
 export default {
-	components: { PostDetails, PostHeader, BaseContainer },
+	components: {
+		PostDetails,
+		PostOptions,
+		PostHeader,
+		BaseContainer,
+	},
 	props: {
 		todo: {
 			type: Object,
@@ -25,19 +33,6 @@ export default {
 	},
 	computed: {
 		...mapGetters(['getCategoryById']),
-		spanCalc() {
-			const inx = this.index;
-			if (inx % 3 === 0) return 'col-span-4';
-			return 'col-span-2';
-			/*
-			if (inx >= 10) inx = inx % 10;
-			console.log(inx);
-			if ([0, 5].includes(inx)) return 'col-span-4';
-			else if ([1, 9].includes(inx)) return 'col-span-3';
-			else if ([3, 4, 6, 7].includes(inx)) return 'row-span-2';
-			return 'col-span-1';
-			*/
-		},
 		backgroundColor() {
 			const len = this.todo.categories.length;
 			if (len > 0) {

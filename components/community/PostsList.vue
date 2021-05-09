@@ -1,11 +1,6 @@
 <template>
-	<ul class="grid grid-cols-4 gap-2 mt-8">
-		<PostItem
-			v-for="(todo, index) in todos"
-			:key="todo.id"
-			:todo="todo"
-			:index="index"
-		/>
+	<ul class="flex flex-col gap-4 overflow-y-auto pb-2 pr-2">
+		<PostItem v-for="todo in todos" :key="todo.id" :todo="todo" />
 	</ul>
 </template>
 

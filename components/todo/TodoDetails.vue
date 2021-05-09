@@ -8,6 +8,7 @@
 			:is-personal="!todo.partner"
 			:partner="getUserById(todo.partner)"
 		/>
+
 		<TodoHeader :todo="todo" />
 
 		<TagLabels :categories="todo.categories" />

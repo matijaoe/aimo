@@ -1,10 +1,19 @@
 <template>
 	<span
+		v-if="!link"
 		class="text-[10px] leading-3 font-semibold uppercase rounded-full px-3 py-1 inline-block select-none"
 		:class="colorscheme"
 	>
 		<slot></slot>
 	</span>
+	<nuxt-link
+		v-else
+		class="text-[10px] leading-3 font-semibold uppercase rounded-full px-3 py-1 inline-block select-none"
+		:class="colorscheme"
+		:to="to"
+	>
+		<slot></slot>
+	</nuxt-link>
 </template>
 
 <script>
@@ -13,6 +22,18 @@ export default {
 		color: {
 			type: String,
 			default: 'gray',
+		},
+		link: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+		to: {
+			type: Object,
+			required: false,
+			default: () => ({
+				name: 'home',
+			}),
 		},
 	},
 	computed: {

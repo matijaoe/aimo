@@ -1,11 +1,19 @@
 <template>
-	<PostsList :todos="filteredTodos" />
+	<div class="grid grid-cols-3 gap-4 overflow-hidden">
+		<PostsList :todos="filteredTodos" class="col-span-2 custom-height" />
+		<BaseContainer class="custom-height"></BaseContainer>
+	</div>
 </template>
 
 <script>
+import BaseContainer from 'UI/BaseContainer';
 import PostsList from './PostsList';
+
 export default {
-	components: { PostsList },
+	components: {
+		PostsList,
+		BaseContainer,
+	},
 	props: {
 		todos: {
 			type: Array,
@@ -29,3 +37,10 @@ export default {
 	},
 };
 </script>
+
+<style scoped lang="postcss">
+.custom-height {
+	max-height: calc(100vh - 9rem);
+	@apply overflow-y-auto;
+}
+</style>
