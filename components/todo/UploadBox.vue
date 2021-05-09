@@ -85,7 +85,9 @@ export default {
 		...mapGetters(['currentUserId']),
 	},
 	async created() {
-		this.isLoading = true;
+		if (this.todoPhoto) {
+			this.isLoading = true;
+		}
 		const todoRef = await fb.usersCollection
 			.doc(this.currentUserId)
 			.collection('todos')
