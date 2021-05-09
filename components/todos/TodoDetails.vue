@@ -183,11 +183,7 @@
 							:todo="todo"
 							@toggle-completed="toggleCompleted"
 						/>
-						<UploadBox
-							:is-completed="isCompleted"
-							:todo-id="todo.id"
-							:todo-photo="todo.photo"
-						/>
+						<UploadBox :is-completed="isCompleted" />
 					</div>
 				</div>
 			</article>
