@@ -1,6 +1,6 @@
 <template>
 	<div class="flex items-center ml-8 gap-2">
-		<p>Partnered with</p>
+		<p v-if="partner">Partnered with</p>
 		<NuxtLink
 			v-if="partner"
 			:to="partnerProfileLink"
@@ -16,7 +16,7 @@
 				>
 			</div>
 		</NuxtLink>
-		<p v-else>This is your personal todo.</p>
+		<p v-else>You have no partners for this todo 😳</p>
 	</div>
 </template>
 
