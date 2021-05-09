@@ -1,5 +1,6 @@
 <template>
 	<div v-if="isCompleted">
+		<TheLoader v-if="isLoading"></TheLoader>
 		<fieldset
 			v-if="!photoUrl"
 			class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
@@ -31,10 +32,19 @@
 			</div>
 		</fieldset>
 		<div v-else>
-			<img :src="photoUrl" alt="Todo image" />
-			<vs-button danger border @click="removePicture">
-				Remove picture <IconTrash size="sm" />
-			</vs-button>
+			<div class="pb-2">
+				<img
+					:src="photoUrl"
+					alt="Todo image"
+					class="rounded-lg"
+					@load="finishLoading"
+				/>
+			</div>
+			<div class="transform -translate-x-1.5">
+				<vs-button danger @click="removePicture">
+					Remove picture <IconTrash size="sm" class="ml-1" />
+				</vs-button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -45,9 +55,10 @@ import * as fb from '@/firebase';
 import { mapGetters } from 'vuex';
 import IconTrash from 'icons/IconTrash';
 import { app } from '../../firebase';
+import TheLoader from '../UI/BaseLoadingSpinner.vue';
 
 export default {
-	components: { IconPhoto, IconTrash },
+	components: { IconPhoto, IconTrash, TheLoader },
 	props: {
 		isCompleted: {
 			type: Boolean,
@@ -67,12 +78,14 @@ export default {
 	data() {
 		return {
 			photoUrl: null,
+			isLoading: false,
 		};
 	},
 	computed: {
 		...mapGetters(['currentUserId']),
 	},
 	async created() {
+		this.isLoading = true;
 		const todoRef = await fb.usersCollection
 			.doc(this.currentUserId)
 			.collection('todos')
@@ -84,6 +97,7 @@ export default {
 	},
 	methods: {
 		async onFileSelected(ev) {
+			this.isLoading = true;
 			const file = ev.target.files[0];
 			const storageRef = app.storage().ref();
 			const fileRef = storageRef.child(file.name);
@@ -109,6 +123,9 @@ export default {
 				});
 			console.log('Fotografija je izbrisana.');
 			this.photoUrl = null;
+		},
+		finishLoading() {
+			this.isLoading = false;
 		},
 	},
 };
