@@ -23,14 +23,6 @@ export default {
 	computed: {
 		...mapGetters(['getSocialById']),
 		socialsData() {
-			// todo
-			// console.log(this.socials);
-			// const socials = [...this.socials];
-			// socials.forEach((soc) => {
-			// 	socials.name = this.getSocialById(soc.id);
-			// });
-			// console.log(socials);
-			// return socials;
 			return this.socials;
 		},
 	},

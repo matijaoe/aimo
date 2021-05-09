@@ -1,19 +1,16 @@
 <template>
 	<BaseContainer fieldset label="Partners">
 		<div v-if="partners.length" class="grid gap-2 my-grid">
-			<div v-for="partner in partners" :key="partner.username">
-				<!-- todo 
-							- veci popup sa linkom na profil ili na partnership
-							- mozda extra info o partneru
-						-->
-				<nuxt-link
-					v-tooltip.bottom="`@${partner.username}`"
-					class="inline-block"
-					:to="`/user/${partner.username}`"
-				>
-					<BaseAvatar :src="partner.photo" />
-				</nuxt-link>
-			</div>
+			<BaseAvatar
+				v-for="partner in partners"
+				:key="partner.username"
+				v-tooltip.bottom="partner.username"
+				:src="partner.photo"
+				link
+				:to="{
+					path: `/user/${partner.username}`,
+				}"
+			/>
 		</div>
 		<div v-else>{{ user.fname }} has no partners ...</div>
 	</BaseContainer>

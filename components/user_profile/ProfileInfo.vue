@@ -21,9 +21,13 @@
 						</div>
 					</BaseButton>
 					<BaseButton v-else mode="cta">
-						<div class="flex items-center gap-2">
+						<!-- <div class="flex items-center gap-2">
 							<IconChat size="sm" />
 							<span>Message</span>
+						</div> -->
+						<div class="flex items-center gap-2">
+							<IconPlus size="sm" />
+							<span>Add as partner</span>
 						</div>
 					</BaseButton>
 				</div>
@@ -80,6 +84,7 @@ import BaseContainer from 'UI/BaseContainer.vue';
 import BaseButton from 'UI/BaseButton.vue';
 import IconEdit from 'icons/IconEdit.vue';
 import IconChat from 'icons/IconChat.vue';
+import IconPlus from 'icons/IconPlus.vue';
 import IconCalendar from 'icons/IconCalendar.vue';
 import IconCake from 'icons/IconCake.vue';
 import IconIdentification from 'icons/IconIdentification.vue';
@@ -93,7 +98,8 @@ export default {
 		BaseContainer,
 		BaseButton,
 		IconEdit,
-		IconChat,
+		// IconChat,
+		IconPlus,
 		IconCalendar,
 		IconCake,
 		IconIdentification,

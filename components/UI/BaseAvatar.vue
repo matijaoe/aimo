@@ -1,5 +1,5 @@
 <template>
-	<div class="flex-shrink-0 rounded-full">
+	<div v-if="!link" class="flex-shrink-0 rounded-full">
 		<img
 			:src="src"
 			alt="user avatar"
@@ -7,6 +7,14 @@
 			:class="[avatarSize]"
 		/>
 	</div>
+	<nuxt-link v-else class="flex-shrink-0 rounded-full" :to="to">
+		<img
+			:src="src"
+			alt="user avatar"
+			class="rounded-full object-cover"
+			:class="[avatarSize]"
+		/>
+	</nuxt-link>
 </template>
 
 <script>
@@ -19,6 +27,18 @@ export default {
 		size: {
 			type: String,
 			default: null,
+		},
+		link: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+		to: {
+			type: Object,
+			required: false,
+			default: () => ({
+				name: 'home',
+			}),
 		},
 	},
 	computed: {

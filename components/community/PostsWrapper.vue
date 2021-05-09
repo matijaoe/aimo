@@ -1,18 +1,18 @@
 <template>
 	<div class="grid grid-cols-3 gap-4 overflow-hidden">
 		<PostsList :todos="filteredTodos" class="col-span-2 custom-height" />
-		<BaseContainer class="custom-height"></BaseContainer>
+		<CommunitySidebar class="custom-height" :category="category" />
 	</div>
 </template>
 
 <script>
-import BaseContainer from 'UI/BaseContainer';
+import CommunitySidebar from './CommunitySidebar';
 import PostsList from './PostsList';
 
 export default {
 	components: {
 		PostsList,
-		BaseContainer,
+		CommunitySidebar,
 	},
 	props: {
 		todos: {

@@ -1,11 +1,9 @@
 <template>
-	<div>
-		<PostsWrapper :todos="todos" :category="category" />
-	</div>
+	<PostsWrapper :todos="todos" :category="category" />
 </template>
 
 <script>
-import PostsWrapper from '../../components/community/PostsWrapper';
+import PostsWrapper from '@/components/community/PostsWrapper';
 
 export default {
 	components: { PostsWrapper },

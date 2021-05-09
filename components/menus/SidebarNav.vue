@@ -7,6 +7,14 @@
 				</SidebarNavLink>
 			</li>
 			<li>
+				<SidebarNavLink
+					text="Profile"
+					:to="{ path: `/user/${$store.getters.currentUserId}` }"
+				>
+					<IconUser />
+				</SidebarNavLink>
+			</li>
+			<li>
 				<SidebarNavLink text="Community" :to="{ name: 'community' }">
 					<IconUserGroup />
 				</SidebarNavLink>
@@ -59,22 +67,22 @@ import IconHome from 'icons/IconHome.vue';
 import IconInbox from 'icons/IconInbox.vue';
 import IconUserGroup from 'icons/IconUserGroup.vue';
 import IconClipboardList from 'icons/IconClipboardList.vue';
+import IconClipboardCheck from 'icons/IconClipboardCheck';
+import IconUser from 'icons/IconUser.vue';
 import IconChartBar from 'icons/IconChartBar.vue';
 import IconSettings from 'icons/IconSettings.vue';
 import SidebarNavLink from 'menus/SidebarNavLink.vue';
 
 import { mapGetters } from 'vuex';
-import BaseButton from '../UI/BaseButton';
-import IconClipboardCheck from '../app_icons/IconClipboardCheck';
 
 export default {
 	components: {
 		IconClipboardCheck,
-		BaseButton,
 		IconHome,
 		IconInbox,
 		IconUserGroup,
 		IconClipboardList,
+		IconUser,
 		IconChartBar,
 		IconSettings,
 		SidebarNavLink,
