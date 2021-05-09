@@ -32,7 +32,7 @@ export default {
 			type: Object,
 			required: false,
 			default: () => ({
-				name: 'home',
+				path: '/community',
 			}),
 		},
 	},

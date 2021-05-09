@@ -25,8 +25,8 @@
 							v-tooltip.bottom="'Details'"
 							square
 							mode="cta"
+							link
 							:to="{ path: `/todo/${todoId}` }"
-							@click="showTodoPage"
 						>
 							<IconLink />
 						</BaseButton>
@@ -354,9 +354,6 @@ export default {
 		deleteCurrTodo() {
 			this.deleteTodo({ id: this.todoId, partner: this.partner });
 			this.$emit('close');
-		},
-		showTodoPage() {
-			this.$router.push(`/todo/${this.todoId}`);
 		},
 		isCategorySelected(index) {
 			return index in this.categoryIdToIndex();
