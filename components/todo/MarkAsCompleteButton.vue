@@ -4,7 +4,7 @@
 		:class="completedColor"
 		@click="$emit('toggle-completed')"
 	>
-		<p v-if="todo.done" class="flex items-center justify-center gap-2">
+		<p v-if="isCompleted" class="flex items-center justify-center gap-2">
 			<IconSparkles size="sm" />
 			Completed
 			<IconSparkles size="sm" />
