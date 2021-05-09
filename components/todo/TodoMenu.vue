@@ -1,6 +1,6 @@
 <template>
 	<div class="flex flex-items-center gap-2 overflow-x-auto my-5">
-		<div
+		<!-- <div
 			v-tooltip.left="todo.important ? 'Important' : 'Mark as important'"
 			class="p-1 rounded-lg group hover:cursor-pointer"
 			@click.stop="toggleImportant"
@@ -17,30 +17,33 @@
 			@click.stop="toggleDaily"
 		>
 			<IconGlobeAlt class="fill-current transition" :class="globeStyle" />
-		</div>
-		<div
-			v-tooltip.left="todo.done ? 'Completed' : 'In progress'"
-			class="p-1 rounded-lg hover:cursor-pointer"
-			@click.stop="toggleCompleted"
-		>
-			<IconCheck class="fill-current transition" :class="checkStyle" />
-		</div>
+		</div> -->
+
+		<MarkAsCompleteButton
+			:is-completed="todo.done"
+			:todo="todo"
+			class="max-w-[300px]"
+			@toggle-completed="toggleCompleted"
+		/>
 		<BaseButton mode="fill">Submit engagement</BaseButton>
-		<BaseButton mode="cta">Give Coins</BaseButton>
-		<BaseButton mode="ghost">Give up</BaseButton>
+		<BaseButton mode="info">Give Coins</BaseButton>
+		<BaseButton mode="warn">Give up</BaseButton>
 	</div>
 </template>
 
 <script>
 import BaseButton from 'UI/BaseButton';
-import IconStar from 'icons/IconStar';
-import IconGlobeAlt from 'icons/IconGlobeAlt';
-import IconCheck from 'icons/IconCheck';
+import MarkAsCompleteButton from '@/components/todo/MarkAsCompleteButton';
 
 import { mapActions } from 'vuex';
 
 export default {
-	components: { BaseButton, IconStar, IconGlobeAlt, IconCheck },
+	components: {
+		BaseButton,
+		// IconStar,
+		// IconGlobeAlt,
+		MarkAsCompleteButton,
+	},
 	props: {
 		todo: {
 			type: Object,

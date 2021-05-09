@@ -1,5 +1,5 @@
 <template>
-	<div v-if="tags.length > 0" class="mt-1.5 space-x-2">
+	<div v-if="tags.length > 0" class="flex gap-2">
 		<BaseTag v-for="tag in tags" :key="tag.name" :color="tag.color">
 			{{ tag.name }}
 		</BaseTag>

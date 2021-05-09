@@ -1,12 +1,10 @@
 <template>
-	<div class="flex gap-4 items-center my-7">
-		<InteractionIcon :type="interaction.type" />
-		<InteractionDate :date="interaction.date" />
-		<BaseContainer
-			fieldset
-			:label="interaction.type"
-			class="py-6 flex-grow"
-		>
+	<div class="grid grid-cols-5 gap-8">
+		<div class="flex gap-4 items-center">
+			<InteractionIcon :type="interaction.type" />
+			<InteractionDate :date="interaction.date" />
+		</div>
+		<BaseContainer fieldset :label="interaction.type" class="col-span-4">
 			<p>{{ interaction.info }}</p>
 		</BaseContainer>
 	</div>

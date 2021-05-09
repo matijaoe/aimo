@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h2 class="text-lg font-bold">{{ dateFormatted }}</h2>
+		<h2 class="text-sm font-medium">{{ dateFormatted }}</h2>
 	</div>
 </template>
 

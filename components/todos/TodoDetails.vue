@@ -60,6 +60,12 @@
 					>
 						<p>{{ description }}</p>
 					</div>
+					<!-- todo extract todo categories, not all -->
+					<!-- <div>
+						<BaseTag v-for="tag in categories" :key="tag.name">
+							{{ tag.name }}
+						</BaseTag>
+					</div> -->
 				</div>
 
 				<!-- todo animation  -->
@@ -170,31 +176,14 @@
 				</div>
 
 				<!-- todo - put on bottom -->
-				<div v-else class="space-y-4">
-					<UploadBox :is-completed="isCompleted" />
-
-					<div v-if="todoId">
-						<button
-							class="py-3 w-full rounded-lg uppercase text-xs font-bold border-none foucs:border-none focus:outline-none focus:border-amber-300 focus:ring focus:ring-amber-200 focus:ring-opacity-50 transition"
-							:class="completedColor"
-							@click="isCompleted = !isCompleted"
-						>
-							<p
-								v-if="isCompleted"
-								class="flex items-center justify-center gap-2"
-							>
-								<IconSparkles size="sm" />
-								Completed
-								<IconSparkles size="sm" />
-							</p>
-							<p
-								v-else
-								class="flex items-center justify-center gap-2"
-							>
-								Mark as complete
-								<IconCheck size="sm" />
-							</p>
-						</button>
+				<div v-else>
+					<div v-if="todoId" class="space-y-4">
+						<MarkAsCompleteButton
+							:is-completed="isCompleted"
+							:todo="todo"
+							@toggle-completed="toggleCompleted"
+						/>
+						<UploadBox :is-completed="isCompleted" />
 					</div>
 				</div>
 			</article>
@@ -208,28 +197,28 @@ import IconEdit from 'icons/IconEdit';
 import IconTrash from 'icons/IconTrash';
 import IconLink from 'icons/IconLink';
 import IconClock from 'icons/IconClock';
-import IconCheck from 'icons/IconCheck';
-import IconSparkles from 'icons/IconSparkles';
 import BaseAvatar from 'UI/BaseAvatar';
 import BaseButton from 'UI/BaseButton';
+// import BaseTag from 'UI/BaseTag';
 import TodoAttributes from 'todos/TodoAttributes';
 import UploadBox from '@/components/todo/UploadBox';
+import MarkAsCompleteButton from '@/components/todo/MarkAsCompleteButton';
 
 import { mapGetters, mapActions } from 'vuex';
 import dayjs from 'dayjs';
 
 export default {
 	components: {
-		UploadBox,
+		MarkAsCompleteButton,
 		TodoAttributes,
 		BaseButton,
+		UploadBox,
+		// BaseTag,
 		IconPlus,
 		IconEdit,
 		IconTrash,
 		IconLink,
 		IconClock,
-		IconCheck,
-		IconSparkles,
 		BaseAvatar,
 	},
 	props: {
@@ -262,6 +251,7 @@ export default {
 	computed: {
 		...mapGetters(['currentUserPartners', 'categories']),
 		...mapGetters('todos', ['getCurrentUserTodoById']),
+
 		partners() {
 			return this.currentUserPartners;
 		},
@@ -338,6 +328,10 @@ export default {
 	},
 	methods: {
 		...mapActions('todos', ['addTodo', 'updateTodo', 'deleteTodo']),
+		toggleCompleted() {
+			console.log('toggle');
+			this.isCompleted = !this.isCompleted;
+		},
 		addNewTodo() {
 			if (!this.title) return;
 			const newTodo = this.extractTodoInfo();

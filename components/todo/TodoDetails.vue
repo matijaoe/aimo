@@ -1,25 +1,41 @@
 <template>
-	<div class="grid grid-cols-2 gap-4">
-		<div class="flex items-center gap-2 col-span-2">
-			<h1 class="text-2xl font-bold">{{ todo.name }}</h1>
-		</div>
-		<TodoInfoCard
-			class="row-span-2"
-			:todo="todo"
-			:has-partner="!!partner"
+	<div class="grid gap-6">
+		<TodoAttributes
+			:is-important="todo.important"
+			:is-daily="todo.daily"
+			:is-completed="todo.done"
+			:is-approved="todo.approved"
+			:is-personal="!todo.partner"
+			:partner="getUserById(todo.partner)"
 		/>
-		<TodoPartnerCard :partner="partner" />
-		<TodoDescCard :desc="todo.desc" />
+		<TodoHeader :todo="todo" />
+
+		<TagLabels :categories="todo.categories" />
+
+		<div class="grid grid-cols-2 gap-4">
+			<TodoDescCard :desc="todo.desc" />
+			<TodoPartnerCard :partner="partner" />
+		</div>
 	</div>
 </template>
 
 <script>
+import TodoAttributes from 'todos/TodoAttributes';
+import { mapGetters } from 'vuex';
+
 import TodoPartnerCard from './TodoPartnerCard';
-import TodoInfoCard from './TodoInfoCard';
 import TodoDescCard from './TodoDescCard';
+import TagLabels from './TagLabels';
+import TodoHeader from './TodoHeader';
 
 export default {
-	components: { TodoDescCard, TodoInfoCard, TodoPartnerCard },
+	components: {
+		TodoDescCard,
+		TagLabels,
+		TodoHeader,
+		TodoPartnerCard,
+		TodoAttributes,
+	},
 	props: {
 		todo: {
 			type: Object,
@@ -29,6 +45,9 @@ export default {
 			type: Object,
 			required: false,
 		},
+	},
+	computed: {
+		...mapGetters('users', ['getUserById']),
 	},
 };
 </script>

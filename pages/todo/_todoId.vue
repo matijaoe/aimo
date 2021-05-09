@@ -1,12 +1,13 @@
 <template>
-	<div>
+	<div class="pb-6">
 		<TodoDetails :todo="todo" :partner="partner" />
 		<TodoMenu :todo="todo" />
 		<!-- TODO matija rjesit transition -->
-		<transition -->
+		<transition
 			enter-active-class="transition-all duration-800 ease-out-quad"
 			enter-class="opacity-0 transform translate-y-5"
-			enter-to-class="opacity-100 transform translate-y-0" >
+			enter-to-class="opacity-100 transform translate-y-0"
+		>
 			<UploadBox
 				:is-completed="todo.done && !todo.approved && !!partner"
 			/>
