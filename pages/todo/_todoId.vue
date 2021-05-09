@@ -73,7 +73,6 @@ export default {
 	},
 	created() {
 		this.todoId = this.$route.params.todoId;
-		console.log(this.todo, this.partner, this.todoId);
 	},
 };
 </script>
