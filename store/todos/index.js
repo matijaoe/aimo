@@ -82,17 +82,21 @@ export const mutations = {
 export const actions = {
 	async addTodo({ commit, rootGetters }, todo) {
 		try {
+			const userId = rootGetters.currentUserId;
 			const newTodo = await fb.usersCollection
-				.doc(rootGetters.currentUserId)
+				.doc(userId)
 				.collection('todos')
-				.add(todo);
+				.add({
+					...todo,
+					owner: userId,
+				});
 
 			if (todo.partner) {
 				await fb.usersCollection
 					.doc(todo.partner)
 					.collection('reviews')
 					.add({
-						partner: rootGetters.currentUserId,
+						partner: userId,
 						todoId: newTodo.id,
 						reviewed: false,
 					});
@@ -178,13 +182,39 @@ export const actions = {
 		}
 		return [];
 	},
-	async getCommunityTodos(context) {
+	async getCommunityTodos({ rootGetters }) {
+		// todo - kada se slozi createdAt prop napraviti dohvat po najnovijem (sada je po imenu vlasnika bez nasih todo-a)
+		const response = await fb.db
+			.collectionGroup('todos')
+			.where('owner', '!=', rootGetters.currentUserId)
+			.get();
+		const todos = [];
+		response.forEach((doc) => {
+			const todoInfo = doc.data();
+			if (todoInfo.partner) {
+				todoInfo.partner = rootGetters['users/getUserById'](
+					todoInfo.partner
+				);
+			}
+			todos.push({
+				...todoInfo,
+				id: doc.id,
+				owner: rootGetters['users/getUserById'](todoInfo.owner),
+			});
+		});
+		return todos;
+		/*
+
+		for (const cat of todoInfo.categories) {
+				categories.push(rootGetters.getCategoryById(cat));
+			}
+
 		const todos = await fb.usersCollection
 			.doc('matijao')
 			.collection('todos')
 			.where('approved', '==', true)
 			.get();
 		console.log(todos);
-		todos.forEach((doc) => console.log(doc.data()));
+		todos.forEach((doc) => console.log(doc.data())); */
 	},
 };

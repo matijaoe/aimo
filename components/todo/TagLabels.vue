@@ -1,7 +1,9 @@
 <template>
 	<div v-if="tags.length > 0" class="flex gap-2">
 		<BaseTag v-for="tag in tags" :key="tag.name" :color="tag.color">
-			{{ tag.name }}
+			<NuxtLink :to="`/community/${tag.name}`">
+				{{ tag.name }}
+			</NuxtLink>
 		</BaseTag>
 	</div>
 </template>
