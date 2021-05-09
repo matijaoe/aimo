@@ -1,11 +1,12 @@
 <template>
-	<div class="grid md:grid-cols-3 gap-4 overflow-hidden custom-height">
-		<PostsList :todos="filteredTodos" class="col-span-2" />
-		<CommunitySidebar class="hidden md:block" :category="category" />
+	<div class="grid grid-cols-3 gap-4 overflow-hidden custom-height">
+		<PostsList :todos="filteredTodos" class="col-span-2 custom-height" />
+		<CommunitySidebar class="hidden md:block" :category-id="categoryId" />
 	</div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import CommunitySidebar from './CommunitySidebar';
 import PostsList from './PostsList';
 
@@ -19,20 +20,27 @@ export default {
 			type: Array,
 			required: true,
 		},
-		category: {
-			type: Object,
+		categoryName: {
+			type: String,
 			required: false,
-			default: null,
+			default: '',
 		},
 	},
 	computed: {
+		...mapGetters(['getCategoryIdByName']),
 		filteredTodos() {
-			if (this.category) {
+			if (this.categoryName) {
 				return this.todos.filter((todo) =>
-					todo.categories.includes(this.category.id)
+					todo.categories.includes(this.categoryId)
 				);
 			}
 			return this.todos;
+		},
+		categoryId() {
+			if (this.categoryName) {
+				return this.getCategoryIdByName(this.categoryName);
+			}
+			return '';
 		},
 	},
 };

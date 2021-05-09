@@ -1,7 +1,7 @@
 <template>
 	<BaseContainer>
 		<div class="space-y-8">
-			<h2 v-if="category" class="text-3xl font-bold py-2 text-center">
+			<h2 v-if="categoryId" class="text-3xl font-bold py-2 text-center">
 				{{ category.name }}
 			</h2>
 
@@ -52,14 +52,22 @@ export default {
 		BaseAvatar,
 	},
 	props: {
-		category: {
-			type: Object,
+		categoryId: {
+			type: String,
 			required: false,
-			default: null,
+			default: '',
 		},
 	},
 	computed: {
 		...mapGetters(['categories', 'currentUserPartners']),
+		category() {
+			if (this.categoryId) {
+				return this.categories.find(
+					(cat) => cat.id === this.categoryId
+				);
+			}
+			return null;
+		},
 	},
 };
 </script>
