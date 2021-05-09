@@ -14,7 +14,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
@@ -29,5 +29,4 @@ export {
 	usersCollection,
 	categoriesCollection,
 	socialsCollection,
-	app,
 };
