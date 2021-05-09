@@ -46,15 +46,17 @@ import BaseAvatar from 'UI/BaseAvatar';
 import { mapGetters } from 'vuex';
 
 export default {
-	category: {
-		type: Object,
-		required: false,
-		default: null,
-	},
 	components: {
 		BaseContainer,
 		BaseTag,
 		BaseAvatar,
+	},
+	props: {
+		category: {
+			type: Object,
+			required: false,
+			default: null,
+		},
 	},
 	computed: {
 		...mapGetters(['categories', 'currentUserPartners']),

@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-items-center gap-2 overflow-x-auto my-5">
+	<div class="flex flex-items-center flex-wrap gap-2 my-5">
 		<!-- <div
 			v-tooltip.left="todo.important ? 'Important' : 'Mark as important'"
 			class="p-1 rounded-lg group hover:cursor-pointer"
@@ -25,14 +25,26 @@
 			class="max-w-[300px]"
 			@toggle-completed="toggleCompleted"
 		/>
-		<BaseButton mode="fill">Submit engagement</BaseButton>
-		<BaseButton mode="info">Give Coins</BaseButton>
-		<BaseButton mode="warn">Give up</BaseButton>
+		<BaseButton mode="fill">
+			Submit engagement
+			<IconDocumentReport size="sm" />
+		</BaseButton>
+		<BaseButton mode="info"
+			>Give Coins
+			<IconInfo size="sm" />
+		</BaseButton>
+		<BaseButton mode="warn"
+			>Give up
+			<IconExit size="sm" />
+		</BaseButton>
 	</div>
 </template>
 
 <script>
 import BaseButton from 'UI/BaseButton';
+import IconExit from 'icons/IconExit';
+import IconInfo from 'icons/IconInfo';
+import IconDocumentReport from 'icons/IconDocumentReport';
 import MarkAsCompleteButton from '@/components/todo/MarkAsCompleteButton';
 
 import { mapActions } from 'vuex';
@@ -40,6 +52,9 @@ import { mapActions } from 'vuex';
 export default {
 	components: {
 		BaseButton,
+		IconExit,
+		IconInfo,
+		IconDocumentReport,
 		// IconStar,
 		// IconGlobeAlt,
 		MarkAsCompleteButton,

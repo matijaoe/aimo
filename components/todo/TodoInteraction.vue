@@ -1,5 +1,5 @@
 <template>
-	<div class="grid grid-cols-5 gap-8">
+	<div class="grid lg:grid-cols-5 gap-2 lg:gap-8">
 		<div class="flex gap-4 items-center">
 			<InteractionIcon :type="interaction.type" />
 			<InteractionDate :date="interaction.date" />

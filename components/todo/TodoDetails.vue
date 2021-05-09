@@ -13,7 +13,7 @@
 
 		<TagLabels :categories="todo.categories" />
 
-		<div class="grid grid-cols-2 gap-4">
+		<div class="grid md:grid-cols-2 gap-4">
 			<TodoDescCard :desc="todo.desc" />
 			<TodoPartnerCard :partner="partner" />
 		</div>

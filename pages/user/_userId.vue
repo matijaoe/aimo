@@ -1,6 +1,6 @@
 <template>
 	<!-- Main grid with 3 cols -->
-	<div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 h-full">
+	<div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-4 h-full mb-10">
 		<!-- Column 1 -->
 		<div class="space-y-2">
 			<ProfileInfo :user="user" :is-logged-in="isLoggedInUser" />
@@ -20,6 +20,7 @@
 			<ProfileNotifications
 				v-if="isLoggedInUser"
 				:notifications="user.notifications"
+				class="hidden xl:block"
 			/>
 		</div>
 	</div>

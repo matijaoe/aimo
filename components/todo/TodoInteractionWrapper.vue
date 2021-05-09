@@ -1,5 +1,5 @@
 <template>
-	<div class="grid gap-4 mt-8">
+	<div class="grid gap-8 lg:gap-4 mt-8">
 		<TodoInteraction
 			v-for="interaction in interactions"
 			:key="interaction.id"

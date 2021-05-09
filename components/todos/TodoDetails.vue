@@ -6,7 +6,7 @@
 	>
 		<div class="relative w-full h-screen">
 			<article
-				class="absolute top-0 right-0 h-screen w-full w-[480px] bg-white border-l-2 border-gray-200 py-10 px-6 overflow-y-auto space-y-2 flex flex-col"
+				class="absolute top-0 right-0 h-screen w-full md:w-[480px] bg-white border-l-2 border-gray-200 py-10 px-6 overflow-y-auto space-y-2 flex flex-col"
 				@click.stop=""
 			>
 				<h4 v-if="isNewTodo" class="text-4xl font-bold">New todo</h4>

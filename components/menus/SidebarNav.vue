@@ -49,13 +49,11 @@
 				class="text-base"
 				tooltip="Switch to Premium"
 			>
-				<div class="flex flex-col">
-					<span
-						class="text-gray-400 text-xs uppercase hidden xl:block"
-					>
+				<div class="hidden xl:flex flex-col">
+					<span class="text-gray-400 text-xs uppercase">
 						Your plan
 					</span>
-					<span>{{ currentPlan }}</span>
+					<span class="hidden xl:block">{{ currentPlan }}</span>
 				</div>
 			</SidebarNavLink>
 		</div>
