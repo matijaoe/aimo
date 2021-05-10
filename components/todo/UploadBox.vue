@@ -28,7 +28,7 @@
 					</label>
 					<p class="pl-1">or drag and drop</p>
 				</div>
-				<p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+				<p class="text-xs text-gray-500">PNG, JPG, GIF up to 5MB</p>
 			</div>
 		</fieldset>
 		<div v-else>
@@ -77,6 +77,7 @@ export default {
 		return {
 			photoUrl: null,
 			isLoading: false,
+			maximumFileSize: 5, // in MB
 		};
 	},
 	computed: {
@@ -97,9 +98,18 @@ export default {
 	},
 	methods: {
 		async onFileSelected(ev) {
+			const file = ev.target.files[0];
+
+			if (!this.checkFileExtension(file.name.split('.')[1])) {
+				return;
+			}
+
+			if (!this.checkFileSize(file.size)) {
+				return;
+			}
+
 			this.isLoading = true;
 
-			const file = ev.target.files[0];
 			const storageRef = app.storage().ref();
 			const fileName = nanoid();
 			const fileRef = storageRef.child(fileName);
@@ -148,6 +158,28 @@ export default {
 		},
 		finishLoading() {
 			this.isLoading = false;
+		},
+		checkFileSize(fileSize) {
+			if (fileSize > 1048576 * this.maximumFileSize) {
+				alert(
+					`Your file is too large. Maximum size is ${this.maximumFileSize}MB.`
+				);
+				return false;
+			} else {
+				return true;
+			}
+		},
+		checkFileExtension(extension) {
+			if (
+				extension !== 'jpg' &&
+				extension !== 'png' &&
+				extension !== 'gif'
+			) {
+				alert(`Your file extension (${extension}) is not allowed!`);
+				return false;
+			} else {
+				return true;
+			}
 		},
 	},
 };
