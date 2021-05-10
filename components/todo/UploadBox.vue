@@ -28,7 +28,7 @@
 					</label>
 					<p class="pl-1">or drag and drop</p>
 				</div>
-				<p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+				<p class="text-xs text-gray-500">PNG, JPG, GIF up to 5MB</p>
 			</div>
 		</fieldset>
 		<div v-else>
@@ -36,14 +36,15 @@
 				<img
 					:src="photoUrl"
 					alt="Todo image"
-					class="rounded-lg"
+					class="rounded-lg max-h-[600px]"
 					@load="finishLoading"
 				/>
 			</div>
-			<div class="transform -translate-x-1.5">
-				<vs-button danger @click="removePicture">
-					Remove picture <IconTrash size="sm" class="ml-1" />
-				</vs-button>
+			<div class="mt-1">
+				<BaseButton mode="warn" @click="removePicture"
+					>Remove picture
+					<IconTrash size="sm" />
+				</BaseButton>
 			</div>
 		</div>
 	</div>
@@ -54,11 +55,13 @@ import IconPhoto from 'icons/IconPhoto';
 import * as fb from '@/firebase';
 import { mapGetters } from 'vuex';
 import IconTrash from 'icons/IconTrash';
+import BaseButton from 'UI/BaseButton';
+import { nanoid } from 'nanoid';
 import { app } from '../../firebase';
 import TheLoader from '../UI/BaseLoadingSpinner.vue';
 
 export default {
-	components: { IconPhoto, IconTrash, TheLoader },
+	components: { IconPhoto, BaseButton, IconTrash, TheLoader },
 	props: {
 		isCompleted: {
 			type: Boolean,
@@ -69,65 +72,114 @@ export default {
 			type: String,
 			default: null,
 		},
-		todoPhoto: {
-			type: String,
-			required: false,
-			default: null,
-		},
 	},
 	data() {
 		return {
 			photoUrl: null,
 			isLoading: false,
+			maximumFileSize: 5, // in MB
 		};
 	},
 	computed: {
 		...mapGetters(['currentUserId']),
 	},
 	async created() {
-		if (this.todoPhoto) {
-			this.isLoading = true;
-		}
+		this.isLoading = true;
 		const todoRef = await fb.usersCollection
 			.doc(this.currentUserId)
 			.collection('todos')
 			.doc(this.todoId)
 			.get();
-		if (todoRef.data().photo) {
-			this.photoUrl = todoRef.data().photo;
+		if (todoRef.data().photoUrl) {
+			this.photoUrl = todoRef.data().photoUrl;
+			return;
 		}
+		this.isLoading = false;
 	},
 	methods: {
 		async onFileSelected(ev) {
-			this.isLoading = true;
 			const file = ev.target.files[0];
+
+			if (!this.checkFileExtension(file.name.split('.')[1])) {
+				return;
+			}
+
+			if (!this.checkFileSize(file.size)) {
+				return;
+			}
+
+			this.isLoading = true;
+
 			const storageRef = app.storage().ref();
-			const fileRef = storageRef.child(file.name);
+			const fileName = nanoid();
+			const fileRef = storageRef.child(fileName);
 			await fileRef.put(file);
 			const fileUrl = await fileRef.getDownloadURL();
+
 			await fb.usersCollection
 				.doc(this.currentUserId)
 				.collection('todos')
 				.doc(this.todoId)
 				.update({
-					photo: fileUrl,
+					photoUrl: fileUrl,
+					photoName: fileName,
 				});
+
 			console.log('Fotografija je uploadana.');
 			this.photoUrl = fileUrl;
 		},
 		async removePicture() {
+			this.isLoading = true;
+			const todoRef = await fb.usersCollection
+				.doc(this.currentUserId)
+				.collection('todos')
+				.doc(this.todoId)
+				.get();
+
+			const storageRef = app
+				.storage()
+				.ref()
+				.child(todoRef.data().photoName);
+
+			await storageRef.delete();
+
 			await fb.usersCollection
 				.doc(this.currentUserId)
 				.collection('todos')
 				.doc(this.todoId)
 				.update({
-					photo: null,
+					photoUrl: null,
+					photoName: null,
 				});
+
 			console.log('Fotografija je izbrisana.');
 			this.photoUrl = null;
+			this.isLoading = false;
 		},
 		finishLoading() {
 			this.isLoading = false;
+		},
+		checkFileSize(fileSize) {
+			if (fileSize > 1048576 * this.maximumFileSize) {
+				alert(
+					`Your file is too large. Maximum size is ${this.maximumFileSize}MB.`
+				);
+				return false;
+			} else {
+				return true;
+			}
+		},
+		checkFileExtension(extension) {
+			if (
+				extension !== 'jpg' &&
+				extension !== 'png' &&
+				extension !== 'gif'
+			) {
+				alert(`Your file extension (${extension}) is not allowed!`);
+				return false;
+			} else {
+				return true;
+			}
 		},
 	},
 };
