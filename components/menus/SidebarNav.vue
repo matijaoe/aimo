@@ -49,7 +49,7 @@
 				class="text-base"
 				tooltip="Switch to Premium"
 			>
-				<div class="hidden xl:flex flex-col">
+				<div v-if="currentUser" class="hidden xl:flex flex-col">
 					<span class="text-gray-400 text-xs uppercase">
 						Your plan
 					</span>

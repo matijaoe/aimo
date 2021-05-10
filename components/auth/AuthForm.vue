@@ -1,40 +1,52 @@
 <template>
 	<div>
-		<form class="space-y-7" @submit.prevent="submitForm">
-			<vs-input
-				v-model.trim="email"
-				icon-after
-				label-placeholder="Email"
-				autocomplete="off"
-				@focus="handleError"
+		<transition name="fade" mode="out-in">
+			<form
+				v-if="mode === 'login'"
+				class="space-y-7"
+				@submit.prevent="submitForm"
 			>
-				<template v-if="validEmail" #message-success>
-					Email Valid
-				</template>
-				<template v-if="!validEmail && email !== ''" #message-danger>
-					Email Invalid
-				</template>
-				<template #icon>
-					<i class="bx bx-user"></i>
-				</template>
-			</vs-input>
-			<vs-input
-				v-model="password"
-				type="password"
-				label-placeholder="Password"
-				:progress="getProgress"
-				:visible-password="hasVisiblePassword"
-				icon-after
-				@click-icon="hasVisiblePassword = !hasVisiblePassword"
-				@focus="handleError"
-			>
-				<template #icon>
-					<i v-if="!hasVisiblePassword" class="bx bx-show-alt"></i>
-					<i v-else class="bx bx-hide"></i>
-				</template>
-			</vs-input>
+				<div class="space-y-7">
+					<vs-input
+						v-model.trim="email"
+						icon-after
+						label-placeholder="Email"
+						autocomplete="off"
+						@focus="handleError"
+					>
+						<template v-if="validEmail" #message-success>
+							Email Valid
+						</template>
+						<template
+							v-if="!validEmail && email !== ''"
+							#message-danger
+						>
+							Email Invalid
+						</template>
+						<template #icon>
+							<i class="bx bx-user"></i>
+						</template>
+					</vs-input>
+					<vs-input
+						v-model="password"
+						type="password"
+						label-placeholder="Password"
+						:progress="getProgress"
+						:visible-password="hasVisiblePassword"
+						icon-after
+						@click-icon="hasVisiblePassword = !hasVisiblePassword"
+						@focus="handleError"
+					>
+						<template #icon>
+							<i
+								v-if="!hasVisiblePassword"
+								class="bx bx-show-alt"
+							></i>
+							<i v-else class="bx bx-hide"></i>
+						</template>
+					</vs-input>
+				</div>
 
-			<transition name="fade" mode="out-in">
 				<div
 					v-if="mode === 'login'"
 					key="1"
@@ -49,6 +61,8 @@
 						>Signup
 					</BaseButton>
 				</div>
+				<!--
+				<transition name="fade" mode="out-in">
 				<div
 					v-if="mode === 'signup'"
 					key="2"
@@ -64,7 +78,14 @@
 					</BaseButton>
 				</div>
 			</transition>
-		</form>
+				-->
+			</form>
+			<SignUpForm
+				v-if="mode === 'signup'"
+				@switch-auth-mode="switchAuthMode"
+			/>
+		</transition>
+
 		<!-- <div v-if="error" class="mt-8 max-w-[160px]">
 			<p class="font-semibold text-red-500 text-sm">{{ error }}</p>
 		</div> -->
@@ -74,9 +95,11 @@
 <script>
 import BaseButton from 'UI/BaseButton.vue';
 import isEmpty from 'lodash.isempty';
+import SignUpForm from './SignUpForm';
 
 export default {
 	components: {
+		SignUpForm,
 		BaseButton,
 	},
 	data() {
@@ -133,7 +156,7 @@ export default {
 		},
 	},
 	methods: {
-		submitForm() {
+		async submitForm() {
 			this.formIsValid = true;
 			if (!this.validEmail || !this.validPassword) {
 				this.formIsValid = false;
@@ -147,11 +170,10 @@ export default {
 				password: this.password,
 			};
 
-			console.log(actionPayload);
-
 			// doslovno c/p od max coachesa
 			try {
-				// await this.$store.dispatch(this.mode, actionPayload);
+				await this.$store.dispatch('login', actionPayload);
+				this.$router.replace('/home');
 			} catch (err) {
 				console.log(err);
 

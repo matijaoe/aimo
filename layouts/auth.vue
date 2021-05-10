@@ -7,6 +7,23 @@
 	</div>
 </template>
 
+<script>
+import { mapGetters } from 'vuex';
+
+export default {
+	computed: {
+		...mapGetters(['isAuth']),
+	},
+	watch: {
+		$route() {
+			if (!this.isAuth && this.$route.fullPath !== '/auth') {
+				this.$router.replace('/auth');
+			}
+		},
+	},
+};
+</script>
+
 <style scoped>
 #auth-backdrop {
 	background-color: #f8fafc;

@@ -44,7 +44,7 @@
 			</BaseDropdownList>
 
 			<BaseDropdownList>
-				<BaseDropdownItem link to="/home">
+				<BaseDropdownItem link to="/home" @click="logout">
 					<IconLogout size="sm" />
 					<span>Log out</span>
 				</BaseDropdownItem>
@@ -63,6 +63,7 @@ import IconUser from 'icons/IconUser.vue';
 import IconClipboardList from 'icons/IconClipboardList.vue';
 import IconLogout from 'icons/IconLogout.vue';
 import BaseAvatar from 'UI/BaseAvatar.vue';
+import { mapActions } from 'vuex';
 
 export default {
 	components: {
@@ -77,5 +78,8 @@ export default {
 		IconLogout,
 	},
 	props: ['user'],
+	methods: {
+		...mapActions(['logout']),
+	},
 };
 </script>

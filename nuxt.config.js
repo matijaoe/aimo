@@ -47,8 +47,7 @@ export default {
 		'~/plugins/rough-notation.js',
 		'@/plugins/vuesax.js',
 		'~/plugins/getUsers.js',
-		'~/plugins/getUserTodos.js',
-		'~/plugins/getUserReviews.js',
+		'~/plugins/getCountries.js',
 		'@/plugins/getCategories.js',
 		'@/plugins/getSocials.js',
 	],
@@ -64,10 +63,39 @@ export default {
 		'@nuxtjs/tailwindcss',
 	],
 
+	router: {
+		middleware: ['auth'],
+	},
+
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: [
 		// https://go.nuxtjs.dev/axios
 		'@nuxtjs/axios',
+		[
+			'@nuxtjs/firebase',
+			{
+				config: {
+					apiKey: 'AIzaSyCod4bOC35WfbE0Y8BzgnaJsyp8pPqFkX8',
+					authDomain: 'aimo-test.firebaseapp.com',
+					projectId: 'aimo-test',
+					storageBucket: 'aimo-test.appspot.com',
+					messagingSenderId: '909261717167',
+					appId: '1:909261717167:web:08b261d06c01fe11e79e5a',
+					measurementId: 'G-3CMS8T5E94',
+				},
+				services: {
+					auth: {
+						persistence: 'local', // default
+						initialize: {
+							onAuthStateChangedAction:
+								'onAuthStateChangedAction',
+							subscribeManually: false,
+						},
+						ssr: false,
+					},
+				},
+			},
+		],
 	],
 
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios

@@ -3,7 +3,10 @@
 		<HeaderSearchbar class="flex items-center sm:flex-1" />
 
 		<div class="flex justify-end flex-1">
-			<div class="flex items-center space-x-4 sm:space-x-8">
+			<div
+				v-if="currentUser"
+				class="flex items-center space-x-4 sm:space-x-8"
+			>
 				<HeaderNotificationDropdown
 					:notifications="currentUser.notifications"
 				/>

@@ -26,9 +26,15 @@ export const mutations = {
 	loadUserData(state, userData) {
 		state.users = userData;
 	},
+	pushUserToUsers(state, user) {
+		state.users.push(user);
+	},
 };
 
 export const actions = {
+	pushNewUser({ commit }, user) {
+		commit('pushUserToUsers', user);
+	},
 	async updateUserCoins(context, updateInfo) {
 		try {
 			const doc = await fb.usersCollection.doc(updateInfo.username).get();

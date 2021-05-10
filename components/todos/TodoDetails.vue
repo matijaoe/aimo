@@ -92,6 +92,7 @@
 							</div>
 							<div>
 								<vs-select
+									v-if="partners.length > 0"
 									v-model="selectedPartner"
 									filter
 									label-placeholder="Choose partner"
