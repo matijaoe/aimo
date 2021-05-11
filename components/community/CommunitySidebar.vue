@@ -21,7 +21,7 @@
 					class="w-8 h-8 rounded-full"
 					:class="colorscheme('gray')[0]"
 				/>
-				<h2 class="text-4xl leading-3 font-semibold uppercase">Home</h2>
+				<h2 class="text-4xl leading-3 font-semibold uppercase">All</h2>
 			</div>
 
 			<div class="space-y-4">
@@ -29,6 +29,7 @@
 				<div
 					class="flex overflow-x-auto md:flex-wrap items-center gap-2"
 				>
+					<BaseTag link :to="{ name: 'community' }">All</BaseTag>
 					<BaseTag
 						v-for="cat in categories"
 						:key="cat.id"
@@ -50,7 +51,6 @@
 					<BaseAvatar
 						v-for="user in currentUserPartners"
 						:key="user.id"
-						v-tooltip.bottom="`@${user.username}`"
 						link
 						:to="{ path: `/user/${user.username}` }"
 						:src="user.photo"

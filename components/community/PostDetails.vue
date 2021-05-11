@@ -1,7 +1,10 @@
 <template>
 	<div class="space-y-4">
 		<div class="flex flex-col gap-2 justify-center ml-2 col-span-1">
-			<h3 class="text-lg">{{ todo.name }}</h3>
+			<div class="flex items-center justify-between">
+				<h3 class="text-lg">{{ todo.name }}</h3>
+				<BaseTimestamp :date="createdDate" />
+			</div>
 			<TagLabels
 				v-if="todo.categories.length > 0"
 				:categories="todo.categories"
@@ -17,14 +20,23 @@
 </template>
 
 <script>
-import TagLabels from '../todo/TagLabels';
+import TagLabels from '@/components/todo/TagLabels';
+import BaseTimestamp from 'UI/BaseTimestamp';
+import dayjs from 'dayjs';
 
 export default {
-	components: { TagLabels },
+	components: { TagLabels, BaseTimestamp },
 	props: {
 		todo: {
 			type: Object,
 			required: true,
+		},
+	},
+	computed: {
+		createdDate() {
+			const dt = dayjs(this.todo.timestamp);
+			const date = dt.format(`MMMM DD`);
+			return `${date}`;
 		},
 	},
 };
