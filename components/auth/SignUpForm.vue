@@ -158,7 +158,7 @@ export default {
 					countryCode: this.country.alpha3Code,
 					birthday: dayjs(this.birthday).$d,
 					joined_on: dayjs().$d,
-					photo: `https://avatar.oxro.io/avatar.svg?name=${this.fname[0]}${this.lname[0]}&caps=1&fontSize=200&bold=true&background=${color.bg}&color=${color.text}`,
+					photo: `https://avatar.oxro.io/avatar.svg?name=${this.fname}${this.lname}&caps=1&fontSize=200&bold=true&background=${color.bg}&color=${color.text}`,
 					occupation: this.occupation,
 					bio: this.bio,
 					coins: 400,
@@ -270,11 +270,11 @@ export default {
 				userInfo: this.userInfo,
 			};
 
-			// doslovno c/p od max coachesa
 			try {
 				await this.$store.dispatch('signup', actionPayload);
 				this.$router.replace('/home');
 			} catch (err) {
+				// eslint-disable-next-line no-console
 				console.log(err);
 
 				// firebase auth errors

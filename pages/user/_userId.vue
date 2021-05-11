@@ -16,12 +16,13 @@
 		</div>
 
 		<!-- Column 3 -->
-		<div class="h-full">
+		<div class="space-y-2">
 			<ProfileNotifications
 				v-if="isLoggedInUser"
 				:notifications="user.notifications"
-				class="hidden xl:block"
+				class="hidden xl:block custom-height"
 			/>
+			<ProfileTodos v-else class="custom-height" :todos="todos" />
 		</div>
 	</div>
 </template>
@@ -34,6 +35,7 @@ import ProfilePartners from 'profile/ProfilePartners.vue';
 import ProfileBio from 'profile/ProfileBio.vue';
 import ProfileNotifications from 'profile/ProfileNotifications.vue';
 import ProfileCategories from 'profile/ProfileCategories.vue';
+import ProfileTodos from 'profile/ProfileTodos.vue';
 
 import { mapGetters } from 'vuex';
 
@@ -46,6 +48,7 @@ export default {
 		ProfileBio,
 		ProfileNotifications,
 		ProfileCategories,
+		ProfileTodos,
 	},
 	async asyncData({ params, store, redirect }) {
 		const userId = await params.userId;
@@ -58,7 +61,13 @@ export default {
 			// todo - redirect to 404
 			redirect('/home');
 		}
-		return { user, getUserCategories };
+
+		const todos = await store.dispatch(
+			'todos/getUserTodosByUsername',
+			userId
+		);
+
+		return { user, getUserCategories, todos };
 	},
 	data() {
 		return {
@@ -74,3 +83,9 @@ export default {
 	},
 };
 </script>
+
+<style scoped>
+.custom-height {
+	max-height: calc(100vh - 9rem);
+}
+</style>

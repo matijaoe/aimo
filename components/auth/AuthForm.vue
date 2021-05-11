@@ -175,6 +175,7 @@ export default {
 				await this.$store.dispatch('login', actionPayload);
 				this.$router.replace('/home');
 			} catch (err) {
+				// eslint-disable-next-line no-console
 				console.log(err);
 
 				// firebase auth errors

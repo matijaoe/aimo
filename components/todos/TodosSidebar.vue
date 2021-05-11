@@ -50,7 +50,7 @@
 		</div>
 		<div class="space-y-2">
 			<h3 class="title">Partners</h3>
-			<ul class="space-y-0.5">
+			<ul v-if="partners.length > 0" class="space-y-0.5">
 				<TodosSidebarLink
 					v-for="partner in partners"
 					:key="partner.username"
@@ -61,10 +61,13 @@
 					{{ partner.fname }}
 				</TodosSidebarLink>
 			</ul>
+			<div v-else class="mx-2 px-3 py-1">
+				<BaseTag>No partners found</BaseTag>
+			</div>
 		</div>
 		<div class="space-y-2">
 			<h3 class="title">Tags</h3>
-			<ul class="space-y-0.5">
+			<ul v-if="tags.length > 0" class="space-y-0.5">
 				<TodosSidebarLink
 					v-for="tag in tags"
 					:key="tag.id"
@@ -78,6 +81,9 @@
 					</BaseTag>
 				</TodosSidebarLink>
 			</ul>
+			<div v-else class="mx-2 px-3 py-1">
+				<BaseTag>No categories found</BaseTag>
+			</div>
 		</div>
 	</aside>
 </template>

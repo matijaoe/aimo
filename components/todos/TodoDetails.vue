@@ -9,7 +9,6 @@
 				class="absolute top-0 right-0 h-screen w-full md:w-[480px] bg-white border-l-2 border-gray-200 py-10 px-6 overflow-y-auto space-y-2 flex flex-col"
 				@click.stop=""
 			>
-				<h4 v-if="isNewTodo" class="text-4xl font-bold">New todo</h4>
 				<div class="flex justify-end items-center pb-2">
 					<TodoAttributes
 						:is-important="isImportant"
@@ -45,7 +44,15 @@
 
 				<div class="space-y-4">
 					<div class="flex justify-between items-end gap-2">
-						<h2 class="text-3xl font-bold ml-1">{{ title }}</h2>
+						<h2
+							v-if="isNewTodo && !title"
+							class="text-3xl font-bold ml-1"
+						>
+							New todo
+						</h2>
+						<h2 v-else class="text-3xl font-bold ml-1">
+							{{ title }}
+						</h2>
 						<p
 							v-if="!isNewTodo"
 							class="text-xs text-gray-300 flex items-center gap-1 flex-shrink-0"

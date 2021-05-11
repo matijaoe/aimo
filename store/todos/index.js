@@ -103,6 +103,7 @@ export const actions = {
 			}
 			todo.id = newTodo.id;
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.log(error);
 		}
 
@@ -113,6 +114,7 @@ export const actions = {
 		try {
 			await getters.currentUserTodoCollection.doc(todo.id).update(todo);
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.log(error);
 		}
 	},
@@ -132,6 +134,7 @@ export const actions = {
 				batch.commit();
 			}
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.log(error);
 		}
 		commit('deleteTodo', todo);
@@ -159,6 +162,7 @@ export const actions = {
 				.doc(todo.id)
 				.update({ approved: true, review: todo.review });
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.log(error);
 		}
 	},
@@ -178,6 +182,7 @@ export const actions = {
 			}
 			return todos;
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.log(error);
 		}
 		return [];

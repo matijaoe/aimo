@@ -39,6 +39,11 @@ export const getters = {
 	getCountries(state) {
 		return state.countries;
 	},
+	getCountryByCode: (state, getters) => (code) => {
+		return getters.getCountries.find(
+			(country) => country.alpha3Code === code
+		);
+	},
 	getSearchResults(state) {
 		return state.searchResults;
 	},
@@ -65,7 +70,6 @@ export const mutations = {
 		state.countries = countries;
 	},
 	searchAnything(state, results) {
-		console.log(results);
 		state.searchResults = results;
 	},
 };

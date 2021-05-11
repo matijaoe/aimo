@@ -51,9 +51,3 @@ export default {
 	},
 };
 </script>
-
-<style scoped>
-.custom-height {
-	max-height: calc(100vh - 9rem);
-}
-</style>

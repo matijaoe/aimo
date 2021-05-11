@@ -1,7 +1,12 @@
 <template>
-	<div class="grid grid-cols-3 gap-4 overflow-hidden custom-height">
-		<PostsList :todos="filteredTodos" class="col-span-2 custom-height" />
-		<CommunitySidebar class="hidden md:block" :category-id="categoryId" />
+	<div class="grid grid-cols-6 gap-4 overflow-hidden full-height">
+		<PostsList :todos="filteredTodos" class="col-span-4" />
+		<transition>
+			<CommunitySidebar
+				class="hidden md:block col-span-2"
+				:category-id="categoryId"
+			/>
+		</transition>
 	</div>
 </template>
 
@@ -47,7 +52,7 @@ export default {
 </script>
 
 <style scoped lang="postcss">
-.custom-height {
+.full-height {
 	height: calc(100vh - 9rem);
 	@apply overflow-y-auto;
 }

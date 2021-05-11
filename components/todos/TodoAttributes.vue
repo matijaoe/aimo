@@ -1,5 +1,5 @@
 <template>
-	<div class="flex items-center gap-4">
+	<div class="flex items-center" :class="small ? 'gap-2' : 'gap-4'">
 		<IconStar
 			v-tooltip.bottom="'Important'"
 			class="fill-current transition"
@@ -57,6 +57,11 @@ export default {
 		BaseAvatar,
 	},
 	props: {
+		small: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
 		isImportant: {
 			type: Boolean,
 			required: false,
