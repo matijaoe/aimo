@@ -12,7 +12,7 @@
 			</div>
 		</BaseButton>
 		<input
-			id=""
+			id="searchbar"
 			v-model="searchTerm"
 			type="search"
 			name=""
@@ -36,7 +36,9 @@ export default {
 	},
 	methods: {
 		searchSomething() {
-			this.$store.dispatch('searchAnything', this.searchTerm);
+			setTimeout(() => {
+				this.$store.dispatch('searchAnything', this.searchTerm);
+			}, 400);
 		},
 	},
 };
