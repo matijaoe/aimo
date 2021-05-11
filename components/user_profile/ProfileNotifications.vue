@@ -23,14 +23,20 @@
 			<ul class="space-y-2">
 				<li
 					v-for="notification in notifications"
-					:key="notification"
+					:key="notification.id"
 					class="p-3 rounded-lg bg-gray-50"
 				>
-					<nuxt-link to="/home">
-						<BaseNotification color="blue">
-							<p>{{ notification }}</p>
-						</BaseNotification>
-					</nuxt-link>
+					<BaseNotification
+						:not-id="notification.id"
+						:request="notification.type === 'request'"
+						color="blue"
+						:partner="
+							notification.partner ? notification.partner : ''
+						"
+						options
+					>
+						<p>{{ notification.message }}</p>
+					</BaseNotification>
 				</li>
 			</ul>
 		</BaseContainer>

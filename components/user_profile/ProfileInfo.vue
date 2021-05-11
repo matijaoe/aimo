@@ -20,12 +20,18 @@
 							<span>Edit</span>
 						</div>
 					</BaseButton>
-					<BaseButton v-else mode="cta">
-						<div class="flex items-center gap-2">
-							<IconPlus size="sm" />
-							<span>Add as partner</span>
-						</div>
-					</BaseButton>
+					<div v-else class="flex items-center justify-center">
+						<p v-if="isPartner" class="bold italic">Partners</p>
+						<p v-else-if="isRequestSent" class="bold italic">
+							Request Sent
+						</p>
+						<BaseButton v-else mode="cta" @click="sendRequest">
+							<div class="flex items-center gap-2">
+								<IconPlus size="sm" />
+								<span>Add as partner</span>
+							</div>
+						</BaseButton>
+					</div>
 				</div>
 			</div>
 			<div>
@@ -84,6 +90,7 @@ import IconIdentification from 'icons/IconIdentification.vue';
 
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
 	components: {
@@ -98,6 +105,16 @@ export default {
 	},
 	props: ['user', 'isLoggedIn'],
 	computed: {
+		...mapGetters(['currentUserId', 'getCurrentUserSentRequests']),
+		...mapGetters('partners', ['getPartnersById']),
+		isRequestSent() {
+			return this.getCurrentUserSentRequests.includes(this.user.username);
+		},
+		isPartner() {
+			return this.getPartnersById(this.currentUserId)
+				.map((user) => user.username)
+				.includes(this.user.username);
+		},
 		age() {
 			const birthday = dayjs.unix(this.user.birthday.seconds);
 			return dayjs().diff(birthday, 'year');
@@ -119,5 +136,11 @@ export default {
 		},
 	},
 	created() {},
+	methods: {
+		...mapActions('notifications', ['sendPartnerRequest']),
+		sendRequest() {
+			this.sendPartnerRequest({ partner: this.user.username });
+		},
+	},
 };
 </script>

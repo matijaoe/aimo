@@ -1,4 +1,5 @@
 import * as fb from '@/firebase';
+import Vue from 'vue';
 
 function freq(nums) {
 	return nums.reduce((acc, curr) => {
@@ -27,6 +28,16 @@ export const mutations = {
 	pushUserToUsers(state, user) {
 		state.users.push(user);
 	},
+	removeUserFromUsers(state, userId) {
+		const index = state.users.findIndex((u) => u.username === userId);
+		state.users.splice(index, 1);
+	},
+	updateUser(state, user) {
+		const index = state.users.findIndex(
+			(u) => u.username === user.username
+		);
+		Vue.set(state.users, index, user);
+	},
 };
 
 export const actions = {
@@ -45,7 +56,31 @@ export const actions = {
 			console.log(error);
 		}
 	},
-	async loadUserData({ commit }) {
+	loadUserData(ctx) {
+		const collection = fb.usersCollection;
+
+		collection.onSnapshot((res) => {
+			const changes = res.docChanges();
+			changes.forEach((change) => {
+				if (change.type === 'added') {
+					ctx.commit('pushUserToUsers', {
+						...change.doc.data(),
+						username: change.doc.id,
+					});
+				}
+				if (change.type === 'modified') {
+					ctx.commit('updateUser', {
+						...change.doc.data(),
+						username: change.doc.id,
+					});
+				}
+				if (change.type === 'removed') {
+					ctx.commit('removeUserFromUsers', change.doc.id);
+				}
+			});
+		});
+
+		/*
 		try {
 			const users = await fb.usersCollection.get();
 
@@ -58,7 +93,7 @@ export const actions = {
 		} catch (error) {
 			// eslint-disable-next-line no-console
 			console.error(error);
-		}
+		} */
 	},
 	async loadUserById(context, username) {
 		let user = {};

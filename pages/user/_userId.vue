@@ -29,7 +29,7 @@
 		<div class="flex flex-col gap-2 mb-20 lg:mb-0">
 			<ProfileNotifications
 				v-if="isLoggedInUser"
-				:notifications="user.notifications"
+				:notifications="notifications"
 				class="hidden xl:block custom-height"
 			/>
 			<ProfileTodos v-else class="custom-height" :todos="todos" />
@@ -62,12 +62,13 @@ export default {
 	},
 	async asyncData({ params, store, redirect }) {
 		const userId = await params.userId;
-		const user = await store.dispatch('users/loadUserById', userId);
+		// const user = await store.dispatch('users/loadUserById', userId);
+		const user = store.getters['users/getUserById'](userId);
 		const getUserCategories = await store.dispatch(
 			'users/getUserCategories',
 			{ username: userId, amount: 8 }
 		);
-		if (user.error) {
+		if (!user) {
 			// todo - redirect to 404
 			redirect('/home');
 		}
@@ -77,7 +78,7 @@ export default {
 			userId
 		);
 
-		return { user, getUserCategories, todos };
+		return { userId, getUserCategories, todos };
 	},
 	data() {
 		return {
@@ -87,6 +88,10 @@ export default {
 	computed: {
 		...mapGetters(['currentUserId']),
 		...mapGetters('users', ['users', 'getUserById']),
+		...mapGetters('notifications', ['notifications']),
+		user() {
+			return this.getUserById(this.userId);
+		},
 		isLoggedInUser() {
 			return this.currentUserId === this.userId;
 		},

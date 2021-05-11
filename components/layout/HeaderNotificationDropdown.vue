@@ -37,11 +37,16 @@
 			<BaseDropdownList>
 				<BaseDropdownItem
 					v-for="notification in notifications"
-					:key="notification"
+					:key="notification.id"
 					link
+					:to="`/user/${userId}`"
 				>
-					<BaseNotification color="blue">
-						<p>{{ notification }}</p>
+					<BaseNotification
+						:not-id="notification.id"
+						:request="notification.type === 'request'"
+						color="blue"
+					>
+						<p>{{ notification.message }}</p>
 					</BaseNotification>
 				</BaseDropdownItem>
 			</BaseDropdownList>
@@ -69,7 +74,7 @@ export default {
 		BaseDropdownList,
 		BaseDropdownItem,
 	},
-	props: ['notifications'],
+	props: ['notifications', 'userId'],
 	computed: {
 		notifyCount() {
 			return this.notifications?.length || 0;

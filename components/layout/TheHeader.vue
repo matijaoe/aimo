@@ -15,7 +15,8 @@
 				class="flex items-center space-x-4 sm:space-x-8"
 			>
 				<HeaderNotificationDropdown
-					:notifications="currentUser.notifications"
+					:user-id="currentUser.username"
+					:notifications="notifications"
 				/>
 				<HeaderProfileDropdown :user="currentUser" />
 			</div>
@@ -56,6 +57,7 @@ export default {
 	},
 	computed: {
 		...mapGetters(['currentUser', 'getSearchResults']),
+		...mapGetters('notifications', ['notifications']),
 		results() {
 			return this.getSearchResults;
 		},

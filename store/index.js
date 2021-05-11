@@ -15,8 +15,8 @@ export const getters = {
 	currentUserId(state) {
 		return state.userId;
 	},
-	currentUser(state) {
-		return state.user;
+	currentUser(state, getters) {
+		return getters['users/getUserById'](getters.currentUserId);
 	},
 	currentUserPartners(state, getters) {
 		return getters['partners/getPartnersById'](getters.currentUserId) || [];
@@ -46,6 +46,11 @@ export const getters = {
 	},
 	getSearchResults(state) {
 		return state.searchResults;
+	},
+	getCurrentUserSentRequests(state, getters) {
+		const user = getters.currentUser;
+		if (user.requestsSent) return user.requestsSent;
+		return [];
 	},
 };
 
@@ -86,6 +91,10 @@ export const actions = {
 			await ctx.dispatch('users/pushNewUser', user);
 			await ctx.dispatch('todos/loadUserTodos');
 			await ctx.dispatch('reviews/loadUserReviews');
+			await ctx.dispatch(
+				'notifications/loadNotifications',
+				user.username
+			);
 		}
 	},
 	async signup(context, signupInfo) {
@@ -107,6 +116,7 @@ export const actions = {
 			});
 			await context.dispatch('todos/loadUserTodos');
 			await context.dispatch('reviews/loadUserReviews');
+			await context.dispatch('notifications/loadNotifications');
 		} catch (error) {
 			return error;
 		}
@@ -126,11 +136,13 @@ export const actions = {
 			});
 			await context.dispatch('todos/loadUserTodos');
 			await context.dispatch('reviews/loadUserReviews');
+			await context.dispatch('notifications/loadNotifications');
 		} catch (error) {
 			return error;
 		}
 	},
 	async logout(ctx) {
+		await ctx.dispatch('notifications/unsubscribeService');
 		await this.$fire.auth.signOut();
 		ctx.commit('clearUserData');
 	},
