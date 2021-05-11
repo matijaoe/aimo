@@ -69,7 +69,7 @@
 						<h2 v-else class="text-3xl font-bold ml-1">
 							{{ title }}
 						</h2>
-						<BaseTimestamp :date="createdAt" />
+						<BaseTimestamp v-if="!isNewTodo" :date="createdAt" />
 					</div>
 					<div
 						v-if="description"
@@ -128,7 +128,7 @@
 										<div class="flex items-center gap-2">
 											<BaseAvatar
 												size="xs"
-												:src="partnerOption.flag"
+												:src="partnerOption.photo"
 											/>
 											<p class="text-sm font-medium">
 												{{ partnerOption.username }}

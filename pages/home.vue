@@ -1,5 +1,8 @@
 <template>
-	<section class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-4">
+	<section
+		v-if="currentUser"
+		class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-4"
+	>
 		<div
 			class="md:col-span-2 lg:col-span-3 bg-[#F4F4F4] text-[#4D61FC] rounded-2xl flex items-center pl-[10%]"
 		>
