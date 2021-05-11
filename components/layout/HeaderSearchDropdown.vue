@@ -1,6 +1,6 @@
 <template>
 	<div
-		v-if="results.users && results.users.length > 0"
+		v-if="results.users && results.users.length > 0 && active"
 		class="relative inline-block w-full mb-2 rounded-lg"
 	>
 		<ul
@@ -39,6 +39,12 @@ export default {
 	components: {
 		IconUser,
 	},
+	inject: ['sharedState'],
 	props: ['results'],
+	computed: {
+		active() {
+			return this.sharedState.active;
+		},
+	},
 };
 </script>

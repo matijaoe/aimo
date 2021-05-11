@@ -1,6 +1,6 @@
 <template>
 	<header class="flex gap-8">
-		<div class="rounded-lg">
+		<div v-click-outside="away" class="rounded-lg" @click="toggle">
 			<HeaderSearchbar class="flex items-center sm:flex-1" />
 
 			<HeaderSearchDropdown :results="results"></HeaderSearchDropdown>
@@ -23,6 +23,7 @@ import HeaderNotificationDropdown from 'layout/HeaderNotificationDropdown.vue';
 import HeaderProfileDropdown from 'layout/HeaderProfileDropdown.vue';
 import HeaderSearchDropdown from 'layout/HeaderSearchDropdown.vue';
 import { mapGetters } from 'vuex';
+import vClickOutside from 'v-click-outside';
 
 export default {
 	components: {
@@ -31,10 +32,34 @@ export default {
 		HeaderProfileDropdown,
 		HeaderSearchDropdown,
 	},
+	directives: {
+		clickOutside: vClickOutside.directive,
+	},
+	provide() {
+		return {
+			sharedState: this.sharedState,
+		};
+	},
+	data() {
+		return {
+			sharedState: {
+				active: false,
+			},
+		};
+	},
 	computed: {
 		...mapGetters(['currentUser', 'getSearchResults']),
 		results() {
 			return this.getSearchResults;
+		},
+	},
+
+	methods: {
+		toggle() {
+			this.sharedState.active = !this.sharedState.active;
+		},
+		away() {
+			this.sharedState.active = false;
 		},
 	},
 };
