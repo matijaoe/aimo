@@ -36,7 +36,9 @@ export default {
 	},
 	methods: {
 		searchSomething() {
-			this.$store.dispatch('searchAnything', this.searchTerm);
+			setTimeout(() => {
+				this.$store.dispatch('searchAnything', this.searchTerm);
+			}, 400);
 		},
 	},
 };

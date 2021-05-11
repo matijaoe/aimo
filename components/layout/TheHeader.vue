@@ -1,6 +1,10 @@
 <template>
 	<header class="flex gap-8">
-		<HeaderSearchbar class="flex items-center sm:flex-1" />
+		<div class="rounded-lg">
+			<HeaderSearchbar class="flex items-center sm:flex-1" />
+
+			<HeaderSearchDropdown :results="results"></HeaderSearchDropdown>
+		</div>
 
 		<div class="flex justify-end flex-1">
 			<div class="flex items-center space-x-4 sm:space-x-8">
@@ -17,22 +21,21 @@
 import HeaderSearchbar from 'layout/HeaderSearchbar.vue';
 import HeaderNotificationDropdown from 'layout/HeaderNotificationDropdown.vue';
 import HeaderProfileDropdown from 'layout/HeaderProfileDropdown.vue';
-
+import HeaderSearchDropdown from 'layout/HeaderSearchDropdown.vue';
 import { mapGetters } from 'vuex';
-
-import vClickOutside from 'v-click-outside';
 
 export default {
 	components: {
 		HeaderSearchbar,
 		HeaderNotificationDropdown,
 		HeaderProfileDropdown,
-	},
-	directives: {
-		clickOutside: vClickOutside.directive,
+		HeaderSearchDropdown,
 	},
 	computed: {
-		...mapGetters(['currentUser']),
+		...mapGetters(['currentUser', 'getSearchResults']),
+		results() {
+			return this.getSearchResults;
+		},
 	},
 };
 </script>

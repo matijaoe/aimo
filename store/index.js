@@ -45,7 +45,6 @@ export const mutations = {
 		state.socials = socialsData;
 	},
 	searchAnything(state, results) {
-		console.log(results);
 		state.searchResults = results;
 	},
 };
@@ -78,7 +77,6 @@ export const actions = {
 	async searchAnything({ commit, getters, rootGetters }, term) {
 		const limit = 4;
 		term = term.toLowerCase();
-		console.log(term);
 		if (term.replace(/\s+/g, '') === '') {
 			commit('searchAnything', {});
 			return;
@@ -111,7 +109,7 @@ export const actions = {
 				if (foundUsers.length === limit) {
 					break;
 				}
-				foundUsers.push(doc.data());
+				foundUsers.push({ ...doc.data(), id: doc.id });
 			}
 
 			const foundCategories = [];
