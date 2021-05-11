@@ -1,22 +1,32 @@
 <template>
 	<!-- Main grid with 3 cols -->
-	<div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-4 h-full mb-10">
+	<div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-x-4 h-full">
 		<!-- Column 1 -->
-		<div class="space-y-2">
+		<div class="flex flex-col gap-2">
 			<ProfileInfo :user="user" :is-logged-in="isLoggedInUser" />
 			<ProfileCoins :user="user" />
 		</div>
 
 		<!-- Column 2 -->
-		<div class="space-y-2">
-			<ProfileSocials :socials="user.socials" />
-			<ProfilePartners :user="user" :user-id="userId" />
-			<ProfileBio :user="user" />
-			<ProfileCategories :categories="getUserCategories" />
+		<div class="flex flex-col gap-2">
+			<ProfileSocials
+				class="order-4 lg:order-1"
+				:socials="user.socials"
+			/>
+			<ProfilePartners
+				class="order-3 lg:order-2"
+				:user="user"
+				:user-id="userId"
+			/>
+			<ProfileBio class="order-1 lg:order-3" :user="user" />
+			<ProfileCategories
+				class="order-2 lg:order-4"
+				:categories="getUserCategories"
+			/>
 		</div>
 
 		<!-- Column 3 -->
-		<div class="space-y-2">
+		<div class="flex flex-col gap-2 mb-20 lg:mb-0">
 			<ProfileNotifications
 				v-if="isLoggedInUser"
 				:notifications="user.notifications"

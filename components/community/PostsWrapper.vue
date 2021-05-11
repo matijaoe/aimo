@@ -1,9 +1,12 @@
 <template>
-	<div class="grid grid-cols-6 gap-4 overflow-hidden full-height">
-		<PostsList :todos="filteredTodos" class="col-span-4" />
+	<div class="grid md:grid-cols-6 gap-y-4 md:gap-4 overflow-hidden">
+		<PostsList
+			:todos="filteredTodos"
+			class="col-span-4 order-2 md:order-1 full-height"
+		/>
 		<transition>
 			<CommunitySidebar
-				class="hidden md:block col-span-2"
+				class="md:col-span-2 order-1 md:order-2 overflow-y-auto md:full-height"
 				:category-id="categoryId"
 			/>
 		</transition>

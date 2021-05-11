@@ -18,7 +18,7 @@ export default {
 	components: { BaseContainer, ProfileTodoItem },
 	props: {
 		todos: {
-			type: Object,
+			type: Array,
 			required: true,
 		},
 	},

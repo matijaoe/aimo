@@ -21,7 +21,10 @@
 				</div>
 			</BaseButton>
 		</template>
-		<BaseDropdownContent v-if="notifyCount" class="w-[400px] text-center">
+		<BaseDropdownContent
+			v-if="notifyCount"
+			class="w-[90vw] md:w-[400px] text-center"
+		>
 			<BaseDropdownList>
 				<BaseDropdownItem class="font-semibold text-center">
 					You have

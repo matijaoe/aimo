@@ -1,33 +1,42 @@
 <template>
 	<aside class="border-r-2 border-gray-100 space-y-5 pb-4">
-		<div class="mb-6 p-4">
+		<div class="mb-6 p-1 md:p-4">
 			<BaseButton
 				mode="cta"
-				class="w-full py-2"
+				class="w-full py-2 hidden md:block"
 				thin
 				@click="$emit('new-todo')"
 			>
 				<IconPlus />
-				Add todo
+				<span>Add todo</span>
+			</BaseButton>
+			<BaseButton
+				mode="cta"
+				class="w-full py-2 block md:hidden"
+				thin
+				square
+				@click="$emit('new-todo')"
+			>
+				<IconPlus />
 			</BaseButton>
 		</div>
 
 		<ul class="space-y-0.5">
 			<TodosSidebarLink :to="{ path: '/todos' }">
 				<IconClipboardList size="sm" />
-				All
+				<span>All</span>
 			</TodosSidebarLink>
 			<TodosSidebarLink :to="{ path: '/todos/inprogress' }">
 				<IconClock size="sm" />
-				In progress
+				<span>In progress</span>
 			</TodosSidebarLink>
 			<TodosSidebarLink :to="{ path: '/todos/completed' }">
 				<IconCheckCircle size="sm" />
-				Completed
+				<span>Completed</span>
 			</TodosSidebarLink>
 			<TodosSidebarLink :to="{ path: '/todos/approved' }">
 				<IconShieldCheck size="sm" class="text-current" />
-				Approved
+				<span>Approved</span>
 			</TodosSidebarLink>
 		</ul>
 
@@ -36,15 +45,15 @@
 			<ul class="space-y-0.5">
 				<TodosSidebarLink :to="{ path: '/todos/important' }">
 					<IconStar size="sm" />
-					Important
+					<span>Important</span>
 				</TodosSidebarLink>
 				<TodosSidebarLink :to="{ path: '/todos/daily' }">
 					<IconGlobeAlt size="sm" />
-					Daily
+					<span>Daily</span>
 				</TodosSidebarLink>
 				<TodosSidebarLink :to="{ path: '/todos/personal' }">
 					<IconUserCircle size="sm" />
-					Personal
+					<span>Personal</span>
 				</TodosSidebarLink>
 			</ul>
 		</div>
@@ -55,10 +64,10 @@
 					v-for="partner in partners"
 					:key="partner.username"
 					:to="{ path: `/todos/partners/${partner.username}` }"
-					class="text-[12px]"
+					class="text-[12px] flex-col"
 				>
 					<BaseAvatar size="xs" :src="partner.photo" />
-					{{ partner.fname }}
+					<span>{{ partner.fname }}</span>
 				</TodosSidebarLink>
 			</ul>
 			<div v-else class="mx-2 px-3 py-1">
@@ -136,5 +145,10 @@ export default {
 <style lang="postcss" scoped>
 .title {
 	@apply text-gray-300 opacity-75 mb-1 font-normal uppercase text-xs pl-4;
+	@apply hidden md:block;
+}
+
+aside span {
+	@apply hidden md:block;
 }
 </style>

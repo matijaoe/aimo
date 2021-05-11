@@ -1,5 +1,7 @@
 <template>
-	<div class="flex items-center justify-between gap-2 mb-4">
+	<div
+		class="flex flex-col sm:flex-row sm:items-center sm:ustify-between gap-y-3 sm:gap-2 mb-4"
+	>
 		<PostOwner :user="todo.owner" />
 		<TodoAttributes
 			:is-personal="!todo.partner"

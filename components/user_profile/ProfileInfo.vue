@@ -29,10 +29,10 @@
 				</div>
 			</div>
 			<div>
-				<div class="grid grid-cols-2 gap-3">
+				<div class="grid sm:grid-cols-2 gap-3">
 					<div
 						v-tooltip.top="`From ${country.name}`"
-						class="flex items-center justify-end gap-2 p-2 rounded-lg text-red-600"
+						class="flex items-center justify-center sm:justify-end gap-2 p-2 rounded-lg text-red-600"
 					>
 						<span>{{ country.name }}</span>
 						<div
@@ -47,21 +47,21 @@
 					</div>
 					<div
 						v-tooltip.top="'Age'"
-						class="flex items-center justify-start gap-2 text-orange-600 p-2 rounded-lg"
+						class="flex items-center justify-center sm:justify-start gap-2 text-orange-600 p-2 rounded-lg"
 					>
 						<IconCake class="text-orange-600" />
 						<span>{{ age }} years old</span>
 					</div>
 					<div
 						v-tooltip.bottom="'Joined on'"
-						class="flex items-center justify-end gap-2 text-blue-600 p-2 rounded-lg"
+						class="flex items-center justify-center sm:justify-end gap-2 text-blue-600 p-2 rounded-lg"
 					>
 						<span>{{ joinDate }}</span>
 						<IconCalendar class="text-blue-600" />
 					</div>
 					<div
 						v-tooltip.bottom="'Occupation'"
-						class="flex items-center justify-start gap-2 text-indigo-600 p-2 rounded-lg"
+						class="flex items-center justify-center sm:justify-start gap-2 text-indigo-600 p-2 rounded-lg"
 					>
 						<IconIdentification class="text-indigo-600" />
 						<span>{{ user.occupation }}</span>

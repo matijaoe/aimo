@@ -19,14 +19,16 @@
 			>
 				<div
 					class="w-8 h-8 rounded-full"
-					:class="colorscheme(gray)[0]"
+					:class="colorscheme('gray')[0]"
 				/>
 				<h2 class="text-4xl leading-3 font-semibold uppercase">Home</h2>
 			</div>
 
 			<div class="space-y-4">
 				<h3 class="text-xl font-bold ml-1">Categories</h3>
-				<div class="flex flex-wrap items-center gap-2">
+				<div
+					class="flex overflow-x-auto md:flex-wrap items-center gap-2"
+				>
 					<BaseTag
 						v-for="cat in categories"
 						:key="cat.id"
@@ -43,7 +45,7 @@
 				<h3 class="text-xl font-bold ml-1">Partners</h3>
 				<div
 					v-if="currentUserPartners.length > 0"
-					class="flex flex-wrap items-center gap-2"
+					class="flex overflow-x-auto md:flex-wrap items-center gap-2"
 				>
 					<BaseAvatar
 						v-for="user in currentUserPartners"
@@ -65,7 +67,7 @@
 				<h3 class="text-xl font-bold ml-1">Users</h3>
 				<div
 					v-if="users.length > 0"
-					class="flex flex-wrap items-center gap-2"
+					class="flex overflow-x-auto md:flex-wrap items-center gap-2"
 				>
 					<BaseAvatar
 						v-for="user in usersWithoutUs"

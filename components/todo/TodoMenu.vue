@@ -1,5 +1,7 @@
 <template>
-	<div class="flex flex-items-center flex-wrap gap-2 my-5">
+	<div
+		class="flex justify-center md:justify-start flex-items-center flex-wrap gap-2 my-5"
+	>
 		<!-- <div
 			v-tooltip.left="todo.important ? 'Important' : 'Mark as important'"
 			class="p-1 rounded-lg group hover:cursor-pointer"
@@ -25,10 +27,6 @@
 			class="max-w-[300px]"
 			@toggle-completed="toggleCompleted"
 		/>
-		<BaseButton mode="fill">
-			Submit engagement
-			<IconDocumentReport size="sm" />
-		</BaseButton>
 		<BaseButton mode="info"
 			>Give Coins
 			<IconInfo size="sm" />
@@ -44,7 +42,6 @@
 import BaseButton from 'UI/BaseButton';
 import IconExit from 'icons/IconExit';
 import IconInfo from 'icons/IconInfo';
-import IconDocumentReport from 'icons/IconDocumentReport';
 import MarkAsCompleteButton from '@/components/todo/MarkAsCompleteButton';
 
 import { mapActions } from 'vuex';
@@ -54,7 +51,6 @@ export default {
 		BaseButton,
 		IconExit,
 		IconInfo,
-		IconDocumentReport,
 		// IconStar,
 		// IconGlobeAlt,
 		MarkAsCompleteButton,
