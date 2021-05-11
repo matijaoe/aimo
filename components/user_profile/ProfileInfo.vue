@@ -2,9 +2,7 @@
 	<BaseContainer fieldset label="Info">
 		<div class="flex flex-col gap-8">
 			<div class="flex flex-col items-center gap-2">
-				<div
-					class="p-1 border-[4px] border-amber-400 rounded-full mb-2"
-				>
+				<div class="p-1 border-[4px] border-gray-200 rounded-full mb-2">
 					<BaseAvatar size="xxl" :src="user.photo" />
 				</div>
 				<div class="flex flex-col justify-center items-center gap-4">
