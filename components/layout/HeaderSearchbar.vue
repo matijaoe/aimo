@@ -12,7 +12,7 @@
 			</div>
 		</BaseButton>
 		<input
-			id=""
+			id="searchbar"
 			v-model="searchTerm"
 			type="search"
 			name=""

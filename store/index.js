@@ -82,20 +82,20 @@ export const actions = {
 			return;
 		}
 		try {
-			const foundTodos = [];
-			const todosRef = await fb.usersCollection
-				.doc(rootGetters.currentUserId)
-				.collection('todos')
-				.get();
-			const filteredTodos = todosRef.docs.filter((p) =>
-				p.data().name.toLowerCase().includes(term)
-			);
-			for (const doc of filteredTodos) {
-				if (foundTodos.length === limit) {
-					break;
-				}
-				foundTodos.push(doc.data());
-			}
+			// const foundTodos = [];
+			// const todosRef = await fb.usersCollection
+			// 	.doc(rootGetters.currentUserId)
+			// 	.collection('todos')
+			// 	.get();
+			// const filteredTodos = todosRef.docs.filter((p) =>
+			// 	p.data().name.toLowerCase().includes(term)
+			// );
+			// for (const doc of filteredTodos) {
+			// 	if (foundTodos.length === limit) {
+			// 		break;
+			// 	}
+			// 	foundTodos.push(doc.data());
+			// }
 
 			const foundUsers = [];
 			const userRef = await fb.usersCollection.get();
@@ -112,22 +112,22 @@ export const actions = {
 				foundUsers.push({ ...doc.data(), id: doc.id });
 			}
 
-			const foundCategories = [];
-			const categoriesRef = await fb.categoriesCollection.get();
-			const filteredCategories = categoriesRef.docs.filter((p) =>
-				p.data().name.toLowerCase().includes(term)
-			);
-			for (const doc of filteredCategories) {
-				if (foundCategories.length === limit) {
-					break;
-				}
-				foundCategories.push(doc.data());
-			}
+			// const foundCategories = [];
+			// const categoriesRef = await fb.categoriesCollection.get();
+			// const filteredCategories = categoriesRef.docs.filter((p) =>
+			// 	p.data().name.toLowerCase().includes(term)
+			// );
+			// for (const doc of filteredCategories) {
+			// 	if (foundCategories.length === limit) {
+			// 		break;
+			// 	}
+			// 	foundCategories.push(doc.data());
+			// }
 
 			const results = {
 				users: foundUsers,
-				todos: foundTodos,
-				categories: foundCategories,
+				// todos: foundTodos,
+				// categories: foundCategories,
 			};
 			commit('searchAnything', results);
 		} catch (error) {

@@ -1,9 +1,12 @@
 <template>
 	<header class="flex gap-8">
-		<div v-click-outside="away" class="rounded-lg" @click="toggle">
+		<div v-click-outside="away" class="rounded-lg absolute" @click="toggle">
 			<HeaderSearchbar class="flex items-center sm:flex-1" />
 
-			<HeaderSearchDropdown :results="results"></HeaderSearchDropdown>
+			<HeaderSearchDropdown
+				:results="results"
+				class="relative"
+			></HeaderSearchDropdown>
 		</div>
 
 		<div class="flex justify-end flex-1">
@@ -56,6 +59,11 @@ export default {
 
 	methods: {
 		toggle() {
+			document
+				.getElementById('searchbar')
+				.addEventListener('click', () => {
+					this.sharedState.active = false;
+				});
 			this.sharedState.active = !this.sharedState.active;
 		},
 		away() {

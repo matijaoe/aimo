@@ -4,7 +4,7 @@
 		class="relative inline-block w-full mb-2 rounded-lg"
 	>
 		<ul
-			class="absolute bg-gray-100 top-full divide-gray-100 text-gray-700 z-50 w-full border-2 rounded-lg"
+			class="absolute bg-gray-100 top-full text-gray-700 z-50 w-full border-2 rounded-lg"
 		>
 			<li
 				v-for="user in results.users"
@@ -16,9 +16,8 @@
 						<div
 							class="w-full text-gray-500 group-hover:text-gray-700 p-1 pl-2"
 						>
-							<IconUser
-								class="opacity-75 group-hover:opacity-100 float-left mt-2 fill-current text-emerald-600"
-							/>
+							<BaseAvatar :src="user.photo" class="float-left">
+							</BaseAvatar>
 							<div class="text-right font-bold text-base">
 								{{ user.id }}
 							</div>
@@ -34,10 +33,10 @@
 </template>
 
 <script>
-import IconUser from 'icons/IconUser.vue';
+import BaseAvatar from 'UI/BaseAvatar';
 export default {
 	components: {
-		IconUser,
+		BaseAvatar,
 	},
 	inject: ['sharedState'],
 	props: ['results'],
