@@ -21,7 +21,6 @@
 			class="transition"
 			:class="isApproved ? 'text-emerald-400' : 'text-gray-300'"
 		/>
-		<!-- todo PARTNER OBJECT -->
 		<div
 			v-if="!isPersonal && partner"
 			v-tooltip.bottom="`@${partner.username}`"

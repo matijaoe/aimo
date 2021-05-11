@@ -44,6 +44,7 @@ import IconCheckCircle from 'icons/IconCheckCircle.vue';
 import IconShieldCheck from 'icons/IconShieldCheck.vue';
 import IconClock from 'icons/IconClock.vue';
 import BaseAvatar from 'UI/BaseAvatar.vue';
+import BaseTag from 'UI/BaseTag.vue';
 import TodosSidebarLink from 'todos/TodosSidebarLink.vue';
 
 import { mapGetters } from 'vuex';
@@ -54,6 +55,7 @@ export default {
 		IconCheckCircle,
 		IconShieldCheck,
 		BaseAvatar,
+		BaseTag,
 		TodosSidebarLink,
 		IconClock,
 	},

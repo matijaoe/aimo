@@ -61,24 +61,6 @@
 						>Signup
 					</BaseButton>
 				</div>
-				<!--
-				<transition name="fade" mode="out-in">
-				<div
-					v-if="mode === 'signup'"
-					key="2"
-					class="flex items-center justify-between gap-1"
-				>
-					<BaseButton mode="cta">Signup</BaseButton>
-					<BaseButton
-						type="button"
-						mode="ghost"
-						class="ml-1"
-						@click="switchAuthMode"
-						>Login
-					</BaseButton>
-				</div>
-			</transition>
-				-->
 			</form>
 			<SignUpForm
 				v-if="mode === 'signup'"
@@ -170,7 +152,6 @@ export default {
 				password: this.password,
 			};
 
-			// doslovno c/p od max coachesa
 			try {
 				await this.$store.dispatch('login', actionPayload);
 				this.$router.replace('/home');

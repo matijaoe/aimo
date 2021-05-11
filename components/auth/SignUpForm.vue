@@ -41,12 +41,17 @@
 			</vs-input>
 			<vs-select v-model="countryIndex" filter placeholder="Country">
 				<vs-option
-					v-for="(country, index) in getCountries"
-					:key="country.alpha3Code"
-					:label="country.name"
+					v-for="(countryOption, index) in getCountries"
+					:key="countryOption.alpha3Code"
+					:label="countryOption.name"
 					:value="index + 1"
 				>
-					{{ country.name }}
+					<div class="flex items-center gap-2">
+						<BaseAvatar size="xs" :src="countryOption.flag" />
+						<p class="text-sm font-medium">
+							{{ countryOption.name }}
+						</p>
+					</div>
 				</vs-option>
 			</vs-select>
 		</div>
@@ -113,10 +118,13 @@
 <script>
 import { mapGetters } from 'vuex';
 import dayjs from 'dayjs';
+import BaseButton from 'UI/BaseButton';
+import BaseAvatar from 'UI/BaseAvatar';
+
 import isEmpty from 'lodash.isempty';
-import BaseButton from '../UI/BaseButton';
+
 export default {
-	components: { BaseButton },
+	components: { BaseButton, BaseAvatar },
 	emits: ['switch-auth-mode'],
 	data() {
 		return {
