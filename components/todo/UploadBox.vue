@@ -84,17 +84,15 @@ export default {
 		...mapGetters(['currentUserId']),
 	},
 	async created() {
-		this.isLoading = true;
 		const todoRef = await fb.usersCollection
 			.doc(this.currentUserId)
 			.collection('todos')
 			.doc(this.todoId)
 			.get();
 		if (todoRef.data().photoUrl) {
+			this.isLoading = true;
 			this.photoUrl = todoRef.data().photoUrl;
-			return;
 		}
-		this.isLoading = false;
 	},
 	methods: {
 		async onFileSelected(ev) {
