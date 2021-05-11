@@ -13,8 +13,8 @@
 			v-else
 			class="w-full h-full flex flex-col items-center justify-center gap-12"
 		>
-			<p class="font-semibold text-5xl">
-				You're fresh outta todos for review 🙄
+			<p class="font-semibold text-center text-2xl xl:text-5xl p-2">
+				No todos for review 😩
 			</p>
 		</div>
 	</div>

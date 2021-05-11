@@ -106,7 +106,6 @@ export default {
 	},
 	mounted() {
 		this.startTimeAndDate();
-		// console.log(this.$route);
 	},
 	methods: {
 		startTimeAndDate() {

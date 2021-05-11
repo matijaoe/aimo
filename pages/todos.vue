@@ -1,7 +1,7 @@
 <template>
 	<BaseContainer class="flex custom-height" no-padding>
 		<TodosSidebar
-			class="w-[200px] overflow-y-auto flex-shrink-0"
+			class="w-[50px] md:w-[200px] overflow-y-auto overflow-x-hidden flex-shrink-0"
 			@new-todo="toggleNewTodo"
 		/>
 		<transition>

@@ -7,8 +7,6 @@ function freq(nums) {
 	}, {});
 }
 
-// `https://avatar.oxro.io/avatar.svg?name=${user.fname}${user.lname}&caps=1&fontSize=200&bold=true&background=${bgColor}&color=${textColor}`
-
 export const state = () => ({
 	users: [],
 });
@@ -43,6 +41,7 @@ export const actions = {
 				.doc(updateInfo.username)
 				.update({ coins: coins + updateInfo.amount });
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.log(error);
 		}
 	},
@@ -57,6 +56,7 @@ export const actions = {
 
 			commit('loadUserData', userData);
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error(error);
 		}
 	},

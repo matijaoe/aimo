@@ -1,7 +1,13 @@
 <template>
 	<BaseContainer fieldset label="Categories">
 		<div v-if="categories.length" class="flex flex-wrap gap-2">
-			<BaseTag v-for="tag in categories" :key="tag.id" :color="tag.color">
+			<BaseTag
+				v-for="tag in categories"
+				:key="tag.id"
+				:color="tag.color"
+				link
+				:to="{ path: `/community/${tag.name}` }"
+			>
 				{{ tag.name }}
 			</BaseTag>
 		</div>

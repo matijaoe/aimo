@@ -4,6 +4,52 @@
 		@click="toggleDone"
 	>
 		<div class="w-full">
+			<!-- mobile first row -->
+			<div class="flex md:hidden items-center gap-2 mb-2">
+				<div
+					v-if="daily"
+					v-tooltip.left="'Repeats daily'"
+					class="p-1 rounded-lg"
+				>
+					<IconGlobeAlt class="text-blue-400" />
+				</div>
+				<div
+					v-if="isApproved"
+					v-tooltip.left="'Approved'"
+					class="p-1 rounded-lg"
+				>
+					<IconShieldCheck class="text-emerald-400" size="sm" />
+				</div>
+				<div
+					v-tooltip.left="
+						important ? 'Important' : 'Mark as important'
+					"
+					class="p-1 rounded-lg group"
+					@click.stop="toggleImportant"
+				>
+					<IconStar
+						class="fill-current transition"
+						:class="starStyle"
+						:fill="important"
+					/>
+				</div>
+				<div
+					v-if="partner"
+					v-tooltip.left="`@${partner.username}`"
+					@click.stop=""
+				>
+					<nuxt-link :to="`/user/${partner.username}`">
+						<BaseAvatar size="sm" :src="partner.photo" />
+					</nuxt-link>
+				</div>
+				<div
+					v-else
+					v-tooltip.left="'Personal'"
+					class="flex items-center justify-center"
+				>
+					<IconUserCircle class="text-gray-300" />
+				</div>
+			</div>
 			<!-- first row -->
 			<div class="flex items-center gap-4">
 				<!-- toggle -->
@@ -35,7 +81,7 @@
 							<slot />
 						</div>
 					</RoughNotation>
-					<div class="flex items-center gap-2">
+					<div class="hidden md:flex items-center gap-2">
 						<div
 							v-if="daily"
 							v-tooltip.left="'Repeats daily'"
@@ -128,11 +174,11 @@ export default {
 		},
 		id: {
 			type: String,
-			required: true,
+			required: false,
 		},
 		categories: {
 			type: Array,
-			required: true,
+			required: false,
 			default: () => [],
 		},
 
@@ -143,7 +189,7 @@ export default {
 		},
 		completed: {
 			type: Boolean,
-			required: true,
+			required: false,
 			default: false,
 		},
 		approved: {
@@ -153,12 +199,12 @@ export default {
 		},
 		important: {
 			type: Boolean,
-			required: true,
+			required: false,
 			default: false,
 		},
 		daily: {
 			type: Boolean,
-			required: true,
+			required: false,
 			default: false,
 		},
 	},

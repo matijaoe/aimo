@@ -1,16 +1,17 @@
 <template>
 	<div
 		v-if="shown"
-		class="absolute top-0 left-0 bg-black bg-opacity-40 w-screen h-screen"
+		class="absolute top-0 left-0 bg-black bg-opacity-40 w-screen max-h-screen"
 		@click="$emit('close')"
 	>
 		<div class="relative w-full h-screen">
 			<article
-				class="absolute top-0 right-0 h-screen w-full md:w-[480px] bg-white border-l-2 border-gray-200 py-10 px-6 overflow-y-auto space-y-2 flex flex-col"
+				class="absolute top-0 right-0 h-screen w-full md:w-[480px] bg-white border-l-2 border-gray-200 py-10 px-6 overflow-y-auto space-y-4 flex flex-col"
 				@click.stop=""
 			>
-				<h4 v-if="isNewTodo" class="text-4xl font-bold">New todo</h4>
-				<div class="flex justify-end items-center pb-2">
+				<div
+					class="flex flex-col gap-y-5 xs:flex-row justify-end items-center pb-2"
+				>
 					<TodoAttributes
 						:is-important="isImportant"
 						:is-daily="isDaily"
@@ -18,8 +19,11 @@
 						:is-approved="isApproved"
 						:is-personal="isPersonal"
 						:partner="partner"
+						class="order-2 xs:order-1"
 					/>
-					<div class="ml-auto flex items-center gap-2">
+					<div
+						class="ml-auto flex items-center gap-2 order-1 xs:order-2"
+					>
 						<BaseButton
 							v-if="todoId"
 							v-tooltip.bottom="'Details'"
@@ -40,12 +44,31 @@
 						>
 							<IconEdit />
 						</BaseButton>
+						<BaseButton
+							v-tooltip.bottom="'Close'"
+							class="flex items-center group"
+							square
+							mode="warn"
+							@click="$emit('close')"
+						>
+							<IconExit />
+						</BaseButton>
 					</div>
 				</div>
 
 				<div class="space-y-4">
-					<div class="flex justify-between items-end gap-2">
-						<h2 class="text-3xl font-bold ml-1">{{ title }}</h2>
+					<div
+						class="flex flex-col sm:flex-row sm:justify-between items-center sm:items-end gap-y-4 sm:gap-2"
+					>
+						<h2
+							v-if="isNewTodo && !title"
+							class="text-3xl font-bold ml-1"
+						>
+							New todo
+						</h2>
+						<h2 v-else class="text-3xl font-bold ml-1">
+							{{ title }}
+						</h2>
 						<p
 							v-if="!isNewTodo"
 							class="text-xs text-gray-300 flex items-center gap-1 flex-shrink-0"
@@ -71,7 +94,9 @@
 				<!-- todo animation  -->
 				<div v-if="toEdit || isNewTodo">
 					<div class="mt-10 flex flex-col gap-8">
-						<div class="flex gap-4 items-center justify-between">
+						<div
+							class="flex flex-col xs:flex-row gap-y-8 xs:gap-4 items-start xs:items-center justify-between"
+						>
 							<vs-input
 								v-model="title"
 								label-placeholder="Title"
@@ -198,6 +223,7 @@
 
 <script>
 import IconPlus from 'icons/IconPlus';
+import IconExit from 'icons/IconExit';
 import IconEdit from 'icons/IconEdit';
 import IconTrash from 'icons/IconTrash';
 import IconLink from 'icons/IconLink';
@@ -220,6 +246,7 @@ export default {
 		UploadBox,
 		// BaseTag,
 		IconPlus,
+		IconExit,
 		IconEdit,
 		IconTrash,
 		IconLink,
@@ -334,7 +361,6 @@ export default {
 	methods: {
 		...mapActions('todos', ['addTodo', 'updateTodo', 'deleteTodo']),
 		toggleCompleted() {
-			console.log('toggle');
 			this.isCompleted = !this.isCompleted;
 		},
 		addNewTodo() {
