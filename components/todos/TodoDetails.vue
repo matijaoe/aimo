@@ -69,13 +69,7 @@
 						<h2 v-else class="text-3xl font-bold ml-1">
 							{{ title }}
 						</h2>
-						<p
-							v-if="!isNewTodo"
-							class="text-xs text-gray-300 flex items-center gap-1 flex-shrink-0"
-						>
-							<IconClock />
-							{{ createdAt }}
-						</p>
+						<BaseTimestamp :date="createdAt" />
 					</div>
 					<div
 						v-if="description"
@@ -134,7 +128,7 @@
 										<div class="flex items-center gap-2">
 											<BaseAvatar
 												size="xs"
-												:src="partnerOption.photo"
+												:src="partnerOption.flag"
 											/>
 											<p class="text-sm font-medium">
 												{{ partnerOption.username }}
@@ -227,7 +221,8 @@ import IconExit from 'icons/IconExit';
 import IconEdit from 'icons/IconEdit';
 import IconTrash from 'icons/IconTrash';
 import IconLink from 'icons/IconLink';
-import IconClock from 'icons/IconClock';
+import BaseTimestamp from 'UI/BaseTimestamp';
+
 import BaseAvatar from 'UI/BaseAvatar';
 import BaseButton from 'UI/BaseButton';
 // import BaseTag from 'UI/BaseTag';
@@ -250,7 +245,7 @@ export default {
 		IconEdit,
 		IconTrash,
 		IconLink,
-		IconClock,
+		BaseTimestamp,
 		BaseAvatar,
 	},
 	props: {

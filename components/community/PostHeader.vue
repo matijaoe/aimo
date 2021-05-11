@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="flex flex-col sm:flex-row sm:items-center sm:ustify-between gap-y-3 sm:gap-2 mb-4"
+		class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-y-3 sm:gap-2 mb-4"
 	>
 		<PostOwner :user="todo.owner" />
 		<TodoAttributes

@@ -1,50 +1,55 @@
 <template>
-	<section class="space-y-10">
-		<div class="flex gap-2 max-w-sm flex-wrap">
-			<BaseTag v-for="color in colors" :key="color" :color="color">
-				{{ color }}
-			</BaseTag>
+	<section class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-4">
+		<div
+			class="md:col-span-2 lg:col-span-3 bg-[#F4F4F4] text-[#4D61FC] rounded-2xl flex items-center pl-[10%]"
+		>
+			<h2 class="flex-1 space-y-10 py-20 md:py-0">
+				<div
+					class="text-base xs:text-xl sm:text-3xl md:text-xl lg:text-2xl xl:text-4xl font-bold"
+				>
+					<span class="text-[#4D61FC]">Welcome back</span>
+					<span
+						class="bg-[#B8C0FE] text-[#4D61FC] px-5 py-2 rounded-lg ml-2"
+						>{{ currentUser.fname }}!</span
+					>
+				</div>
+			</h2>
+			<div id="vector-illustration" class="flex-1 hidden md:flex">
+				<img
+					src="~assets/img/hero.svg"
+					alt="illustration"
+					class="ml-auto max-h-[350px]"
+				/>
+			</div>
+		</div>
+		<div id="quote" class="p-12 bg-orange-100 text-orange-800 rounded-2xl">
+			Autem doloremque voluptatem velit quos neque. Est est nemo
+			cupiditate sed neque sint nihil. Voluptas accusamus voluptatem fuga.
+		</div>
+		<div class="p-12 bg-blue-100 text-blue-800 rounded-2xl">
+			Autem doloremque voluptatem velit quos neque. Est est nemo
+			cupiditate sed neque sint nihil. Voluptas accusamus voluptatem fuga.
+		</div>
+		<div class="p-12 bg-emerald-100 text-emerald-800 rounded-2xl">
+			Autem doloremque voluptatem velit quos neque. Est est nemo
+			cupiditate sed neque sint nihil. Voluptas accusamus voluptatem fuga.
 		</div>
 	</section>
 </template>
 
 <script>
-import BaseTag from 'UI/BaseTag.vue';
-
 export default {
-	components: {
-		BaseTag,
-	},
-	data() {
-		return {
-			show: true,
-			colors: [
-				'gray',
-				'coolGray',
-				'red',
-				'orange',
-				'amber',
-				'yellow',
-				'lime',
-				'green',
-				'emerald',
-				'teal',
-				'cyan',
-				'lightBlue',
-				'blue',
-				'indigo',
-				'violet',
-				'purple',
-				'fuchsia',
-				'pink',
-				'rose',
-			],
-		};
-	},
-	methods: {
-		toggleShow() {
-			this.show = !this.show;
+	components: {},
+	computed: {
+		currentUser() {
+			return this.$store.getters.currentUser;
 		},
 	},
 };
 </script>
+
+<style scoped>
+#vector-illuistration {
+	background-image: url('~assets/img/hero.svg');
+}
+</style>

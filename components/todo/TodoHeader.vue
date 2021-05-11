@@ -3,20 +3,17 @@
 		<div class="flex items-center gap-8">
 			<h2 class="text-3xl font-bold ml-1">{{ todo.name }}</h2>
 		</div>
-		<p class="text-xs text-gray-300 flex items-center gap-1 flex-shrink-0">
-			<IconClock />
-			{{ createdDate }}
-		</p>
+		<BaseTimestamp :date="createdDate" />
 	</div>
 </template>
 
 <script>
 import dayjs from 'dayjs';
-import IconClock from 'icons/IconClock';
+import BaseTimestamp from 'UI/BaseTimestamp';
 
 export default {
 	components: {
-		IconClock,
+		BaseTimestamp,
 	},
 	props: {
 		todo: {
