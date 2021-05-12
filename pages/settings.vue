@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<h1 class="text-5xl">Settings</h1>
-		<section class="mt-20">
-			<div id="name" class="flex space-x-12">
+		<h1 class="text-2xl md:text-5xl mb-14">User settings</h1>
+		<section class="space-y-12">
+			<div id="name" class="flex flex-wrap gap-y-8 gap-x-12">
 				<vs-input
 					v-model.trim="currentUser.fname"
 					label-placeholder="First Name"
@@ -21,7 +21,7 @@
 				/>
 			</div>
 
-			<div class="flex space-x-12 mt-12">
+			<div class="flex flex-wrap gap-y-8 gap-x-12">
 				<vs-input
 					v-model.trim="currentUser.occupation"
 					label-placeholder="Occupation"
@@ -33,7 +33,7 @@
 					autocomplete="off"
 				/>
 			</div>
-			<div class="space-x-7 mt-12">
+			<div class="flex flex-wrap gap-y-8 gap-x-12">
 				<vs-select
 					v-model="countryChosen"
 					filter
@@ -56,7 +56,7 @@
 				</vs-select>
 			</div>
 			<div class="mt-16">
-				<BaseButton type="button" mode="warn"
+				<BaseButton type="button" mode="info"
 					>Confirm changes
 				</BaseButton>
 			</div>
