@@ -30,9 +30,13 @@
 			<ProfileNotifications
 				v-if="isLoggedInUser"
 				:notifications="notifications"
-				class="hidden xl:block custom-height"
+				class="hidden xl:block custom-height overflow-y-auto"
 			/>
-			<ProfileTodos v-else class="custom-height" :todos="todos" />
+			<ProfileTodos
+				v-else
+				class="custom-height overflow-y-auto"
+				:todos="todos"
+			/>
 		</div>
 	</div>
 </template>
