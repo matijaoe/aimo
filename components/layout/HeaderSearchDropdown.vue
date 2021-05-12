@@ -41,7 +41,7 @@
 					Categories
 				</p>
 				<div
-					class="flex justify-between flex-col my-2"
+					class="flex justify-between flex-col my-2 mx-2"
 					@click="clearInput"
 				>
 					<BaseTag

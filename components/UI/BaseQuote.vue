@@ -18,7 +18,7 @@ export default {
 		};
 	},
 	created() {
-		fetch('http://quotable.io/random')
+		fetch('https://quotable.io/random')
 			.then((res) => res.json())
 			.then((data) => {
 				this.quoteText = data.content;
