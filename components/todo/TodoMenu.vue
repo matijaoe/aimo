@@ -22,6 +22,7 @@
 		</div> -->
 
 		<MarkAsCompleteButton
+			v-if="!todo.approved"
 			:is-completed="todo.done"
 			:todo="todo"
 			class="max-w-[300px]"

@@ -40,7 +40,7 @@
 					@load="finishLoading"
 				/>
 			</div>
-			<div class="mt-1">
+			<div v-if="!isApproved" class="mt-1">
 				<BaseButton mode="warn" @click="removePicture"
 					>Remove picture
 					<IconTrash size="sm" />
@@ -67,6 +67,11 @@ export default {
 			type: Boolean,
 			required: false,
 			default: true,
+		},
+		isApproved: {
+			type: Boolean,
+			required: false,
+			default: false,
 		},
 		todoId: {
 			type: String,

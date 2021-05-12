@@ -10,6 +10,7 @@
 		>
 			<UploadBox
 				:is-completed="todo.completed"
+				:is-approved="todo.approved"
 				:todo-id="todo.id"
 				:todo-photo="todo.photo"
 			/>

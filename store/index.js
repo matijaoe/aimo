@@ -116,7 +116,10 @@ export const actions = {
 			});
 			await context.dispatch('todos/loadUserTodos');
 			await context.dispatch('reviews/loadUserReviews');
-			await context.dispatch('notifications/loadNotifications');
+			await context.dispatch(
+				'notifications/loadNotifications',
+				signupInfo.username
+			);
 		} catch (error) {
 			return error;
 		}

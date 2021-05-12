@@ -38,13 +38,15 @@
 					</div>
 				</div>
 				<div
-					v-if="review.done && !review.approved"
+					v-if="review.done && !review.approved && review.photoUrl"
 					class="flex-col gap-y-5"
 				>
-					<div
-						class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
-					>
-						<p>Proof</p>
+					<div class="pb-2">
+						<img
+							:src="review.photoUrl"
+							alt="Todo image"
+							class="rounded-lg max-h-[600px]"
+						/>
 					</div>
 					<div
 						class="flex-col flex justify-center px-6 pt-5 pb-6 rounded-md"

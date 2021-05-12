@@ -25,15 +25,20 @@
 				/>
 			</div>
 		</div>
-		<div id="quote" class="p-12 bg-orange-100 text-orange-800 rounded-2xl">
-			Autem doloremque voluptatem velit quos neque. Est est nemo
-			cupiditate sed neque sint nihil. Voluptas accusamus voluptatem fuga.
+		<div
+			id="quote"
+			class="flex items-center p-12 bg-orange-100 text-orange-800 rounded-2xl"
+		>
+			<BaseQuote></BaseQuote>
 		</div>
-		<div class="p-12 bg-blue-100 text-blue-800 rounded-2xl">
-			Autem doloremque voluptatem velit quos neque. Est est nemo
-			cupiditate sed neque sint nihil. Voluptas accusamus voluptatem fuga.
+		<div
+			class="flex items-center p-12 bg-blue-100 text-blue-800 rounded-2xl"
+		>
+			<BaseQuote></BaseQuote>
 		</div>
-		<div class="p-12 bg-emerald-100 text-emerald-800 rounded-2xl">
+		<div
+			class="flex items-center p-12 bg-emerald-100 text-emerald-800 rounded-2xl"
+		>
 			<BaseQuote></BaseQuote>
 		</div>
 	</section>

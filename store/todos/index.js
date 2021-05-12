@@ -1,6 +1,7 @@
 // Ovo nije prava struktura od todosa nego samo za mockup
 import Vue from 'vue';
 import * as fb from '@/firebase';
+import dayjs from 'dayjs';
 
 export const state = () => ({
 	currentUserTodos: [],
@@ -92,14 +93,26 @@ export const actions = {
 				});
 
 			if (todo.partner) {
-				await fb.usersCollection
+				const batch = fb.db.batch();
+				const userRevRef = fb.usersCollection
 					.doc(todo.partner)
 					.collection('reviews')
-					.add({
-						partner: userId,
-						todoId: newTodo.id,
-						reviewed: false,
-					});
+					.doc();
+				const userNotRef = fb.usersCollection
+					.doc(todo.partner)
+					.collection('notifications')
+					.doc();
+				batch.set(userRevRef, {
+					partner: userId,
+					todoId: newTodo.id,
+					reviewed: false,
+				});
+				batch.set(userNotRef, {
+					type: 'notification',
+					created: dayjs().$d,
+					message: `${rootGetters.currentUserId} started a new todo with you.`,
+				});
+				await batch.commit();
 			}
 			todo.id = newTodo.id;
 		} catch (error) {

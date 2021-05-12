@@ -199,12 +199,14 @@
 				<div v-else>
 					<div v-if="todoId" class="space-y-4">
 						<MarkAsCompleteButton
+							v-if="!isApproved"
 							:is-completed="isCompleted"
 							:todo="todo"
 							@toggle-completed="toggleCompleted"
 						/>
 						<UploadBox
 							:is-completed="isCompleted"
+							:is-approved="isApproved"
 							:todo-id="todo.id"
 							:todo-photo="todo.photo"
 						/>

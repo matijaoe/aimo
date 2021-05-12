@@ -166,7 +166,7 @@ export default {
 					countryCode: this.country.alpha3Code,
 					birthday: dayjs(this.birthday).$d,
 					joined_on: dayjs().$d,
-					photo: `https://avatar.oxro.io/avatar.svg?name=${this.fname}${this.lname}&caps=1&fontSize=200&bold=true&background=${color.bg}&color=${color.text}`,
+					photo: `https://avatar.oxro.io/avatar.svg?name=${this.fname}+${this.lname}&caps=1&fontSize=200&bold=true&background=${color.bg}&color=${color.text}`,
 					occupation: this.occupation,
 					bio: this.bio,
 					coins: 400,
