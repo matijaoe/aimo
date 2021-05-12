@@ -4,7 +4,7 @@
 			<BaseAvatar
 				v-for="partner in partners"
 				:key="partner.username"
-				v-tooltip.bottom="partner.username"
+				v-tooltip.bottom="`@${partner.username}`"
 				:src="partner.photo"
 				link
 				:to="{

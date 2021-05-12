@@ -31,7 +31,7 @@
 					<span>{{ partner.fname }}</span>
 				</TodosSidebarLink>
 			</ul>
-			<div v-else class="mx-2 px-3 py-1">
+			<div v-else class="mx-2 px-3 py-1 text-center">
 				<BaseTag>No partners found</BaseTag>
 			</div>
 		</div>
