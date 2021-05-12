@@ -1,5 +1,9 @@
 # aimo-tvz-mc2
 
+### Login details (email - password)
+- matijao@gmail.com - matijao
+- marian7@gmail.com - marian7
+
 # [Live Demo](https://aimo.vercel.app/)
 
 ## Build Setup
