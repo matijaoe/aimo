@@ -1,8 +1,14 @@
 <template>
 	<div class="flex items-center gap-1 text-gray-300">
-		<BaseButton v-tooltip.bottom="'Like'" square class="group">
+		<BaseButton
+			v-tooltip.bottom="'Like'"
+			square
+			class="group"
+			@click="liked = !liked"
+		>
 			<IconLike
 				class="text-gray-300 group-hover:text-blue-500 transition"
+				:class="{ 'text-blue-500': liked }"
 			/>
 		</BaseButton>
 		<BaseButton v-tooltip.bottom="'Support'" square class="group">
@@ -23,6 +29,11 @@ export default {
 		IconLike,
 		IconDollar,
 		BaseButton,
+	},
+	data() {
+		return {
+			liked: false,
+		};
 	},
 };
 </script>

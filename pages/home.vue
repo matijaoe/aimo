@@ -29,17 +29,17 @@
 			id="quote"
 			class="flex items-center p-12 bg-orange-100 text-orange-800 rounded-2xl"
 		>
-			<BaseQuote></BaseQuote>
+			<BaseQuote />
 		</div>
 		<div
 			class="flex items-center p-12 bg-blue-100 text-blue-800 rounded-2xl"
 		>
-			<BaseQuote></BaseQuote>
+			<BaseQuote />
 		</div>
 		<div
 			class="flex items-center p-12 bg-emerald-100 text-emerald-800 rounded-2xl"
 		>
-			<BaseQuote></BaseQuote>
+			<BaseQuote />
 		</div>
 	</section>
 </template>

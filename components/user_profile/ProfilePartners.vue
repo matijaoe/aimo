@@ -12,18 +12,19 @@
 				}"
 			/>
 		</div>
-		<div v-else>{{ user.fname }} has no partners ...</div>
+		<div v-else><BaseTag>No partners found</BaseTag></div>
 	</BaseContainer>
 </template>
 
 <script>
 import BaseContainer from 'UI/BaseContainer.vue';
 import BaseAvatar from 'UI/BaseAvatar.vue';
+import BaseTag from 'UI/BaseTag.vue';
 
 import { mapGetters } from 'vuex';
 
 export default {
-	components: { BaseContainer, BaseAvatar },
+	components: { BaseContainer, BaseAvatar, BaseTag },
 	props: ['user', 'userId'],
 	computed: {
 		...mapGetters('partners', ['getPartnersById']),

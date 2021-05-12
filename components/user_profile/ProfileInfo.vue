@@ -12,7 +12,12 @@
 						</p>
 						<p class="opacity-70 text-sm">@{{ user.username }}</p>
 					</div>
-					<BaseButton v-if="isLoggedIn" mode="fill">
+					<BaseButton
+						v-if="isLoggedIn"
+						mode="fill"
+						link
+						:to="{ name: 'settings' }"
+					>
 						<div class="flex items-center gap-2">
 							<IconEdit size="sm" />
 							<span>Edit</span>

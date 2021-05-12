@@ -75,12 +75,14 @@
 				</div>
 			</div>
 			<!-- tags -->
-			<div v-if="tags.length > 0" class="ml-8 space-x-2">
+			<div v-if="tags.length > 0" class="ml-8 space-x-2" @click.stop="">
 				<BaseTag
 					v-for="tag in tags"
 					:key="tag.name"
 					:color="!review.done ? tag.color : ''"
 					:class="{ 'opacity-40': review.done }"
+					link
+					:to="{ path: `/community/${tag.name}` }"
 				>
 					{{ tag.name }}
 				</BaseTag>
