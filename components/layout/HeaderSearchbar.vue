@@ -14,6 +14,7 @@
 		<input
 			id="searchbar"
 			v-model="searchTerm"
+			autocomplete="off"
 			type="search"
 			name=""
 			placeholder="Search anything"

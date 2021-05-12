@@ -34,15 +34,16 @@
 			cupiditate sed neque sint nihil. Voluptas accusamus voluptatem fuga.
 		</div>
 		<div class="p-12 bg-emerald-100 text-emerald-800 rounded-2xl">
-			Autem doloremque voluptatem velit quos neque. Est est nemo
-			cupiditate sed neque sint nihil. Voluptas accusamus voluptatem fuga.
+			<BaseQuote></BaseQuote>
 		</div>
 	</section>
 </template>
 
 <script>
+import BaseQuote from 'UI/BaseQuote.vue';
+
 export default {
-	components: {},
+	components: { BaseQuote },
 	computed: {
 		currentUser() {
 			return this.$store.getters.currentUser;

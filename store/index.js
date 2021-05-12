@@ -192,7 +192,7 @@ export const actions = {
 	},
 	async searchAnything({ commit, getters, rootGetters }, term) {
 		const limit = 4;
-		term = term.toLowerCase();
+		term = term.toLowerCase().trim();
 		if (term.replace(/\s+/g, '') === '') {
 			commit('searchAnything', {});
 			return;
@@ -219,6 +219,11 @@ export const actions = {
 				(p) =>
 					p.data().fname.toLowerCase().includes(term) ||
 					p.data().lname.toLowerCase().includes(term) ||
+					(
+						p.data().fname.toLowerCase() +
+						' ' +
+						p.data().lname.toLowerCase()
+					).includes(term) ||
 					p.id.toLowerCase().includes(term)
 			);
 			for (const doc of filteredUsers) {
@@ -228,26 +233,29 @@ export const actions = {
 				foundUsers.push({ ...doc.data(), id: doc.id });
 			}
 
-			// const foundCategories = [];
-			// const categoriesRef = await fb.categoriesCollection.get();
-			// const filteredCategories = categoriesRef.docs.filter((p) =>
-			// 	p.data().name.toLowerCase().includes(term)
-			// );
-			// for (const doc of filteredCategories) {
-			// 	if (foundCategories.length === limit) {
-			// 		break;
-			// 	}
-			// 	foundCategories.push(doc.data());
-			// }
+			const foundCategories = [];
+			const categoriesRef = await fb.categoriesCollection.get();
+			const filteredCategories = categoriesRef.docs.filter((p) =>
+				p.data().name.toLowerCase().includes(term)
+			);
+			for (const doc of filteredCategories) {
+				if (foundCategories.length === limit) {
+					break;
+				}
+				foundCategories.push(doc.data());
+			}
 
 			const results = {
 				users: foundUsers,
 				// todos: foundTodos,
-				// categories: foundCategories,
+				categories: foundCategories,
 			};
 			commit('searchAnything', results);
 		} catch (error) {
 			console.log(error);
 		}
+	},
+	clearSearchResults({ commit }) {
+		commit('searchAnything', {});
 	},
 };
