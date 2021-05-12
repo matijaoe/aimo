@@ -29,7 +29,7 @@
 					<IconClipboardCheck />
 				</SidebarNavLink>
 			</li>
-			<li>
+			<!-- <li>
 				<SidebarNavLink text="Inbox" :to="{ name: 'inbox' }">
 					<IconInbox />
 				</SidebarNavLink>
@@ -38,7 +38,7 @@
 				<SidebarNavLink text="Stats" :to="{ name: 'stats' }">
 					<IconChartBar />
 				</SidebarNavLink>
-			</li>
+			</li> -->
 		</ul>
 		<div class="space-y-2 mt-10">
 			<SidebarNavLink text="Settings" :to="{ name: 'settings' }">
@@ -77,11 +77,11 @@ export default {
 	components: {
 		IconClipboardCheck,
 		IconHome,
-		IconInbox,
+		// IconInbox,
 		IconUserGroup,
 		IconClipboardList,
 		IconUser,
-		IconChartBar,
+		// IconChartBar,
 		IconSettings,
 		SidebarNavLink,
 	},

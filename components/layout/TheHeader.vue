@@ -3,10 +3,7 @@
 		<div v-click-outside="away" class="rounded-lg absolute" @click="toggle">
 			<HeaderSearchbar class="flex items-center sm:flex-1" />
 
-			<HeaderSearchDropdown
-				:results="results"
-				class="relative"
-			></HeaderSearchDropdown>
+			<HeaderSearchDropdown :results="results" class="relative" />
 		</div>
 
 		<div class="flex justify-end flex-1">
