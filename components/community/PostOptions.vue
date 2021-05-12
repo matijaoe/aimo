@@ -1,5 +1,5 @@
 <template>
-	<div class="flex items-center gap-1 text-gray-300">
+	<div class="flex items-center gap-1">
 		<BaseButton
 			v-tooltip.bottom="'Like'"
 			square
@@ -8,7 +8,7 @@
 		>
 			<IconLike
 				class="text-gray-300 group-hover:text-blue-500 transition"
-				:class="{ 'text-blue-500': liked }"
+				:class="liked ? 'text-blue-500' : 'text-gray-300'"
 			/>
 		</BaseButton>
 		<BaseButton v-tooltip.bottom="'Support'" square class="group">
