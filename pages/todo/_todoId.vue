@@ -8,14 +8,25 @@
 			enter-class="opacity-0 transform translate-y-5"
 			enter-to-class="opacity-100 transform translate-y-0"
 		>
-			<UploadBox
-				:is-completed="todo.completed"
-				:is-approved="todo.approved"
-				:todo-id="todo.id"
-				:todo-photo="todo.photo"
-			/>
+			<div class="flex gap-4 items-start justify-start">
+				<UploadBox
+					:is-completed="todo.completed"
+					:is-approved="todo.approved"
+					:todo-id="todo.id"
+					:todo-photo="todo.photo"
+					class="inline-block"
+				/>
+				<BaseContainer
+					v-if="todo.review"
+					fieldset
+					label="Review"
+					class="-mt-2"
+					>{{ todo.review }}</BaseContainer
+				>
+			</div>
 		</transition>
-		<TodoInteractionWrapper :interactions="interactions" />
+
+		<!-- <TodoInteractionWrapper :interactions="interactions" /> -->
 	</div>
 </template>
 
@@ -24,11 +35,18 @@ import TodoDetails from '@/components/todo/TodoDetails';
 import TodoMenu from '@/components/todo/TodoMenu';
 import TodoInteractionWrapper from '@/components/todo/TodoInteractionWrapper';
 import UploadBox from '@/components/todo/UploadBox';
+import BaseContainer from 'UI/BaseContainer';
 
 import { nanoid } from 'nanoid';
 
 export default {
-	components: { TodoInteractionWrapper, TodoMenu, TodoDetails, UploadBox },
+	components: {
+		// TodoInteractionWrapper,
+		TodoMenu,
+		TodoDetails,
+		UploadBox,
+		BaseContainer,
+	},
 	data() {
 		return {
 			todoId: null,
