@@ -1,6 +1,10 @@
 <template>
 	<div
-		v-if="results.users && results.users.length > 0 && active"
+		v-if="
+			((results.categories && results.categories.length > 0) ||
+				(results.users && results.users.length > 0)) &&
+			active
+		"
 		id="headerSearchDropdown"
 		class="relative inline-block w-full mb-2 z-50"
 		@click="changeState"
