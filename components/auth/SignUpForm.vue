@@ -46,14 +46,19 @@
 				@input="validate"
 			/>
 		</div>
-		<div v-if="step === 3" class="space-y-7">
+		<div v-if="step === 4" class="space-y-7">
 			<vs-input
 				v-model.trim="bio"
 				label-placeholder="Profile Bio"
 				autocomplete="off"
 				@input="validate"
 			/>
-			<vs-select v-model="countryIndex" filter placeholder="Country">
+			<vs-select
+				v-model="countryIndex"
+				filter
+				placeholder="Country"
+				@input="validate"
+			>
 				<vs-option
 					v-for="(countryOption, index) in getCountries"
 					:key="countryOption.alpha3Code"
