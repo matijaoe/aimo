@@ -129,8 +129,6 @@ export const actions = {
 			// eslint-disable-next-line no-console
 			console.log(error);
 		}
-
-		commit('addNewTodo', todo);
 	},
 	async updateTodo({ commit, getters }, todo) {
 		commit('updateTodo', todo);
