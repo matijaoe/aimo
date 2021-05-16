@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 
 export const state = () => ({
 	currentUserTodos: [],
+	todosService: null,
 });
 
 export const getters = {
@@ -65,6 +66,15 @@ export const getters = {
 export const mutations = {
 	loadUserTodos(state, userTodos) {
 		state.currentUserTodos = userTodos;
+	},
+	setServiceStatus(state, serviceInfo) {
+		if (serviceInfo.set) {
+			state.todosService = serviceInfo.service;
+		} else {
+			state.todosService();
+			state.todosService = null;
+			state.currentUserTodos = [];
+		}
 	},
 	addNewTodo(state, todo) {
 		const newTodo = { ...todo };
@@ -152,6 +162,35 @@ export const actions = {
 		}
 		commit('deleteTodo', todo);
 	},
+	loadUserTodos(ctx, username) {
+		const collection = fb.usersCollection.doc(username).collection('todos');
+
+		const service = collection.onSnapshot((res) => {
+			const changes = res.docChanges();
+			changes.forEach((change) => {
+				if (change.type === 'added') {
+					ctx.commit('addNewTodo', {
+						...change.doc.data(),
+						id: change.doc.id,
+					});
+				}
+				if (change.type === 'modified') {
+					ctx.commit('updateTodo', {
+						...change.doc.data(),
+						id: change.doc.id,
+					});
+				}
+				if (change.type === 'removed') {
+					ctx.commit('deleteTodo', change.doc.id);
+				}
+			});
+		});
+		ctx.commit('setServiceStatus', { service, set: true });
+	},
+	unsubscribe({ commit }) {
+		commit('setServiceStatus', { set: false });
+	},
+	/*
 	async loadUserTodos({ commit, getters }) {
 		try {
 			const todos = await getters.currentUserTodoCollection
@@ -166,7 +205,7 @@ export const actions = {
 		} catch (error) {
 			console.error(error);
 		}
-	},
+	}, */
 	async updateUserTodo(context, todo) {
 		try {
 			await fb.usersCollection

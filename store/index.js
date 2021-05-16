@@ -89,7 +89,8 @@ export const actions = {
 			const user = await ctx.dispatch('loadUserByUID', uid);
 			ctx.commit('setUserData', { ...user, email });
 			await ctx.dispatch('users/pushNewUser', user);
-			await ctx.dispatch('todos/loadUserTodos');
+			// await ctx.dispatch('todos/loadUserTodos');
+			await ctx.dispatch('todos/loadUserTodos', user.username);
 			await ctx.dispatch('reviews/loadUserReviews');
 			await ctx.dispatch(
 				'notifications/loadNotifications',
@@ -114,7 +115,8 @@ export const actions = {
 				...responseUser.data(),
 				token,
 			});
-			await context.dispatch('todos/loadUserTodos');
+			// await context.dispatch('todos/loadUserTodos');
+			await context.dispatch('todos/loadUserTodos', signupInfo.username);
 			await context.dispatch('reviews/loadUserReviews');
 			await context.dispatch(
 				'notifications/loadNotifications',
@@ -137,6 +139,7 @@ export const actions = {
 				token,
 				...userInfo,
 			});
+			// await context.dispatch('todos/loadUserTodos');
 			await context.dispatch('todos/loadUserTodos');
 			await context.dispatch('reviews/loadUserReviews');
 			await context.dispatch('notifications/loadNotifications');
@@ -145,6 +148,7 @@ export const actions = {
 		}
 	},
 	async logout(ctx) {
+		await ctx.dispatch('todos/unsubscribe');
 		await ctx.dispatch('notifications/unsubscribeService');
 		await this.$fire.auth.signOut();
 		ctx.commit('clearUserData');
