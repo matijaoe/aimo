@@ -199,7 +199,7 @@
 				<div v-else>
 					<div v-if="todoId" class="space-y-4">
 						<MarkAsCompleteButton
-							v-if="!isApproved"
+							v-if="!isApproved && !todo.photoName"
 							:is-completed="isCompleted"
 							:todo="todo"
 							@toggle-completed="toggleCompleted"

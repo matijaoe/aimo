@@ -248,7 +248,7 @@ export default {
 	methods: {
 		...mapActions('todos', ['updateTodo']),
 		toggleDone() {
-			if (!this.isApproved) {
+			if (!this.isApproved && !this.todo.photoName) {
 				this.isDone = !this.isDone;
 				this.updateTodo({
 					...this.todo,
