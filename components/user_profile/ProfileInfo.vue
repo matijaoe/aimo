@@ -59,7 +59,7 @@
 						class="flex items-center justify-center sm:justify-start gap-2 text-orange-600 p-2 rounded-lg"
 					>
 						<IconCake class="text-orange-600" />
-						<span>{{ age }} years old</span>
+						<span>{{ age }}</span>
 					</div>
 					<div
 						v-tooltip.bottom="'Joined on'"
@@ -73,7 +73,7 @@
 						class="flex items-center justify-center sm:justify-start gap-2 text-indigo-600 p-2 rounded-lg"
 					>
 						<IconIdentification class="text-indigo-600" />
-						<span>{{ user.occupation }}</span>
+						<span>{{ user.occupation || 'No occupation' }}</span>
 					</div>
 				</div>
 			</div>
@@ -119,8 +119,11 @@ export default {
 				.includes(this.user.username);
 		},
 		age() {
-			const birthday = dayjs.unix(this.user.birthday.seconds);
-			return dayjs().diff(birthday, 'year');
+			if (this.user.birthday) {
+				const birthday = dayjs.unix(this.user.birthday.seconds);
+				return dayjs().diff(birthday, 'year') + ' years old';
+			}
+			return 'No birthday date.';
 		},
 		joinDate() {
 			dayjs.extend(advancedFormat);

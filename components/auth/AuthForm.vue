@@ -46,20 +46,31 @@
 						</template>
 					</vs-input>
 				</div>
-
-				<div
-					v-if="mode === 'login'"
-					key="1"
-					class="flex items-center justify-between gap-1"
-				>
-					<BaseButton mode="cta">Login</BaseButton>
-					<BaseButton
-						type="button"
-						mode="ghost"
-						class="ml-1"
-						@click="switchAuthMode"
-						>Signup
-					</BaseButton>
+				<div class="space-y-4">
+					<div
+						v-if="mode === 'login'"
+						key="1"
+						class="flex items-center justify-between gap-1"
+					>
+						<BaseButton mode="cta">Login</BaseButton>
+						<BaseButton
+							type="button"
+							mode="ghost"
+							class="ml-1"
+							@click="switchAuthMode"
+							>Signup
+						</BaseButton>
+					</div>
+					<div class="flex items-center justify-center gap-1">
+						<BaseButton
+							v-tooltip.right="'Login with Google'"
+							mode="ghost"
+							type="button"
+							@click="signInWithGoogle"
+						>
+							<i class="bx bxl-google text-xl" />
+						</BaseButton>
+					</div>
 				</div>
 			</form>
 			<SignUpForm
@@ -77,6 +88,7 @@
 <script>
 import BaseButton from 'UI/BaseButton.vue';
 import isEmpty from 'lodash.isempty';
+import firebase from 'firebase';
 import SignUpForm from './SignUpForm';
 
 export default {
@@ -138,6 +150,19 @@ export default {
 		},
 	},
 	methods: {
+		async signInWithGoogle() {
+			const googleProvider = new firebase.auth.GoogleAuthProvider();
+			try {
+				const response = await this.$fire.auth.signInWithPopup(
+					googleProvider
+				);
+				if (!response.additionalUserInfo.isNewUser) {
+					this.$router.replace('/home');
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		},
 		async submitForm() {
 			this.formIsValid = true;
 			if (!this.validEmail || !this.validPassword) {

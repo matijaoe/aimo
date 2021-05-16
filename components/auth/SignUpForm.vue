@@ -2,6 +2,24 @@
 	<div class="space-y-7">
 		<div v-if="step === 1" class="space-y-7">
 			<vs-input
+				v-model.trim="username"
+				label-placeholder="Username"
+				autocomplete="off"
+				@input="validate"
+			>
+				<template v-if="usernameCheck" #message-danger>
+					Username already exists.
+				</template>
+				<template v-else-if="!username" #message-warn>
+					Required.
+				</template>
+				<template v-else #message-success>
+					Username is available
+				</template>
+			</vs-input>
+		</div>
+		<div v-if="step === 2" class="space-y-7">
+			<vs-input
 				v-model.trim="fname"
 				label-placeholder="First Name"
 				autocomplete="off"
@@ -14,7 +32,7 @@
 				@input="validate"
 			/>
 		</div>
-		<div v-if="step === 2" class="space-y-7">
+		<div v-if="step === 3" class="space-y-7">
 			<vs-input
 				v-model.trim="occupation"
 				label-placeholder="Occupation"
@@ -30,15 +48,11 @@
 		</div>
 		<div v-if="step === 3" class="space-y-7">
 			<vs-input
-				v-model.trim="username"
-				label-placeholder="Username"
+				v-model.trim="bio"
+				label-placeholder="Profile Bio"
 				autocomplete="off"
 				@input="validate"
-			>
-				<template v-if="usernameCheck" #message-danger>
-					Username already exists.
-				</template>
-			</vs-input>
+			/>
 			<vs-select v-model="countryIndex" filter placeholder="Country">
 				<vs-option
 					v-for="(countryOption, index) in getCountries"
@@ -54,14 +68,6 @@
 					</div>
 				</vs-option>
 			</vs-select>
-		</div>
-		<div v-if="step === 4" class="space-y-7">
-			<vs-input
-				v-model.trim="bio"
-				label-placeholder="Profile Bio"
-				autocomplete="off"
-				@input="validate"
-			/>
 		</div>
 		<form v-if="step === 5" class="space-y-7" @submit.prevent="submitForm">
 			<vs-input
@@ -100,17 +106,36 @@
 				SignUp
 			</BaseButton>
 		</form>
-		<div v-if="step !== 5" class="flex items-center justify-between gap-1">
-			<BaseButton mode="cta" :disabled="invalid" @click.prevent="nextStep"
-				>Next</BaseButton
+		<div class="space-y-4">
+			<div
+				v-if="step !== 5"
+				class="flex items-center justify-between gap-1"
 			>
-			<BaseButton
-				type="button"
-				mode="ghost"
-				class="ml-1"
-				@click.prevent="$emit('switch-auth-mode')"
-				>Login
-			</BaseButton>
+				<BaseButton
+					mode="cta"
+					:disabled="invalid"
+					@click.prevent="nextStep"
+					>Next</BaseButton
+				>
+				<BaseButton
+					type="button"
+					mode="ghost"
+					class="ml-1"
+					@click.prevent="$emit('switch-auth-mode')"
+					>Login
+				</BaseButton>
+			</div>
+			<div class="flex items-center justify-center gap-1">
+				<BaseButton
+					v-tooltip.right="'Signup with Google'"
+					mode="ghost"
+					type="button"
+					:disabled="!username || usernameCheck"
+					@click="signUpWithGoogle"
+				>
+					<i class="bx bxl-google text-xl" />
+				</BaseButton>
+			</div>
 		</div>
 	</div>
 </template>
@@ -120,6 +145,7 @@ import { mapGetters } from 'vuex';
 import dayjs from 'dayjs';
 import BaseButton from 'UI/BaseButton';
 import BaseAvatar from 'UI/BaseAvatar';
+import firebase from 'firebase';
 
 import isEmpty from 'lodash.isempty';
 
@@ -221,23 +247,20 @@ export default {
 	},
 	methods: {
 		validate() {
-			if (this.step === 1 && (!this.fname || !this.lname)) {
+			if (this.step === 1 && this.usernameCheck && !this.username) {
 				this.invalid = true;
 				return false;
-			} else if (
-				this.step === 2 &&
-				(!this.occupation || !this.birthday)
-			) {
+			}
+			if (this.step === 2 && (!this.fname || !this.lname)) {
 				this.invalid = true;
 				return false;
 			} else if (
 				this.step === 3 &&
-				this.usernameCheck &&
-				(!this.username || !this.countryIndex)
+				(!this.occupation || !this.birthday)
 			) {
 				this.invalid = true;
 				return false;
-			} else if (this.step === 4 && !this.bio) {
+			} else if (this.step === 4 && (!this.bio || !this.countryIndex)) {
 				this.invalid = true;
 				return false;
 			}
@@ -261,6 +284,43 @@ export default {
 		},
 		handleError() {
 			this.error = null;
+		},
+		async signUpWithGoogle() {
+			const googleProvider = new firebase.auth.GoogleAuthProvider();
+			try {
+				const response = await this.$fire.auth.signInWithPopup(
+					googleProvider
+				);
+				if (response.additionalUserInfo.isNewUser) {
+					const firstName =
+						response.additionalUserInfo.profile.given_name;
+					const lastName =
+						response.additionalUserInfo.profile.family_name;
+					const color = this.getRandomColor;
+					const newUser = {
+						fname: firstName,
+						lname: lastName,
+						countryCode: 'HRV',
+						birthday: null,
+						joined_on: dayjs().$d,
+						photo: `https://avatar.oxro.io/avatar.svg?name=${firstName}+${lastName}&caps=1&fontSize=200&bold=true&background=${color.bg}&color=${color.text}`,
+						occupation: '',
+						bio: '',
+						coins: 400,
+						isPremium: false,
+						socials: [],
+						partners: [],
+						uid: response.user.uid,
+					};
+					await this.$store.dispatch('users/addNewUser', {
+						username: this.username,
+						user: newUser,
+					});
+					this.$router.replace('/home');
+				}
+			} catch (err) {
+				console.log(err);
+			}
 		},
 		async submitForm() {
 			this.formIsValid = true;

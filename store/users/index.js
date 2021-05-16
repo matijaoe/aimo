@@ -79,7 +79,6 @@ export const actions = {
 				}
 			});
 		});
-
 		/*
 		try {
 			const users = await fb.usersCollection.get();
@@ -94,6 +93,11 @@ export const actions = {
 			// eslint-disable-next-line no-console
 			console.error(error);
 		} */
+	},
+	async addNewUser(ctx, userInfo) {
+		await fb.usersCollection.doc(userInfo.username).set({
+			...userInfo.user,
+		});
 	},
 	async loadUserById(context, username) {
 		let user = {};

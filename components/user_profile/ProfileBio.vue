@@ -1,7 +1,7 @@
 <template>
 	<BaseContainer fieldset label="Bio">
 		<p v-if="user.bio">{{ user.bio }}</p>
-		<BaseTag v-else>No bio found</BaseTag>
+		<BaseTag v-else>User has no bio.</BaseTag>
 	</BaseContainer>
 </template>
 
