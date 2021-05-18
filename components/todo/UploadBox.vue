@@ -23,6 +23,7 @@
 							name="file-upload"
 							type="file"
 							class="sr-only"
+							accept=".jpg, .jpeg, .png, .gif"
 							@change="onFileSelected"
 						/>
 					</label>
@@ -176,7 +177,8 @@ export default {
 			if (
 				extension !== 'jpg' &&
 				extension !== 'png' &&
-				extension !== 'gif'
+				extension !== 'gif' &&
+				extension !== 'jpeg'
 			) {
 				alert(`Your file extension (${extension}) is not allowed!`);
 				return false;

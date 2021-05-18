@@ -3,7 +3,7 @@
 		<TheLoader v-if="isLoading"></TheLoader>
 		<h1 class="text-2xl md:text-5xl mb-14">User settings</h1>
 		<section class="space-y-12">
-			<div id="name" class="flex flex-wrap gap-y-8 gap-x-12">
+			<div id="name" class="flex flex-wrap gap-y-8 gap-x-12 relative">
 				<div class="p-1 border-[4px] border-gray-200 rounded-full mb-2">
 					<label
 						for="file-upload"
@@ -19,12 +19,24 @@
 							id="file-upload"
 							name="file-upload"
 							type="file"
+							accept=".jpg, .jpeg, .png"
 							class="sr-only"
 							@change="onFileSelected"
 							@keyup.enter.prevent="saveChanges"
 						/>
 					</label>
 				</div>
+				<BaseButton
+					v-if="hasCustomPicture"
+					id="removePicBtn"
+					v-tooltip.right="'Remove profile picture'"
+					square
+					class="absolute z-40 left-[90px] top-[88px]"
+					mode="warn"
+					@click="removePicture"
+				>
+					<IconExit />
+				</BaseButton>
 			</div>
 			<div id="name" class="flex flex-wrap gap-y-8 gap-x-12">
 				<div>
@@ -110,12 +122,13 @@ import BaseAvatar from 'UI/BaseAvatar';
 import BaseButton from 'UI/BaseButton';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
+import IconExit from 'icons/IconExit';
 import { nanoid } from 'nanoid';
 import { app } from '../firebase';
 import TheLoader from '../components/UI/BaseLoadingSpinner.vue';
 
 export default {
-	components: { BaseAvatar, BaseButton, TheLoader },
+	components: { BaseAvatar, BaseButton, TheLoader, IconExit },
 	data() {
 		return {
 			countryIndex: '',
@@ -128,10 +141,13 @@ export default {
 			photoData: '',
 			maximumFileSize: 5, // in MB
 			isLoading: false,
+			hasCustomPicture: false,
+			color: '',
 		};
 	},
 	computed: {
 		...mapGetters(['currentUser', 'getCountries', 'currentUserId']),
+		...mapGetters('colors', ['getRandomColor']),
 		country() {
 			if (this.countryIndex !== '') {
 				return this.getCountries[this.countryIndex - 1];
@@ -158,6 +174,10 @@ export default {
 		this.occupationData = this.currentUser.occupation;
 		this.bioData = this.currentUser.bio;
 		this.photoData = this.currentUser.photo;
+		this.color = this.getRandomColor;
+		if (!this.photoData.includes('https://avatar.oxro.io/avatar.svg')) {
+			this.hasCustomPicture = true;
+		}
 	},
 	methods: {
 		async onFileSelected(ev) {
@@ -183,6 +203,7 @@ export default {
 			setTimeout(() => {
 				this.isLoading = false;
 			}, 200);
+			this.hasCustomPicture = true;
 		},
 		checkFileSize(fileSize) {
 			if (fileSize > 1048576 * this.maximumFileSize) {
@@ -195,7 +216,11 @@ export default {
 			}
 		},
 		checkFileExtension(extension) {
-			if (extension !== 'jpg' && extension !== 'png') {
+			if (
+				extension !== 'jpg' &&
+				extension !== 'jpeg' &&
+				extension !== 'png'
+			) {
 				alert(`Your file extension (${extension}) is not allowed!`);
 				return false;
 			} else {
@@ -223,6 +248,20 @@ export default {
 				return;
 			}
 
+			if (
+				this.photoData === this.currentUser.photo &&
+				(this.fnameData !== this.currentUser.fname ||
+					this.lnameData !== this.currentUser.lname)
+			) {
+				this.photoData = `https://avatar.oxro.io/avatar.svg?name=${this.fnameData.charAt(
+					0
+				)}+${this.lnameData.charAt(
+					0
+				)}&caps=1&fontSize=200&bold=true&background=${
+					this.color.bg
+				}&color=${this.color.text}`;
+			}
+
 			await fb.usersCollection.doc(this.currentUserId).update({
 				bio: this.bioData,
 				birthday: dayjs(this.birthdayData).$d,
@@ -233,6 +272,41 @@ export default {
 				photo: this.photoData,
 			});
 		},
+		removePicture() {
+			this.isLoading = true;
+			if (
+				this.fnameData !== '' &&
+				this.checkIfLetters(this.fnameData) &&
+				this.lnameData !== '' &&
+				this.checkIfLetters(this.lnameData)
+			) {
+				this.photoData = `https://avatar.oxro.io/avatar.svg?name=${this.fnameData.charAt(
+					0
+				)}+${this.lnameData.charAt(
+					0
+				)}&caps=1&fontSize=200&bold=true&background=${
+					this.color.bg
+				}&color=${this.color.text}`;
+			} else {
+				this.photoData = `https://avatar.oxro.io/avatar.svg?name=${this.currentUser.fname.charAt(
+					0
+				)}+${this.currentUser.lname.charAt(
+					0
+				)}&caps=1&fontSize=200&bold=true&background=${
+					this.color.bg
+				}&color=${this.color.text}`;
+			}
+			this.hasCustomPicture = false;
+			setTimeout(() => {
+				this.isLoading = false;
+			}, 100);
+		},
 	},
 };
 </script>
+
+<style scoped>
+#removePicBtn {
+	transform: scale(0.75, 0.75);
+}
+</style>
