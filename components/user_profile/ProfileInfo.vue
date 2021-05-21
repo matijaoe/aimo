@@ -24,7 +24,14 @@
 						</div>
 					</BaseButton>
 					<div v-else class="flex items-center justify-center">
-						<p v-if="isPartner" class="bold italic">Partners</p>
+						<div v-if="isPartner">
+							<BaseButton
+								id="removePartnerBtn"
+								mode="warn"
+								@click="removePartner"
+								>Remove partner</BaseButton
+							>
+						</div>
 						<p v-else-if="isRequestSent" class="bold italic">
 							Request Sent
 						</p>
@@ -91,6 +98,7 @@ import IconCalendar from 'icons/IconCalendar.vue';
 import IconCake from 'icons/IconCake.vue';
 import IconIdentification from 'icons/IconIdentification.vue';
 
+import * as fb from '@/firebase';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { mapActions, mapGetters } from 'vuex';
@@ -108,7 +116,12 @@ export default {
 	},
 	props: ['user', 'isLoggedIn'],
 	computed: {
-		...mapGetters(['currentUserId', 'getCurrentUserSentRequests']),
+		...mapGetters([
+			'currentUserId',
+			'getCurrentUserSentRequests',
+			'currentUser',
+		]),
+		...mapGetters('users', ['getUserById']),
 		...mapGetters('partners', ['getPartnersById']),
 		isRequestSent() {
 			return this.getCurrentUserSentRequests.includes(this.user.username);
@@ -147,6 +160,32 @@ export default {
 		sendRequest() {
 			this.sendPartnerRequest({ partner: this.user.username });
 		},
+		async removePartner() {
+			const filteredUser = this.currentUser.partners.filter((p) => {
+				return p !== this.user.username;
+			});
+
+			await fb.usersCollection.doc(this.currentUserId).update({
+				partners: filteredUser,
+			});
+
+			const filteredPartner = this.getUserById(
+				this.user.username
+			).partners.filter((p) => {
+				return p !== this.currentUserId;
+			});
+
+			await fb.usersCollection.doc(this.user.username).update({
+				partners: filteredPartner,
+			});
+		},
 	},
 };
 </script>
+
+<style scoped>
+#removePartnerBtn {
+	transform: scale(0.85, 0.85);
+	padding: 11px;
+}
+</style>

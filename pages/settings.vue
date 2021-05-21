@@ -116,14 +116,14 @@
 </template>
 
 <script>
-import * as fb from '@/firebase';
-import { mapGetters } from 'vuex';
 import BaseAvatar from 'UI/BaseAvatar';
 import BaseButton from 'UI/BaseButton';
+import * as fb from '@/firebase';
+import { mapGetters } from 'vuex';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
-import IconExit from 'icons/IconExit';
 import { nanoid } from 'nanoid';
+import IconExit from 'icons/IconExit';
 import { app } from '../firebase';
 import TheLoader from '../components/UI/BaseLoadingSpinner.vue';
 
