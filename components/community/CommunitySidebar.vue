@@ -119,7 +119,10 @@ export default {
 			return null;
 		},
 		usersWithoutUs() {
-			return this.users.filter(
+			const filtered = this.users.filter(
+				(p) => !this.currentUserPartners.includes(p)
+			);
+			return filtered.filter(
 				(user) => user.username !== this.currentUserId
 			);
 		},
