@@ -70,7 +70,7 @@
 					class="flex overflow-x-auto md:flex-wrap items-center gap-2"
 				>
 					<BaseAvatar
-						v-for="user in usersWithoutUs"
+						v-for="user in usersWithoutUsAndPartners"
 						:key="user.id"
 						v-tooltip.bottom="`@${user.username}`"
 						link
@@ -118,7 +118,7 @@ export default {
 			}
 			return null;
 		},
-		usersWithoutUs() {
+		usersWithoutUsAndPartners() {
 			const filtered = this.users.filter(
 				(p) => !this.currentUserPartners.includes(p)
 			);

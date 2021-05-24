@@ -2,7 +2,7 @@
 	<BaseContainer class="space-y-2">
 		<PostHeader :todo="todo" />
 		<PostDetails :todo="todo" />
-		<PostOptions />
+		<PostOptions :todo="todo" />
 	</BaseContainer>
 </template>
 

@@ -10,8 +10,11 @@
 				<div
 					class="text-base xs:text-xl sm:text-3xl md:text-xl lg:text-2xl xl:text-4xl font-bold"
 				>
-					<span class="text-[#4D61FC]">Welcome back</span>
+					<span id="welcome" class="text-[#4D61FC]"
+						>Welcome back</span
+					>
 					<span
+						id="welcomeUser"
 						class="bg-[#B8C0FE] text-[#4D61FC] px-5 py-2 rounded-lg ml-2"
 						>{{ currentUser.fname }}!</span
 					>
@@ -60,5 +63,17 @@ export default {
 <style scoped>
 #vector-illuistration {
 	background-image: url('~assets/img/hero.svg');
+}
+
+@media screen and (max-width: 1380px) and (min-width: 1280px) {
+	#welcome {
+		position: absolute;
+	}
+
+	#welcomeUser {
+		position: relative;
+		top: 60px;
+		right: 7px;
+	}
 }
 </style>
