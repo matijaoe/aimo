@@ -257,7 +257,7 @@ export const actions = {
 				owner: rootGetters['users/getUserById'](todoInfo.owner),
 			});
 		});
-		return todos;
+		return todos.sort((a, b) => b.numberOfLikes - a.numberOfLikes);
 		/*
 
 		for (const cat of todoInfo.categories) {

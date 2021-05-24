@@ -91,7 +91,7 @@ export default {
 			let likes = this.todo.likedByUsers;
 			if (likes) {
 				if (likes.includes(this.currentUserId)) {
-					const index = this.todo.likedByUsers.findIndex(
+					const index = likes.findIndex(
 						(userId) => userId === this.currentUserId
 					);
 					likes.splice(index, 1);
@@ -106,6 +106,8 @@ export default {
 				this.liked = true;
 			}
 
+			this.numberOfLikes = likes.length;
+
 			await fb.usersCollection
 				.doc(this.todo.owner.username)
 				.collection('todos')
@@ -114,8 +116,6 @@ export default {
 					likedByUsers: likes,
 					numberOfLikes: likes.length,
 				});
-
-			this.numberOfLikes = likes.length;
 		},
 	},
 };
