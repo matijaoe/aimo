@@ -28,8 +28,8 @@
 				/>
 			</div>
 		</div>
+
 		<div
-			id="quote"
 			class="flex items-center p-12 bg-orange-100 text-orange-800 rounded-2xl"
 		>
 			<BaseQuote />
@@ -39,23 +39,51 @@
 		>
 			<BaseQuote />
 		</div>
+
 		<div
 			class="flex items-center p-12 bg-emerald-100 text-emerald-800 rounded-2xl"
 		>
 			<BaseQuote />
+		</div>
+		<div
+			class="flex flex-col items-center p-4 bg-rose-100 text-rose-800 rounded-2xl"
+		>
+			<div class="flex flex-row gap-1">
+				<div id="checkIcon">
+					<IconClipboardCheck />
+				</div>
+				<p class="uppercase pt-2 relative bottom-1">
+					Recommended todo:
+				</p>
+			</div>
+
+			<h2 class="text-xl font-bold text-center p-1">
+				{{ randomGeneratedTodo }}
+			</h2>
 		</div>
 	</section>
 </template>
 
 <script>
 import BaseQuote from 'UI/BaseQuote.vue';
+import { mapGetters } from 'vuex';
+import IconClipboardCheck from '../components/app_icons/IconClipboardCheck.vue';
 
 export default {
-	components: { BaseQuote },
+	components: { BaseQuote, IconClipboardCheck },
+	data() {
+		return {
+			randomGeneratedTodo: '',
+		};
+	},
 	computed: {
+		...mapGetters(['getRandomRecommendedTodo']),
 		currentUser() {
 			return this.$store.getters.currentUser;
 		},
+	},
+	created() {
+		this.randomGeneratedTodo = this.getRandomRecommendedTodo;
 	},
 };
 </script>

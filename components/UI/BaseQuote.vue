@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<h2 id="quote" class="text-xl text-blue-900 font-bold">
+		<h2 id="quote" class="text-xl font-bold">
 			{{ quoteText }}
 		</h2>
-		<p id="author" class="uppercase pt-2 text-blue-900 text-right">
+		<p id="author" class="uppercase pt-2 text-right">
 			{{ quoteAuthor }}
 		</p>
 	</div>

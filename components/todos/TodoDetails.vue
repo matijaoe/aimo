@@ -362,7 +362,11 @@ export default {
 		},
 		addNewTodo() {
 			if (!this.title) return;
-			const newTodo = this.extractTodoInfo();
+			const newTodo = {
+				...this.extractTodoInfo(),
+				numberOfLikes: 0,
+				likedByUsers: [],
+			};
 			this.addTodo(newTodo);
 			this.$emit('close');
 		},

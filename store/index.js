@@ -9,6 +9,39 @@ export const state = () => ({
 	state: [],
 	countries: [],
 	searchResults: {},
+	randomRecommendedTodos: [
+		'Meditate every morning.',
+		'Stay offline one day per week.',
+		'Read 20 pages per day.',
+		'Journal every day.',
+		'Get up when your alarm goes off.',
+		'Limit screen time after work.',
+		'Take a ‘me’ day.',
+		'Walk after lunch or dinner. ',
+		'Eat more veggies.',
+		'Develop a workout routine.',
+		'Drink more water.',
+		'Go to bed at a reasonable time.',
+		'Explore two new places.',
+		'Get out into nature.',
+		'Volunteer.',
+		'Smile more.',
+		'Write a poem.',
+		'Be a better listener.',
+		'Help a stranger.',
+		'Call a radio show and request a song.',
+		'Watch an old movie.',
+		'Raise some money for charity.',
+		'Wear something you wouldn’t normally wear.',
+		'Call an old friend and catch up.',
+		'Practise being ‘in the moment.’',
+		'Learn to breathe more fully.',
+		'Cook a healthy meal.',
+		'Listen to audio books throughout the day and at night.',
+		'Make your bed every morning.',
+		"Avoid buying things you don't need.",
+		'Clean up your room.',
+	],
 });
 
 export const getters = {
@@ -51,6 +84,11 @@ export const getters = {
 		const user = getters.currentUser;
 		if (user.requestsSent) return user.requestsSent;
 		return [];
+	},
+	getRandomRecommendedTodo(state) {
+		return state.randomRecommendedTodos[
+			Math.floor(Math.random() * state.randomRecommendedTodos.length)
+		];
 	},
 };
 
