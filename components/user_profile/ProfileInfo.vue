@@ -123,6 +123,7 @@ export default {
 		]),
 		...mapGetters('users', ['getUserById']),
 		...mapGetters('partners', ['getPartnersById']),
+		...mapGetters('todos', ['currentUserTodos']),
 		isRequestSent() {
 			return this.getCurrentUserSentRequests.includes(this.user.username);
 		},
@@ -154,13 +155,16 @@ export default {
 			return { name: countryName, flag };
 		},
 	},
-	created() {},
 	methods: {
 		...mapActions('notifications', ['sendPartnerRequest']),
 		sendRequest() {
 			this.sendPartnerRequest({ partner: this.user.username });
 		},
 		async removePartner() {
+			const sharedTodos = this.currentUserTodos.filter(
+				(todo) => todo.partner === this.user.username
+			);
+
 			const filteredUser = this.currentUser.partners.filter((p) => {
 				return p !== this.user.username;
 			});
@@ -168,6 +172,14 @@ export default {
 			await fb.usersCollection.doc(this.currentUserId).update({
 				partners: filteredUser,
 			});
+
+			for (const todo of sharedTodos) {
+				await fb.usersCollection
+					.doc(this.currentUserId)
+					.collection('todos')
+					.doc(todo.id)
+					.delete();
+			}
 
 			const filteredPartner = this.getUserById(
 				this.user.username

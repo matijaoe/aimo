@@ -8,35 +8,38 @@
 						:date="createdDate"
 						class="relative bottom-[6px]"
 					/>
-					<BaseButton
-						id="detailsBtn"
-						mode="cta"
-						class="relative left-[15px]"
-						@click="showOrHideDetails"
-					>
-						{{ showDetailsText }}
-					</BaseButton>
 				</div>
 			</div>
-			<div
-				v-if="todo.desc && showDetails"
-				class="border-2 border-dashed border-gray-200 bg-gray-50 rounded-lg p-4 text-sm"
-			>
-				<img
-					v-if="this.todo.photoUrl"
-					id="todoPhoto"
-					:src="this.todo.photoUrl"
-					alt="Todo image"
-					class="rounded-lg max-h-[300px] py-2 center"
-				/>
-				<p>{{ todo.desc }}</p>
+
+			<img
+				v-if="this.todo.photoUrl"
+				id="todoPhoto"
+				:src="this.todo.photoUrl"
+				alt="Todo image"
+				class="rounded-lg max-w-[110px] center cursor-pointer hover:opacity-75"
+				@click="active = !active"
+			/>
+			<div class="center">
+				<vs-dialog v-model="active">
+					<img
+						:src="this.todo.photoUrl"
+						class="rounded-lg mt-[18px]"
+					/>
+				</vs-dialog>
 			</div>
 
-			<TagLabels
-				v-if="todo.categories.length > 0"
-				:categories="todo.categories"
-			/>
+			<div
+				v-if="todo.desc"
+				class="border-2 border-dashed border-gray-200 bg-gray-50 rounded-lg p-4 text-sm"
+			>
+				<p>{{ todo.desc }}</p>
+			</div>
 		</div>
+
+		<TagLabels
+			v-if="todo.categories.length > 0"
+			:categories="todo.categories"
+		/>
 	</div>
 </template>
 
@@ -44,10 +47,9 @@
 import TagLabels from '@/components/todo/TagLabels';
 import BaseTimestamp from 'UI/BaseTimestamp';
 import dayjs from 'dayjs';
-import BaseButton from '../UI/BaseButton.vue';
 
 export default {
-	components: { TagLabels, BaseTimestamp, BaseButton },
+	components: { TagLabels, BaseTimestamp },
 	props: {
 		todo: {
 			type: Object,
@@ -56,8 +58,7 @@ export default {
 	},
 	data() {
 		return {
-			showDetails: false,
-			showDetailsText: 'Show Details',
+			active: false,
 		};
 	},
 	computed: {
@@ -67,25 +68,11 @@ export default {
 			return `${date}`;
 		},
 	},
-	methods: {
-		showOrHideDetails() {
-			this.showDetails = !this.showDetails;
-			if (this.showDetails) {
-				this.showDetailsText = 'Hide Details';
-			} else {
-				this.showDetailsText = 'Show Details';
-			}
-		},
-	},
 };
 </script>
 
 <style scoped>
-#todoPhoto {
+/* #todoPhoto {
 	margin: 0 auto;
-}
-
-#detailsBtn {
-	transform: scale(0.8, 0.8);
-}
+} */
 </style>
