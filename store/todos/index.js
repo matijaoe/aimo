@@ -84,8 +84,8 @@ export const mutations = {
 		const index = state.currentUserTodos.findIndex((t) => t.id === todo.id);
 		Vue.set(state.currentUserTodos, index, todo);
 	},
-	deleteTodo(state, todo) {
-		const index = state.currentUserTodos.findIndex((t) => t.id === todo.id);
+	deleteTodo(state, todoId) {
+		const index = state.currentUserTodos.findIndex((t) => t.id === todoId);
 		state.currentUserTodos.splice(index, 1);
 	},
 };

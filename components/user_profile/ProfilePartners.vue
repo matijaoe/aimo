@@ -7,7 +7,6 @@
 				v-tooltip.bottom="`@${partner.username}`"
 				:src="partner.photo"
 				link
-				class="border-2"
 				:to="{
 					path: `/user/${partner.username}`,
 				}"
