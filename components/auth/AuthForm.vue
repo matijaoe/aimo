@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<TheLoader v-if="isLoading"></TheLoader>
 		<transition name="fade" mode="out-in">
 			<form
 				v-if="mode === 'login'"
@@ -76,6 +77,7 @@
 			<SignUpForm
 				v-if="mode === 'signup'"
 				@switch-auth-mode="switchAuthMode"
+				@set-loading="setLoading"
 			/>
 		</transition>
 
@@ -89,12 +91,14 @@
 import BaseButton from 'UI/BaseButton.vue';
 import isEmpty from 'lodash.isempty';
 import firebase from 'firebase';
+import TheLoader from '../UI/BaseLoadingSpinner.vue';
 import SignUpForm from './SignUpForm';
 
 export default {
 	components: {
 		SignUpForm,
 		BaseButton,
+		TheLoader,
 	},
 	data() {
 		return {
@@ -104,6 +108,7 @@ export default {
 			password: '',
 			hasVisiblePassword: false,
 			error: null,
+			isLoading: false,
 		};
 	},
 	computed: {
@@ -178,29 +183,24 @@ export default {
 			};
 
 			try {
+				this.setLoading(true);
 				await this.$store.dispatch('login', actionPayload);
 				this.$router.replace('/home');
 			} catch (err) {
-				// eslint-disable-next-line no-console
-				console.log(err);
-
 				// firebase auth errors
-				if (err.message === 'EMAIL_EXISTS') {
+				if (err.code === 'auth/email-already-in-use') {
 					this.error = 'Email already in use.';
-				} else if (err.message === 'TOO_MANY_ATTEMPTS_TRY_LATER') {
+				} else if (err.code === 'auth/user-not-found') {
 					this.error =
-						'We have blocked all requests from this device due to unusual activity. Try again later.';
-				} else if (err.message === 'EMAIL_NOT_FOUND') {
-					this.error = 'Email not found.';
-				} else if (err.message === 'INVALID_PASSWORD') {
-					this.error = 'Invalid password.';
-				} else if (err.message === 'USER_DISABLED') {
-					this.error =
-						'Account has been disabled by an administrator.';
+						'Email does not exist. Use valid email or sign up!';
+				} else if (err.code === 'auth/wrong-password') {
+					this.error = 'Invalid password. Please try again!';
 				} else {
 					this.error = 'Failed to authenticate, try again later.';
 				}
 				this.openErrorModal();
+			} finally {
+				this.setLoading(false);
 			}
 		},
 		switchAuthMode() {
@@ -213,7 +213,6 @@ export default {
 				return true;
 			}
 		},
-		// todo doesnt work with custom options
 		errorModal() {
 			this.$vs.notification({
 				title: '😕',
@@ -225,6 +224,9 @@ export default {
 		},
 		handleError() {
 			this.error = null;
+		},
+		setLoading(isLoading) {
+			this.isLoading = isLoading;
 		},
 	},
 };

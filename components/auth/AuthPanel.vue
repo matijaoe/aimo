@@ -29,7 +29,7 @@ export default {
 
 <style scoped>
 .auth-card {
-	max-height: 400px;
+	max-height: 410px;
 	height: 80%;
 	max-width: 1000px;
 	margin: 0 1rem;

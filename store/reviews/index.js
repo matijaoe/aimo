@@ -58,10 +58,10 @@ export const actions = {
 		dispatch('todos/updateUserTodo', review, { root: true });
 		commit('updateReview', review);
 	},
-	async loadUserReviews({ commit, getters, rootGetters }) {
+	async loadUserReviews({ commit, getters, rootGetters }, username) {
 		try {
 			const reviews = await fb.usersCollection
-				.doc(rootGetters.currentUserId)
+				.doc(username)
 				.collection('reviews')
 				.get();
 			const userReviews = [];
@@ -96,7 +96,7 @@ export const actions = {
 			commit('loadReviews', payload);
 		} catch (error) {
 			// eslint-disable-next-line no-console
-			console.error(error);
+			console.log(error);
 		}
 	},
 };

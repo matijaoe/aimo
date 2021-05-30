@@ -129,61 +129,29 @@ export const actions = {
 			await ctx.dispatch('users/pushNewUser', user);
 			// await ctx.dispatch('todos/loadUserTodos');
 			await ctx.dispatch('todos/loadUserTodos', user.username);
-			await ctx.dispatch('reviews/loadUserReviews');
+			await ctx.dispatch('reviews/loadUserReviews', user.username);
 			await ctx.dispatch(
 				'notifications/loadNotifications',
 				user.username
 			);
+			this.$router.push({ path: '/home' });
 		}
 	},
 	async signup(context, signupInfo) {
-		try {
-			const response = await this.$fire.auth.createUserWithEmailAndPassword(
-				signupInfo.email,
-				signupInfo.password
-			);
-			const token = await response.user.getIdToken();
-			const responseUser = await fb.usersCollection
-				.doc(signupInfo.username)
-				.set({
-					...signupInfo.userInfo,
-					uid: response.user.uid,
-				});
-			context.commit('setUserData', {
-				...responseUser.data(),
-				token,
-			});
-			// await context.dispatch('todos/loadUserTodos');
-			await context.dispatch('todos/loadUserTodos', signupInfo.username);
-			await context.dispatch('reviews/loadUserReviews');
-			await context.dispatch(
-				'notifications/loadNotifications',
-				signupInfo.username
-			);
-		} catch (error) {
-			return error;
-		}
+		const response = await this.$fire.auth.createUserWithEmailAndPassword(
+			signupInfo.email,
+			signupInfo.password
+		);
+		await fb.usersCollection.doc(signupInfo.username).set({
+			...signupInfo.userInfo,
+			uid: response.user.uid,
+		});
 	},
 	async login(context, signInInfo) {
-		try {
-			const response = await this.$fire.auth.signInWithEmailAndPassword(
-				signInInfo.email,
-				signInInfo.password
-			);
-			const token = await response.user.getIdToken();
-			const uid = response.user.uid;
-			const userInfo = await context.dispatch('loadUserByUID', uid);
-			context.commit('setUserData', {
-				token,
-				...userInfo,
-			});
-			// await context.dispatch('todos/loadUserTodos');
-			await context.dispatch('todos/loadUserTodos');
-			await context.dispatch('reviews/loadUserReviews');
-			await context.dispatch('notifications/loadNotifications');
-		} catch (error) {
-			return error;
-		}
+		await this.$fire.auth.signInWithEmailAndPassword(
+			signInInfo.email,
+			signInInfo.password
+		);
 	},
 	async logout(ctx) {
 		await ctx.dispatch('todos/unsubscribe');

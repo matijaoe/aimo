@@ -151,12 +151,11 @@ import dayjs from 'dayjs';
 import BaseButton from 'UI/BaseButton';
 import BaseAvatar from 'UI/BaseAvatar';
 import firebase from 'firebase';
-
 import isEmpty from 'lodash.isempty';
 
 export default {
 	components: { BaseButton, BaseAvatar },
-	emits: ['switch-auth-mode'],
+	emits: ['switch-auth-mode', 'set-loading'],
 	data() {
 		return {
 			step: 1,
@@ -171,6 +170,7 @@ export default {
 			email: '',
 			password: '',
 			hasVisiblePassword: false,
+			error: null,
 		};
 	},
 	computed: {
@@ -344,29 +344,24 @@ export default {
 			};
 
 			try {
+				this.$emit('set-loading', true);
 				await this.$store.dispatch('signup', actionPayload);
 				this.$router.replace('/home');
 			} catch (err) {
-				// eslint-disable-next-line no-console
-				console.log(err);
-
 				// firebase auth errors
-				if (err.message === 'EMAIL_EXISTS') {
+				if (err.code === 'auth/email-already-in-use') {
 					this.error = 'Email already in use.';
-				} else if (err.message === 'TOO_MANY_ATTEMPTS_TRY_LATER') {
+				} else if (err.code === 'auth/user-not-found') {
 					this.error =
-						'We have blocked all requests from this device due to unusual activity. Try again later.';
-				} else if (err.message === 'EMAIL_NOT_FOUND') {
-					this.error = 'Email not found.';
-				} else if (err.message === 'INVALID_PASSWORD') {
-					this.error = 'Invalid password.';
-				} else if (err.message === 'USER_DISABLED') {
-					this.error =
-						'Account has been disabled by an administrator.';
+						'Email does not exist. Use valid email or sign up!';
+				} else if (err.code === 'auth/wrong-password') {
+					this.error = 'Invalid password. Please try again!';
 				} else {
 					this.error = 'Failed to authenticate, try again later.';
 				}
 				this.openErrorModal();
+			} finally {
+				this.$emit('set-loading', false);
 			}
 		},
 	},
