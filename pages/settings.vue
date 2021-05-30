@@ -110,6 +110,7 @@
 					@click="saveChanges"
 					>Confirm changes
 				</BaseButton>
+				<p v-if="updated" class="text-amber-500">Updated!</p>
 			</div>
 		</section>
 	</div>
@@ -143,6 +144,7 @@ export default {
 			isLoading: false,
 			hasCustomPicture: false,
 			color: '',
+			updated: false,
 		};
 	},
 	computed: {
@@ -161,6 +163,9 @@ export default {
 			return countryIndex + 1;
 		},
 		birthdayChosen() {
+			if (!this.currentUser.birthday) {
+				return '';
+			}
 			dayjs.extend(advancedFormat);
 			const birthday = dayjs.unix(this.currentUser.birthday.seconds);
 			return birthday.format('YYYY-MM-DD');
@@ -262,15 +267,24 @@ export default {
 				}&color=${this.color.text}`;
 			}
 
+			const birthday = this.birthdayData
+				? dayjs(this.birthdayData).$d
+				: '';
+
+			const countryCode = this.countryData
+				? this.getCountries[this.countryData - 1].alpha3Code
+				: '';
+
 			await fb.usersCollection.doc(this.currentUserId).update({
 				bio: this.bioData,
-				birthday: dayjs(this.birthdayData).$d,
-				countryCode: this.getCountries[this.countryData - 1].alpha3Code,
+				birthday,
+				countryCode,
 				fname: this.fnameData,
 				lname: this.lnameData,
 				occupation: this.occupationData,
 				photo: this.photoData,
 			});
+			this.updated = true;
 		},
 		removePicture() {
 			this.isLoading = true;

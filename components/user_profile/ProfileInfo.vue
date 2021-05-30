@@ -47,6 +47,7 @@
 			<div>
 				<div class="grid sm:grid-cols-2 gap-3">
 					<div
+						v-if="user.countryCode"
 						v-tooltip.top="`From ${country.name}`"
 						class="flex items-center justify-center sm:justify-end gap-2 p-2 rounded-lg text-red-600"
 					>

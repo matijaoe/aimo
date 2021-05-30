@@ -6,6 +6,7 @@
 				label-placeholder="Username"
 				autocomplete="off"
 				@input="validate"
+				@keyup.enter.prevent="nextStep"
 			>
 				<template v-if="usernameCheck" #message-danger>
 					Username already exists.
@@ -24,57 +25,17 @@
 				label-placeholder="First Name"
 				autocomplete="off"
 				@input="validate"
+				@keyup.enter.prevent="nextStep"
 			/>
 			<vs-input
 				v-model.trim="lname"
 				label-placeholder="Last Name"
 				autocomplete="off"
 				@input="validate"
+				@keyup.enter.prevent="nextStep"
 			/>
 		</div>
-		<div v-if="step === 3" class="space-y-7">
-			<vs-input
-				v-model.trim="occupation"
-				label-placeholder="Occupation"
-				autocomplete="off"
-				@input="validate"
-			/><vs-input
-				v-model.trim="birthday"
-				type="date"
-				label-placeholder="Birthday"
-				autocomplete="off"
-				@input="validate"
-			/>
-		</div>
-		<div v-if="step === 4" class="space-y-7">
-			<vs-input
-				v-model.trim="bio"
-				label-placeholder="Profile Bio"
-				autocomplete="off"
-				@input="validate"
-			/>
-			<vs-select
-				v-model="countryIndex"
-				filter
-				placeholder="Country"
-				@input="validate"
-			>
-				<vs-option
-					v-for="(countryOption, index) in getCountries"
-					:key="countryOption.alpha3Code"
-					:label="countryOption.name"
-					:value="index + 1"
-				>
-					<div class="flex items-center gap-2">
-						<BaseAvatar size="xs" :src="countryOption.flag" />
-						<p class="text-sm font-medium">
-							{{ countryOption.name }}
-						</p>
-					</div>
-				</vs-option>
-			</vs-select>
-		</div>
-		<form v-if="step === 5" class="space-y-7" @submit.prevent="submitForm">
+		<form v-if="step === 3" class="space-y-7" @submit.prevent="submitForm">
 			<vs-input
 				v-model.trim="email"
 				icon-after
@@ -113,7 +74,7 @@
 		</form>
 		<div class="space-y-4">
 			<div
-				v-if="step !== 5"
+				v-if="step !== 3"
 				class="flex items-center justify-between gap-1"
 			>
 				<BaseButton
@@ -149,12 +110,11 @@
 import { mapGetters } from 'vuex';
 import dayjs from 'dayjs';
 import BaseButton from 'UI/BaseButton';
-import BaseAvatar from 'UI/BaseAvatar';
 import firebase from 'firebase';
 import isEmpty from 'lodash.isempty';
 
 export default {
-	components: { BaseButton, BaseAvatar },
+	components: { BaseButton },
 	emits: ['switch-auth-mode', 'set-loading'],
 	data() {
 		return {
@@ -162,11 +122,7 @@ export default {
 			invalid: true,
 			fname: '',
 			lname: '',
-			occupation: '',
-			birthday: '',
 			username: '',
-			bio: '',
-			countryIndex: '',
 			email: '',
 			password: '',
 			hasVisiblePassword: false,
@@ -174,32 +130,25 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters(['getCountries']),
 		...mapGetters('users', ['users']),
 		...mapGetters('colors', ['getRandomColor']),
-		country() {
-			if (this.countryIndex !== '') {
-				return this.getCountries[this.countryIndex - 1];
-			}
-			return '';
-		},
 		usernameCheck() {
 			return this.users
 				.map((user) => user.username)
 				.includes(this.username);
 		},
 		userInfo() {
-			if (this.step === 5) {
+			if (this.step === 3) {
 				const color = this.getRandomColor;
 				return {
 					fname: this.fname,
 					lname: this.lname,
-					countryCode: this.country.alpha3Code,
-					birthday: dayjs(this.birthday).$d,
+					countryCode: '',
+					birthday: '',
 					joined_on: dayjs().$d,
 					photo: `https://avatar.oxro.io/avatar.svg?name=${this.fname}+${this.lname}&caps=1&fontSize=200&bold=true&background=${color.bg}&color=${color.text}`,
-					occupation: this.occupation,
-					bio: this.bio,
+					occupation: '',
+					bio: '',
 					coins: 400,
 					isPremium: false,
 					socials: [],
@@ -259,15 +208,6 @@ export default {
 			if (this.step === 2 && (!this.fname || !this.lname)) {
 				this.invalid = true;
 				return false;
-			} else if (
-				this.step === 3 &&
-				(!this.occupation || !this.birthday)
-			) {
-				this.invalid = true;
-				return false;
-			} else if (this.step === 4 && (!this.bio || !this.countryIndex)) {
-				this.invalid = true;
-				return false;
 			}
 			this.invalid = false;
 			return true;
@@ -305,7 +245,7 @@ export default {
 					const newUser = {
 						fname: firstName,
 						lname: lastName,
-						countryCode: 'HRV',
+						countryCode: '',
 						birthday: null,
 						joined_on: dayjs().$d,
 						photo: `https://avatar.oxro.io/avatar.svg?name=${firstName}+${lastName}&caps=1&fontSize=200&bold=true&background=${color.bg}&color=${color.text}`,
