@@ -93,6 +93,7 @@ import isEmpty from 'lodash.isempty';
 import firebase from 'firebase';
 import dayjs from 'dayjs';
 import { mapGetters } from 'vuex';
+import { random as _random } from 'lodash';
 import TheLoader from '../UI/BaseLoadingSpinner.vue';
 import SignUpForm from './SignUpForm';
 
@@ -204,9 +205,7 @@ export default {
 			while (true) {
 				const username = `${fname.toLowerCase()}${lname
 					.charAt(0)
-					.toLowerCase()}${
-					Math.floor(Math.random() * (1999 - 1000)) + 1000
-				}`;
+					.toLowerCase()}${_random(1000, 9999)}`;
 				if (!this.users.map((usr) => usr.username).includes(username))
 					return username;
 			}
