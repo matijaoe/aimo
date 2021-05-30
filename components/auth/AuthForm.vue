@@ -67,7 +67,7 @@
 							v-tooltip.right="'Login with Google'"
 							mode="ghost"
 							type="button"
-							@click="signInWithGoogle"
+							@click="signUpWithGoogle"
 						>
 							<i class="bx bxl-google text-xl" />
 						</BaseButton>
@@ -91,6 +91,8 @@
 import BaseButton from 'UI/BaseButton.vue';
 import isEmpty from 'lodash.isempty';
 import firebase from 'firebase';
+import dayjs from 'dayjs';
+import { mapGetters } from 'vuex';
 import TheLoader from '../UI/BaseLoadingSpinner.vue';
 import SignUpForm from './SignUpForm';
 
@@ -112,6 +114,8 @@ export default {
 		};
 	},
 	computed: {
+		...mapGetters('users', ['users']),
+		...mapGetters('colors', ['getRandomColor']),
 		validPassword() {
 			return !(isEmpty(this.password) || this.password.length < 6);
 		},
@@ -155,17 +159,56 @@ export default {
 		},
 	},
 	methods: {
-		async signInWithGoogle() {
+		async signUpWithGoogle() {
 			const googleProvider = new firebase.auth.GoogleAuthProvider();
 			try {
 				const response = await this.$fire.auth.signInWithPopup(
 					googleProvider
 				);
-				if (!response.additionalUserInfo.isNewUser) {
+				if (response.additionalUserInfo.isNewUser) {
+					const firstName =
+						response.additionalUserInfo.profile.given_name;
+					const lastName =
+						response.additionalUserInfo.profile.family_name;
+					const color = this.getRandomColor;
+					const username = this.createNewUsername(
+						firstName,
+						lastName
+					);
+					const newUser = {
+						fname: firstName,
+						lname: lastName,
+						countryCode: '',
+						birthday: null,
+						joined_on: dayjs().$d,
+						photo: `https://avatar.oxro.io/avatar.svg?name=${firstName}+${lastName}&caps=1&fontSize=200&bold=true&background=${color.bg}&color=${color.text}`,
+						occupation: '',
+						bio: '',
+						coins: 400,
+						isPremium: false,
+						socials: [],
+						partners: [],
+						uid: response.user.uid,
+					};
+					await this.$store.dispatch('users/addNewUser', {
+						username,
+						user: newUser,
+					});
 					this.$router.replace('/home');
 				}
 			} catch (err) {
 				console.log(err);
+			}
+		},
+		createNewUsername(fname, lname) {
+			while (true) {
+				const username = `${fname.toLowerCase()}${lname
+					.charAt(0)
+					.toLowerCase()}${
+					Math.floor(Math.random() * (1999 - 1000)) + 1000
+				}`;
+				if (!this.users.map((usr) => usr.username).includes(username))
+					return username;
 			}
 		},
 		async submitForm() {

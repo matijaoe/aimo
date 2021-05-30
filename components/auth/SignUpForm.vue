@@ -91,17 +91,6 @@
 					>Login
 				</BaseButton>
 			</div>
-			<div class="flex items-center justify-center gap-1">
-				<BaseButton
-					v-tooltip.right="'Signup with Google'"
-					mode="ghost"
-					type="button"
-					:disabled="!username || usernameCheck"
-					@click="signUpWithGoogle"
-				>
-					<i class="bx bxl-google text-xl" />
-				</BaseButton>
-			</div>
 		</div>
 	</div>
 </template>
@@ -110,7 +99,6 @@
 import { mapGetters } from 'vuex';
 import dayjs from 'dayjs';
 import BaseButton from 'UI/BaseButton';
-import firebase from 'firebase';
 import isEmpty from 'lodash.isempty';
 
 export default {
@@ -229,43 +217,6 @@ export default {
 		},
 		handleError() {
 			this.error = null;
-		},
-		async signUpWithGoogle() {
-			const googleProvider = new firebase.auth.GoogleAuthProvider();
-			try {
-				const response = await this.$fire.auth.signInWithPopup(
-					googleProvider
-				);
-				if (response.additionalUserInfo.isNewUser) {
-					const firstName =
-						response.additionalUserInfo.profile.given_name;
-					const lastName =
-						response.additionalUserInfo.profile.family_name;
-					const color = this.getRandomColor;
-					const newUser = {
-						fname: firstName,
-						lname: lastName,
-						countryCode: '',
-						birthday: null,
-						joined_on: dayjs().$d,
-						photo: `https://avatar.oxro.io/avatar.svg?name=${firstName}+${lastName}&caps=1&fontSize=200&bold=true&background=${color.bg}&color=${color.text}`,
-						occupation: '',
-						bio: '',
-						coins: 400,
-						isPremium: false,
-						socials: [],
-						partners: [],
-						uid: response.user.uid,
-					};
-					await this.$store.dispatch('users/addNewUser', {
-						username: this.username,
-						user: newUser,
-					});
-					this.$router.replace('/home');
-				}
-			} catch (err) {
-				console.log(err);
-			}
 		},
 		async submitForm() {
 			this.formIsValid = true;
