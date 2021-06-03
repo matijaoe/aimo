@@ -21,7 +21,7 @@ export default {
 		},
 		href: {
 			type: String,
-			required: true,
+			required: false,
 			default: '#',
 		},
 	},

@@ -101,16 +101,118 @@
 						</div>
 					</vs-option>
 				</vs-select>
+
+				<BaseButton
+					type="button"
+					mode="fill"
+					@click="activeSocialsPopup = !activeSocialsPopup"
+					>Add social
+				</BaseButton>
+				<div class="center">
+					<vs-dialog v-model="activeSocialsPopup">
+						<div
+							id="socials"
+							class="flex flex-col flex-wrap items-center gap-y-8 mt-3"
+						>
+							<vs-select
+								v-model="newSocialData"
+								filter
+								placeholder="Socials"
+								autocomplete="off"
+							>
+								<vs-option
+									v-for="(social, index) in filteredSocials"
+									:key="social.name"
+									:label="social.name"
+									:value="index + 1"
+								>
+									<BaseBrandIcon
+										id="brandIcon"
+										:brand="social.name"
+									/>
+
+									<div class="flex items-center gap-2">
+										<p class="text-sm font-medium mt-2">
+											{{ social.name }}
+										</p>
+									</div>
+								</vs-option>
+							</vs-select>
+							<BaseBrandIcon
+								v-if="newSocialData !== ''"
+								:brand="filteredSocials[newSocialData - 1].name"
+								class="pointer-events-none"
+							/>
+							<vs-input
+								v-model.trim="newSocialUrl"
+								label-placeholder="Enter your profile URL"
+								autocomplete="off"
+							/>
+							<BaseButton
+								type="button"
+								mode="fill"
+								@click="updateUserSocials"
+								>Add</BaseButton
+							>
+						</div>
+					</vs-dialog>
+				</div>
+				<div class="center">
+					<vs-table>
+						<template #thead>
+							<vs-tr>
+								<vs-th> ID </vs-th>
+								<vs-th> URL </vs-th>
+							</vs-tr>
+						</template>
+						<template #tbody>
+							<vs-tr
+								v-for="social in socialsData"
+								:key="social.id"
+								:data="social"
+							>
+								<vs-td>
+									{{ social.id }}
+								</vs-td>
+								<vs-td
+									v-tooltip="'Edit social URL'"
+									edit
+									@click="
+										(edit = social),
+											(editProp = 'url'),
+											(editActive = true)
+									"
+								>
+									{{ social.url }}
+								</vs-td>
+							</vs-tr>
+						</template>
+					</vs-table>
+
+					<vs-dialog v-model="editActive">
+						<template #header>
+							Change Prop {{ editProp }}
+						</template>
+						<div class="flex flex-col items-center">
+							<vs-input
+								v-if="editProp == 'url'"
+								v-model="edit[editProp]"
+								type="url"
+								@keypress.enter="editActive = false"
+							/>
+						</div>
+					</vs-dialog>
+				</div>
 			</div>
 			<div>
 				<BaseButton
 					type="button"
-					class="mt-12"
+					class="mt-10"
 					mode="info"
 					@click="saveChanges"
 					>Confirm changes
 				</BaseButton>
-				<p v-if="updated" class="text-amber-500">Updated!</p>
+				<p v-if="updated" class="text-amber-500 mt-1">Updated!</p>
 			</div>
 		</section>
 	</div>
@@ -119,6 +221,7 @@
 <script>
 import BaseAvatar from 'UI/BaseAvatar';
 import BaseButton from 'UI/BaseButton';
+import BaseBrandIcon from 'UI/BaseBrandIcon.vue';
 import * as fb from '@/firebase';
 import { mapGetters } from 'vuex';
 import dayjs from 'dayjs';
@@ -129,7 +232,7 @@ import { app } from '../firebase';
 import TheLoader from '../components/UI/BaseLoadingSpinner.vue';
 
 export default {
-	components: { BaseAvatar, BaseButton, TheLoader, IconExit },
+	components: { BaseAvatar, BaseButton, BaseBrandIcon, TheLoader, IconExit },
 	data() {
 		return {
 			countryIndex: '',
@@ -145,10 +248,23 @@ export default {
 			hasCustomPicture: false,
 			color: '',
 			updated: false,
+			activeSocialsPopup: false,
+			socialsData: [],
+			newSocialData: '',
+			newSocialUrl: '',
+			filteredSocials: [],
+			editActive: false,
+			edit: null,
+			editProp: {},
 		};
 	},
 	computed: {
-		...mapGetters(['currentUser', 'getCountries', 'currentUserId']),
+		...mapGetters([
+			'currentUser',
+			'getCountries',
+			'currentUserId',
+			'socials',
+		]),
 		...mapGetters('colors', ['getRandomColor']),
 		country() {
 			if (this.countryIndex !== '') {
@@ -170,6 +286,13 @@ export default {
 			const birthday = dayjs.unix(this.currentUser.birthday.seconds);
 			return birthday.format('YYYY-MM-DD');
 		},
+		socialsWithoutUserSocials() {
+			let socialsArray = this.socials;
+			for (const social of this.socialsData) {
+				socialsArray = socialsArray.filter((s) => social.id !== s.name);
+			}
+			return socialsArray;
+		},
 	},
 	created() {
 		this.countryData = this.countryChosen;
@@ -180,6 +303,8 @@ export default {
 		this.bioData = this.currentUser.bio;
 		this.photoData = this.currentUser.photo;
 		this.color = this.getRandomColor;
+		this.socialsData = this.currentUser.socials;
+		this.filteredSocials = this.socialsWithoutUserSocials;
 		if (!this.photoData.includes('https://avatar.oxro.io/avatar.svg')) {
 			this.hasCustomPicture = true;
 		}
@@ -315,6 +440,35 @@ export default {
 				this.isLoading = false;
 			}, 100);
 		},
+		async updateUserSocials() {
+			if (this.newSocialData && this.newSocialUrl !== '') {
+				const userRef = await fb.usersCollection
+					.doc(this.currentUserId)
+					.get();
+
+				const userSocials = userRef.data().socials;
+
+				const newSocial = {
+					id: this.filteredSocials[this.newSocialData - 1].name,
+					url: this.newSocialUrl,
+				};
+
+				userSocials.push(newSocial);
+				console.log(userSocials);
+
+				await fb.usersCollection.doc(this.currentUserId).update({
+					socials: userSocials,
+				});
+
+				this.filteredSocials = this.filteredSocials.filter(
+					(s) => newSocial.id !== s.name
+				);
+				this.activeSocialsPopup = false;
+			}
+			this.socialsData = this.currentUser.socials;
+			this.newSocialData = '';
+			this.newSocialUrl = '';
+		},
 	},
 };
 </script>
@@ -322,5 +476,8 @@ export default {
 <style scoped>
 #removePicBtn {
 	transform: scale(0.75, 0.75);
+}
+#brandIcon {
+	transform: scale(0.7, 0.7);
 }
 </style>

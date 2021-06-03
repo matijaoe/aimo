@@ -54,7 +54,6 @@
 						link
 						:to="{ path: `/user/${user.username}` }"
 						:src="user.photo"
-						class="border-2 p-[3px]"
 					>
 						{{ user.name }}
 					</BaseAvatar>
@@ -77,7 +76,6 @@
 						link
 						:to="{ path: `/user/${user.username}` }"
 						:src="user.photo"
-						class="border-2 p-[3px]"
 					>
 						{{ user.name }}
 					</BaseAvatar>
