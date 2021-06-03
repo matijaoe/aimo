@@ -50,7 +50,7 @@
 						id="searchBaseTag"
 						:key="cat.id"
 						:color="cat.color"
-						class="text-center pt-[10px] pb-[10px] m-[4px]"
+						class="text-center pt-[10px] pb-[10px] m-[4px] hover:opacity-70"
 						link
 						:to="{ path: `/community/${cat.name}` }"
 					>
