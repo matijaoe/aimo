@@ -157,6 +157,23 @@
 								</vs-option>
 							</vs-select>
 						</div>
+						<div
+							v-if="isNewTodo"
+							class="flex gap-4 justify-between items-center"
+						>
+							<div class="ml-3">
+								<p>Deadline</p>
+							</div>
+							<vs-input
+								v-model="due"
+								type="date"
+								:label="validDates"
+							>
+								<template v-if="invalidDueDate" #message-danger>
+									Invalid date.
+								</template>
+							</vs-input>
+						</div>
 						<div>
 							<vs-checkbox
 								v-model="isImportant"
@@ -275,12 +292,13 @@ export default {
 			isCompleted: false,
 			todo: null,
 			toEdit: false,
+			due: '',
+			invalidDueDate: false,
 		};
 	},
 	computed: {
 		...mapGetters(['currentUserPartners', 'categories']),
 		...mapGetters('todos', ['getCurrentUserTodoById']),
-
 		partners() {
 			return this.currentUserPartners;
 		},
@@ -310,6 +328,12 @@ export default {
 				];
 			}
 		},
+		validDates() {
+			const today = dayjs();
+			return `First Valid Date: ${today.$D + 1}.${
+				today.$M + 1
+			}.${today.$d.getFullYear()}`;
+		},
 	},
 	watch: {
 		isCompleted(newValue) {
@@ -323,6 +347,9 @@ export default {
 			if (newValue) {
 				this.selectedPartner = 0;
 			}
+		},
+		due() {
+			this.checkDueDate();
 		},
 	},
 	created() {
@@ -357,11 +384,24 @@ export default {
 	},
 	methods: {
 		...mapActions('todos', ['addTodo', 'updateTodo', 'deleteTodo']),
+		checkDueDate() {
+			if (
+				this.due === '' ||
+				dayjs(this.due).diff(
+					`${dayjs().$y}-${dayjs().$M}-${dayjs().$D}`
+				) < 2764800000
+			) {
+				this.invalidDueDate = true;
+				return;
+			}
+			this.invalidDueDate = false;
+		},
 		toggleCompleted() {
 			this.isCompleted = !this.isCompleted;
 		},
 		addNewTodo() {
-			if (!this.title) return;
+			this.checkDueDate();
+			if (!this.title || this.invalidDueDate) return;
 			const newTodo = {
 				...this.extractTodoInfo(),
 				numberOfLikes: 0,
@@ -391,7 +431,8 @@ export default {
 				name: this.title,
 				desc: this.description || '',
 				categories: this.extractCategories(),
-				timestamp: Date.now(),
+				created_at: dayjs().$d,
+				due: dayjs(this.due).$d,
 				done: this.isCompleted,
 				approved: false,
 				daily: this.isDaily,
