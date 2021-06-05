@@ -2,10 +2,11 @@
 	<div>
 		<vs-dialog
 			v-model="isLoading"
+			type="points"
+			color="#000"
 			not-close
 			not-padding
 			blur
-			loading
 		></vs-dialog>
 		<transition name="fade" mode="out-in">
 			<form
@@ -227,9 +228,13 @@ export default {
 				email: this.email,
 				password: this.password,
 			};
-
+			let loading = null;
 			try {
 				this.setLoading(true);
+				loading = this.$vs.loading({
+					type: 'points',
+					color: '#fff',
+				});
 				await this.$store.dispatch('login', actionPayload);
 				this.$router.replace('/home');
 			} catch (err) {
@@ -246,6 +251,7 @@ export default {
 				}
 				this.openErrorModal();
 			} finally {
+				loading.close();
 				this.setLoading(false);
 			}
 		},
@@ -263,10 +269,11 @@ export default {
 			this.$vs.notification({
 				title: '😕',
 				text: this.error,
+				color: 'danger',
 			});
 		},
 		openErrorModal() {
-			this.errorModal('top-right', 'primary');
+			this.errorModal();
 		},
 		handleError() {
 			this.error = null;

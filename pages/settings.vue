@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="pb-6">
 		<TheLoader v-if="isLoading"></TheLoader>
 		<h1 class="text-2xl md:text-5xl mb-14">User settings</h1>
 		<section class="space-y-12">
@@ -251,7 +251,7 @@
 						</template>
 					</vs-table>
 					<div v-else>
-						<p class="mb-1">You don't have any social yet.</p>
+						<p class="mb-1">You don't have any socials yet</p>
 						<BaseButton
 							id="addSocialBtn"
 							v-tooltip.right="'Add social'"
@@ -283,7 +283,7 @@
 					</vs-dialog>
 				</div>
 			</div>
-			<div>
+			<div class="flex gap-4 items-center mb-6">
 				<BaseButton
 					type="button"
 					class="mt-10"
@@ -291,7 +291,6 @@
 					@click="saveChanges"
 					>Confirm changes
 				</BaseButton>
-				<p v-if="updated" class="text-amber-500 mt-1">Updated!</p>
 			</div>
 		</section>
 	</div>
@@ -500,6 +499,11 @@ export default {
 				photo: this.photoData,
 			});
 			this.updated = true;
+			this.$vs.notification({
+				title: 'Updated 🥰',
+				text: 'You successfully updated your information.',
+				color: 'success',
+			});
 		},
 		removePicture() {
 			this.isLoading = true;

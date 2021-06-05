@@ -234,8 +234,13 @@ export default {
 				userInfo: this.userInfo,
 			};
 
+			let loading = null;
 			try {
 				this.$emit('set-loading', true);
+				loading = this.$vs.loading({
+					type: 'points',
+					color: '#fff',
+				});
 				await this.$store.dispatch('signup', actionPayload);
 				this.$router.replace('/home');
 			} catch (err) {
@@ -252,6 +257,7 @@ export default {
 				}
 				this.openErrorModal();
 			} finally {
+				loading.close();
 				this.$emit('set-loading', false);
 			}
 		},
