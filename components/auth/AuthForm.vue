@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<TheLoader v-if="isLoading"></TheLoader>
+		<vs-dialog v-model="isLoading" not-close blur loading></vs-dialog>
 		<transition name="fade" mode="out-in">
 			<form
 				v-if="mode === 'login'"
@@ -94,14 +94,12 @@ import firebase from 'firebase';
 import dayjs from 'dayjs';
 import { mapGetters } from 'vuex';
 import { random as _random } from 'lodash';
-import TheLoader from '../UI/BaseLoadingSpinner.vue';
 import SignUpForm from './SignUpForm';
 
 export default {
 	components: {
 		SignUpForm,
 		BaseButton,
-		TheLoader,
 	},
 	data() {
 		return {
