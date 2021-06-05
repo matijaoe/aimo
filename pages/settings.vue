@@ -79,8 +79,7 @@
 					autocomplete="off"
 					@keyup.enter="saveChanges"
 				/>
-			</div>
-			<div class="flex flex-wrap gap-y-8 gap-x-12">
+
 				<vs-select
 					v-model="countryData"
 					filter
@@ -101,13 +100,8 @@
 						</div>
 					</vs-option>
 				</vs-select>
-
-				<BaseButton
-					type="button"
-					mode="fill"
-					@click="activeSocialsPopup = !activeSocialsPopup"
-					>Add social
-				</BaseButton>
+			</div>
+			<div class="flex flex-wrap gap-y-8">
 				<div class="center">
 					<vs-dialog v-model="activeSocialsPopup">
 						<div
@@ -147,6 +141,7 @@
 								v-model.trim="newSocialUrl"
 								label-placeholder="Enter your profile URL"
 								autocomplete="off"
+								@keyup.enter="updateUserSocials"
 							/>
 							<BaseButton
 								type="button"
@@ -157,12 +152,15 @@
 						</div>
 					</vs-dialog>
 				</div>
-				<div class="center">
-					<vs-table>
+				<div
+					id="socialsTable"
+					class="center flex flex-col gap-y-6 items-start"
+				>
+					<vs-table v-if="socialsData.length > 0">
 						<template #thead>
 							<vs-tr>
-								<vs-th> ID </vs-th>
-								<vs-th> URL </vs-th>
+								<vs-th> Social </vs-th>
+								<vs-th> Profile URL </vs-th>
 							</vs-tr>
 						</template>
 						<template #tbody>
@@ -172,7 +170,10 @@
 								:data="social"
 							>
 								<vs-td>
-									{{ social.id }}
+									<BaseBrandIcon
+										id="brandIcon"
+										:brand="social.id"
+									/>
 								</vs-td>
 								<vs-td
 									v-tooltip="'Edit social URL'"
@@ -180,26 +181,104 @@
 									@click="
 										(edit = social),
 											(editProp = 'url'),
-											(editActive = true)
+											(editActive = true),
+											(updatedUrlData = edit[editProp])
 									"
 								>
 									{{ social.url }}
 								</vs-td>
+								<vs-td>
+									<BaseButton
+										id="removeSocialBtn"
+										v-tooltip.right="'Remove social'"
+										class="mr-2"
+										square
+										mode="warn"
+										@click="
+											(activeSocialsRemovePopup = true),
+												(removingSocialId = social.id)
+										"
+									>
+										<IconExit />
+									</BaseButton>
+
+									<div class="center">
+										<vs-dialog
+											v-model="activeSocialsRemovePopup"
+										>
+											<div
+												class="flex flex-col gap-y-6 items-center"
+											>
+												<h1 class="mt-2">
+													Are you sure?
+												</h1>
+												<div class="flex gap-x-6">
+													<BaseButton
+														mode="warn"
+														@click="removeSocial"
+													>
+														Remove
+													</BaseButton>
+													<BaseButton
+														mode="fill"
+														@click="
+															activeSocialsRemovePopup = false
+														"
+													>
+														Cancel
+													</BaseButton>
+												</div>
+											</div>
+										</vs-dialog>
+									</div>
+								</vs-td>
+							</vs-tr>
+							<vs-tr>
+								<vs-td>
+									<BaseButton
+										id="addSocialBtn"
+										v-tooltip.right="'Add social'"
+										mode="fill"
+										square
+										@click="
+											activeSocialsPopup = !activeSocialsPopup
+										"
+									>
+										<IconPlus />
+									</BaseButton>
+								</vs-td>
 							</vs-tr>
 						</template>
 					</vs-table>
+					<div v-else>
+						<p class="mb-1">You don't have any social yet.</p>
+						<BaseButton
+							id="addSocialBtn"
+							v-tooltip.right="'Add social'"
+							mode="fill"
+							square
+							@click="activeSocialsPopup = !activeSocialsPopup"
+						>
+							<IconPlus />
+						</BaseButton>
+					</div>
 
 					<vs-dialog v-model="editActive">
-						<template #header>
-							Change Prop {{ editProp }}
-						</template>
-						<div class="flex flex-col items-center">
+						<template #header> Change social URL </template>
+						<div class="flex flex-col items-center gap-y-6">
 							<vs-input
 								v-if="editProp == 'url'"
-								v-model="edit[editProp]"
+								id="inputUpdateUrl"
+								v-model.trim="updatedUrlData"
 								type="url"
-								@keypress.enter="editActive = false"
+								@keypress.enter="updateSocialUrl"
 							/>
+							<BaseButton
+								type="button"
+								mode="info"
+								@click="updateSocialUrl"
+								>Confirm changes
+							</BaseButton>
 						</div>
 					</vs-dialog>
 				</div>
@@ -228,11 +307,19 @@ import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { nanoid } from 'nanoid';
 import IconExit from 'icons/IconExit';
+import IconPlus from 'icons/IconPlus';
 import { app } from '../firebase';
 import TheLoader from '../components/UI/BaseLoadingSpinner.vue';
 
 export default {
-	components: { BaseAvatar, BaseButton, BaseBrandIcon, TheLoader, IconExit },
+	components: {
+		BaseAvatar,
+		BaseButton,
+		BaseBrandIcon,
+		TheLoader,
+		IconExit,
+		IconPlus,
+	},
 	data() {
 		return {
 			countryIndex: '',
@@ -256,6 +343,9 @@ export default {
 			editActive: false,
 			edit: null,
 			editProp: {},
+			updatedUrlData: '',
+			activeSocialsRemovePopup: false,
+			removingSocialId: '',
 		};
 	},
 	computed: {
@@ -454,20 +544,53 @@ export default {
 				};
 
 				userSocials.push(newSocial);
-				console.log(userSocials);
 
-				await fb.usersCollection.doc(this.currentUserId).update({
-					socials: userSocials,
-				});
-
-				this.filteredSocials = this.filteredSocials.filter(
-					(s) => newSocial.id !== s.name
-				);
+				await this.updateSocialsInDatabase(userSocials);
 				this.activeSocialsPopup = false;
 			}
-			this.socialsData = this.currentUser.socials;
 			this.newSocialData = '';
 			this.newSocialUrl = '';
+		},
+		async updateSocialUrl() {
+			if (this.updatedUrlData !== '') {
+				const index = this.socialsData.findIndex(
+					(soc) => soc.id === this.edit.id
+				);
+
+				const userRef = await fb.usersCollection
+					.doc(this.currentUserId)
+					.get();
+
+				const userSocials = userRef.data().socials;
+
+				userSocials[index].url = this.updatedUrlData;
+
+				await this.updateSocialsInDatabase(userSocials);
+			}
+			this.editActive = false;
+		},
+		async removeSocial() {
+			const userRef = await fb.usersCollection
+				.doc(this.currentUserId)
+				.get();
+
+			const userSocials = userRef.data().socials;
+
+			const index = userSocials.findIndex(
+				(s) => s.id === this.removingSocialId
+			);
+			userSocials.splice(index, 1);
+
+			await this.updateSocialsInDatabase(userSocials);
+
+			this.activeSocialsRemovePopup = false;
+		},
+		async updateSocialsInDatabase(userSocials) {
+			await fb.usersCollection.doc(this.currentUserId).update({
+				socials: userSocials,
+			});
+			this.socialsData = userSocials;
+			this.filteredSocials = this.socialsWithoutUserSocials;
 		},
 	},
 };
@@ -479,5 +602,17 @@ export default {
 }
 #brandIcon {
 	transform: scale(0.7, 0.7);
+}
+#addSocialBtn {
+	transform: scale(0.8, 0.8);
+}
+#removeSocialBtn {
+	transform: scale(0.6, 0.6);
+	position: relative;
+	bottom: 2px;
+}
+#socialsTable {
+	position: relative;
+	bottom: 6px;
 }
 </style>
