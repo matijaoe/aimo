@@ -1,6 +1,12 @@
 <template>
 	<div>
-		<vs-dialog v-model="isLoading" not-close blur loading></vs-dialog>
+		<vs-dialog
+			v-model="isLoading"
+			not-close
+			not-padding
+			blur
+			loading
+		></vs-dialog>
 		<transition name="fade" mode="out-in">
 			<form
 				v-if="mode === 'login'"
