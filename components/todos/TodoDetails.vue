@@ -314,8 +314,8 @@ export default {
 			return !this.todoId;
 		},
 		createdAt() {
-			const dt = dayjs(this.todo.timestamp);
-			const date = dt.format(`MMMM DD`);
+			const dt = dayjs.unix(this.todo.created_at.seconds);
+			const date = dt.format(`MMMM Do`);
 			const time = dt.format(`HH:mm`);
 			return `${date} at ${time}`;
 		},

@@ -12,19 +12,16 @@
 			</div>
 
 			<img
-				v-if="this.todo.photoUrl"
+				v-if="todo.photoUrl"
 				id="todoPhoto"
-				:src="this.todo.photoUrl"
+				:src="todo.photoUrl"
 				alt="Todo image"
 				class="rounded-lg max-w-[110px] center cursor-pointer hover:opacity-75"
 				@click="active = !active"
 			/>
 			<div class="center">
 				<vs-dialog v-model="active">
-					<img
-						:src="this.todo.photoUrl"
-						class="rounded-lg mt-[18px]"
-					/>
+					<img :src="todo.photoUrl" class="rounded-lg mt-[18px]" />
 				</vs-dialog>
 			</div>
 
@@ -47,6 +44,7 @@
 import TagLabels from '@/components/todo/TagLabels';
 import BaseTimestamp from 'UI/BaseTimestamp';
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 export default {
 	components: { TagLabels, BaseTimestamp },
@@ -63,9 +61,9 @@ export default {
 	},
 	computed: {
 		createdDate() {
-			const dt = dayjs(this.todo.timestamp);
-			const date = dt.format(`MMMM DD`);
-			return `${date}`;
+			dayjs.extend(relativeTime);
+			const dt = dayjs.unix(this.todo.created_at.seconds);
+			return dayjs().to(dt);
 		},
 	},
 };
