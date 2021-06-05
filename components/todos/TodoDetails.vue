@@ -294,6 +294,8 @@ export default {
 			toEdit: false,
 			due: '',
 			invalidDueDate: false,
+			created_at: null,
+			dueDate: null,
 		};
 	},
 	computed: {
@@ -362,6 +364,8 @@ export default {
 			this.isApproved = this.todo.approved;
 			this.isPersonal = !this.todo.partner;
 			this.isCompleted = this.todo.done;
+			this.created_at = this.todo.created_at;
+			this.dueDate = this.todo.due;
 
 			// reusat sa partner computed
 			const partnerUsernames = this.partners.map((p) => p.username);
@@ -431,8 +435,8 @@ export default {
 				name: this.title,
 				desc: this.description || '',
 				categories: this.extractCategories(),
-				created_at: dayjs().$d,
-				due: dayjs(this.due).$d,
+				created_at: this.created_at || dayjs().$d,
+				due: this.dueDate || dayjs(this.due).$d,
 				done: this.isCompleted,
 				approved: false,
 				daily: this.isDaily,

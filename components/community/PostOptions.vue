@@ -20,7 +20,13 @@
 			</p>
 		</div>
 
-		<BaseButton v-tooltip.bottom="'Support'" square class="group">
+		<BaseButton
+			v-if="!todo.done"
+			v-tooltip.bottom="'Support'"
+			square
+			class="group"
+			@click="openSupportDialog"
+		>
 			<IconDollar
 				class="text-gray-300 group-hover:text-amber-500 transition transform hover:scale-110 hover:-rotate-3 hover:-translate-y-[5px] transition"
 			/>
@@ -42,6 +48,7 @@ export default {
 		IconDollar,
 		BaseButton,
 	},
+	inject: ['setPostDetails'],
 	props: {
 		todo: {
 			type: Object,
@@ -118,6 +125,9 @@ export default {
 					likedByUsers: likes,
 					numberOfLikes: likes.length,
 				});
+		},
+		openSupportDialog() {
+			this.setPostDetails(this.todo);
 		},
 	},
 };

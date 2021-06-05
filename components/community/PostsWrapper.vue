@@ -1,5 +1,6 @@
 <template>
 	<div class="grid md:grid-cols-6 gap-y-4 md:gap-4 overflow-hidden">
+		<SupportDialog :post-details="postDetails" />
 		<PostsList
 			:todos="filteredTodos"
 			class="col-span-4 order-2 md:order-1 full-height"
@@ -17,11 +18,18 @@
 import { mapGetters } from 'vuex';
 import CommunitySidebar from './CommunitySidebar';
 import PostsList from './PostsList';
+import SupportDialog from './SupportDialog';
 
 export default {
 	components: {
+		SupportDialog,
 		PostsList,
 		CommunitySidebar,
+	},
+	provide() {
+		return {
+			setPostDetails: this.setPostDetails,
+		};
 	},
 	props: {
 		todos: {
@@ -33,6 +41,11 @@ export default {
 			required: false,
 			default: '',
 		},
+	},
+	data() {
+		return {
+			postDetails: null,
+		};
 	},
 	computed: {
 		...mapGetters(['getCategoryIdByName']),
@@ -49,6 +62,11 @@ export default {
 				return this.getCategoryIdByName(this.categoryName);
 			}
 			return '';
+		},
+	},
+	methods: {
+		setPostDetails(todo) {
+			this.postDetails = todo;
 		},
 	},
 };
