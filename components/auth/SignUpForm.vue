@@ -131,7 +131,7 @@ export default {
 				return {
 					fname: this.fname,
 					lname: this.lname,
-					countryCode: '',
+					countryCode: 'HRV',
 					birthday: '',
 					joined_on: dayjs().$d,
 					photo: `https://avatar.oxro.io/avatar.svg?name=${this.fname}+${this.lname}&caps=1&fontSize=200&bold=true&background=${color.bg}&color=${color.text}`,

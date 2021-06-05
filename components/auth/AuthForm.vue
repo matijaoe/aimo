@@ -184,7 +184,7 @@ export default {
 					const newUser = {
 						fname: firstName,
 						lname: lastName,
-						countryCode: '',
+						countryCode: 'HRV',
 						birthday: null,
 						joined_on: dayjs().$d,
 						photo: `https://avatar.oxro.io/avatar.svg?name=${firstName}+${lastName}&caps=1&fontSize=200&bold=true&background=${color.bg}&color=${color.text}`,

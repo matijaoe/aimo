@@ -2,7 +2,7 @@
 	<div class="grid md:grid-cols-6 gap-y-4 md:gap-4 overflow-hidden">
 		<SupportDialog :post-details="postDetails" />
 		<PostsList
-			:todos="filteredTodos"
+			:todos="todos"
 			class="col-span-4 order-2 md:order-1 full-height"
 		/>
 		<transition>
@@ -49,14 +49,6 @@ export default {
 	},
 	computed: {
 		...mapGetters(['getCategoryIdByName']),
-		filteredTodos() {
-			if (this.categoryName) {
-				return this.todos.filter((todo) =>
-					todo.categories.includes(this.categoryId)
-				);
-			}
-			return this.todos;
-		},
 		categoryId() {
 			if (this.categoryName) {
 				return this.getCategoryIdByName(this.categoryName);

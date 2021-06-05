@@ -2,6 +2,7 @@
 import Vue from 'vue';
 import * as fb from '@/firebase';
 import dayjs from 'dayjs';
+import _ from 'lodash';
 
 export const state = () => ({
 	currentUserTodos: [],
@@ -221,7 +222,7 @@ export const actions = {
 			const resp = await fb.usersCollection
 				.doc(username)
 				.collection('todos')
-				.orderBy('timestamp', 'desc')
+				.orderBy('created_at')
 				.get();
 			const todos = [];
 			for (const doc of resp.docs) {
@@ -237,13 +238,25 @@ export const actions = {
 		}
 		return [];
 	},
-	async getCommunityTodos({ rootGetters }) {
-		// todo - kada se slozi createdAt prop napraviti dohvat po najnovijem (sada je po imenu vlasnika bez nasih todo-a)
-		const response = await fb.db
-			.collectionGroup('todos')
-			.where('owner', '!=', rootGetters.currentUserId)
-			.get();
+	async getCommunityTodos({ rootGetters }, cat = '') {
+		const response =
+			cat === ''
+				? await fb.db
+						.collectionGroup('todos')
+						.where('owner', '!=', rootGetters.currentUserId)
+						.get()
+				: await fb.db
+						.collectionGroup('todos')
+						.where('owner', '!=', rootGetters.currentUserId)
+						.where(
+							'categories',
+							'array-contains',
+							rootGetters.getCategoryIdByName(cat)
+						)
+						.get();
+
 		const todos = [];
+
 		response.forEach((doc) => {
 			const todoInfo = doc.data();
 			if (todoInfo.partner) {
@@ -257,19 +270,7 @@ export const actions = {
 				owner: rootGetters['users/getUserById'](todoInfo.owner),
 			});
 		});
-		return todos.sort((a, b) => b.numberOfLikes - a.numberOfLikes);
-		/*
 
-		for (const cat of todoInfo.categories) {
-				categories.push(rootGetters.getCategoryById(cat));
-			}
-
-		const todos = await fb.usersCollection
-			.doc('matijao')
-			.collection('todos')
-			.where('approved', '==', true)
-			.get();
-		console.log(todos);
-		todos.forEach((doc) => console.log(doc.data())); */
+		return _.orderBy(todos, ['created_at', 'name'], ['desc', 'asc']);
 	},
 };

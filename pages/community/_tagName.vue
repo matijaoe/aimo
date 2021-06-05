@@ -14,7 +14,7 @@ export default {
 		) {
 			redirect('/community');
 		}
-		const todos = await store.dispatch('todos/getCommunityTodos');
+		const todos = await store.dispatch('todos/getCommunityTodos', tagName);
 		return { todos, tagName };
 	},
 };
