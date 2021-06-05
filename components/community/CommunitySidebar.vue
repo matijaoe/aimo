@@ -72,7 +72,7 @@
 					<BaseAvatar
 						v-for="user in usersWithoutUsAndPartners"
 						:key="user.id"
-						v-tooltip.bottom="`@${user.username}`"
+						v-tooltip.left="`@${user.username}`"
 						link
 						:to="{ path: `/user/${user.username}` }"
 						:src="user.photo"
