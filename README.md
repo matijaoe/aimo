@@ -5,7 +5,7 @@
 - marian7@gmail.com - marian7
 
 # [Live Demo](https://aimo.vercel.app/)
-## [Video demo](https://tvzhr-my.sharepoint.com/:f:/g/personal/mbabic6_tvz_hr/EspBvdsPX2lKhFX8OLEFDYABjW9mMqLQ-thAavT0zLf0Ag?e=FB80lS)
+## [Video demo](https://tvzhr.sharepoint.com/:v:/s/Deneri/EW0SEfDO6cVLoBZkEv5UK50Bm901qA95LXOGUV6r5TxCWQ?e=2XWDl9)
 
 ## Build Setup
 
