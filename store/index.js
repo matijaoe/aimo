@@ -211,33 +211,18 @@ export const actions = {
 			return;
 		}
 		try {
-			// const foundTodos = [];
-			// const todosRef = await fb.usersCollection
-			// 	.doc(rootGetters.currentUserId)
-			// 	.collection('todos')
-			// 	.get();
-			// const filteredTodos = todosRef.docs.filter((p) =>
-			// 	p.data().name.toLowerCase().includes(term)
-			// );
-			// for (const doc of filteredTodos) {
-			// 	if (foundTodos.length === limit) {
-			// 		break;
-			// 	}
-			// 	foundTodos.push(doc.data());
-			// }
-
 			const foundUsers = [];
 			const userRef = await fb.usersCollection.get();
 			const filteredUsers = userRef.docs.filter(
 				(p) =>
-					p.data().fname.toLowerCase().includes(term) ||
-					p.data().lname.toLowerCase().includes(term) ||
+					p.data().fname.toLowerCase().startsWith(term) ||
+					p.data().lname.toLowerCase().startsWith(term) ||
 					(
 						p.data().fname.toLowerCase() +
 						' ' +
 						p.data().lname.toLowerCase()
-					).includes(term) ||
-					p.id.toLowerCase().includes(term)
+					).startsWith(term) ||
+					p.id.toLowerCase().startsWith(term)
 			);
 			for (const doc of filteredUsers) {
 				if (foundUsers.length === limit) {
@@ -249,7 +234,7 @@ export const actions = {
 			const foundCategories = [];
 			const categoriesRef = await fb.categoriesCollection.get();
 			const filteredCategories = categoriesRef.docs.filter((p) =>
-				p.data().name.toLowerCase().includes(term)
+				p.data().name.toLowerCase().startsWith(term)
 			);
 			for (const doc of filteredCategories) {
 				if (foundCategories.length === limit) {
@@ -260,7 +245,6 @@ export const actions = {
 
 			const results = {
 				users: foundUsers,
-				// todos: foundTodos,
 				categories: foundCategories,
 			};
 			commit('searchAnything', results);
