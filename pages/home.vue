@@ -34,32 +34,40 @@
 		>
 			<BaseQuote />
 		</div>
-		<div
-			class="flex items-center p-12 bg-blue-100 text-blue-800 rounded-2xl"
-		>
-			<BaseQuote />
-		</div>
 
 		<div
-			class="flex items-center p-12 bg-emerald-100 text-emerald-800 rounded-2xl"
+			id="chart"
+			class="pt-6 pb-1 pr-8 pl-1 bg-blue-100 text-blue-800 rounded-2xl"
 		>
-			<BaseQuote />
+			<apexchart
+				id="apexchart"
+				type="bar"
+				height="310"
+				:options="chartOptions"
+				:series="[
+					{
+						name: 'Number of todos',
+						data: [finishedCount, approvedCount, leftCount],
+					},
+				]"
+			></apexchart>
 		</div>
-		<div
-			class="flex flex-col items-center p-4 bg-rose-100 text-rose-800 rounded-2xl"
-		>
-			<div class="flex flex-row gap-1">
-				<div id="checkIcon">
-					<IconClipboardCheck />
+
+		<div class="flex items-center bg-rose-100 text-rose-800 rounded-2xl">
+			<div class="flex flex-col items-center p-12">
+				<div class="flex flex-row gap-1">
+					<div id="checkIcon">
+						<IconClipboardCheck />
+					</div>
+					<p class="uppercase pt-2 relative bottom-1">
+						Recommended todo:
+					</p>
 				</div>
-				<p class="uppercase pt-2 relative bottom-1">
-					Recommended todo:
-				</p>
-			</div>
 
-			<h2 class="text-xl font-bold text-center p-1">
-				{{ randomGeneratedTodo }}
-			</h2>
+				<h2 class="text-xl font-bold p-1">
+					{{ randomGeneratedTodo }}
+				</h2>
+			</div>
 		</div>
 	</section>
 </template>
@@ -67,17 +75,103 @@
 <script>
 import BaseQuote from 'UI/BaseQuote.vue';
 import { mapGetters } from 'vuex';
+import VueApexCharts from 'vue-apexcharts';
 import IconClipboardCheck from '../components/app_icons/IconClipboardCheck.vue';
 
 export default {
-	components: { BaseQuote, IconClipboardCheck },
+	components: { BaseQuote, IconClipboardCheck, apexchart: VueApexCharts },
 	data() {
 		return {
 			randomGeneratedTodo: '',
+			series: [],
+			chartOptions: {
+				chart: {
+					height: 40,
+					type: 'bar',
+				},
+				plotOptions: {
+					bar: {
+						borderRadius: 10,
+						dataLabels: {
+							position: 'top', // top, center, bottom
+						},
+					},
+				},
+				dataLabels: {
+					enabled: true,
+					formatter(val) {
+						return val;
+					},
+					offsetY: -20,
+					style: {
+						fontSize: '12px',
+						colors: ['#4064ff'],
+					},
+				},
+
+				xaxis: {
+					categories: ['Done', 'Approved', 'Left'],
+					position: 'top',
+					axisBorder: {
+						show: false,
+					},
+					axisTicks: {
+						show: false,
+					},
+					crosshairs: {
+						fill: {
+							type: 'gradient',
+							gradient: {
+								colorFrom: '#4064ff',
+								colorTo: '#4064ff',
+								stops: [0, 100],
+								opacityFrom: 0.4,
+								opacityTo: 0.5,
+							},
+						},
+					},
+					tooltip: {
+						enabled: false,
+					},
+				},
+				yaxis: {
+					axisBorder: {
+						show: false,
+					},
+					axisTicks: {
+						show: false,
+					},
+					labels: {
+						show: false,
+						formatter(val) {
+							return val;
+						},
+					},
+				},
+				title: {
+					text: 'Your todos status',
+					floating: true,
+					offsetY: 292,
+					align: 'center',
+					style: {
+						color: '#4064ff',
+					},
+				},
+			},
 		};
 	},
 	computed: {
 		...mapGetters(['getRandomRecommendedTodo']),
+		...mapGetters('todos', ['currentUserTodos']),
+		finishedCount() {
+			return this.currentUserTodos.filter((todo) => todo.done).length;
+		},
+		approvedCount() {
+			return this.currentUserTodos.filter((todo) => todo.approved).length;
+		},
+		leftCount() {
+			return this.currentUserTodos.filter((todo) => !todo.done).length;
+		},
 		currentUser() {
 			return this.$store.getters.currentUser;
 		},

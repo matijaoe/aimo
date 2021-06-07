@@ -16,7 +16,7 @@ export const state = () => ({
 		'Journal every day.',
 		'Get up when your alarm goes off.',
 		'Limit screen time after work.',
-		'Take a ‘me’ day.',
+		"Take a 'me' day.",
 		'Walk after lunch or dinner. ',
 		'Eat more veggies.',
 		'Develop a workout routine.',
