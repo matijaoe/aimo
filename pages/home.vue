@@ -36,38 +36,32 @@
 		</div>
 
 		<div
-			id="chart"
-			class="pt-6 pb-1 pr-8 pl-1 bg-blue-100 text-blue-800 rounded-2xl"
+			class="flex items-center p-12 bg-blue-100 text-blue-800 rounded-2xl"
 		>
-			<apexchart
-				id="apexchart"
-				type="bar"
-				height="310"
-				:options="chartOptions"
-				:series="[
-					{
-						name: 'Number of todos',
-						data: [finishedCount, approvedCount, leftCount],
-					},
-				]"
-			></apexchart>
+			<BaseQuote />
 		</div>
 
-		<div class="flex items-center bg-rose-100 text-rose-800 rounded-2xl">
-			<div class="flex flex-col items-center p-12">
-				<div class="flex flex-row gap-1">
-					<div id="checkIcon">
-						<IconClipboardCheck />
-					</div>
-					<p class="uppercase pt-2 relative bottom-1">
-						Recommended todo:
-					</p>
-				</div>
+		<div
+			class="flex items-center p-12 bg-emerald-100 text-emerald-800 rounded-2xl"
+		>
+			<BaseQuote />
+		</div>
 
-				<h2 class="text-xl font-bold p-1">
-					{{ randomGeneratedTodo }}
-				</h2>
+		<div
+			class="flex flex-col items-center p-12 bg-rose-100 text-rose-800 rounded-2xl"
+		>
+			<div class="flex flex-row gap-1">
+				<div id="checkIcon">
+					<IconClipboardCheck />
+				</div>
+				<p class="uppercase pt-2 relative bottom-1">
+					Recommended todo:
+				</p>
 			</div>
+
+			<h2 class="text-xl font-bold p-1">
+				{{ randomGeneratedTodo }}
+			</h2>
 		</div>
 	</section>
 </template>
@@ -75,11 +69,10 @@
 <script>
 import BaseQuote from 'UI/BaseQuote.vue';
 import { mapGetters } from 'vuex';
-import VueApexCharts from 'vue-apexcharts';
 import IconClipboardCheck from '../components/app_icons/IconClipboardCheck.vue';
 
 export default {
-	components: { BaseQuote, IconClipboardCheck, apexchart: VueApexCharts },
+	components: { BaseQuote, IconClipboardCheck },
 	data() {
 		return {
 			randomGeneratedTodo: '',
