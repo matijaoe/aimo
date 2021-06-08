@@ -3,9 +3,11 @@ import { Doughnut } from 'vue-chartjs';
 
 export default {
 	extends: Doughnut,
-	props: ['chartData', 'options'],
+	props: ['chartData', 'options', 'todos'],
 	mounted() {
-		this.renderChart(this.chartData, this.options);
+		const customized = this.chartData;
+		customized.datasets[0].data = this.todos;
+		this.renderChart(customized, this.options);
 	},
 	methods: {
 		update() {

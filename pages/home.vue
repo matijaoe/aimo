@@ -55,6 +55,7 @@
 				ref="skills_chart"
 				:chart-data="chartData"
 				:options="options"
+				:todos="[finishedCount, approvedCount, leftCount]"
 				class="w-full h-auto"
 			>
 			</BaseDoughnutChart>
@@ -145,11 +146,6 @@ export default {
 	},
 	created() {
 		this.randomGeneratedTodo = this.getRandomRecommendedTodo;
-		this.chartData.datasets[0].data = [
-			this.finishedCount,
-			this.approvedCount,
-			this.leftCount,
-		];
 	},
 };
 </script>
