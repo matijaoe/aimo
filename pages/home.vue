@@ -47,29 +47,9 @@
 			<BaseQuote />
 		</div>
 
-		<div>
-			<div
-				class="flex flex-col flex-wrap items-center p-12 bg-rose-100 text-rose-800 rounded-2xl"
-			>
-				<div class="flex flex-row gap-1">
-					<div id="checkIcon">
-						<IconClipboardCheck />
-					</div>
-					<p class="uppercase pt-2 relative bottom-1">
-						Recommended todo:
-					</p>
-				</div>
-
-				<h2 class="text-xl font-bold p-1">
-					{{ randomGeneratedTodo }}
-				</h2>
-			</div>
-		</div>
-
-		<div
+		<BaseContainer
 			v-if="finishedCount !== 0 || approvedCount !== 0 || leftCount !== 0"
 			id="chart"
-			class="flex items-center px-4 py-2 rounded-2xl relative right-1"
 		>
 			<BaseDoughnutChart
 				ref="skills_chart"
@@ -78,19 +58,42 @@
 				class="w-full h-auto"
 			>
 			</BaseDoughnutChart>
+		</BaseContainer>
+
+		<div
+			class="flex flex-col justify-center flex-wrap items-center p-12 bg-rose-100 text-rose-800 rounded-2xl"
+		>
+			<div class="flex flex-row gap-1">
+				<div id="checkIcon">
+					<IconClipboardCheck />
+				</div>
+				<p class="uppercase pt-2 relative bottom-1">
+					Recommended todo:
+				</p>
+			</div>
+
+			<h2 class="text-xl font-bold p-1">
+				{{ randomGeneratedTodo }}
+			</h2>
 		</div>
 	</section>
 </template>
 
 <script>
 import BaseQuote from 'UI/BaseQuote.vue';
+import BaseContainer from 'UI/BaseContainer.vue';
 import BaseDoughnutChart from 'UI/BaseDoughnutChart.vue';
+import IconClipboardCheck from 'icons/IconClipboardCheck.vue';
 
 import { mapGetters } from 'vuex';
-import IconClipboardCheck from '../components/app_icons/IconClipboardCheck.vue';
 
 export default {
-	components: { BaseQuote, IconClipboardCheck, BaseDoughnutChart },
+	components: {
+		BaseQuote,
+		IconClipboardCheck,
+		BaseDoughnutChart,
+		BaseContainer,
+	},
 	data() {
 		return {
 			randomGeneratedTodo: '',
