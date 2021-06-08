@@ -110,6 +110,11 @@ export default {
 			default: false,
 		},
 	},
+	data() {
+		return {
+			executed: false,
+		};
+	},
 	methods: {
 		...mapActions('notifications', [
 			'deleteNotification',
@@ -120,10 +125,13 @@ export default {
 			this.deleteNotification(this.notId);
 		},
 		accept() {
-			this.acceptPartnerRequest({
-				id: this.notId,
-				partner: this.partner,
-			});
+			if (!this.executed) {
+				this.executed = true;
+				this.acceptPartnerRequest({
+					id: this.notId,
+					partner: this.partner,
+				});
+			}
 		},
 		decline() {
 			this.declinePartnerRequest({

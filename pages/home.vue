@@ -47,109 +47,80 @@
 			<BaseQuote />
 		</div>
 
-		<div
-			class="flex flex-col items-center p-12 bg-rose-100 text-rose-800 rounded-2xl"
-		>
-			<div class="flex flex-row gap-1">
-				<div id="checkIcon">
-					<IconClipboardCheck />
+		<div>
+			<div
+				class="flex flex-col flex-wrap items-center p-12 bg-rose-100 text-rose-800 rounded-2xl"
+			>
+				<div class="flex flex-row gap-1">
+					<div id="checkIcon">
+						<IconClipboardCheck />
+					</div>
+					<p class="uppercase pt-2 relative bottom-1">
+						Recommended todo:
+					</p>
 				</div>
-				<p class="uppercase pt-2 relative bottom-1">
-					Recommended todo:
-				</p>
-			</div>
 
-			<h2 class="text-xl font-bold p-1">
-				{{ randomGeneratedTodo }}
-			</h2>
+				<h2 class="text-xl font-bold p-1">
+					{{ randomGeneratedTodo }}
+				</h2>
+			</div>
+		</div>
+
+		<div
+			v-if="finishedCount !== 0 || approvedCount !== 0 || leftCount !== 0"
+			id="chart"
+			class="flex items-center px-4 py-2 rounded-2xl relative right-1"
+		>
+			<BaseDoughnutChart
+				ref="skills_chart"
+				:chart-data="chartData"
+				:options="options"
+				class="w-full h-auto"
+			>
+			</BaseDoughnutChart>
 		</div>
 	</section>
 </template>
 
 <script>
 import BaseQuote from 'UI/BaseQuote.vue';
+import BaseDoughnutChart from 'UI/BaseDoughnutChart.vue';
+
 import { mapGetters } from 'vuex';
 import IconClipboardCheck from '../components/app_icons/IconClipboardCheck.vue';
 
 export default {
-	components: { BaseQuote, IconClipboardCheck },
+	components: { BaseQuote, IconClipboardCheck, BaseDoughnutChart },
 	data() {
 		return {
 			randomGeneratedTodo: '',
-			series: [],
-			chartOptions: {
-				chart: {
-					height: 40,
-					type: 'bar',
-				},
-				plotOptions: {
-					bar: {
-						borderRadius: 10,
-						dataLabels: {
-							position: 'top', // top, center, bottom
-						},
-					},
-				},
-				dataLabels: {
-					enabled: true,
-					formatter(val) {
-						return val;
-					},
-					offsetY: -20,
-					style: {
-						fontSize: '12px',
-						colors: ['#4064ff'],
-					},
-				},
-
-				xaxis: {
-					categories: ['Done', 'Approved', 'Left'],
-					position: 'top',
-					axisBorder: {
-						show: false,
-					},
-					axisTicks: {
-						show: false,
-					},
-					crosshairs: {
-						fill: {
-							type: 'gradient',
-							gradient: {
-								colorFrom: '#4064ff',
-								colorTo: '#4064ff',
-								stops: [0, 100],
-								opacityFrom: 0.4,
-								opacityTo: 0.5,
-							},
-						},
-					},
-					tooltip: {
-						enabled: false,
-					},
-				},
-				yaxis: {
-					axisBorder: {
-						show: false,
-					},
-					axisTicks: {
-						show: false,
-					},
-					labels: {
-						show: false,
-						formatter(val) {
-							return val;
-						},
-					},
-				},
+			options: {
 				title: {
-					text: 'Your todos status',
-					floating: true,
-					offsetY: 292,
-					align: 'center',
-					style: {
-						color: '#4064ff',
+					display: false,
+					text: 'Your todo stats',
+					position: 'bottom',
+				},
+				responsive: true,
+				maintainAspectRatio: false,
+				animation: {
+					animateRotate: false,
+				},
+				legend: {
+					display: true,
+					labels: {
+						fontFamily: ['Poppins', 'ui-sans-serif'],
 					},
 				},
+			},
+			chartData: {
+				labels: ['Finished', 'Approved', 'Left'],
+				datasets: [
+					{
+						backgroundColor: ['#93C5FD', '#6EE7B7', '#FCA5A5'],
+						data: [],
+						weight: 10,
+					},
+				],
 			},
 		};
 	},
@@ -171,6 +142,11 @@ export default {
 	},
 	created() {
 		this.randomGeneratedTodo = this.getRandomRecommendedTodo;
+		this.chartData.datasets[0].data = [
+			this.finishedCount,
+			this.approvedCount,
+			this.leftCount,
+		];
 	},
 };
 </script>
@@ -180,7 +156,7 @@ export default {
 	background-image: url('~assets/img/hero.svg');
 }
 
-@media screen and (max-width: 1380px) and (min-width: 1280px) {
+@media screen and (max-width: 1405px) and (min-width: 1280px) {
 	#welcome {
 		position: absolute;
 	}
