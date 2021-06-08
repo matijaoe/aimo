@@ -167,4 +167,10 @@ export default {
 		right: 7px;
 	}
 }
+
+@media screen and (max-width: 735px) {
+	#chart {
+		display: none;
+	}
+}
 </style>

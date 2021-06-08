@@ -37,7 +37,7 @@ export const state = () => ({
 		'Practise being ‘in the moment.’',
 		'Learn to breathe more fully.',
 		'Cook a healthy meal.',
-		'Listen to audio books throughout the day and at night.',
+		'Listen to audio book.',
 		'Make your bed every morning.',
 		"Avoid buying things you don't need.",
 		'Clean up your room.',
