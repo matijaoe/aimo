@@ -231,6 +231,12 @@ export default {
 		dotColor() {
 			if (this.isApproved) {
 				return ['bg-emerald-400', 'border-emerald-400'];
+			} else if (
+				this.completed &&
+				this.todo.photoUrl &&
+				this.todo.photoUrl !== ''
+			) {
+				return ['bg-amber-300', 'border-amber-300'];
 			} else if (this.completed) {
 				return ['bg-gray-200', 'border-gray-200'];
 			} else {
