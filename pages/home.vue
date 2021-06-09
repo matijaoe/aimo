@@ -73,7 +73,7 @@
 				</p>
 			</div>
 
-			<h2 class="text-xl font-bold p-1 text-right">
+			<h2 class="text-xl font-bold p-1">
 				{{ randomGeneratedTodo }}
 			</h2>
 		</div>
