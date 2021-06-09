@@ -71,7 +71,7 @@
 					</div>
 					<div class="flex items-center justify-center gap-1">
 						<BaseButton
-							v-tooltip.right="'Login with Google'"
+							v-tooltip.right="'Continue with Google'"
 							mode="ghost"
 							type="button"
 							@click="signUpWithGoogle"

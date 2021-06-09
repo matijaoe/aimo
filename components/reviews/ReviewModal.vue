@@ -49,7 +49,7 @@
 						/>
 					</div>
 					<div
-						class="flex-col flex justify-center px-6 pt-5 pb-6 rounded-md"
+						class="flex-col flex justify-center pt-5 pb-6 rounded-md"
 					>
 						<h3>Write your review:</h3>
 						<textarea
