@@ -2,7 +2,7 @@
 import Vue from 'vue';
 import * as fb from '@/firebase';
 import dayjs from 'dayjs';
-import _ from 'lodash';
+import { orderBy as _orderBy, remove as _remove } from 'lodash';
 
 export const state = () => ({
 	currentUserTodos: [],
@@ -86,8 +86,11 @@ export const mutations = {
 		Vue.set(state.currentUserTodos, index, todo);
 	},
 	deleteTodo(state, todoId) {
+		/*
 		const index = state.currentUserTodos.findIndex((t) => t.id === todoId);
 		state.currentUserTodos.splice(index, 1);
+		*/
+		_remove(state.currentUserTodos, (t) => t.id === todoId);
 	},
 };
 
@@ -271,6 +274,6 @@ export const actions = {
 			});
 		});
 
-		return _.orderBy(todos, ['created_at', 'name'], ['desc', 'asc']);
+		return _orderBy(todos, ['created_at', 'name'], ['desc', 'asc']);
 	},
 };
