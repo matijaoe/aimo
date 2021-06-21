@@ -1,5 +1,8 @@
 # aimo-tvz-mc2
 
+- Winning project of TVZ Mc2 2021 student competition
+- Winner of TVZ Mc2 2021 Best Design Award
+
 ### Login details (email - password)
 - marian7@gmail.com - marian7
 - matijao@gmail.com - matijao
