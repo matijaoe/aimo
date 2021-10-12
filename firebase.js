@@ -4,8 +4,8 @@ import 'firebase/firestore';
 import 'firebase/storage';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyCod4bOC35WfbE0Y8BzgnaJsyp8pPqFkX8',
-	authDomain: 'aimo-test.firebaseapp.com',
+	apiKey: process.env.dbApiKey,
+	authDomain: process.env.dbAuthDomain,
 	projectId: 'aimo-test',
 	storageBucket: 'aimo-test.appspot.com',
 	messagingSenderId: '909261717167',

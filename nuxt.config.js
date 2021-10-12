@@ -23,8 +23,7 @@ export default {
 			{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
 			{
 				rel: 'stylesheet',
-				href:
-					'https://fonts.googleapis.com/css2?family=Fascinate&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap',
+				href: 'https://fonts.googleapis.com/css2?family=Fascinate&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap',
 			},
 		],
 	},
@@ -128,5 +127,10 @@ export default {
 	// Customize the loading indicator (https://nuxtjs.org/api/configuration-loading-indicator)
 	loadingIndicator: {
 		name: 'chasing-dots',
+	},
+
+	env: {
+		dbApiKey: process.env.FB_API_KEY,
+		dbAuthDomain: process.env.FB_AUTH_DOMAIN,
 	},
 };
