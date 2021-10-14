@@ -14,13 +14,22 @@
 				<li
 					v-for="user in results.users"
 					:key="user.id"
-					class="w-full hover:bg-gray-50 hover:text-gray-700 rounded-lg"
+					class="
+						w-full
+						hover:bg-gray-50 hover:text-gray-700
+						rounded-lg
+					"
 					@click="clearInput"
 				>
 					<nuxt-link :to="{ path: `/user/${user.id}` }">
 						<div class="flex items-start gap-4 group p-2">
 							<div
-								class="w-full text-gray-500 group-hover:text-gray-700 px-2"
+								class="
+									w-full
+									text-gray-500
+									group-hover:text-gray-700
+									px-2
+								"
 							>
 								<BaseAvatar
 									:src="user.photo"
@@ -28,7 +37,11 @@
 								>
 								</BaseAvatar>
 								<div
-									class="text-base text-right text-gray-600 font-semibold text-[14px]"
+									class="
+										text-base text-right text-gray-600
+										font-semibold
+										text-[14px]
+									"
 								>
 									<span class="mr-[1px]">@</span>{{ user.id }}
 								</div>
@@ -50,7 +63,13 @@
 						id="searchBaseTag"
 						:key="cat.id"
 						:color="cat.color"
-						class="text-center pt-[10px] pb-[10px] m-[4px] hover:opacity-70"
+						class="
+							text-center
+							pt-[10px]
+							pb-[10px]
+							m-[4px]
+							hover:opacity-70
+						"
 						link
 						:to="{ path: `/community/${cat.name}` }"
 					>

@@ -1,6 +1,21 @@
 <template>
 	<button
-		class="py-3 w-full rounded-lg uppercase text-xs font-bold border-none foucs:border-none focus:outline-none focus:border-amber-300 focus:ring focus:ring-amber-200 focus:ring-opacity-50 transition"
+		class="
+			py-3
+			w-full
+			rounded-lg
+			uppercase
+			text-xs
+			font-bold
+			border-none
+			foucs:border-none
+			focus:outline-none
+			focus:border-amber-300
+			focus:ring
+			focus:ring-amber-200
+			focus:ring-opacity-50
+			transition
+		"
 		:class="completedColor"
 		@click="$emit('toggle-completed')"
 	>

@@ -7,7 +7,13 @@
 		/>
 		<transition>
 			<CommunitySidebar
-				class="md:col-span-2 order-1 md:order-2 overflow-y-auto md:full-height"
+				class="
+					md:col-span-2
+					order-1
+					md:order-2
+					overflow-y-auto
+					md:full-height
+				"
 				:category-id="categoryId"
 			/>
 		</transition>

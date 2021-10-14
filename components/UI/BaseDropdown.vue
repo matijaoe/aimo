@@ -6,7 +6,14 @@
 	>
 		<slot name="toggler">
 			<button
-				class="block focus:outline-none focus:border-none rounded-full focus-within:ring-2 ring-amber-200 ring-offset-2 p-0.25"
+				class="
+					block
+					focus:outline-none focus:border-none
+					rounded-full
+					focus-within:ring-2
+					ring-amber-200 ring-offset-2
+					p-0.25
+				"
 			>
 				Toggle
 			</button>

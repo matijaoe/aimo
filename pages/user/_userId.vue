@@ -66,7 +66,6 @@ export default {
 	},
 	async asyncData({ params, store, redirect }) {
 		const userId = await params.userId;
-		// const user = await store.dispatch('users/loadUserById', userId);
 		const user = store.getters['users/getUserById'](userId);
 		const getUserCategories = await store.dispatch(
 			'users/getUserCategories',

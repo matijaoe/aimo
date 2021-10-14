@@ -1,5 +1,5 @@
-import * as fb from '@/firebase';
 import axios from 'axios';
+import * as fb from '@/firebase';
 
 export const state = () => ({
 	user: null,
@@ -127,7 +127,6 @@ export const actions = {
 			const user = await ctx.dispatch('loadUserByUID', uid);
 			ctx.commit('setUserData', { ...user, email });
 			await ctx.dispatch('users/pushNewUser', user);
-			// await ctx.dispatch('todos/loadUserTodos');
 			await ctx.dispatch('todos/loadUserTodos', user.username);
 			await ctx.dispatch('reviews/loadUserReviews', user.username);
 			await ctx.dispatch(

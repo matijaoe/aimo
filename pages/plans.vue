@@ -1,10 +1,27 @@
 <template>
 	<div
-		class="md:col-span-2 lg:col-span-3 bg-[#F4F4F4] text-[#4D61FC] rounded-2xl flex items-center pl-[10%]"
+		class="
+			md:col-span-2
+			lg:col-span-3
+			bg-[#F4F4F4]
+			text-[#4D61FC]
+			rounded-2xl
+			flex
+			items-center
+			pl-[10%]
+		"
 	>
 		<h2 class="flex-1 space-y-10 py-20 md:py-0">
 			<div
-				class="text-base xs:text-xl sm:text-3xl md:text-xl lg:text-2xl xl:text-4xl font-bold"
+				class="
+					text-base
+					xs:text-xl
+					sm:text-3xl
+					md:text-xl
+					lg:text-2xl
+					xl:text-4xl
+					font-bold
+				"
 			>
 				<span v-if="!isPremium" class="text-[#4D61FC]"
 					>Upgrade to premium today!</span

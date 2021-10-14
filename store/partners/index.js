@@ -1,5 +1,5 @@
-import * as fb from '@/firebase';
 import fbApp from 'firebase/app';
+import * as fb from '@/firebase';
 
 export const state = () => ({
 	partnerships: [],
@@ -10,9 +10,8 @@ export const getters = {
 		return state.partnerships || [];
 	},
 	getPartnersById: (state, getters, rootState, rootGetters) => (username) => {
-		const { partners: partnerUsernames } = rootGetters['users/getUserById'](
-			username
-		);
+		const { partners: partnerUsernames } =
+			rootGetters['users/getUserById'](username);
 		return partnerUsernames.map((partnerId) =>
 			rootGetters['users/getUserById'](partnerId)
 		);

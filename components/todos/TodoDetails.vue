@@ -1,16 +1,44 @@
 <template>
 	<div
 		v-if="shown"
-		class="absolute top-0 left-0 bg-black bg-opacity-40 w-screen max-h-screen"
+		class="
+			absolute
+			top-0
+			left-0
+			bg-black bg-opacity-40
+			w-screen
+			max-h-screen
+		"
 		@click="$emit('close')"
 	>
 		<div class="relative w-full h-screen">
 			<article
-				class="absolute top-0 right-0 h-screen w-full md:w-[480px] bg-white border-l-2 border-gray-200 py-10 px-6 overflow-y-auto space-y-4 flex flex-col"
+				class="
+					absolute
+					top-0
+					right-0
+					h-screen
+					w-full
+					md:w-[480px]
+					bg-white
+					border-l-2 border-gray-200
+					py-10
+					px-6
+					overflow-y-auto
+					space-y-4
+					flex flex-col
+				"
 				@click.stop=""
 			>
 				<div
-					class="flex flex-col gap-y-5 xs:flex-row justify-end items-center pb-2"
+					class="
+						flex flex-col
+						gap-y-5
+						xs:flex-row
+						justify-end
+						items-center
+						pb-2
+					"
 				>
 					<TodoAttributes
 						:is-important="isImportant"
@@ -22,7 +50,14 @@
 						class="order-2 xs:order-1"
 					/>
 					<div
-						class="ml-auto flex items-center gap-2 order-1 xs:order-2"
+						class="
+							ml-auto
+							flex
+							items-center
+							gap-2
+							order-1
+							xs:order-2
+						"
 					>
 						<BaseButton
 							v-if="todoId"
@@ -58,7 +93,14 @@
 
 				<div class="space-y-4">
 					<div
-						class="flex flex-col sm:flex-row sm:justify-between items-center sm:items-end gap-y-4 sm:gap-2"
+						class="
+							flex flex-col
+							sm:flex-row sm:justify-between
+							items-center
+							sm:items-end
+							gap-y-4
+							sm:gap-2
+						"
 					>
 						<h2
 							v-if="isNewTodo && !title"
@@ -89,7 +131,15 @@
 				<div v-if="toEdit || isNewTodo">
 					<div class="mt-10 flex flex-col gap-8">
 						<div
-							class="flex flex-col xs:flex-row gap-y-8 xs:gap-4 items-start xs:items-center justify-between"
+							class="
+								flex flex-col
+								xs:flex-row
+								gap-y-8
+								xs:gap-4
+								items-start
+								xs:items-center
+								justify-between
+							"
 						>
 							<vs-input
 								v-model="title"
@@ -246,11 +296,10 @@ import BaseAvatar from 'UI/BaseAvatar';
 import BaseButton from 'UI/BaseButton';
 // import BaseTag from 'UI/BaseTag';
 import TodoAttributes from 'todos/TodoAttributes';
-import UploadBox from '@/components/todo/UploadBox';
-import MarkAsCompleteButton from '@/components/todo/MarkAsCompleteButton';
-
 import { mapGetters, mapActions } from 'vuex';
 import dayjs from 'dayjs';
+import UploadBox from '@/components/todo/UploadBox';
+import MarkAsCompleteButton from '@/components/todo/MarkAsCompleteButton';
 
 export default {
 	components: {
@@ -457,9 +506,9 @@ export default {
 				if (!this.selectedPartner) {
 					this.isPersonal = true;
 				} else {
-					partnerUsername = this.currentUserPartners[
-						this.selectedPartner - 1
-					].username;
+					partnerUsername =
+						this.currentUserPartners[this.selectedPartner - 1]
+							.username;
 				}
 			}
 			return partnerUsername;

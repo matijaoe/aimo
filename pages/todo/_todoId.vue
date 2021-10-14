@@ -2,7 +2,6 @@
 	<div class="pb-6">
 		<TodoDetails :todo="todo" :partner="partner" />
 		<TodoMenu :todo="todo" />
-		<!-- TODO matija rjesit transition -->
 		<transition
 			enter-active-class="transition-all duration-800 ease-out-quad"
 			enter-class="opacity-0 transform translate-y-5"
@@ -25,23 +24,18 @@
 				>
 			</div>
 		</transition>
-
-		<!-- <TodoInteractionWrapper :interactions="interactions" /> -->
 	</div>
 </template>
 
 <script>
+import BaseContainer from 'UI/BaseContainer';
+import { nanoid } from 'nanoid';
 import TodoDetails from '@/components/todo/TodoDetails';
 import TodoMenu from '@/components/todo/TodoMenu';
-import TodoInteractionWrapper from '@/components/todo/TodoInteractionWrapper';
 import UploadBox from '@/components/todo/UploadBox';
-import BaseContainer from 'UI/BaseContainer';
-
-import { nanoid } from 'nanoid';
 
 export default {
 	components: {
-		// TodoInteractionWrapper,
 		TodoMenu,
 		TodoDetails,
 		UploadBox,

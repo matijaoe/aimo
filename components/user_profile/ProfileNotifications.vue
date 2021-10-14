@@ -13,7 +13,19 @@
 				You have
 				<span
 					v-if="notifyCount"
-					class="font-bold mx-0.5 text-amber-500 text-base transition p-2 bg-amber-100 w-9 h-9 inline-grid rounded-full place-content-center"
+					class="
+						font-bold
+						mx-0.5
+						text-amber-500 text-base
+						transition
+						p-2
+						bg-amber-100
+						w-9
+						h-9
+						inline-grid
+						rounded-full
+						place-content-center
+					"
 				>
 					{{ notifyCount }}
 				</span>

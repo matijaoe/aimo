@@ -1,8 +1,8 @@
 // Ovo nije prava struktura od todosa nego samo za mockup
 import Vue from 'vue';
-import * as fb from '@/firebase';
 import dayjs from 'dayjs';
 import { orderBy as _orderBy, remove as _remove } from 'lodash';
+import * as fb from '@/firebase';
 
 export const state = () => ({
 	currentUserTodos: [],

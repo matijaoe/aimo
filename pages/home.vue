@@ -4,18 +4,42 @@
 		class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-4"
 	>
 		<div
-			class="md:col-span-2 lg:col-span-3 bg-[#F4F4F4] text-[#4D61FC] rounded-2xl flex items-center pl-[10%]"
+			class="
+				md:col-span-2
+				lg:col-span-3
+				bg-[#F4F4F4]
+				text-[#4D61FC]
+				rounded-2xl
+				flex
+				items-center
+				pl-[10%]
+			"
 		>
 			<h2 class="flex-1 space-y-10 py-20 md:py-0">
 				<div
-					class="text-base xs:text-xl sm:text-3xl md:text-xl lg:text-2xl xl:text-4xl font-bold"
+					class="
+						text-base
+						xs:text-xl
+						sm:text-3xl
+						md:text-xl
+						lg:text-2xl
+						xl:text-4xl
+						font-bold
+					"
 				>
 					<span id="welcome" class="text-[#4D61FC]"
 						>Welcome back</span
 					>
 					<span
 						id="welcomeUser"
-						class="bg-[#B8C0FE] text-[#4D61FC] px-5 py-2 rounded-lg ml-2"
+						class="
+							bg-[#B8C0FE]
+							text-[#4D61FC]
+							px-5
+							py-2
+							rounded-lg
+							ml-2
+						"
 						>{{ currentUser.fname }}!</span
 					>
 				</div>
@@ -30,7 +54,14 @@
 		</div>
 
 		<div
-			class="flex items-center p-12 bg-orange-100 text-orange-800 rounded-2xl"
+			class="
+				flex
+				items-center
+				p-12
+				bg-orange-100
+				text-orange-800
+				rounded-2xl
+			"
 		>
 			<BaseQuote />
 		</div>
@@ -42,7 +73,14 @@
 		</div>
 
 		<div
-			class="flex items-center p-12 bg-emerald-100 text-emerald-800 rounded-2xl"
+			class="
+				flex
+				items-center
+				p-12
+				bg-emerald-100
+				text-emerald-800
+				rounded-2xl
+			"
 		>
 			<BaseQuote />
 		</div>
@@ -62,7 +100,16 @@
 		</BaseContainer>
 
 		<div
-			class="flex flex-col justify-center flex-wrap items-center p-12 bg-rose-100 text-rose-800 rounded-2xl"
+			class="
+				flex flex-col
+				justify-center
+				flex-wrap
+				items-center
+				p-12
+				bg-rose-100
+				text-rose-800
+				rounded-2xl
+			"
 		>
 			<div class="flex flex-row gap-1">
 				<div id="checkIcon">

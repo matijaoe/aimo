@@ -5,7 +5,25 @@
 				mode,
 				{ thin: thin, square: square, 'square--big': squareBig },
 			]"
-			class="focus:border-amber-300 focus:ring focus:ring-amber-200 focus:ring-opacity-50 relative border-none cursor-pointer pointer-events-auto focus:outline-none focus:border-none uppercase text-xs font-bold rounded-lg overflow-hidden tracking-[0.05rem] transition text-gray-700"
+			class="
+				focus:border-amber-300
+				focus:ring
+				focus:ring-amber-200
+				focus:ring-opacity-50
+				relative
+				border-none
+				cursor-pointer
+				pointer-events-auto
+				focus:outline-none focus:border-none
+				uppercase
+				text-xs
+				font-bold
+				rounded-lg
+				overflow-hidden
+				tracking-[0.05rem]
+				transition
+				text-gray-700
+			"
 			@click="$emit('click', $event)"
 		>
 			<span class="flex items-center gap-2 w-full relative">
@@ -20,7 +38,25 @@
 			mode,
 			{ thin: thin, square: square, 'square--big': squareBig },
 		]"
-		class="focus:border-amber-300 focus:ring focus:ring-amber-200 focus:ring-opacity-50 relative border-none cursor-pointer pointer-events-auto focus:outline-none focus:border-none uppercase text-xs font-bold rounded-lg overflow-hidden tracking-[0.05rem] transition text-gray-700"
+		class="
+			focus:border-amber-300
+			focus:ring
+			focus:ring-amber-200
+			focus:ring-opacity-50
+			relative
+			border-none
+			cursor-pointer
+			pointer-events-auto
+			focus:outline-none focus:border-none
+			uppercase
+			text-xs
+			font-bold
+			rounded-lg
+			overflow-hidden
+			tracking-[0.05rem]
+			transition
+			text-gray-700
+		"
 		@click="$emit('click', $event)"
 	>
 		<span class="flex items-center gap-2 w-full relative">

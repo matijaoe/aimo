@@ -16,7 +16,13 @@
 				id="todoPhoto"
 				:src="todo.photoUrl"
 				alt="Todo image"
-				class="rounded-lg max-w-[110px] center cursor-pointer hover:opacity-75"
+				class="
+					rounded-lg
+					max-w-[110px]
+					center
+					cursor-pointer
+					hover:opacity-75
+				"
 				@click="active = !active"
 			/>
 			<div class="center">
@@ -27,7 +33,13 @@
 
 			<div
 				v-if="todo.desc"
-				class="border-2 border-dashed border-gray-200 bg-gray-50 rounded-lg p-4 text-sm"
+				class="
+					border-2 border-dashed border-gray-200
+					bg-gray-50
+					rounded-lg
+					p-4
+					text-sm
+				"
 			>
 				<p>{{ todo.desc }}</p>
 			</div>
@@ -41,10 +53,10 @@
 </template>
 
 <script>
-import TagLabels from '@/components/todo/TagLabels';
 import BaseTimestamp from 'UI/BaseTimestamp';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import TagLabels from '@/components/todo/TagLabels';
 
 export default {
 	components: { TagLabels, BaseTimestamp },
@@ -68,9 +80,3 @@ export default {
 	},
 };
 </script>
-
-<style scoped>
-/* #todoPhoto {
-	margin: 0 auto;
-} */
-</style>

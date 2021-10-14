@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import AuthForm from '@/components/auth/AuthForm.vue';
 import BaseContainer from 'UI/BaseContainer.vue';
 import SidebarLogo from 'menus/SidebarLogo.vue';
+import AuthForm from '@/components/auth/AuthForm.vue';
 
 export default {
 	components: {

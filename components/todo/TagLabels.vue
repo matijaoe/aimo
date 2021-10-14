@@ -4,7 +4,11 @@
 			v-for="tag in tags"
 			:key="tag.name"
 			:color="tag.color"
-			class="transform hover:scale-110 hover:-rotate-6 hover:-translate-y-1 transition"
+			class="
+				transform
+				hover:scale-110 hover:-rotate-6 hover:-translate-y-1
+				transition
+			"
 			link
 			:to="{ path: `/community/${tag.name}` }"
 		>

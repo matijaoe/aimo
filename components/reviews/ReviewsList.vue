@@ -11,7 +11,14 @@
 		</ul>
 		<div
 			v-else
-			class="w-full h-full flex flex-col items-center justify-center gap-12"
+			class="
+				w-full
+				h-full
+				flex flex-col
+				items-center
+				justify-center
+				gap-12
+			"
 		>
 			<p class="font-semibold text-center text-2xl xl:text-5xl p-2">
 				No todos for review 😩

@@ -49,11 +49,28 @@
 					<div
 						v-if="user.countryCode"
 						v-tooltip.top="`From ${country.name}`"
-						class="flex items-center justify-center sm:justify-end gap-2 p-2 rounded-lg text-red-600"
+						class="
+							flex
+							items-center
+							justify-center
+							sm:justify-end
+							gap-2
+							p-2
+							rounded-lg
+							text-red-600
+						"
 					>
 						<span>{{ country.name }}</span>
 						<div
-							class="w-6 h-6 rounded-full flex items-center justify-center overflow-hidden"
+							class="
+								w-6
+								h-6
+								rounded-full
+								flex
+								items-center
+								justify-center
+								overflow-hidden
+							"
 						>
 							<img
 								:src="country.flag"
@@ -64,21 +81,48 @@
 					</div>
 					<div
 						v-tooltip.top="'Age'"
-						class="flex items-center justify-center sm:justify-start gap-2 text-orange-600 p-2 rounded-lg"
+						class="
+							flex
+							items-center
+							justify-center
+							sm:justify-start
+							gap-2
+							text-orange-600
+							p-2
+							rounded-lg
+						"
 					>
 						<IconCake class="text-orange-600" />
 						<span>{{ age }}</span>
 					</div>
 					<div
 						v-tooltip.bottom="'Joined on'"
-						class="flex items-center justify-center sm:justify-end gap-2 text-blue-600 p-2 rounded-lg"
+						class="
+							flex
+							items-center
+							justify-center
+							sm:justify-end
+							gap-2
+							text-blue-600
+							p-2
+							rounded-lg
+						"
 					>
 						<span>{{ joinDate }}</span>
 						<IconCalendar class="text-blue-600" />
 					</div>
 					<div
 						v-tooltip.bottom="'Occupation'"
-						class="flex items-center justify-center sm:justify-start gap-2 text-indigo-600 p-2 rounded-lg"
+						class="
+							flex
+							items-center
+							justify-center
+							sm:justify-start
+							gap-2
+							text-indigo-600
+							p-2
+							rounded-lg
+						"
 					>
 						<IconIdentification class="text-indigo-600" />
 						<span>{{ user.occupation || 'No occupation' }}</span>
@@ -99,10 +143,10 @@ import IconCalendar from 'icons/IconCalendar.vue';
 import IconCake from 'icons/IconCake.vue';
 import IconIdentification from 'icons/IconIdentification.vue';
 
-import * as fb from '@/firebase';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { mapActions, mapGetters } from 'vuex';
+import * as fb from '@/firebase';
 
 export default {
 	components: {
@@ -148,9 +192,8 @@ export default {
 		country() {
 			const countryCode = this.user.countryCode;
 
-			const { name, flag } = this.$store.getters.getCountryByCode(
-				countryCode
-			);
+			const { name, flag } =
+				this.$store.getters.getCountryByCode(countryCode);
 			const countryName = name.length <= 12 ? name : countryCode;
 
 			return { name: countryName, flag };

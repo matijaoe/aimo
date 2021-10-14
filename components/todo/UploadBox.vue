@@ -3,7 +3,16 @@
 		<TheLoader v-if="isLoading"></TheLoader>
 		<fieldset
 			v-if="!photoUrl"
-			class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
+			class="
+				mt-1
+				flex
+				justify-center
+				px-6
+				pt-5
+				pb-6
+				border-2 border-gray-300 border-dashed
+				rounded-md
+			"
 		>
 			<legend class="px-2 uppercase text-xs font-bold text-current">
 				Proof
@@ -15,7 +24,19 @@
 				<div class="flex text-sm text-gray-600">
 					<label
 						for="file-upload"
-						class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+						class="
+							relative
+							cursor-pointer
+							bg-white
+							rounded-md
+							font-medium
+							text-indigo-600
+							hover:text-indigo-500
+							focus-within:outline-none
+							focus-within:ring-2
+							focus-within:ring-offset-2
+							focus-within:ring-indigo-500
+						"
 					>
 						<span>Upload a file</span>
 						<input
@@ -53,13 +74,13 @@
 
 <script>
 import IconPhoto from 'icons/IconPhoto';
-import * as fb from '@/firebase';
 import { mapGetters } from 'vuex';
 import IconTrash from 'icons/IconTrash';
 import BaseButton from 'UI/BaseButton';
 import { nanoid } from 'nanoid';
 import { app } from '../../firebase';
 import TheLoader from '../UI/BaseLoadingSpinner.vue';
+import * as fb from '@/firebase';
 
 export default {
 	components: { IconPhoto, BaseButton, IconTrash, TheLoader },

@@ -1,6 +1,18 @@
 <template>
 	<li
-		class="flex items-center gap-4 px-4 py-3 border-t-2 cursor-pointer transform hover:-translate-y-1 transition select-none"
+		class="
+			flex
+			items-center
+			gap-4
+			px-4
+			py-3
+			border-t-2
+			cursor-pointer
+			transform
+			hover:-translate-y-1
+			transition
+			select-none
+		"
 		:class="itemBg"
 		@click="openReview(review.id)"
 	>
@@ -128,7 +140,6 @@ export default {
 			return this.review.categories.map((id) => this.getCategoryById(id));
 		},
 		stateColor() {
-			// return this.isApproved ? ['#10B981'] : ['currentColor'];
 			return 'currentColor';
 		},
 		dotColor() {
@@ -141,19 +152,12 @@ export default {
 			}
 		},
 		itemBg() {
-			// return this.isApproved
-			// 	? ['bg-emerald-50', 'border-emerald-100', 'text-emerald-600']
-			// 	: ['bg-white', 'border-gray-100'];
 			return ['bg-white', 'border-gray-100'];
 		},
 		starStyle() {
-			if (this.review.important) {
-				return ['text-amber-300'];
-				// } else if (this.isApproved) {
-				// 	return ['text-emerald-200', 'group-hover:text-amber-300'];
-			} else {
-				return ['text-gray-200', 'group-hover:text-amber-300'];
-			}
+			return this.review.important
+				? ['text-amber-300']
+				: ['text-gray-200', 'group-hover:text-amber-300'];
 		},
 	},
 };

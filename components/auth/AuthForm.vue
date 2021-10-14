@@ -9,88 +9,88 @@
 			blur
 		></vs-dialog>
 		<transition name="fade" mode="out-in">
-			<form
-				v-if="mode === 'login'"
-				class="space-y-7"
-				@submit.prevent="submitForm"
-			>
-				<div class="space-y-7">
-					<vs-input
-						v-model.trim="email"
-						icon-after
-						label-placeholder="Email"
-						autocomplete="off"
-						@focus="handleError"
-					>
-						<template v-if="validEmail" #message-success>
-							Email Valid
-						</template>
-						<template
-							v-if="!validEmail && email !== ''"
-							#message-danger
+			<div>
+				<form
+					v-if="mode === 'login'"
+					class="space-y-7"
+					@submit.prevent="submitForm"
+				>
+					<div class="space-y-7">
+						<vs-input
+							v-model.trim="email"
+							icon-after
+							label-placeholder="Email"
+							autocomplete="off"
+							@focus="handleError"
 						>
-							Email Invalid
-						</template>
-						<template #icon>
-							<i class="bx bx-user"></i>
-						</template>
-					</vs-input>
-					<vs-input
-						v-model="password"
-						type="password"
-						label-placeholder="Password"
-						:progress="getProgress"
-						:visible-password="hasVisiblePassword"
-						icon-after
-						@click-icon="hasVisiblePassword = !hasVisiblePassword"
-						@focus="handleError"
-					>
-						<template #icon>
-							<i
-								v-if="!hasVisiblePassword"
-								class="bx bx-show-alt"
-							></i>
-							<i v-else class="bx bx-hide"></i>
-						</template>
-					</vs-input>
-				</div>
-				<div class="space-y-4">
-					<div
-						v-if="mode === 'login'"
-						key="1"
-						class="flex items-center justify-between gap-1"
-					>
-						<BaseButton mode="cta">Login</BaseButton>
-						<BaseButton
-							type="button"
-							mode="ghost"
-							class="ml-1"
-							@click="switchAuthMode"
-							>Signup
-						</BaseButton>
-					</div>
-					<div class="flex items-center justify-center gap-1">
-						<BaseButton
-							v-tooltip.right="'Continue with Google'"
-							mode="ghost"
-							type="button"
-							@click="signUpWithGoogle"
+							<template v-if="validEmail" #message-success>
+								Email Valid
+							</template>
+							<template
+								v-if="!validEmail && email !== ''"
+								#message-danger
+							>
+								Email Invalid
+							</template>
+							<template #icon>
+								<i class="bx bx-user"></i>
+							</template>
+						</vs-input>
+						<vs-input
+							v-model="password"
+							type="password"
+							label-placeholder="Password"
+							:progress="getProgress"
+							:visible-password="hasVisiblePassword"
+							icon-after
+							@click-icon="
+								hasVisiblePassword = !hasVisiblePassword
+							"
+							@focus="handleError"
 						>
-							<i class="bx bxl-google text-xl" />
-						</BaseButton>
+							<template #icon>
+								<i
+									v-if="!hasVisiblePassword"
+									class="bx bx-show-alt"
+								></i>
+								<i v-else class="bx bx-hide"></i>
+							</template>
+						</vs-input>
 					</div>
-				</div>
-			</form>
-			<SignUpForm
-				v-if="mode === 'signup'"
-				@switch-auth-mode="switchAuthMode"
-				@set-loading="setLoading"
-			/>
+					<div class="space-y-4">
+						<div
+							v-if="mode === 'login'"
+							key="1"
+							class="flex items-center justify-between gap-1"
+						>
+							<BaseButton mode="cta">Login</BaseButton>
+							<BaseButton
+								type="button"
+								mode="ghost"
+								class="ml-1"
+								@click="switchAuthMode"
+								>Signup
+							</BaseButton>
+						</div>
+						<div class="flex items-center justify-center gap-1">
+							<BaseButton
+								v-tooltip.right="'Continue with Google'"
+								mode="ghost"
+								type="button"
+								@click="signUpWithGoogle"
+							>
+								<i class="bx bxl-google text-xl" />
+							</BaseButton>
+						</div>
+					</div>
+				</form>
+				<SignUpForm
+					v-if="mode === 'signup'"
+					@switch-auth-mode="switchAuthMode"
+					@set-loading="setLoading"
+				/>
+			</div>
 		</transition>
-
-		<!-- <div v-if="error" class="mt-8 max-w-[160px]">
-			<p class="font-semibold text-red-500 text-sm">{{ error }}</p>
-		</div> -->
 	</div>
 </template>
 

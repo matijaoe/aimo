@@ -1,14 +1,34 @@
 <template>
 	<span
 		v-if="!link"
-		class="text-[10px] leading-3 font-semibold uppercase rounded-full px-3 py-1 inline-block select-none"
+		class="
+			text-[10px]
+			leading-3
+			font-semibold
+			uppercase
+			rounded-full
+			px-3
+			py-1
+			inline-block
+			select-none
+		"
 		:class="colorscheme"
 	>
 		<slot></slot>
 	</span>
 	<nuxt-link
 		v-else
-		class="text-[10px] leading-3 font-semibold uppercase rounded-full px-3 py-1 inline-block select-none"
+		class="
+			text-[10px]
+			leading-3
+			font-semibold
+			uppercase
+			rounded-full
+			px-3
+			py-1
+			inline-block
+			select-none
+		"
 		:class="colorscheme"
 		:to="to"
 	>

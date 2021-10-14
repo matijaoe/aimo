@@ -9,7 +9,12 @@
 				@click="pressLike"
 			>
 				<IconLike
-					class="group-hover:text-blue-500 transform hover:scale-110 hover:-rotate-3 hover:-translate-y-[5px] transition"
+					class="
+						group-hover:text-blue-500
+						transform
+						hover:scale-110 hover:-rotate-3 hover:-translate-y-[5px]
+						transition
+					"
 					:class="liked ? 'text-blue-500' : 'text-gray-300'"
 				/>
 				{{ numberOfLikes }}
@@ -24,7 +29,13 @@
 			@click="openSupportDialog"
 		>
 			<IconDollar
-				class="text-gray-300 group-hover:text-amber-500 transform hover:scale-110 hover:-rotate-3 hover:-translate-y-[5px] transition"
+				class="
+					text-gray-300
+					group-hover:text-amber-500
+					transform
+					hover:scale-110 hover:-rotate-3 hover:-translate-y-[5px]
+					transition
+				"
 			/>
 		</BaseButton>
 	</div>
@@ -35,8 +46,8 @@ import IconLike from 'icons/IconLike.vue';
 import IconDollar from 'icons/IconDollar.vue';
 import BaseButton from 'UI/BaseButton.vue';
 
-import * as fb from '@/firebase';
 import { mapGetters } from 'vuex';
+import * as fb from '@/firebase';
 
 export default {
 	components: {

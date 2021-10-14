@@ -1,5 +1,5 @@
-import * as fb from '@/firebase';
 import Vue from 'vue';
+import * as fb from '@/firebase';
 
 function freq(nums) {
 	return nums.reduce((acc, curr) => {

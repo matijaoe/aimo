@@ -5,7 +5,20 @@
 	>
 		<div class="relative w-full h-screen">
 			<article
-				class="absolute top-0 right-0 h-screen w-full w-[480px] bg-white border-l-2 border-gray-200 py-10 px-6 overflow-y-auto space-y-2 flex flex-col"
+				class="
+					absolute
+					top-0
+					right-0
+					h-screen
+					w-full w-[480px]
+					bg-white
+					border-l-2 border-gray-200
+					py-10
+					px-6
+					overflow-y-auto
+					space-y-2
+					flex flex-col
+				"
 				@click.stop=""
 			>
 				<div class="flex justify-end items-center pb-2">
@@ -24,7 +37,13 @@
 							{{ review.name }}
 						</h2>
 						<p
-							class="text-xs text-gray-300 flex items-center gap-1 flex-shrink-0"
+							class="
+								text-xs text-gray-300
+								flex
+								items-center
+								gap-1
+								flex-shrink-0
+							"
 						>
 							<IconClock />
 							{{ createdAt }}
@@ -49,12 +68,27 @@
 						/>
 					</div>
 					<div
-						class="flex-col flex justify-center pt-5 pb-6 rounded-md"
+						class="
+							flex-col flex
+							justify-center
+							pt-5
+							pb-6
+							rounded-md
+						"
 					>
 						<h3>Write your review:</h3>
 						<textarea
 							v-model="reviewText"
-							class="mt-1 flex px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md focus:outline-none"
+							class="
+								mt-1
+								flex
+								px-6
+								pt-5
+								pb-6
+								border-2 border-gray-300 border-dashed
+								rounded-md
+								focus:outline-none
+							"
 						></textarea>
 						<p v-if="reviewTextError" class="text-red-600">
 							Please enter a valid input.

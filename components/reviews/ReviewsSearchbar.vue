@@ -13,7 +13,14 @@
 			<input
 				v-model="searchTerm"
 				type="search"
-				class="p-3 w-full focus:outline-none border-none focus:ring-0 bg-transparent"
+				class="
+					p-3
+					w-full
+					focus:outline-none
+					border-none
+					focus:ring-0
+					bg-transparent
+				"
 				placeholder="Find todo"
 				@input="$emit('search', searchTerm)"
 			/>
@@ -22,10 +29,20 @@
 		<BaseDropdown>
 			<template slot="toggler">
 				<button
-					class="focus:outline-none focus:border-none rounded-lg block p-2 group"
+					class="
+						focus:outline-none focus:border-none
+						rounded-lg
+						block
+						p-2
+						group
+					"
 				>
 					<IconDotsVertical
-						class="text-gray-300 group-hover:text-gray-900 transition"
+						class="
+							text-gray-300
+							group-hover:text-gray-900
+							transition
+						"
 					/>
 				</button>
 			</template>

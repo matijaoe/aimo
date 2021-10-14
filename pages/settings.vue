@@ -106,7 +106,12 @@
 					<vs-dialog v-model="activeSocialsPopup">
 						<div
 							id="socials"
-							class="flex flex-col flex-wrap items-center gap-y-8 mt-3"
+							class="
+								flex flex-col flex-wrap
+								items-center
+								gap-y-8
+								mt-3
+							"
 						>
 							<vs-select
 								v-model="newSocialData"
@@ -207,7 +212,11 @@
 											v-model="activeSocialsRemovePopup"
 										>
 											<div
-												class="flex flex-col gap-y-6 items-center"
+												class="
+													flex flex-col
+													gap-y-6
+													items-center
+												"
 											>
 												<h1 class="mt-2">
 													Are you sure?
@@ -241,7 +250,8 @@
 										mode="fill"
 										square
 										@click="
-											activeSocialsPopup = !activeSocialsPopup
+											activeSocialsPopup =
+												!activeSocialsPopup
 										"
 									>
 										<IconPlus />
@@ -300,7 +310,6 @@
 import BaseAvatar from 'UI/BaseAvatar';
 import BaseButton from 'UI/BaseButton';
 import BaseBrandIcon from 'UI/BaseBrandIcon.vue';
-import * as fb from '@/firebase';
 import { mapGetters } from 'vuex';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
@@ -309,6 +318,7 @@ import IconExit from 'icons/IconExit';
 import IconPlus from 'icons/IconPlus';
 import { app } from '../firebase';
 import TheLoader from '../components/UI/BaseLoadingSpinner.vue';
+import * as fb from '@/firebase';
 
 export default {
 	components: {

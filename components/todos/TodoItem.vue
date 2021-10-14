@@ -1,6 +1,20 @@
 <template>
 	<li
-		class="flex items-center gap-4 px-4 py-3 border-t-2 cursor-pointer transform hover:-translate-y-1 transition select-none bg-white border-gray-100"
+		class="
+			flex
+			items-center
+			gap-4
+			px-4
+			py-3
+			border-t-2
+			cursor-pointer
+			transform
+			hover:-translate-y-1
+			transition
+			select-none
+			bg-white
+			border-gray-100
+		"
 		@click="toggleDone"
 	>
 		<div class="w-full">

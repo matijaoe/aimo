@@ -1,26 +1,14 @@
 <template>
 	<div
-		class="flex justify-center md:justify-start flex-items-center flex-wrap gap-2 my-5"
+		class="
+			flex
+			justify-center
+			md:justify-start
+			flex-items-center flex-wrap
+			gap-2
+			my-5
+		"
 	>
-		<!-- <div
-			v-tooltip.left="todo.important ? 'Important' : 'Mark as important'"
-			class="p-1 rounded-lg group hover:cursor-pointer"
-			@click.stop="toggleImportant"
-		>
-			<IconStar
-				class="fill-current transition"
-				:class="starStyle"
-				:fill="todo.important"
-			/>
-		</div>
-		<div
-			v-tooltip.left="todo.daily ? 'Repeats daily' : 'One time thing'"
-			class="p-1 rounded-lg hover:cursor-pointer"
-			@click.stop="toggleDaily"
-		>
-			<IconGlobeAlt class="fill-current transition" :class="globeStyle" />
-		</div> -->
-
 		<MarkAsCompleteButton
 			v-if="!todo.approved"
 			:is-completed="todo.done"
@@ -43,17 +31,14 @@
 import BaseButton from 'UI/BaseButton';
 import IconExit from 'icons/IconExit';
 import IconInfo from 'icons/IconInfo';
-import MarkAsCompleteButton from '@/components/todo/MarkAsCompleteButton';
-
 import { mapActions } from 'vuex';
+import MarkAsCompleteButton from '@/components/todo/MarkAsCompleteButton';
 
 export default {
 	components: {
 		BaseButton,
 		IconExit,
 		IconInfo,
-		// IconStar,
-		// IconGlobeAlt,
 		MarkAsCompleteButton,
 	},
 	props: {

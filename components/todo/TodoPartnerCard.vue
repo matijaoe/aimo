@@ -4,7 +4,23 @@
 		<NuxtLink
 			v-if="partner"
 			:to="partnerProfileLink"
-			class="group flex gap-5 items-center hover:bg-amber-50 transition ease-in-out py-2 px-6 rounded-lg transform hover:-rotate-12 hover:scale-125 z-10 border-2 border-transparent hover:border-amber-200"
+			class="
+				group
+				flex
+				gap-5
+				items-center
+				hover:bg-amber-50
+				transition
+				ease-in-out
+				py-2
+				px-6
+				rounded-lg
+				transform
+				hover:-rotate-12 hover:scale-125
+				z-10
+				border-2 border-transparent
+				hover:border-amber-200
+			"
 		>
 			<BaseAvatar :src="partner.photo" />
 			<div

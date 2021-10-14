@@ -2,7 +2,18 @@
 	<transition name="fade-in-up">
 		<BaseContainer
 			v-if="active"
-			class="absolute top-full right-0 mt-2 divide-y-2 divide-gray-100 text-left text-gray-700 z-50 min-w-[180px] overflow-auto customHeight"
+			class="
+				absolute
+				top-full
+				right-0
+				mt-2
+				divide-y-2 divide-gray-100
+				text-left text-gray-700
+				z-50
+				min-w-[180px]
+				overflow-auto
+				customHeight
+			"
 			no-padding
 		>
 			<slot />
@@ -28,7 +39,6 @@ export default {
 
 <style scoped lang="postcss">
 .customHeight {
-	/* height: clamp(100px, 800px, 500px); */
 	max-height: 500px;
 }
 </style>
