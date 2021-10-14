@@ -19,7 +19,7 @@
         "chart.js": "2",
         "core-js": "^3.9.1",
         "dayjs": "^1.10.4",
-        "firebase": "^8.4.2",
+        "firebase": "^8.10.0",
         "hchs-vue-charts": "^1.2.8",
         "lodash": "^4.17.21",
         "lodash.isempty": "^4.4.0",

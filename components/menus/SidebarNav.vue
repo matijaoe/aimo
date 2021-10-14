@@ -29,16 +29,6 @@
 					<IconClipboardCheck />
 				</SidebarNavLink>
 			</li>
-			<!-- <li>
-				<SidebarNavLink text="Inbox" :to="{ name: 'inbox' }">
-					<IconInbox />
-				</SidebarNavLink>
-			</li>
-			<li>
-				<SidebarNavLink text="Stats" :to="{ name: 'stats' }">
-					<IconChartBar />
-				</SidebarNavLink>
-			</li> -->
 		</ul>
 		<div class="space-y-2 mt-10">
 			<SidebarNavLink text="Settings" :to="{ name: 'settings' }">
@@ -62,12 +52,10 @@
 
 <script>
 import IconHome from 'icons/IconHome.vue';
-import IconInbox from 'icons/IconInbox.vue';
 import IconUserGroup from 'icons/IconUserGroup.vue';
 import IconClipboardList from 'icons/IconClipboardList.vue';
 import IconClipboardCheck from 'icons/IconClipboardCheck';
 import IconUser from 'icons/IconUser.vue';
-import IconChartBar from 'icons/IconChartBar.vue';
 import IconSettings from 'icons/IconSettings.vue';
 import SidebarNavLink from 'menus/SidebarNavLink.vue';
 
@@ -77,11 +65,9 @@ export default {
 	components: {
 		IconClipboardCheck,
 		IconHome,
-		// IconInbox,
 		IconUserGroup,
 		IconClipboardList,
 		IconUser,
-		// IconChartBar,
 		IconSettings,
 		SidebarNavLink,
 	},
