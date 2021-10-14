@@ -147,6 +147,7 @@ export const actions = {
 		});
 	},
 	async login(context, signInInfo) {
+		// TODO: MAJOR ERRORR - DOES NOT WORK
 		await this.$fire.auth.signInWithEmailAndPassword(
 			signInInfo.email,
 			signInInfo.password
@@ -196,11 +197,14 @@ export const actions = {
 		} catch (error) {}
 	},
 	async loadCountries({ commit }) {
-		const response = await axios.get(
-			'https://restcountries.eu/rest/v2/all?fields=name;alpha3Code;flag'
-		);
-		const countries = response.data;
-		commit('loadCountries', countries);
+		try {
+			const { data: countries } = await axios.get(
+				'https://restcountries.com/v3.1/all?fields=name;alpha3Code;flag'
+			);
+			commit('loadCountries', countries);
+		} catch (err) {
+			commit('loadCountries', []);
+		}
 	},
 	async searchAnything({ commit, getters, rootGetters }, term) {
 		const limit = 4;

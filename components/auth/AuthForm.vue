@@ -97,7 +97,7 @@
 <script>
 import BaseButton from 'UI/BaseButton.vue';
 import isEmpty from 'lodash.isempty';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import dayjs from 'dayjs';
 import { mapGetters } from 'vuex';
 import { random as _random } from 'lodash';
@@ -166,6 +166,7 @@ export default {
 	},
 	methods: {
 		async signUpWithGoogle() {
+			console.log('auth with google provider');
 			const googleProvider = new firebase.auth.GoogleAuthProvider();
 			try {
 				const response = await this.$fire.auth.signInWithPopup(
@@ -223,7 +224,6 @@ export default {
 				this.openErrorModal();
 				return;
 			}
-
 			const actionPayload = {
 				email: this.email,
 				password: this.password,

@@ -44,8 +44,4 @@ module.exports = {
 			...defaultTheme.screens,
 		},
 	},
-	variants: {
-		extend: {},
-	},
-	// plugins: [require('@tailwindcss/forms')],
 };

@@ -13,12 +13,10 @@ const firebaseConfig = {
 	measurementId: 'G-3CMS8T5E94',
 };
 
-// Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-// collection references
 const usersCollection = db.collection('users');
 const categoriesCollection = db.collection('categories');
 const socialsCollection = db.collection('socials');
