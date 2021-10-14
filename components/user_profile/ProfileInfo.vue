@@ -190,13 +190,18 @@ export default {
 			return date.format('MMM Do, YYYY');
 		},
 		country() {
-			const countryCode = this.user.countryCode;
+			// TODO: fix countries, new structure
+			try {
+				const countryCode = this.user.countryCode;
 
-			const { name, flag } =
-				this.$store.getters.getCountryByCode(countryCode);
-			const countryName = name.length <= 12 ? name : countryCode;
+				const { name, flag } =
+					this.$store.getters.getCountryByCode(countryCode);
+				const countryName = name.length <= 12 ? name : countryCode;
 
-			return { name: countryName, flag };
+				return { name: countryName, flag };
+			} catch (err) {
+				return { name: '', flag: '' };
+			}
 		},
 	},
 	methods: {

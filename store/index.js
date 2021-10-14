@@ -73,6 +73,7 @@ export const getters = {
 		return state.countries;
 	},
 	getCountryByCode: (state, getters) => (code) => {
+		// TODO: rework structure
 		return getters.getCountries.find(
 			(country) => country.alpha3Code === code
 		);
@@ -147,7 +148,6 @@ export const actions = {
 		});
 	},
 	async login(context, signInInfo) {
-		// TODO: MAJOR ERRORR - DOES NOT WORK
 		await this.$fire.auth.signInWithEmailAndPassword(
 			signInInfo.email,
 			signInInfo.password
