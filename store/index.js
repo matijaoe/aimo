@@ -73,7 +73,6 @@ export const getters = {
 		return state.countries;
 	},
 	getCountryByCode: (state, getters) => (code) => {
-		// TODO: rework structure
 		return getters.getCountries.find(
 			(country) => country.alpha3Code === code
 		);
@@ -199,7 +198,7 @@ export const actions = {
 	async loadCountries({ commit }) {
 		try {
 			const { data: countries } = await axios.get(
-				'https://restcountries.com/v3.1/all?fields=name;alpha3Code;flag'
+				'https://restcountries.com/v2/all?fields=name,alpha3Code,flag'
 			);
 			commit('loadCountries', countries);
 		} catch (err) {

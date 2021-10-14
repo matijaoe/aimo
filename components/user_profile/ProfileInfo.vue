@@ -146,6 +146,7 @@ import IconIdentification from 'icons/IconIdentification.vue';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { mapActions, mapGetters } from 'vuex';
+import axios from 'axios';
 import * as fb from '@/firebase';
 
 export default {
@@ -160,6 +161,11 @@ export default {
 		IconIdentification,
 	},
 	props: ['user', 'isLoggedIn'],
+	data() {
+		return {
+			country: { name: '', flag: '' },
+		};
+	},
 	computed: {
 		...mapGetters([
 			'currentUserId',
@@ -189,8 +195,12 @@ export default {
 			const date = dayjs.unix(this.user.joined_on.seconds);
 			return date.format('MMM Do, YYYY');
 		},
-		country() {
-			// TODO: fix countries, new structure
+	},
+	async created() {
+		await this.getCountry();
+	},
+	methods: {
+		getCountry() {
 			try {
 				const countryCode = this.user.countryCode;
 
@@ -198,13 +208,11 @@ export default {
 					this.$store.getters.getCountryByCode(countryCode);
 				const countryName = name.length <= 12 ? name : countryCode;
 
-				return { name: countryName, flag };
+				this.country = { name: countryName, flag };
 			} catch (err) {
-				return { name: '', flag: '' };
+				this.country = { name: '', flag: '' };
 			}
 		},
-	},
-	methods: {
 		...mapActions('notifications', ['sendPartnerRequest']),
 		sendRequest() {
 			this.sendPartnerRequest({ partner: this.user.username });
