@@ -3,13 +3,23 @@
 - Winning project of TVZ Mc2 2021 student competition
 - Winner of TVZ Mc2 2021 Best Design Award
 
-### Login details (email - password)
+### Example login details (email - password)
 - marian7@gmail.com - marian7
 - matijao@gmail.com - matijao
 
 ## [Live Demo](https://aimo.vercel.app/)
 ## [Presentation & demo from Mc2 Final](https://www.youtube.com/watch?v=9JHeZKHHjNM)
 ## [Video walkthrough](https://drive.google.com/file/d/1ITTM1MtM4C6A6bD3ynGGoectzaLLFwp6/view)
+
+
+# Tech Stack
+- Nuxt
+- Vue
+- Vuex
+- Tailwindcss
+- Firebase 
+- Firestore
+- Vercel
 
 ## Build Setup
 
