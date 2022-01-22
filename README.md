@@ -52,6 +52,8 @@
 ![image](https://user-images.githubusercontent.com/46557266/144764903-3129b233-a013-4b65-8a9d-9056dd4d0716.png)
 
 
+![Alt](https://repobeats.axiom.co/api/embed/7211a2f29d12220f5034fdba96c90f2c6717cf4a.svg "Repobeats analytics image")
+
 ## Build Setup
 
 ```bash
